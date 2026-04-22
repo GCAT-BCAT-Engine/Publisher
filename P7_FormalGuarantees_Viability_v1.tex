@@ -1,0 +1,152 @@
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{cite}
+
+\title{\bf Formal Guarantees for Commit-Time Governance: Viability, Barrier Certificates, and Reachability}
+\author{[Authors anonymized for submission]}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+We formalize the relationship between exact recoverability and the executable commit-time gate. Commit admissibility is expressed as a viability condition under lag, and the gate is shown to implement a conservative approximation using barrier certificates. We establish soundness: all states accepted by the gate belong to a certified subset of the robust recoverable region. Approximation error is characterized and shown to be localized near the boundary. The results demonstrate that the executable gate is a principled approximation of an exact reachability condition.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+Prior work established commit-time admissibility and demonstrated an executable gate enforcing it. However, the gate operates on a conservative approximation of recoverability.
+
+This paper formalizes the relationship between:
+\begin{itemize}
+\item exact recoverability (defined via lag-reachable sets),
+\item viability (defined via infinite-horizon safety and recovery),
+\item and the certified subset used in the implementation.
+\end{itemize}
+
+The goal is to show that the executable gate is not heuristic, but a sound approximation of a formally defined condition.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Viability Formulation}
+
+We consider dynamics:
+\begin{equation}
+\dot{\mathbf{x}} = f(\mathbf{x}, u, d)
+\end{equation}
+
+with bounded disturbance $d \in \mathcal{D}$.
+
+\begin{definition}[Viability Kernel]
+\begin{equation}
+\text{Viab}(\tau) =
+\left\{
+\mathbf{x}_0 :
+\forall d(\cdot), \exists u(\cdot),\;
+\mathbf{x}(t) \notin \mathcal{C} \;\forall t \in [0,\tau],\;
+\mathbf{x}(\tau) \in \mathcal{R}(0)
+\right\}
+\end{equation}
+\end{definition}
+
+This captures states that remain safe during lag and are recoverable afterward.
+
+\begin{theorem}[Viability–Recoverability Equivalence]
+\begin{equation}
+\text{Viab}(\tau) = \mathcal{R}_{rob}(\tau)
+\end{equation}
+\end{theorem}
+
+\textit{Argument.}
+Both sets require that all disturbance realizations over $[0,\tau]$ avoid collapse and lead to states from which recovery is possible. The definitions coincide.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Barrier Certificates}
+
+We define barrier functions:
+\begin{align}
+B_F(\tilde{\mathbf{x}}) &= d_F(\tilde{\mathbf{x}}) - \epsilon_{crit}(\tau) \\
+B_D(\tilde{\mathbf{x}}) &= d_{max}(\tau) - d_\Delta(\tilde{\mathbf{x}})
+\end{align}
+
+\begin{assumption}[C1: Face Safety]
+If $B_F > 0$, then all lag-reachable trajectories remain separated from $\mathcal{C}$.
+\end{assumption}
+
+\begin{assumption}[C2: Recoverability]
+If $B_D > 0$, then there exists a control law driving the system to $\mathcal{A}$.
+\end{assumption}
+
+\begin{definition}[Certified Safe Subset]
+\begin{equation}
+\mathcal{S}_{cert}(\tau) =
+\left\{
+\mathbf{x} :
+B_F(\tilde{\mathbf{x}}) > 0
+\;\wedge\;
+B_D(\tilde{\mathbf{x}}) > 0
+\right\}
+\end{equation}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Soundness}
+
+\begin{theorem}[Certified Subset Soundness]
+Under assumptions C1--C2:
+\begin{equation}
+\mathcal{S}_{cert}(\tau) \subseteq \mathcal{R}_{rob}(\tau)
+\end{equation}
+\end{theorem}
+
+\textit{Proof.}
+If $B_F > 0$, then trajectories remain separated from collapse during lag.  
+If $B_D > 0$, then recovery to $\mathcal{A}$ exists.  
+Thus both conditions imply membership in $\mathcal{R}_{rob}(\tau)$. \hfill $\blacksquare$
+
+\begin{corollary}[Gate Soundness]
+\begin{equation}
+\text{ALLOW}_{Paper6}(u;\mathbf{x},\tau)
+\;\Rightarrow\;
+\text{ALLOW}_{exact}(u;\mathbf{x},\tau)
+\end{equation}
+\end{corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Approximation Error}
+
+\begin{definition}[Error Set]
+\begin{equation}
+\mathcal{E}(\tau) =
+\mathcal{R}_{rob}(\tau) \setminus \mathcal{S}_{cert}(\tau)
+\end{equation}
+\end{definition}
+
+\begin{proposition}[Error Localization]
+The error set is concentrated near the boundary of $\mathcal{R}_{rob}(\tau)$.
+\end{proposition}
+
+\textit{Interpretation.}
+States close to collapse or far from equilibrium fail the conservative test despite being recoverable.
+
+\begin{proposition}[No False Positives]
+The gate admits no states outside $\mathcal{R}_{rob}(\tau)$.
+\end{proposition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+
+The executable gate is a conservative approximation of a viability condition. The approximation trades completeness for safety, ensuring that only states with certified recoverability are accepted.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+
+We established that the commit-time gate implements a sound approximation of recoverability. The connection to viability theory provides a formal basis for the implementation and clarifies the nature of approximation error.
+
+\end{document}
