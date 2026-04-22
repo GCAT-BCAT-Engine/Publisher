@@ -1,0 +1,202 @@
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{cite}
+
+\title{\bf The GCAT Framework: A Geometric Theory of Governed Autonomy}
+\author{[Authors anonymized for submission]}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+We introduce the Governed Capability-Autonomy-Trust (GCAT) framework as a geometric theory describing admissible autonomy in complex systems. The framework defines a four-dimensional state space over governance capacity, control authority, autonomy, and trust, and introduces a multiplicative capacity function that bounds sustainable autonomy. This induces a state-dependent admissible region defined by a scalar invariant. We characterize the geometry of this region, analyze its boundary structure, derive comparative statics with respect to system parameters, and examine constrained variants under resource conservation. The formulation provides a unified lens for reasoning about capacity-limited autonomy without requiring explicit dynamics, serving as a foundation for subsequent dynamical and enforcement-based extensions.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+Autonomous systems increasingly operate in environments where their actions interact with governance structures, institutional constraints, and trust relationships. Existing formal frameworks typically treat autonomy, control, and trust as separate concerns, leading to fragmented analyses that fail to capture their joint interaction.
+
+This work introduces the Governed Capability-Autonomy-Trust (GCAT) framework, a geometric formulation that unifies these dimensions within a single state space. The central premise is that autonomy is not unconstrained but must remain bounded by the system’s capacity to govern, control, and sustain trust.
+
+The GCAT formulation does not begin with dynamics. Instead, it defines a static admissibility structure that characterizes which states are sustainable given system capacity. This separation allows the admissible region to be studied independently of any particular control or dynamical model.
+
+The contributions of this paper are:
+\begin{itemize}
+\item A unified state-space representation for governance, control, autonomy, and trust.
+\item A multiplicative capacity function inducing a scalar admissibility invariant.
+\item A geometric characterization of the admissible region and its boundary.
+\item Comparative statics describing how admissibility shifts under parameter variation.
+\item A constrained (BCAT) variant for systems with conserved resources.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{State Space and Capacity Structure}
+
+\begin{definition}[GCAT State]
+Let $\mathbf{x} = (g,c,a,t) \in [0,1]^4$, where:
+\begin{itemize}
+\item $g$ = governance capacity
+\item $c$ = control authority
+\item $a$ = autonomy
+\item $t$ = trust
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Legitimacy Capacity]
+Define the capacity function:
+\begin{equation}
+\Lambda(\mathbf{x}) = K g^\alpha c^\beta t^\gamma
+\end{equation}
+with $K > 0$ and $\alpha,\beta,\gamma > 0$.
+\end{definition}
+
+The multiplicative structure implies that capacity collapses if any component approaches zero, reflecting complementarity among governance, control, and trust.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Admissibility and Invariant Structure}
+
+\begin{definition}[Admissibility Function]
+\begin{equation}
+I(\mathbf{x}) = a - \Lambda(\mathbf{x})
+\end{equation}
+\end{definition}
+
+\begin{definition}[Admissible Region]
+\begin{equation}
+\mathcal{A} = \{ \mathbf{x} \in [0,1]^4 : I(\mathbf{x}) \le 0 \}
+\end{equation}
+\end{definition}
+
+\begin{theorem}[Capacity Bound]
+For any admissible state $\mathbf{x}$, autonomy satisfies:
+\begin{equation}
+a \le \Lambda(\mathbf{x})
+\end{equation}
+\end{theorem}
+
+\textit{Argument.}
+The admissible region is defined by the inequality $I(\mathbf{x}) \le 0$. This directly yields the stated bound.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Geometric Properties of the Admissible Region}
+
+The admissible region $\mathcal{A}$ is a sublevel set of a smooth function over a compact domain.
+
+\subsection{Monotonicity}
+
+For fixed $(c,t)$, $\Lambda(\mathbf{x})$ is increasing in $g$. Similarly, it is increasing in each argument, implying that admissibility is monotone in governance, control, and trust.
+
+\subsection{Boundary Structure}
+
+The boundary $\partial \mathcal{A}$ is defined by:
+\begin{equation}
+a = K g^\alpha c^\beta t^\gamma
+\end{equation}
+
+This defines a smooth hypersurface in $[0,1]^4$.
+
+\subsection{Non-Convexity}
+
+The admissible region is generally non-convex due to the multiplicative structure. For example, convex combinations of admissible points need not remain admissible when exponents differ from unity.
+
+\subsection{Degenerate Cases}
+
+If any of $g,c,t$ approaches zero, then $\Lambda(\mathbf{x}) \to 0$, forcing $a \to 0$ for admissibility. Thus, autonomy collapses in the absence of capacity.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Comparative Statics}
+
+We analyze how admissibility changes with parameters.
+
+\begin{equation}
+\frac{\partial \Lambda}{\partial g} = \alpha K g^{\alpha-1} c^\beta t^\gamma
+\end{equation}
+
+Similarly:
+\begin{equation}
+\frac{\partial \Lambda}{\partial c}, \quad \frac{\partial \Lambda}{\partial t}
+\end{equation}
+
+These derivatives imply:
+\begin{itemize}
+\item Increasing returns if exponents exceed unity.
+\item Diminishing returns if exponents are less than unity.
+\item Symmetry when $\alpha = \beta = \gamma$.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Elasticity Interpretation}
+
+Taking logarithms:
+\begin{equation}
+\ln \Lambda = \ln K + \alpha \ln g + \beta \ln c + \gamma \ln t
+\end{equation}
+
+This yields elasticity interpretations:
+\begin{equation}
+\frac{\partial \ln \Lambda}{\partial \ln g} = \alpha
+\end{equation}
+
+Thus, $\alpha,\beta,\gamma$ represent sensitivity of capacity to each component.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{BCAT Variant (Resource-Constrained Systems)}
+
+Define:
+\begin{equation}
+\mathcal{X}_B = \{ \mathbf{x} \in [0,1]^4 : g+c+a+t = 1 \}
+\end{equation}
+
+This defines a simplex.
+
+Under this constraint:
+\begin{itemize}
+\item Increasing autonomy necessarily reduces other components.
+\item The admissible region becomes a subset of a 3-simplex.
+\end{itemize}
+
+The boundary becomes:
+\begin{equation}
+a = K g^\alpha c^\beta (1 - g - c - a)^\gamma
+\end{equation}
+
+which defines an implicit surface.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Illustrative Regimes}
+
+\begin{table}[h]
+\centering
+\caption{Illustrative Regimes}
+\begin{tabular}{lcccccc}
+System & $K$ & $\alpha$ & $\beta$ & $\gamma$ & State & $I(\mathbf{x})$ \\
+\hline
+Drone & 0.135 & 1.0 & 0.5 & 1.2 & (0.40,0.60,0.50,0.30) & $<0$ \\
+Human & 1.200 & 0.8 & 0.2 & 1.0 & (0.50,0.40,0.35,0.60) & $\approx 0$ \\
+Consensus & 0.800 & 1.0 & 0.3 & 1.5 & (0.80,0.20,0.15,0.85) & $>0$ \\
+\end{tabular}
+\end{table}
+
+These regimes illustrate under-capacity, boundary, and over-capacity states.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+
+The GCAT framework provides a geometric lens through which autonomy is interpreted as capacity-bounded. The admissible region captures structural limits that are independent of dynamics.
+
+This separation allows the framework to serve as a foundation for subsequent work introducing dynamics, recoverability, and enforcement mechanisms.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+
+We presented GCAT as a geometric theory of governed autonomy. The admissible region defined by $I(\mathbf{x}) \le 0$ characterizes capacity-limited autonomy across systems. The structure is independent of dynamics and provides a basis for subsequent extensions incorporating system evolution and control.
+
+\end{document}
