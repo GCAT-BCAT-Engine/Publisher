@@ -1,0 +1,136 @@
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx,algorithm,algpseudocode}
+\usepackage{cite}
+
+\title{\bf Commit-Time Admissibility: Execution-Layer Governance with Reachability Guarantees}
+\author{[Authors anonymized for submission]}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+We introduce commit-time governance: an action is allowed if and only if the resulting post-commit state remains recoverable under lag. Unlike pre-execution policy or post-execution audit, commit-time governance evaluates admissibility at the point of irreversible state transition. We define the commit operator, admissibility conditions, and denial reachability. We establish a safety result showing that enforcing the commit gate prevents entry into states from which collapse is unavoidable under bounded disturbances. An algorithmic realization of the commit gate is provided.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+Governance mechanisms in autonomous systems typically operate either before execution (policy constraints) or after execution (audit and remediation). Both approaches fail to constrain the critical transition point at which an action becomes real.
+
+We define this transition as the \textit{commit boundary}: the point at which a control input produces an irreversible state change.
+
+The central claim of this work is that governance must be enforced at this boundary. An action is admissible if and only if the post-commit state remains recoverable under system constraints and lag.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Commit Operator}
+
+\begin{definition}[Commit Operator]
+\begin{equation}
+\Phi(\mathbf{x}, u) = \text{clip}_{[0,1]^4}(\mathbf{x} + u)
+\end{equation}
+\end{definition}
+
+This operator maps a state-action pair to the resulting post-commit state.
+
+\begin{definition}[Commit Admissibility]
+\begin{equation}
+\text{ALLOW}(u; \mathbf{x}, \tau)
+\iff
+\Phi(\mathbf{x}, u) \in \mathcal{R}_{rob}(\tau)
+\end{equation}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Denial Reachability}
+
+\begin{definition}[Denial Reachability]
+A state $\mathbf{x}$ is denial-reachable if there exists a control trajectory that returns it to admissibility without entering collapse:
+\begin{equation}
+\exists u(\cdot), T < \infty:
+\mathbf{x}(T) \in \mathcal{A}, \quad
+\mathbf{x}(t) \notin \mathcal{C}, \ \forall t \in [0,T]
+\end{equation}
+\end{definition}
+
+\begin{proposition}
+A state is denial-reachable if and only if it belongs to the recoverable region:
+\begin{equation}
+\mathbf{x} \in \mathcal{R}(0)
+\end{equation}
+\end{proposition}
+
+\textit{Interpretation.}
+Denial reachability is equivalent to recoverability under zero lag.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Commit Safety}
+
+\begin{theorem}[Commit Safety]
+If all executed actions satisfy:
+\begin{equation}
+\Phi(\mathbf{x}, u) \in \mathcal{R}_{rob}(\tau)
+\end{equation}
+then the system cannot enter a state from which collapse is unavoidable under bounded disturbances.
+\end{theorem}
+
+\textit{Argument.}
+Each allowed action preserves membership in $\mathcal{R}_{rob}(\tau)$. Since recoverability is preserved at every step, no trajectory can reach an unrecoverable state without violating the admissibility condition.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Denial as an Invariant}
+
+Define the predicate:
+\begin{equation}
+D(\mathbf{x}) = \mathbf{x} \in \mathcal{R}_{rob}(\tau)
+\end{equation}
+
+The commit gate enforces:
+\begin{equation}
+D(\mathbf{x}_{t+}) = \text{true}
+\end{equation}
+
+Thus denial remains reachable at all times. The system never transitions into a state where recovery is impossible.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Algorithmic Realization}
+
+\begin{algorithm}
+\caption{Commit-Time ALLOW Gate}
+\begin{algorithmic}[1]
+\State $x_{next} \gets \Phi(x, u)$
+\State $\tilde{x} \gets x_{next} / \|x_{next}\|_1$
+\If{$x_{next} \notin \mathcal{R}_{rob}(\tau)$}
+    \State \Return DENY
+\EndIf
+\State \Return ALLOW
+\end{algorithmic}
+\end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Interpretation}
+
+Commit-time governance enforces a constraint not on the current state, but on the set of states reachable after action execution. This shifts governance from static evaluation to transition evaluation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Relation to Prior Frameworks}
+
+\begin{itemize}
+\item GCAT defines admissibility constraints on state.
+\item Rigel defines recoverability geometry.
+\item Lag introduces temporal reachability.
+\item Commit-time governance enforces these constraints at execution.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+
+We introduced commit-time admissibility as an execution-layer governance mechanism. By enforcing recoverability at the point of action, the system avoids irreversible collapse. This establishes a foundation for executable proofs and runtime enforcement in subsequent work.
+
+\end{document}
