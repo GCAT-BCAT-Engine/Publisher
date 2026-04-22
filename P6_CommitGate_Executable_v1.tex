@@ -1,0 +1,171 @@
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx,listings,booktabs}
+\usepackage{cite}
+
+\title{\bf Executable Commit-Time Governance: A Reference Implementation of Admissibility at the Point of Action}
+\author{[Authors anonymized for submission]}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+We present a minimal reference implementation of commit-time admissibility, demonstrating that execution-layer governance can be enforced mechanically. The system evaluates admissibility at the moment an action becomes irreversible using a deterministic commit operator and a conservative approximation of recoverability under lag. Three benchmark scenarios produce execution traces showing that the gate blocks actions leading to unavoidable collapse while permitting safe actions. The implementation requires fewer than 200 lines of Python with no external dependencies.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+Prior work defined admissibility, recoverability, lag, and commit-time governance as theoretical constructs. This paper demonstrates that these concepts can be implemented as a deterministic, real-time gate operating at the point of action.
+
+The objective is not optimality but correctness: the gate must never allow actions that lead to unavoidable collapse.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{System Overview}
+
+The implementation consists of four components:
+
+\begin{enumerate}
+\item GCAT state representation $\mathbf{x} \in [0,1]^4$
+\item Commit operator $\Phi(\mathbf{x},u)$
+\item Conservative recoverability test
+\item ALLOW/DENY gate
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Commit Evaluation}
+
+Given state $\mathbf{x}$ and action $u$:
+
+\begin{equation}
+\mathbf{x}_{next} = \Phi(\mathbf{x}, u) = \text{clip}_{[0,1]^4}(\mathbf{x} + u)
+\end{equation}
+
+The system evaluates:
+\begin{equation}
+\text{ALLOW}(u;\mathbf{x}) \iff \mathbf{x}_{next} \in \mathcal{S}_{cert}(\tau)
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Certified Safe Set Approximation}
+
+Exact recoverability is computationally expensive. We use a conservative subset:
+
+\begin{equation}
+\mathcal{S}_{cert}(\tau) = \{ \tilde{\mathbf{x}} : B_F > 0 \ \wedge \ B_D > 0 \}
+\end{equation}
+
+where:
+
+\begin{align}
+B_F &= d_F - \epsilon_{crit}(\tau) \\
+B_D &= d_{max}(\tau) - d_\Delta
+\end{align}
+
+\textbf{Guarantee:}
+\begin{itemize}
+\item If $\mathbf{x} \in \mathcal{S}_{cert}$, then $\mathbf{x} \in \mathcal{R}_{rob}(\tau)$
+\item The approximation is conservative
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Recovery Mechanism}
+
+When an action is denied, recovery is applied:
+
+\begin{align}
+\tilde{\mathbf{e}} &= \tilde{\mathbf{x}} - \mathbf{R} \\
+\tilde{\mathbf{u}}_{rec} &= -K_{rec} \tilde{\mathbf{e}} \\
+\mathbf{u}_{rec} &= \tilde{\mathbf{u}}_{rec} \cdot \|\mathbf{x}\|_1
+\end{align}
+
+This drives the system toward the Rigel equilibrium.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Parameters}
+
+\begin{table}[h]
+\centering
+\caption{Barrier Parameters}
+\begin{tabular}{lccc}
+\toprule
+ & Drone & Human & Consensus \\
+\midrule
+$\tau$ & 0.8s & 48hr & 5min \\
+$\epsilon_{crit}$ & 0.05 & 0.02 & 0.01 \\
+$d_{max}$ & 0.50 & 0.40 & 0.35 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Execution Traces}
+
+\textbf{Drone Scenario:}
+\begin{verbatim}
+t=0.300  x=(0.40,0.60,0.80,0.08)  DENY
+d_F=0.044 < epsilon_crit=0.05
+\end{verbatim}
+
+\textbf{Human Scenario:}
+\begin{verbatim}
+t=144h   x=(0.82,0.15,1.00,0.10)  DENY
+d_Delta=0.408 > d_max=0.40
+\end{verbatim}
+
+\textbf{Consensus Scenario:}
+\begin{verbatim}
+t=45m    x=(0.80,0.20,1.00,0.10)  DENY
+d_Delta=0.354 > d_max=0.35
+\end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}
+
+\begin{table}[h]
+\centering
+\caption{Gate Outcomes}
+\begin{tabular}{lcccc}
+\toprule
+Scenario & Actions & Allowed & Denied & Recovery \\
+\midrule
+Drone & 4 & 3 & 1 & 100\% \\
+Human & 9 & 8 & 1 & 100\% \\
+Consensus & 11 & 10 & 1 & 100\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Observation:}
+The gate denies precisely the transition that would violate recoverability in each scenario.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Complexity}
+
+Each gate evaluation requires:
+\begin{itemize}
+\item $O(1)$ vector operations
+\item no optimization or search
+\end{itemize}
+
+Thus, the gate operates in constant time.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+
+The implementation demonstrates that commit-time governance is not merely conceptual. A deterministic gate can enforce recoverability using simple geometric tests.
+
+The tradeoff is conservatism: some recoverable states may be denied, but unsafe states are never allowed.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+
+We provided a minimal implementation of commit-time admissibility. The system enforces recoverability at execution, blocks unsafe transitions, and recovers from denial.
+
+\end{document}
