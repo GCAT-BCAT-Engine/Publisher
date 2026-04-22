@@ -1,198 +1,88 @@
-\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
 \IEEEoverridecommandlockouts
 \overrideIEEEmargins
-
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
 \usepackage{cite}
-
 \title{\bf The Rigel Framework: Recoverability Geometry on the Normalized Simplex}
 \author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\xt}{\tilde{\mathbf{x}}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Rset}{\mathcal{R}}
+\newcommand{\Rrob}{\mathcal{R}_{rob}}
+\newcommand{\Cset}{\mathcal{C}}
+\newcommand{\Scert}{\mathcal{S}_{cert}}
+\newcommand{\Phiop}{\Phi}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Ri}{R_i}
+\newcommand{\Rigel}{\mathbf{R}}
 
 \begin{document}
 \maketitle
 \thispagestyle{empty}
 \pagestyle{empty}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-We introduce the Rigel framework for analyzing recoverability in systems governed by capacity-constrained autonomy. Building on the GCAT state space, we normalize system states onto the simplex $\Delta^3$ and define a geometric notion of recoverability relative to collapse modes. The Rigel equilibrium serves as a reference point maximizing distance from collapse boundaries. We define the Rigel number as a ratio capturing distance to collapse and distance from equilibrium, and establish its monotonic properties. We show that recoverability is independent of static admissibility and characterize their relationship. Under projected linear dynamics, we establish asymptotic convergence toward the Rigel equilibrium. The framework provides a geometric basis for understanding recoverability prior to enforcement.
+We introduce the Rigel framework for geometric recoverability analysis on the normalized GCAT simplex. States are projected onto $\Delta^3$, collapse modes are identified with simplex faces, and the Rigel point serves as the balanced reference maximizing minimum face distance. We define the Rigel number as a ratio combining proximity to collapse and deviation from equilibrium, establish its monotonic properties, and show that recoverability is distinct from static admissibility. The framework supplies the recoverability layer that the static GCAT geometry does not provide.
 \end{abstract}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-
-While admissibility defines whether a system state is sustainable under capacity constraints, it does not characterize whether a system can recover once those constraints are violated. Systems may enter inadmissible states yet remain recoverable, or remain admissible while approaching irreversible collapse.
-
-This paper introduces a geometric framework for recoverability independent of static admissibility. The key idea is to represent system states on a normalized simplex, where proximity to collapse modes and distance from equilibrium define recoverability.
-
-The Rigel framework complements the GCAT formulation by introducing a second axis of analysis: recoverability as a function of geometric position within the simplex.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Normalized Geometry}
-
-\begin{definition}[Normalized State]
-For $\mathbf{x} \in \mathcal{X} \setminus \{\mathbf{0}\}$:
-\begin{equation}
-\tilde{\mathbf{x}} = \frac{\mathbf{x}}{\|\mathbf{x}\|_1} \in \Delta^3
-\end{equation}
-\end{definition}
-
-The simplex:
-\begin{equation}
-\Delta^3 = \left\{ \tilde{\mathbf{x}} \in \mathbb{R}^4_+ : \sum_{i=1}^4 \tilde{x}_i = 1 \right\}
-\end{equation}
-
-represents relative allocation across governance, control, autonomy, and trust.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Rigel Equilibrium}
-
-\begin{definition}[Rigel Point]
-\begin{equation}
-\mathbf{R} = \left(\frac{1}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4}\right)
-\end{equation}
-\end{definition}
-
-\begin{proposition}
-$\mathbf{R}$ maximizes the minimum coordinate over $\Delta^3$:
-\begin{equation}
-\mathbf{R} = \arg\max_{\tilde{\mathbf{x}} \in \Delta^3} \min_i \tilde{x}_i
-\end{equation}
-\end{proposition}
-
-\textit{Argument.}
-By symmetry and convexity of the simplex, the centroid equalizes all coordinates, maximizing the minimum.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+GCAT answers a static capacity question: is the current state admissible? It does not answer whether a system can recover if it leaves that region or approaches collapse. Recoverability requires a different geometry.
+\section{Normalized State Space}
+For any nonzero state $\x\in[0,1]^4\setminus\{0\}$, define
+\[
+\xt=\frac{\x}{\|\x\|_1}\in\Delta^3,\qquad
+\Delta^3=\left\{y\in\mathbb{R}^4_+:\sum_{i=1}^4 y_i=1\right\}.
+\]
+\section{Rigel Point}
+Define the Rigel point
+\[
+\Rigel=\left(\tfrac14,\tfrac14,\tfrac14,\tfrac14\right).
+\]
+It maximizes the minimum coordinate over the simplex.
 \section{Collapse Geometry}
-
-\begin{definition}[Collapse Faces]
-\begin{align}
-C_1 &= \{\tilde{g}=0\}, \quad
-C_2 = \{\tilde{c}=0\}, \\
-C_3 &= \{\tilde{a}=0\}, \quad
-C_4 = \{\tilde{t}=0\}
-\end{align}
-\end{definition}
-
-These define the boundaries where one system component collapses.
-
-\begin{definition}[Face Distance]
-\begin{equation}
-d_F(\tilde{\mathbf{x}}) = \min_i \tilde{x}_i
-\end{equation}
-\end{definition}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Distance to Equilibrium}
-
-\begin{definition}[Simplex Distance]
-\begin{equation}
-d_\Delta(\tilde{\mathbf{x}}, \mathbf{R}) = \|\tilde{\mathbf{x}} - \mathbf{R}\|_2
-\end{equation}
-\end{definition}
-
-This measures deviation from balanced allocation.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The Rigel Number}
-
-\begin{definition}[Rigel Number]
-\begin{equation}
-R_i(\tilde{\mathbf{x}}) = \frac{d_F(\tilde{\mathbf{x}})}{d_F(\tilde{\mathbf{x}}) + d_\Delta(\tilde{\mathbf{x}}, \mathbf{R}) + \delta}
-\end{equation}
-\end{definition}
-
-with $\delta > 0$.
-
-\begin{proposition}[Bounds]
-\begin{equation}
-0 \le R_i(\tilde{\mathbf{x}}) \le 1
-\end{equation}
-\end{proposition}
-
-\begin{proposition}[Monotonicity]
-$R_i$ is increasing in $d_F$ and decreasing in $d_\Delta$.
-\end{proposition}
-
-\textit{Argument.}
-Both follow directly from partial derivatives of the ratio.
-
-\begin{proposition}[Extrema]
-\begin{itemize}
-\item $R_i \to 0$ as $\tilde{\mathbf{x}} \to \mathcal{C}$
-\item $R_i$ maximized at $\mathbf{R}$
-\end{itemize}
-\end{proposition}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Recoverability vs Admissibility}
-
-\begin{definition}[Recoverable Region]
-\begin{equation}
-\mathcal{R} = \{ \tilde{\mathbf{x}} : R_i(\tilde{\mathbf{x}}) > \epsilon \}
-\end{equation}
-\end{definition}
-
-\begin{proposition}
-Recoverability and admissibility are independent:
-\begin{equation}
-\mathcal{A} \not\subseteq \mathcal{R}, \quad \mathcal{R} \not\subseteq \mathcal{A}
-\end{equation}
-\end{proposition}
-
-\textit{Interpretation.}
-Systems may be admissible but fragile, or inadmissible but recoverable.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Projected Dynamics}
-
-We consider dynamics restricted to $\Delta^3$:
-\begin{equation}
-\dot{\tilde{\mathbf{x}}} = \Pi_{T\Delta^3}(-K(\tilde{\mathbf{x}} - \mathbf{R}))
-\end{equation}
-
-where $\Pi_{T\Delta^3}$ denotes projection onto the tangent space:
-\begin{equation}
-T\Delta^3 = \left\{ v : \sum_i v_i = 0 \right\}
-\end{equation}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Stability Result}
-
-\begin{theorem}
-Under the projected dynamics, $\mathbf{R}$ is asymptotically stable.
-\end{theorem}
-
-\textit{Argument.}
-The system reduces to a linear contraction in the tangent space. Projection preserves feasibility, and $\mathbf{R}$ is the unique equilibrium.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Benchmarks}
-
+Define the four collapse faces
+\[
+C_1=\{\xt_g=0\},\quad
+C_2=\{\xt_c=0\},\quad
+C_3=\{\xt_a=0\},\quad
+C_4=\{\xt_t=0\}.
+\]
+The aggregate collapse set is
+\[
+\Cset=\bigcup_{i=1}^4 C_i.
+\]
+Distance to the nearest collapse face is
+\[
+d_F(\xt)=\min_i \xt_i.
+\]
+Distance to the balanced interior point is
+\[
+d_\Delta(\xt,\Rigel)=\|\xt-\Rigel\|_2.
+\]
+\section{Rigel Number}
+Define the Rigel number
+\[
+\Ri(\xt)=\frac{d_F(\xt)}{d_F(\xt)+d_\Delta(\xt,\Rigel)+\delta},
+\]
+where $\delta>0$ is a small regularizer.
+It increases with face distance, decreases with distance from $\Rigel$, tends to zero at the collapse set, and is maximized near the balanced interior.
+\section{Recoverability vs. Admissibility}
+Recoverability and admissibility are not identical. Admissibility depends on the absolute state $\x$ through the capacity margin $m(\x)$. Recoverability depends on the normalized geometry $\xt$ and the system's position relative to collapse and balance.
+\section{Illustrative Regimes}
 \begin{table}[h]
 \centering
 \caption{Rigel Numbers}
 \begin{tabular}{lcccccc}
-System & $\tilde{\mathbf{x}}$ & $d_F$ & $d_\Delta$ & $R_i$ & Label \\
+\hline
+System & $\xt$ & $d_F$ & $d_\Delta$ & $\Ri$ & Label \\
 \hline
 Drone & (0.222,0.333,0.278,0.167) & 0.167 & 0.124 & 0.49 & Marginal \\
 Human & (0.270,0.216,0.189,0.324) & 0.189 & 0.104 & 0.55 & Moderate \\
 Consensus & (0.400,0.100,0.075,0.425) & 0.075 & 0.326 & 0.17 & Rigid \\
+\hline
 \end{tabular}
 \end{table}
-
-These illustrate that recoverability is not aligned with admissibility.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Discussion}
-
-The Rigel framework introduces recoverability as a geometric property distinct from admissibility. By operating on the simplex, it captures structural resilience independent of absolute scale.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
-
-We presented a geometric formulation of recoverability on the GCAT simplex. The Rigel number captures proximity to collapse and distance from equilibrium. This provides a foundation for integrating recoverability into dynamic and enforcement frameworks in subsequent work.
-
+We presented the Rigel framework as a geometric theory of recoverability on the normalized simplex. It provides the second axis required by the series: not merely whether a state is admissible, but whether it is structurally positioned to recover.
 \end{document}

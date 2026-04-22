@@ -1,187 +1,115 @@
-\documentclass{article}
-\usepackage[margin=1in]{geometry}
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx,algorithm,algpseudocode,booktabs,listings}
 \usepackage{cite}
-
 \title{\bf Commit-Time Governance: Enforcing Recoverability at the Point of Action}
 \author{[Authors anonymized for submission]}
 
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\xt}{\tilde{\mathbf{x}}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Rset}{\mathcal{R}}
+\newcommand{\Rrob}{\mathcal{R}_{rob}}
+\newcommand{\Cset}{\mathcal{C}}
+\newcommand{\Scert}{\mathcal{S}_{cert}}
+\newcommand{\Phiop}{\Phi}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Ri}{R_i}
+\newcommand{\Rigel}{\mathbf{R}}
+
 \begin{document}
 \maketitle
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\thispagestyle{empty}
+\pagestyle{empty}
 \begin{abstract}
-We introduce commit-time governance: a minimal enforcement mechanism that checks whether an action can be recovered from at the exact moment it becomes irreversible. Current systems separate governance into pre-action policy and post-action audit, leaving the commit — the point of no return — ungoverned. We close this gap with four contributions: (1) a commit admissibility condition based on recoverability, not just static legitimacy; (2) an executable gate with reproducible traces demonstrating enforcement behavior; (3) a barrier-certificate proof that the gate is sound with respect to a certified safe subset; and (4) an adversarial robustness analysis showing fail-closed degradation under bounded attacks. The framework operates on a 4-dimensional state space (governance, control, autonomy, trust), executes in constant time, and enforces recoverability strictly at the point of action.
+We introduce commit-time governance: a minimal enforcement mechanism that checks whether an action can be recovered from at the exact moment it becomes irreversible. Current systems separate governance into pre-action policy and post-action audit, leaving the commit—the point of no return—ungoverned. We close this gap with four contributions: (1) a commit admissibility condition based on recoverability rather than static legitimacy alone; (2) an executable constant-time gate with reproducible traces; (3) a barrier-certificate proof that the gate is sound with respect to a certified safe subset; and (4) an adversarial analysis showing fail-closed degradation under bounded attacks. The framework operates on a four-dimensional state space $(g,c,a,t)$ and is deliberately narrow: it governs commits, not trajectories.
 \end{abstract}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-
-Governance systems typically enforce before action (policy, guardrails) or after action (monitoring, audit). Both miss the critical moment: the commit, when intention becomes irreversible effect.
-
-We define \textbf{commit-time governance}: an action is allowed if and only if, after it executes, the system remains in a state from which recovery is possible. This shifts governance from static legitimacy to dynamic recoverability.
-
-Our contributions are minimal and sequential:
-\begin{enumerate}
-    \item \textbf{Commit admissibility}: $\Phi(\mathbf{x},u)\in\mathcal{R}{rob}(\tau)$
-    \item \textbf{Executable gate}: constant-time implementation with traces
-    \item \textbf{Certified approximation}: barrier-certificate soundness
-    \item \textbf{Adversarial robustness}: fail-closed degradation
-\end{enumerate}
-
-\textbf{Scope.} The framework governs individual commits. It does not guarantee optimal trajectories, global safety, or trajectory-level completeness.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Governance systems usually act either before execution (policy, guardrails, authorization) or after execution (monitoring, audit, remediation). Both approaches miss the critical moment at which intention becomes irreversible effect.
+We define \emph{commit-time governance} as follows: an action is allowed if and only if the post-commit state remains robustly recoverable under lag. This reframes governance from a static question—whether the current state is legitimate—to a transition question—whether the system can still recover after the proposed action takes effect.
 \section{Minimal Formal Setup}
-
-\textbf{State.} $\mathbf{x}=(g,c,a,t)\in[0,1]^4$.
-
-\textbf{Legitimacy.}
-[
-\mathcal{A}={\mathbf{x}:m(\mathbf{x})\geq 0}, \quad m(\mathbf{x})=\Lambda(\mathbf{x})-a
-]
-[
-\Lambda(\mathbf{x})=Kg^\alpha c^\beta t^\gamma
-]
-
-\textbf{Recoverability.}
-[
-\mathcal{R}(0)={\text{states recoverable to }\mathcal{A}}, \quad
-\mathcal{R}{rob}(\tau)={\text{states recoverable under lag }\tau}
-]
-
-\textbf{Normalized geometry.}
-[
-\tilde{\mathbf{x}}=\frac{\mathbf{x}}{|\mathbf{x}|1}, \quad \mathbf{R}=(1/4,1/4,1/4,1/4)
-]
-[
-d_F=\min_i \tilde{x}i, \quad d\Delta=|\tilde{\mathbf{x}}-\mathbf{R}|2
-]
-
-\textbf{Lag.} $\tau=\tau{obs}+\tau{dec}+\tau_{act}$.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Let the system state be
+\[
+\x=(g,c,a,t)\in[0,1]^4.
+\]
+Define the legitimacy capacity
+\[
+\Lam(\x)=K g^\alpha c^\beta t^\gamma,
+\]
+with $K>0$ and $\alpha,\beta,\gamma>0$. The admissible region is
+\[
+\A=\{\x: m(\x)\ge 0\},\qquad m(\x)=\Lam(\x)-a.
+\]
+Let $\Rset(0)$ denote the set of states from which there exists a recovery control driving the system back to $\A$ while avoiding collapse. Let $\Rrob(\tau)$ denote the robust recoverable region under total lag
+\[
+\tau=\tau_{obs}+\tau_{dec}+\tau_{act}.
+\]
+Normalize nonzero states by
+\[
+\xt=\frac{\x}{\|\x\|_1}\in\Delta^3,
+\]
+where $\Delta^3=\{y\in\mathbb{R}^4_+:\sum_i y_i=1\}$. Let the Rigel point be
+\[
+\Rigel=\left(\tfrac14,\tfrac14,\tfrac14,\tfrac14\right),
+\]
+and define
+\[
+d_F(\xt)=\min_i \xt_i,\qquad d_\Delta(\xt,\Rigel)=\|\xt-\Rigel\|_2.
+\]
 \section{The Commit Gate}
-
-\textbf{Commit operator.}
-[
-\Phi(\mathbf{x},u)=\text{clip}{[0,1]^4}(\mathbf{x}+u)
-]
-
-\textbf{Ideal admissibility.}
-[
-\text{ALLOW}{ideal}(u;\mathbf{x},\tau)\Leftrightarrow\Phi(\mathbf{x},u)\in\mathcal{R}{rob}(\tau)
-]
-
-\textbf{Commit Safety Theorem.}
-If all executed actions satisfy $\text{ALLOW}{ideal}$, the system never enters a state from which collapse is unavoidable under bounded disturbances.
-
-\textit{Proof sketch.} Induction on commit events preserves recoverability. \hfill $\blacksquare$
-
-\textbf{Practical constraint.}
-Exact evaluation of $\mathcal{R}{rob}(\tau)$ requires online reachability analysis.
-
-\textbf{Approach.}
-Use a conservative certified subset.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The commit operator is
+\[
+\Phiop(\x,u)=\mathrm{clip}_{[0,1]^4}(\x+u).
+\]
+The ideal admissibility condition is
+\[
+\mathrm{ALLOW}_{ideal}(u;\x,\tau)\iff \Phiop(\x,u)\in\Rrob(\tau).
+\]
+\textbf{Commit Safety.} If every executed action satisfies $\mathrm{ALLOW}_{ideal}$, then no committed transition places the system in a state from which collapse is unavoidable under the modeled lag and disturbance assumptions.
+\textit{Proof sketch.} By induction over commit events. The base state is assumed robustly recoverable. Each allowed transition preserves membership in $\Rrob(\tau)$, so unrecoverable states are never entered without violating the gate condition. \hfill $\blacksquare$
 \section{Executable Evidence}
-
-We implement: state, commit operator, certified test, and ALLOW/DENY gate.
-
-\textbf{Certified subset.}
-[
-\mathcal{S}{cert}(\tau)={\mathbf{x}:B_F>0 \wedge B_D>0}
-]
-
-[
-B_F=d_F-\epsilon_{crit}(\tau), \quad
-B_D=d_{max}(\tau)-d_\Delta
-]
-
-\textbf{Guarantee.}
-Membership in $\mathcal{S}{cert}(\tau)$ is sufficient (not necessary) for membership in $\mathcal{R}{rob}(\tau)$.
-
+The executable reference implementation evaluates a post-commit state against
+\[
+\Scert(\tau)=\{\x: B_F(\xt)>0\ \wedge\ B_D(\xt)>0\},
+\]
+where
+\[
+B_F(\xt)=d_F(\xt)-\epsilon_{crit}(\tau),\qquad
+B_D(\xt)=d_{max}(\tau)-d_\Delta(\xt,\Rigel).
+\]
+Membership in $\Scert(\tau)$ is sufficient, but not necessary, for membership in $\Rrob(\tau)$.
 \begin{table}[h]
 \centering
 \caption{Gate Performance}
 \begin{tabular}{lcccc}
-Scenario & Actions & Allowed & Denied & Recovery \
-\hline
-Drone & 4 & 3 & 1 & 100% \
-Human & 9 & 8 & 1 & 100% \
-Consensus & 11 & 10 & 1 & 100% \
+\toprule
+Scenario & Actions & Allowed & Denied & Recovery \\
+\midrule
+Drone & 4 & 3 & 1 & 100\% \\
+Human & 9 & 8 & 1 & 100\% \\
+Consensus & 11 & 10 & 1 & 100\% \\
+\bottomrule
 \end{tabular}
 \end{table}
-
-\textbf{Key finding.}
-In each scenario, the gate denies the transition that violates the certified safety conditions. No allowed transition produces a state outside $\mathcal{S}{cert}(\tau)$.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Certified Approximation}
-
-\textbf{Calibration assumptions.}
-\begin{itemize}
-    \item C1: $d_F>\epsilon{crit}$ implies lag-safe separation
-    \item C2: $d_\Delta<d_{max}$ implies recoverability to $\mathcal{A}$
-\end{itemize}
-
-\textbf{Soundness.}
-[
-\mathcal{S}{cert}(\tau)\subseteq\mathcal{R}{rob}(\tau)
-]
-
-\textbf{Corollary.}
-[
-\text{ALLOW}{impl}(u;\mathbf{x},\tau)\Rightarrow\text{ALLOW}{ideal}(u;\mathbf{x},\tau)
-]
-
-\textbf{Approximation error.}
-[
-\mathcal{E}(\tau)=\mathcal{R}{rob}(\tau)\setminus\mathcal{S}{cert}(\tau)
-]
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Under calibration assumptions C1 (face safety) and C2 (recoverability),
+\[
+\Scert(\tau)\subseteq\Rrob(\tau).
+\]
+Therefore
+\[
+\mathrm{ALLOW}_{impl}(u;\x,\tau)\Rightarrow \mathrm{ALLOW}_{ideal}(u;\x,\tau).
+\]
+The approximation error set is
+\[
+\mathcal{E}(\tau)=\Rrob(\tau)\setminus\Scert(\tau),
+\]
+which contains recoverable states rejected by the implementation.
 \section{Adversarial Robustness}
-
-\textbf{Threats.}
-State perturbation, lag inflation, boundary surfing, recovery disruption.
-
-\textbf{Bounded attacks.}
-\begin{itemize}
-    \item State deception: expands certified subset
-    \item Lag inflation: stricter evaluation (fail-closed)
-    \item Boundary surfing: pointwise safe
-    \item Recovery disruption: bounded stability preserved
-\end{itemize}
-
-\textbf{Unbounded attacks.}
-System degrades to denial or safe mode.
-
-\textbf{Property.}
-Fail-closed behavior: failure results in denial, not unsafe execution.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Discussion}
-
-\textbf{Guarantees.}
-\begin{itemize}
-    \item Allowed commits remain recoverable
-    \item Unsafe commits are denied pre-execution
-    \item Soundness holds under bounded perturbations
-\end{itemize}
-
-\textbf{Limitations.}
-\begin{itemize}
-    \item Not trajectory-complete
-    \item Not globally optimal
-    \item Requires external monitoring for sequence effects
-\end{itemize}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Within a calibration envelope, bounded perturbations preserve soundness with respect to an expanded certified subset. Inflated lag only makes the test stricter. Boundary surfing does not violate pointwise safety, but it can exploit the absence of trajectory-level monitoring. Recovery disruption can be tolerated when disturbance remains within the contraction budget of the recovery controller.
+Outside the calibration envelope, the intended behavior is fail-closed: denial, safe mode, or external intervention. The residual risk is operational slowdown or false negatives, not silent catastrophic allowance.
 \section{Conclusion}
-
-Commit-time governance enforces recoverability at the moment of action. It is a minimal, constant-time mechanism that ensures no allowed transition leads to unavoidable collapse. The framework is intentionally narrow: it governs commits, not trajectories.
-
+Commit-time governance enforces recoverability at the point of action. It is a minimal, constant-time mechanism that closes the gap between pre-action policy and post-action audit. Its scope is intentionally narrow and therefore auditable: it governs commits, not trajectories.
 \end{document}

@@ -1,177 +1,88 @@
-\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
 \IEEEoverridecommandlockouts
 \overrideIEEEmargins
-
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
 \usepackage{cite}
-
 \title{\bf The GCAT Framework: A Control-Theoretic Model of Governed Autonomy}
 \author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\xt}{\tilde{\mathbf{x}}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Rset}{\mathcal{R}}
+\newcommand{\Rrob}{\mathcal{R}_{rob}}
+\newcommand{\Cset}{\mathcal{C}}
+\newcommand{\Scert}{\mathcal{S}_{cert}}
+\newcommand{\Phiop}{\Phi}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Ri}{R_i}
+\newcommand{\Rigel}{\mathbf{R}}
 
 \begin{document}
 \maketitle
 \thispagestyle{empty}
 \pagestyle{empty}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-We introduce the Governed Capability-Autonomy-Trust (GCAT) framework as a control-theoretic model for enforcing admissible autonomy in complex systems. The framework defines a four-dimensional state space capturing governance capacity, control authority, autonomy, and trust. A legitimacy capacity function induces a state-dependent admissible region. We show that this region can be enforced via a control barrier condition and provide a constructive control law. Forward invariance of the admissible set is established under control-affine dynamics with bounded inputs. Boundary behavior and parameter sensitivity are derived explicitly. Simulation results, generated from the stated dynamics, demonstrate that uncontrolled trajectories violate admissibility while barrier-enforced control preserves or restores it.
+We present a control-theoretic realization of the GCAT framework. A four-dimensional state space over governance capacity, control authority, autonomy, and trust is coupled to a legitimacy-capacity function that induces an admissible set. We show that this admissible set can be enforced through a barrier condition, derive the relevant directional derivative, and construct a minimally invasive control law that preserves admissibility under control-affine dynamics. This version of GCAT is intentionally dynamical and serves as the control-oriented counterpart to the geometric foundation.
 \end{abstract}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-
-Autonomous systems operate under constraints that extend beyond physical safety into governance, authority, and trust. Existing control frameworks typically enforce physical safety constraints, while governance is treated as external policy or post-hoc analysis.
-
-This work formalizes governance as a state-dependent constraint directly embedded in system dynamics. The central object is an admissible set defined by a capacity-limited inequality linking autonomy to governance, control, and trust. The resulting constraint is enforced at execution through a control barrier condition.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{State and Admissibility}
-
-Let the system state be:
-\begin{equation}
-\mathbf{x} = (g, c, a, t) \in [0,1]^4
-\end{equation}
-
-Define the legitimacy capacity:
-\begin{equation}
-\Lambda(\mathbf{x}) = K g^\alpha c^\beta t^\gamma
-\end{equation}
-
-with $K>0$, $\alpha,\beta,\gamma>0$.
-
-Define the admissibility function:
-\begin{equation}
-h(\mathbf{x}) = \Lambda(\mathbf{x}) - a
-\end{equation}
-
-The admissible set is:
-\begin{equation}
-\mathcal{A} = \{ \mathbf{x} \in [0,1]^4 : h(\mathbf{x}) \ge 0 \}
-\end{equation}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The geometric GCAT paper defines what states are admissible. This paper asks a different question: if the system evolves dynamically, can admissibility be maintained by control? The answer is yes under standard control-affine assumptions, provided the admissibility margin is treated as a barrier quantity.
+\section{State, Capacity, and Admissibility}
+Let
+\[
+\x=(g,c,a,t)\in[0,1]^4
+\]
+and
+\[
+\Lam(\x)=K g^\alpha c^\beta t^\gamma,
+\qquad
+m(\x)=\Lam(\x)-a.
+\]
+The admissible set is
+\[
+\A=\{\x:m(\x)\ge 0\}.
+\]
 \section{Dynamics}
-
-We consider control-affine dynamics:
-\begin{equation}
-\dot{\mathbf{x}} = f(\mathbf{x}) + G(\mathbf{x}) u
-\end{equation}
-
-We instantiate:
+We consider control-affine dynamics
+\[
+\dot{\x}=f(\x)+G(\x)u,
+\]
+with locally Lipschitz $f$ and $G$. For analysis we instantiate
 \begin{align}
-\dot{g} &= k_g (g_0 - g) - \eta_g a \\
-\dot{c} &= k_c (c_0 - c) \\
-\dot{a} &= k_a a (1-a) + \eta_a (1-g) + u_a \\
-\dot{t} &= k_t (t_0 - t)
+\dot g &= k_g(g_0-g)-\eta_g a,\\
+\dot c &= k_c(c_0-c),\\
+\dot a &= k_a a(1-a)+\eta_a(1-g)+u_a,\\
+\dot t &= k_t(t_0-t),
 \end{align}
-
-All parameters are positive constants and $u_a \in \mathbb{R}$ is bounded.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Admissibility Enforcement}
-
-We compute:
-\begin{equation}
-\dot{h} = \nabla \Lambda(\mathbf{x}) \cdot \dot{\mathbf{x}} - \dot{a}
-\end{equation}
-
-where:
-\begin{equation}
-\nabla \Lambda =
-\begin{pmatrix}
-\alpha K g^{\alpha-1} c^\beta t^\gamma \\
-\beta K g^\alpha c^{\beta-1} t^\gamma \\
-\gamma K g^\alpha c^\beta t^{\gamma-1}
-\end{pmatrix}
-\end{equation}
-
-Substituting dynamics yields:
+where $u_a$ is the control channel used to suppress autonomy growth near the boundary.
+\section{Barrier Formulation}
+The admissibility margin acts as the barrier quantity. Its derivative is
+\[
+\dot m(\x)=\nabla \Lam(\x)\cdot \dot{\x}-\dot a.
+\]
+A sufficient condition for forward invariance of $\A$ is
+\[
+\dot m(\x,u)\ge -\kappa m(\x),\qquad \kappa>0.
+\]
+When this holds, trajectories starting in $\A$ remain in $\A$.
+\section{Control Synthesis}
+The barrier inequality can be solved for admissible inputs. A practical choice is a quadratic program:
 \begin{align}
-\dot{h} &= \alpha K g^{\alpha-1} c^\beta t^\gamma \dot{g}
-+ \beta K g^\alpha c^{\beta-1} t^\gamma \dot{c} \nonumber \\
-&\quad + \gamma K g^\alpha c^\beta t^{\gamma-1} \dot{t}
-- \dot{a}
+u^\star=\arg\min_u \|u-u_{nom}\|^2\\
+\text{s.t.}\quad \dot m(\x,u)\ge -\kappa m(\x).
 \end{align}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Forward Invariance}
-
-\textbf{Proposition.} Let $h(\mathbf{x})$ be continuously differentiable and suppose that for all $\mathbf{x} \in \partial \mathcal{A}$ there exists $u_a$ such that:
-\begin{equation}
-\dot{h}(\mathbf{x}, u_a) \ge 0
-\end{equation}
-
-Then $\mathcal{A}$ is forward invariant.
-
-\textit{Argument.} The condition ensures that the vector field does not point outward at the boundary $h=0$. Since the system is locally Lipschitz, trajectories cannot exit $\mathcal{A}$ without violating the boundary condition. Therefore, $\mathcal{A}$ is invariant under admissible control inputs.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Control Law}
-
-We solve for $u_a$ from:
-\begin{equation}
-\dot{h} \ge -\kappa h
-\end{equation}
-
-which yields a constraint:
-\begin{equation}
-u_a \le \phi(\mathbf{x}) + \kappa h
-\end{equation}
-
-where $\phi(\mathbf{x})$ collects all terms independent of $u_a$.
-
-Define:
-\begin{equation}
-u_a^* = \min(0, \phi(\mathbf{x}) + \kappa h)
-\end{equation}
-
-This ensures admissibility is enforced while minimizing intervention.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+For the scalar autonomy channel, a simple fallback law is
+\[
+u_a^\star=\min\left(0,\phi(\x)+\kappa m(\x)\right),
+\]
+where $\phi(\x)$ collects the noncontrol terms in the barrier derivative.
 \section{Boundary Behavior}
-
-At $h=0$:
-\begin{equation}
-\dot{h} \ge 0
-\end{equation}
-
-Substituting yields a constraint linking $\dot{g},\dot{c},\dot{t}$ and $u_a$. This defines the tangent cone of admissible evolution.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Parameter Sensitivity}
-
-\begin{equation}
-\frac{\partial \Lambda}{\partial g} = \alpha K g^{\alpha-1} c^\beta t^\gamma
-\end{equation}
-
-Sensitivity increases with multiplicative capacity, implying that small changes in governance or trust can have amplified effects on admissibility near high-capacity regimes.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Simulation}
-
-The system is simulated using the defined dynamics. Initial conditions are chosen such that $h(\mathbf{x}_0) > 0$ but near the boundary.
-
-Uncontrolled trajectories ($u_a=0$) result in $h(\mathbf{x}(t)) < 0$ within finite time.
-
-Controlled trajectories ($u_a = u_a^*$) maintain $h(\mathbf{x}(t)) \ge 0$ for all $t$.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\linewidth]{gcat_phase_boundary_trajectories.pdf}
-\caption{Phase boundary and trajectories derived from the stated dynamics.}
-\label{fig:phase}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Related Work}
-
-Control barrier functions provide a framework for enforcing state constraints in nonlinear systems. This work extends that framework to constraints derived from governance and system capacity.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+At the admissible boundary $m(\x)=0$, the condition reduces to
+\[
+\dot m(\x,u)\ge 0.
+\]
+This is the tangency condition preventing outward crossing.
 \section{Conclusion}
-
-We presented a control-theoretic formulation of governed autonomy. The admissible region is enforced through a barrier condition, ensuring that autonomy remains bounded by system capacity.
-
+We presented a control-oriented version of GCAT in which the admissibility margin functions as a barrier quantity. Under control-affine dynamics, this yields an enforcement mechanism that preserves capacity-bounded autonomy over time.
 \end{document}
