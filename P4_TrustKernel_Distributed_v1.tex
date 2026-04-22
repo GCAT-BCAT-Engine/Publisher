@@ -1,0 +1,165 @@
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx,listings}
+\usepackage{cite}
+
+\title{\bf The Trust Kernel: A Distributed Architecture for Governed Autonomy}
+\author{[Authors anonymized for submission]}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+We present the Trust Kernel, a distributed architecture that operationalizes the GCAT and Rigel frameworks across networked nodes. Each node maintains a local GCAT state and enforces admissibility prior to execution, while distributed attestation ensures global consistency under adversarial conditions. A recovery layer based on projected Rigel dynamics enables coordinated stabilization across nodes. We establish safety under Byzantine faults using standard BFT assumptions and define a distributed recoverability metric. The architecture demonstrates how capacity-bounded autonomy and recoverability can be enforced in a decentralized system.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+Prior work defined admissibility and recoverability as geometric properties of system state. However, real systems are distributed: decisions are made across multiple nodes with partial information and potential adversarial behavior.
+
+This paper introduces the Trust Kernel, a distributed architecture that enforces admissibility locally while maintaining global consistency through attestation and consensus. The key challenge is to ensure that node-level enforcement composes into system-wide guarantees.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{System Model}
+
+We consider a network of $n$ nodes, each maintaining a local state:
+\begin{equation}
+\mathbf{x}_i = (g_i, c_i, a_i, t_i)
+\end{equation}
+
+Each node computes its admissibility margin:
+\begin{equation}
+m(\mathbf{x}_i) = \Lambda(\mathbf{x}_i) - a_i
+\end{equation}
+
+Nodes communicate over a partially synchronous network.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Architecture}
+
+The Trust Kernel consists of three layers:
+
+\subsection{Validation Layer}
+
+Each node enforces:
+\begin{equation}
+m(\mathbf{x}_i) \ge 0
+\end{equation}
+
+prior to executing actions. This ensures local admissibility.
+
+\subsection{Attestation Layer}
+
+Nodes exchange signed state messages:
+
+\begin{verbatim}
+STEGVERSE_MSG {
+    node_id: UUID,
+    timestamp: u64,
+    gcat_state: [f64; 4],
+    signature: Ed25519,
+    proof: MerklePath
+}
+\end{verbatim}
+
+Messages are aggregated into a consensus state $\mathbf{X}$.
+
+Trust edges are defined as:
+\begin{equation}
+t_{ij} = \min(t_i, t_j)
+\end{equation}
+
+\subsection{Recovery Layer}
+
+Nodes apply distributed Rigel dynamics:
+
+\begin{equation}
+u_i = -K_i(\tilde{\mathbf{x}}_i - \mathbf{R}) + \sum_{j \in N(i)} w_{ij} (\tilde{\mathbf{x}}_j - \tilde{\mathbf{x}}_i)
+\end{equation}
+
+Projection onto the simplex ensures:
+\begin{equation}
+\sum_k \tilde{x}_{i,k} = 1
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Consensus and Byzantine Model}
+
+\begin{assumption}
+At most $f < n/3$ nodes are Byzantine.
+\end{assumption}
+
+Nodes run a BFT consensus protocol (e.g., PBFT or HotStuff) to agree on $\mathbf{X}$.
+
+\begin{theorem}[Safety]
+If $f < n/3$, all honest nodes agree on the same committed state.
+\end{theorem}
+
+\textit{Argument.}
+This follows from standard BFT safety guarantees under partial synchrony.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Compositional Safety}
+
+\begin{proposition}
+If all honest nodes enforce local admissibility and consensus ensures consistent state views, then system-wide admissibility violations can be detected and blocked.
+\end{proposition}
+
+\textit{Interpretation.}
+Local enforcement combined with global agreement prevents inconsistent execution.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Distributed Recoverability}
+
+\begin{definition}
+\begin{equation}
+R^{dist}(\mathbf{X}) = \frac{1}{|H|} \sum_{i \in H} R_i(\tilde{\mathbf{x}}_i)
+\end{equation}
+\end{definition}
+
+\begin{definition}
+\begin{equation}
+R_i^{min} = \min_{i \in H} R_i(\tilde{\mathbf{x}}_i)
+\end{equation}
+\end{definition}
+
+\begin{proposition}
+\begin{equation}
+\min_i R_i \le R^{dist} \le \max_i R_i
+\end{equation}
+\end{proposition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Failure Modes}
+
+\begin{itemize}
+\item \textbf{Local violation:} Node attempts inadmissible action.
+\item \textbf{Consensus lag:} Delayed propagation of state.
+\item \textbf{Partition:} Graph disconnects.
+\end{itemize}
+
+The kernel mitigates these through validation, consensus, and recovery.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Interception Example}
+
+In a five-node network, a node attempts to increase autonomy beyond capacity. Validation blocks execution, consensus propagates the violation, and recovery dynamics restore system balance.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+
+The Trust Kernel shows that admissibility and recoverability can be enforced in distributed systems. The architecture composes local invariants into global guarantees under standard fault assumptions.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+
+We presented a distributed architecture for governed autonomy. The Trust Kernel integrates validation, attestation, and recovery to enforce capacity constraints across nodes.
+
+\end{document}
