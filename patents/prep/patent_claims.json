@@ -1,0 +1,119 @@
+{
+  "application_type": "US_provisional",
+  "filing_date": "TBD",
+  "priority_date": "TBD",
+  "inventors": ["TBD"],
+  "claims": [
+    {
+      "number": 1,
+      "type": "independent",
+      "category": "method",
+      "elements": [
+        "receiving sensor inputs at decision commit point",
+        "evaluating sufficiency against required signal registry",
+        "evaluating admissibility through fail-closed gate",
+        "computing scalar reserve from degradation factors",
+        "assigning triage level",
+        "binding evaluation to immutable commit record with cryptographic hash"
+      ]
+    },
+    {
+      "number": 2,
+      "type": "independent",
+      "category": "method",
+      "depends_on": 1,
+      "elements": [
+        "same core pipeline across human medical, robotic, AI domains",
+        "domain-specific behavior via configuration only"
+      ]
+    },
+    {
+      "number": 3,
+      "type": "independent",
+      "category": "method",
+      "depends_on": 1,
+      "elements": [
+        "emitting governance events to canonical database",
+        "receiving canonical updates from canonical database",
+        "applying canonical updates to local configuration"
+      ]
+    },
+    {
+      "number": 4,
+      "type": "dependent",
+      "category": "method",
+      "depends_on": 1,
+      "elements": [
+        "scalar reserve adjusted by observability factor",
+        "low observability reduces scalar and triggers inadmissibility"
+      ]
+    },
+    {
+      "number": 5,
+      "type": "dependent",
+      "category": "method",
+      "depends_on": 1,
+      "elements": [
+        "evaluating coherence between sensor signals",
+        "triggering inadmissibility on coherence violation"
+      ]
+    },
+    {
+      "number": 6,
+      "type": "dependent",
+      "category": "method",
+      "depends_on": 1,
+      "elements": [
+        "hard safety triggers: no pulse, no breathing, critical perfusion failure",
+        "loss of control, loss of authority, low observability",
+        "incoherent signals, sufficiency failure"
+      ]
+    },
+    {
+      "number": 7,
+      "type": "dependent",
+      "category": "method",
+      "depends_on": 1,
+      "elements": [
+        "triage levels: GREEN, YELLOW, ORANGE, RED, BLACK"
+      ]
+    },
+    {
+      "number": 8,
+      "type": "dependent",
+      "category": "method",
+      "depends_on": 1,
+      "elements": [
+        "cryptographic hash is SHA-256 over canonical JSON"
+      ]
+    },
+    {
+      "number": 9,
+      "type": "dependent",
+      "category": "method",
+      "depends_on": 3,
+      "elements": [
+        "canonical database platform-agnostic",
+        "supports git commit, webhook, file drop, polling"
+      ]
+    },
+    {
+      "number": 10,
+      "type": "dependent",
+      "category": "computer_readable_medium",
+      "depends_on": 1,
+      "elements": [
+        "non-transitory computer-readable medium storing instructions",
+        "instructions cause processor to perform method of Claim 1"
+      ]
+    }
+  ],
+  "drawings": [
+    {"figure": 1, "title": "Pipeline flowchart"},
+    {"figure": 2, "title": "Domain config comparison"},
+    {"figure": 3, "title": "Commit record structure"},
+    {"figure": 4, "title": "Bidirectional StegDB architecture"},
+    {"figure": 5, "title": "Triage level decision tree"}
+  ],
+  "status": "framework_complete_pending_attorney_review"
+}
