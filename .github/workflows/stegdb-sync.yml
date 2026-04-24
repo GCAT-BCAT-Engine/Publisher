@@ -1,0 +1,35 @@
+name: StegDB Publisher Sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'papers/**'
+      - 'patents/**'
+      - 'social_media/**'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install -e "." || true
+      - name: Export to StegDB
+        run: |
+          python -c "
+from publisher.submission_tracker import SubmissionTracker
+tracker = SubmissionTracker()
+tracker.export_for_stegdb('stegdb_publisher_export.json')
+print('Exported publisher data for StegDB ingestion')
+"
+      - name: Commit export
+        run: |
+          git add stegdb_publisher_export.json || true
+          git commit -m "chore: export publisher data to StegDB [skip ci]" || true
+          git push || true
