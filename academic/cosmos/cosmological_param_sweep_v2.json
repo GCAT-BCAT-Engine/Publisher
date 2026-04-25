@@ -1,0 +1,32 @@
+[
+  {
+    "alpha": 0.1,
+    "omega_matter": 0.106706,
+    "omega_dark_matter": 0.670612,
+    "omega_dark_energy": 0.222682
+  },
+  {
+    "alpha": 0.5,
+    "omega_matter": 0.106706,
+    "omega_dark_matter": 0.670612,
+    "omega_dark_energy": 0.222682
+  },
+  {
+    "alpha": 1.0,
+    "omega_matter": 0.106706,
+    "omega_dark_matter": 0.670612,
+    "omega_dark_energy": 0.222682
+  },
+  {
+    "alpha": 2.0,
+    "omega_matter": 0.106706,
+    "omega_dark_matter": 0.670612,
+    "omega_dark_energy": 0.222682
+  },
+  {
+    "alpha": 5.0,
+    "omega_matter": 0.106706,
+    "omega_dark_matter": 0.670612,
+    "omega_dark_energy": 0.222682
+  }
+]

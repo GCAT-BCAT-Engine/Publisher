@@ -1,0 +1,162 @@
+[
+  {
+    "alpha": 0.1,
+    "epsilon": 1e-08,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 0.1,
+    "epsilon": 1e-06,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 0.1,
+    "epsilon": 0.0001,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 0.1,
+    "epsilon": 0.01,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 0.5,
+    "epsilon": 1e-08,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 0.5,
+    "epsilon": 1e-06,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 0.5,
+    "epsilon": 0.0001,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 0.5,
+    "epsilon": 0.01,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 1.0,
+    "epsilon": 1e-08,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 1.0,
+    "epsilon": 1e-06,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 1.0,
+    "epsilon": 0.0001,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 1.0,
+    "epsilon": 0.01,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 2.0,
+    "epsilon": 1e-08,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 2.0,
+    "epsilon": 1e-06,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 2.0,
+    "epsilon": 0.0001,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 2.0,
+    "epsilon": 0.01,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 5.0,
+    "epsilon": 1e-08,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 5.0,
+    "epsilon": 1e-06,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 5.0,
+    "epsilon": 0.0001,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  },
+  {
+    "alpha": 5.0,
+    "epsilon": 0.01,
+    "allow_rate": 0.008,
+    "omega_matter": 0.0,
+    "omega_dark_matter": 0.0,
+    "omega_dark_energy": 1.0
+  }
+]
