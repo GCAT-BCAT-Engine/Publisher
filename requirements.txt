@@ -1,0 +1,2 @@
+# Publisher dependencies
+requests>=2.28.0
