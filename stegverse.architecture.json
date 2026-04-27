@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "repo_id": "Publisher",
+  "repo_type": "publisher",
+  "description": "GCAT-BCAT-Engine Publisher \u2014 paper submissions, patent filings, social media, trace archival",
+  "inherits_from": "https://github.com/StegVerse-Labs/StegDB/blob/main/canonical/overlays/PublisherOverlay",
+  "enforcement": "warn",
+  "expected_structure": {
+    "academic": {
+      "required": true,
+      "purpose": "Academic papers organized by project/phase",
+      "subdirs": {
+        "P0-P8": {
+          "required": true,
+          "purpose": "GCAT/BCAT foundational papers P0-P8"
+        },
+        "cosmos": {
+          "required": true,
+          "purpose": "Cosmology and extended applications"
+        }
+      }
+    },
+    "patents": {
+      "required": true,
+      "purpose": "Patent filings and provisional applications"
+    },
+    "proposals": {
+      "required": true,
+      "purpose": "Funding proposals (SBIR, grants, etc.)"
+    },
+    "publisher": {
+      "required": true,
+      "purpose": "Publisher core modules and StegDB integration",
+      "subdirs": {}
+    },
+    "scripts": {
+      "required": true,
+      "purpose": "Automation and utility scripts"
+    },
+    "docs": {
+      "required": true,
+      "purpose": "Documentation and specifications"
+    },
+    ".github": {
+      "required": true,
+      "purpose": "CI workflows for sync, guardrails, social media",
+      "subdirs": {
+        "workflows": {
+          "required": true,
+          "purpose": "GitHub Actions workflows"
+        }
+      }
+    }
+  },
+  "file_rules": {
+    "naming_conventions": {
+      "papers": "P{number}_{short_title}.md",
+      "patents": "{patent_office}_{application_number}.md",
+      "proposals": "{agency}_{program}_{date}.md"
+    },
+    "required_extensions": {
+      "papers": ".md",
+      "scripts": ".py",
+      "workflows": ".yml"
+    }
+  },
+  "integration_points": {
+    "continuity_vault_kit": {
+      "endpoint": "vault_ingestion",
+      "purpose": "Receive opt-in shared data for research aggregation",
+      "data_types": [
+        "01_Notes",
+        "02_Research",
+        "04_Media",
+        "05_Projects",
+        "metadata_only"
+      ]
+    },
+    "aacte_demo": {
+      "endpoint": "status_ingestion",
+      "purpose": "Ingest CI verification status for paper backing",
+      "event_types": [
+        "verification.passed",
+        "verification.failed",
+        "milestone.reached"
+      ]
+    },
+    "stegdb": {
+      "endpoint": "governance_events",
+      "purpose": "Emit publication events and receive canonical policies",
+      "event_types": [
+        "publisher.submission",
+        "publisher.patent_filing",
+        "publisher.paper_draft",
+        "publisher.social_media"
+      ]
+    }
+  },
+  "migration_rules": {
+    "review_needed_path": "review_needed/",
+    "legacy_path": "legacy/",
+    "auto_migrate": false,
+    "require_approval": true
+  },
+  "validation_hooks": {
+    "pre_commit": false,
+    "ci_pull_request": true,
+    "ci_push_main": true,
+    "scheduled_audit": "0 6 * * 1"
+  }
+}
