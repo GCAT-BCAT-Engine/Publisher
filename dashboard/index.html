@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AaCT-E Dashboard</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; }
+        h1 { border-bottom: 2px solid #333; padding-bottom: 10px; }
+        .status-ok { color: #2ea44f; }
+        .status-fail { color: #cf222e; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #ddd; }
+        th { background: #f6f8fa; }
+        .meta { color: #666; font-size: 14px; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <h1>AaCT-E Demo Status</h1>
+    <p>Live monitoring of <a href="https://github.com/AaCT-E/demo">AaCT-E/demo</a></p>
+
+    <div id="latest"></div>
+
+    <script>
+        // This would be populated by the Publisher backend
+        // For now, it's a template showing the expected structure
+        const sample = {
+            schema_version: "2.0.0",
+            version: "v0.2.0",
+            status: "success",
+            timestamp_utc: "2026-04-26T20:00:00Z",
+            traces: [
+                {scenario: "unsafe_merge", decision: "DENY", proposal_min_separation_nm: 1.198, recovery_reachable: true},
+                {scenario: "safe_hold", decision: "ALLOW", proposal_min_separation_nm: 8.062, recovery_reachable: true}
+            ]
+        };
+
+        function render(data) {
+            const statusClass = data.status === "success" ? "status-ok" : "status-fail";
+            let html = `
+                <h2 class="${statusClass}">${data.status.toUpperCase()} — ${data.version}</h2>
+                <p>${data.timestamp_utc}</p>
+                <table>
+                    <tr><th>Scenario</th><th>Decision</th><th>Min Separation</th><th>Recovery</th></tr>
+            `;
+            for (const t of data.traces) {
+                const decisionClass = t.decision === "ALLOW" ? "status-ok" : "status-fail";
+                html += `<tr>
+                    <td>${t.scenario}</td>
+                    <td class="${decisionClass}">${t.decision}</td>
+                    <td>${t.proposal_min_separation_nm.toFixed(3)} nm</td>
+                    <td>${t.recovery_reachable ? "✅" : "❌"}</td>
+                </tr>`;
+            }
+            html += `</table>`;
+            document.getElementById("latest").innerHTML = html;
+        }
+
+        render(sample);
+    </script>
+
+    <div class="meta">
+        <p>Part of the <a href="https://github.com/GCAT-BCAT-Engine">GCAT/BCAT</a> ecosystem</p>
+    </div>
+</body>
+</html>
