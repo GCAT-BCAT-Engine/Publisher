@@ -1,38 +1,82 @@
-# GCAT-BCAT-Engine Publisher
+# StegVerse Publisher
 
-> **Paper publishing, social media, and ecosystem coordination for the GCAT/BCAT research group.**
+**Cross-org publication orchestration for the StegVerse ecosystem.**
 
-## Integration with AaCT-E
+## What It Provides
 
-This repository ingests status reports from [AaCT-E/demo](https://github.com/AaCT-E/demo) to:
+| Module | Purpose |
+|--------|---------|
+| `core.receipt_writer` | Deterministic publication receipts |
+| `core.publication_gate` | ALLOW/DENY → publish/quarantine/block |
+| `core.result_snapshot` | Immutable result capture |
+| `routing.release_router` | Research/demo/press routing |
+| `routing.channel_manager` | Cross-org target resolution |
+| `routing.notary` | Pre-transition notarization |
+| `surfaces.demo_sync` | Demo artifact publishing |
+| `surfaces.badge_generator` | Reproducibility badges |
+| `surfaces.evidence_builder` | Claim-to-figure linking |
+| `external.dataset_exporter` | Open data catalog |
+| `external.review_packet` | Open review submissions |
+| `external.press_summary` | Social media / press |
+| `health.publication_monitor` | Pipeline health checks |
 
-- Track verification health across releases
-- Archive reproducible trace artifacts
-- Coordinate social media announcements
-- Link papers to executable evidence
+## Install
+
+```bash
+pip install stegverse-publisher
+```
+
+## Requires
+
+- `stegverse-core-lite >= 1.0.0`
+- `stegverse-core-full >= 1.0.0`
+- `stegverse-core-addons >= 1.0.0`
 
 ## Quick Start
 
-```bash
-pip install -r requirements.txt
-python scripts/ingest_aacte_status.py --status-file status.json
-python scripts/social_media_scheduler.py --status-file status.json --dry-run
+```python
+from publication_plane.core.publication_gate import PublicationGate
+from publication_plane.core.receipt_writer import PublicationReceiptWriter
+
+# Evaluate gate
+gate = PublicationGate()
+decision = gate.evaluate(
+    gate_result="ALLOW",
+    confidence=0.947,
+    evidence={"passes": 3},
+    seed="run-001"
+)
+
+# Write receipt if permitted
+if decision["action"] == "publish":
+    writer = PublicationReceiptWriter(seed="run-001")
+    receipt = writer.write(
+        gate_result="ALLOW",
+        confidence=0.947,
+        evidence=decision,
+        module="my_module",
+        destination="GCAT-BCAT-Engine/Publisher"
+    )
+    print(f"Published: {receipt}")
 ```
 
-## Directory Structure
+## Architecture
 
-| Path | Purpose |
-|------|---------|
-| `scripts/ingest_aacte_status.py` | Parse AaCT-E status into dashboard DB |
-| `scripts/social_media_scheduler.py` | Queue posts for milestones |
-| `scripts/archive_traces.py` | Long-term trace archival |
-| `templates/` | Social media post templates |
-| `dashboard/` | HTML status dashboard |
-| `.github/workflows/publisher-sync.yml` | Daily sync from AaCT-E CI |
+Publisher consumes Core-Components via Protocol injection:
 
-## Ecosystem
+```
+Publisher → stegverse-core-lite (receipts, hashing)
+         → stegverse-core-full (governance, monitoring, notary)
+         → stegverse-core-addons (LLM, analytics, cross-org, badges, press)
+```
 
-- **Theory:** [GCAT-BCAT-Engine](https://github.com/GCAT-BCAT-Engine)
-- **Demo:** [AaCT-E/demo](https://github.com/AaCT-E/demo)
-- **Monitor:** [StegVerse-Labs/StegDB](https://github.com/StegVerse-Labs/StegDB)
-- **SDK:** [StegVerse-Labs/SDK](https://github.com/StegVerse-Labs/SDK)
+## License
+
+Commercial — see LICENSE file.
+
+## Ecosystem Tiers
+
+- **Lite** — Free primitives ([core-lite](https://github.com/GCAT-BCAT-Engine/core-lite))
+- **Full** — Governance suite ([core-full](https://github.com/GCAT-BCAT-Engine/core-full))
+- **Add-ons** — À la carte extensions ([core-addons](https://github.com/GCAT-BCAT-Engine/core-addons))
+- **Publisher** — This package: publication orchestration
