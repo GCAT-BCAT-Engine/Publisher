@@ -1,0 +1,40 @@
+name: Generate Papers JSON
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'publisher/papers_manifest.yml'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PyYAML
+        run: pip install pyyaml
+
+      - name: Generate papers.json
+        run: |
+          python -c "
+          import yaml, json
+          with open('publisher/papers_manifest.yml') as f:
+              data = yaml.safe_load(f)
+          with open('publisher/papers.json', 'w') as f:
+              json.dump(data['papers'], f, indent=2)
+          print(f'Generated papers.json with {len(data["papers"])} papers')
+          "
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add publisher/papers.json
+          git diff --cached --quiet || (git commit -m "chore: regenerate papers.json from manifest" && git push)
