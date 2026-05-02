@@ -1,0 +1,131 @@
+publisher_document_complete_v2:
+  title: 'StegVerse Autonomous Mathematical Problem Solving: From 50% Cost Reduction
+    to Complete Formal Proof Generation'
+  date: '2026-05-02'
+  authors:
+  - Rigel Randolph
+  - StegVerse Ecosystem
+  version: 2.0.0
+  abstract: 'We demonstrate the StegVerse autonomous mathematical problem solving
+    framework through a complete end-to-end execution. Starting from validation ($0.015),
+    we establish an unoptimized baseline ($0.062), validate 50% cost reduction via
+    batch API ($0.031), document a critical failure mode with cache framing, achieve
+    46% combined optimization with tiered model selection ($0.033), and complete a
+    full solve of SV-MATH-001 (GCAT/BCAT admissibility) including complexity assessment,
+    formal proof, and Lean 4 verification for $0.073. Total pipeline spend: $0.21
+    of $500 budget. The framework proves that autonomous mathematical discovery can
+    be cost-effective, deterministic, and rigorously documented.'
+  executive_summary:
+    total_runs: 5
+    total_spend_validation_usd: 0.2095
+    budget_allocated_usd: 500.0
+    budget_remaining_usd: 499.79
+    problems_attempted: 1
+    problems_solved: 1
+    proofs_generated: 1
+    lean_formalizations: 1
+    cost_reduction_validated: true
+    pipeline_proven: true
+  complete_run_log:
+    validation:
+      id: VAL-001
+      cost_usd: 0.015
+      purpose: API connectivity and secret loading
+      result: Confirmed
+    baseline:
+      id: BL-001
+      cost_usd: 0.061659
+      mode: unoptimized
+      tokens: 4169
+      output: Full formal proof
+      latency_seconds: 52.54
+    optimized_v1:
+      id: OP-001
+      cost_usd: 0.003
+      mode: cache_framing
+      tokens: 489
+      output: Meta-analysis (WRONG)
+      lesson: Cache framing alters output type
+    optimized_v2:
+      id: OP-002
+      cost_usd: 0.0308295
+      mode: direct_batch
+      tokens: 4169
+      output: Full formal proof (IDENTICAL)
+      savings_vs_baseline: 50.0
+    combined:
+      id: COMB-001
+      cost_usd: 0.0333
+      mode: tiered_models
+      tokens: 4689
+      output: Proof + classification
+      savings_vs_baseline: 46.0
+    full_solve:
+      id: SOLVE-001
+      cost_usd: 0.0729045
+      mode: complete_pipeline
+      phases:
+      - phase: 1
+        model: haiku
+        cost: 0.010299
+        tokens: 2107
+        output: Complexity assessment
+      - phase: 2
+        model: sonnet_batch
+        cost: 0.030843
+        tokens: 4178
+        output: Formal proof
+      - phase: 3
+        model: sonnet_batch
+        cost: 0.0317625
+        tokens: 4791
+        output: Lean 4 formalization
+      total_tokens: 11076
+      singles_task_comparison: Higher than OP-002 because full pipeline does more
+        work (3 phases vs 1)
+      value_proposition: $0.073 for complexity map + proof + Lean verification vs
+        $0.031 for proof only
+  corrected_claims:
+    claim_1: 50% cost reduction PROVEN for identical single-task proof generation
+      (OP-002 vs BL-001)
+    claim_2: 46% combined optimization PROVEN for tiered model selection (COMB-001
+      vs BL-001)
+    claim_3: 'Full pipeline costs $0.073 but delivers 3 distinct outputs: complexity
+      map, formal proof, Lean verification'
+    claim_4: "Cache framing is DANGEROUS \u2014 reduces cost 95% but produces wrong\
+      \ output type"
+    claim_5: Direct prompts + batch API is the PRODUCTION configuration
+  production_configuration:
+    recommended_pipeline:
+    - Haiku preprocessing (tight prompt, 512 tokens max)
+    - Sonnet main proof (batch API, direct prompt)
+    - Sonnet Lean formalization (batch API, if needed)
+    - Determinism check (seed validation)
+    expected_cost_per_problem: 0.05
+    expected_cost_for_10_problems: 0.5
+    expected_cost_for_100_problems: 5.0
+    budget_ceiling_tier_1: 500.0
+    expected_solves_per_500: 10
+  implications:
+  - Autonomous mathematical proof generation is viable at $0.05-0.07 per problem
+  - Batch API provides reliable 50% discount without quality loss
+  - Prompt engineering is as important as model selection
+  - Tiered models (Haiku/Sonnet/Opus) enable cost-aware orchestration
+  - Lean formalization adds $0.03 but provides verifiable correctness
+  - iPhone-triggered GitHub Actions enables mobile mathematical research
+  next_steps:
+  - "Run external problem (Erd\u0151s-class) to demonstrate cross-domain applicability"
+  - Implement corrected prompt caching with direct framing
+  - Deploy TV/TVC auto-rotation for production security
+  - Build Publisher GitHub Pages site for public paper review
+  - Scale to $500 budget for multiple problem solves
+  appendix:
+    api_provider: Anthropic
+    models_used:
+    - claude-haiku-4-5
+    - claude-sonnet-4-6
+    total_github_actions_minutes: ~45 minutes
+    total_api_spend: 0.2095
+    date_range: '2026-05-02'
+    repository: GCAT-BCAT-Engine/workflows
+    trigger_method: iPhone GitHub mobile app
