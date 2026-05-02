@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StegVerse Publisher — Papers</title>
+  <link rel="stylesheet" href="../assets/css/demo-styles.css">
+  <link rel="stylesheet" href="./publisher.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="https://stegverse.org" class="nav-brand">StegVerse</a>
+    <div class="nav-links">
+      <a href="https://stegverse.org">Home</a>
+      <a href="https://stegverse.org/demo.html">Demo</a>
+      <a href="./papers.html" class="active">Papers</a>
+    </div>
+  </nav>
+
+  <header class="publisher-header">
+    <div class="header-content">
+      <h1>StegVerse Publisher</h1>
+      <p class="header-subtitle">Peer-reviewable papers from the StegVerse ecosystem. 
+        Formal proofs, cost analyses, and architectural specifications.</p>
+      <div class="header-meta">
+        <span class="meta-badge" id="paper-count">Loading…</span>
+        <span class="meta-badge" id="featured-count">Loading…</span>
+        <span class="meta-badge license">CC-BY-4.0</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="publisher-main">
+    <!-- Filter Bar -->
+    <section class="filter-bar">
+      <div class="filter-group">
+        <label for="category-filter">Category</label>
+        <select id="category-filter">
+          <option value="all">All Categories</option>
+          <option value="cost_optimization">Cost Optimization</option>
+          <option value="formal_methods">Formal Methods</option>
+          <option value="philosophy_of_computation">Philosophy of Computation</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="status-filter">Status</label>
+        <select id="status-filter">
+          <option value="all">All Statuses</option>
+          <option value="published">Published</option>
+          <option value="draft">Draft</option>
+          <option value="under_review">Under Review</option>
+        </select>
+      </div>
+      <div class="filter-group search-group">
+        <label for="search-input">Search</label>
+        <input type="text" id="search-input" placeholder="Title, author, tag…" autocomplete="off">
+      </div>
+    </section>
+
+    <!-- Featured Paper (dynamic) -->
+    <section id="featured-section" class="featured-section"></section>
+
+    <!-- Paper Grid -->
+    <section class="paper-grid" id="paper-grid"></section>
+
+    <!-- Empty State -->
+    <section id="empty-state" class="empty-state" style="display:none;">
+      <p>No papers match the current filters.</p>
+    </section>
+  </main>
+
+  <footer class="publisher-footer">
+    <p>StegVerse Publisher — Papers are CC-BY-4.0 unless otherwise noted.</p>
+    <p class="footer-small">Built with commit-time admissibility. Every paper is a state transition.</p>
+  </footer>
+
+  <script src="./publisher.js"></script>
+</body>
+</html>

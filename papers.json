@@ -1,0 +1,106 @@
+[
+  {
+    "id": "sv-cost-reduction-2026",
+    "title": "StegVerse Cost Reduction Demonstration: Validated 50% Batch Savings and 46% Production Tiered Routing",
+    "subtitle": "With Preserved Formal-Proof Output Quality",
+    "authors": [
+      {
+        "name": "Rigel Randolph",
+        "affiliation": "StegVerse Ecosystem",
+        "orcid": null
+      },
+      {
+        "name": "StegVerse Ecosystem",
+        "affiliation": "Governance",
+        "orcid": null
+      }
+    ],
+    "date": "2026-05-02",
+    "version": "1.0.0",
+    "status": "published",
+    "category": "cost_optimization",
+    "tags": [
+      "GCAT/BCAT",
+      "cost reduction",
+      "batch optimization",
+      "tiered routing",
+      "formal proof"
+    ],
+    "abstract": "We demonstrate that the StegVerse autonomous mathematical problem-solving framework achieves measurable cost reduction through execution-path optimization. Starting from an unoptimized baseline of $0.061659 per problem, we validate a 50% cost reduction through direct batch execution at $0.0308295 while preserving identical formal-proof output quality. We document a critical negative result: cache-framing reduced apparent cost to $0.003 but changed the semantic output type, making it an invalid optimization. The recommended production configuration is a tiered Haiku preprocessing plus Sonnet batch proof-generation pipeline, which costs $0.0333 per problem, preserves full proof quality, adds routing intelligence, and achieves a 46% savings versus baseline.",
+    "doi": null,
+    "pdf_url": null,
+    "html_url": "./papers/sv-cost-reduction-2026.html",
+    "source_repo": "GCAT-BCAT-Engine/workflows",
+    "license": "CC-BY-4.0",
+    "peer_review": false,
+    "citations": 0,
+    "downloads": 0,
+    "featured": true
+  },
+  {
+    "id": "sv-gcat-bcat-admissibility-2026",
+    "title": "GCAT/BCAT Admissibility: Complete Invariant Characterization",
+    "subtitle": "A Categorical Rewriting System for Commit-Time Constraints",
+    "authors": [
+      {
+        "name": "Rigel Randolph",
+        "affiliation": "StegVerse Ecosystem",
+        "orcid": null
+      }
+    ],
+    "date": "2026-05-01",
+    "version": "0.9.0",
+    "status": "draft",
+    "category": "formal_methods",
+    "tags": [
+      "GCAT/BCAT",
+      "admissibility",
+      "invariants",
+      "categorical rewriting",
+      "commit-time"
+    ],
+    "abstract": "This paper establishes the complete invariant characterization for GCAT/BCAT admissibility within a categorical rewriting system. We derive the conditions under which a state transition is admissible at commit-time, proving that the boundary between evaluation and execution is precisely the locus of ontological divergence.",
+    "doi": null,
+    "pdf_url": null,
+    "html_url": null,
+    "source_repo": "GCAT-BCAT-Engine",
+    "license": "CC-BY-4.0",
+    "peer_review": false,
+    "citations": 0,
+    "downloads": 0,
+    "featured": false
+  },
+  {
+    "id": "sv-god-framework-2026",
+    "title": "Geometrically Ontological Divergence: The GOD Framework",
+    "subtitle": "Compression, Boundary, and Irreducible Divergence in Computational Ontology",
+    "authors": [
+      {
+        "name": "Rigel Randolph",
+        "affiliation": "StegVerse Ecosystem",
+        "orcid": null
+      }
+    ],
+    "date": "2026-04-28",
+    "version": "0.5.0",
+    "status": "draft",
+    "category": "philosophy_of_computation",
+    "tags": [
+      "GOD",
+      "ontology",
+      "geometry",
+      "divergence",
+      "compression"
+    ],
+    "abstract": "We introduce Geometrically Ontological Divergence (GOD) as the compression point where GCAT/BCAT geometric boundary meets ontological becoming meets irreducible divergence. This is the primitive's self-naming, consequential to the first breakdown, and the foundational concept immortalized in the StegVerse architecture.",
+    "doi": null,
+    "pdf_url": null,
+    "html_url": null,
+    "source_repo": "GCAT-BCAT-Engine",
+    "license": "CC-BY-4.0",
+    "peer_review": false,
+    "citations": 0,
+    "downloads": 0,
+    "featured": false
+  }
+]

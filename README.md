@@ -1,82 +1,125 @@
 # StegVerse Publisher
 
-**Cross-org publication orchestration for the StegVerse ecosystem.**
-
-## What It Provides
-
-| Module | Purpose |
-|--------|---------|
-| `core.receipt_writer` | Deterministic publication receipts |
-| `core.publication_gate` | ALLOW/DENY → publish/quarantine/block |
-| `core.result_snapshot` | Immutable result capture |
-| `routing.release_router` | Research/demo/press routing |
-| `routing.channel_manager` | Cross-org target resolution |
-| `routing.notary` | Pre-transition notarization |
-| `surfaces.demo_sync` | Demo artifact publishing |
-| `surfaces.badge_generator` | Reproducibility badges |
-| `surfaces.evidence_builder` | Claim-to-figure linking |
-| `external.dataset_exporter` | Open data catalog |
-| `external.review_packet` | Open review submissions |
-| `external.press_summary` | Social media / press |
-| `health.publication_monitor` | Pipeline health checks |
-
-## Install
-
-```bash
-pip install stegverse-publisher
-```
-
-## Requires
-
-- `stegverse-core-lite >= 1.0.0`
-- `stegverse-core-full >= 1.0.0`
-- `stegverse-core-addons >= 1.0.0`
-
-## Quick Start
-
-```python
-from publication_plane.core.publication_gate import PublicationGate
-from publication_plane.core.receipt_writer import PublicationReceiptWriter
-
-# Evaluate gate
-gate = PublicationGate()
-decision = gate.evaluate(
-    gate_result="ALLOW",
-    confidence=0.947,
-    evidence={"passes": 3},
-    seed="run-001"
-)
-
-# Write receipt if permitted
-if decision["action"] == "publish":
-    writer = PublicationReceiptWriter(seed="run-001")
-    receipt = writer.write(
-        gate_result="ALLOW",
-        confidence=0.947,
-        evidence=decision,
-        module="my_module",
-        destination="GCAT-BCAT-Engine/Publisher"
-    )
-    print(f"Published: {receipt}")
-```
+A lightweight, static-site paper publishing system for the StegVerse ecosystem. No backend required. Papers are declared in a YAML manifest, rendered by vanilla JS, and served from any static host (CloudFlare Pages, GitHub Pages, etc.).
 
 ## Architecture
 
-Publisher consumes Core-Components via Protocol injection:
+```
+publisher/
+├── papers.html              # Listing page (filterable grid)
+├── publisher.css            # Shared styles
+├── publisher.js             # Frontend controller
+├── papers.json              # Generated from manifest (runtime data)
+├── papers_manifest.yml      # Source of truth (human-editable)
+├── papers/
+│   └── sv-cost-reduction-2026.html   # Individual paper pages
+└── README.md
+```
+
+## How It Works
+
+1. **Add a paper** to `papers_manifest.yml`
+2. **Generate** `papers.json` (one-time or CI step)
+3. **Create** the individual paper HTML page in `papers/`
+4. **Deploy** — everything is static
+
+## papers_manifest.yml Format
+
+```yaml
+papers:
+  - id: unique-paper-id
+    title: "Paper Title"
+    subtitle: "Optional subtitle"
+    authors:
+      - name: Author Name
+        affiliation: Institution
+        orcid: 0000-0000-0000-0000
+    date: "2026-05-02"
+    version: "1.0.0"
+    status: published          # published | draft | under_review
+    category: cost_optimization
+    tags: [tag1, tag2]
+    abstract: "..."
+    doi: null                  # or "10.xxxx/xxxxx"
+    pdf_url: null              # or "./papers/paper.pdf"
+    html_url: "./papers/paper.html"
+    source_repo: "Org/Repo"
+    license: "CC-BY-4.0"
+    peer_review: false
+    citations: 0
+    downloads: 0
+    featured: true             # one featured paper shown at top
+```
+
+## Categories
+
+- `cost_optimization`
+- `formal_methods`
+- `philosophy_of_computation`
+- `architecture`
+- `governance`
+- `experimental`
+
+## Generating papers.json
+
+```bash
+# Requires Python + PyYAML
+python -c "
+import yaml, json
+with open('papers_manifest.yml') as f:
+    data = yaml.safe_load(f)
+with open('papers.json', 'w') as f:
+    json.dump(data['papers'], f, indent=2)
+"
+```
+
+Or use the GitHub Action (see `.github/workflows/generate-papers.yml`).
+
+## Integration with StegVerse Site
+
+The Publisher lives as a subdirectory of the main site:
 
 ```
-Publisher → stegverse-core-lite (receipts, hashing)
-         → stegverse-core-full (governance, monitoring, notary)
-         → stegverse-core-addons (LLM, analytics, cross-org, badges, press)
+Site/
+├── index.html
+├── demo.html
+├── assets/
+│   └── css/
+│       └── demo-styles.css
+└── publisher/          # ← this directory
+    ├── papers.html
+    ├── publisher.css
+    ├── publisher.js
+    ├── papers.json
+    ├── papers_manifest.yml
+    └── papers/
+        └── *.html
 ```
+
+Navigation links between pages use relative paths:
+- Home → `https://stegverse.org`
+- Demo → `https://stegverse.org/demo.html`
+- Papers → `https://stegverse.org/publisher/papers.html`
+
+## Design Principles
+
+1. **No build step required** — vanilla JS, no frameworks
+2. **No backend required** — static JSON feed
+3. **Commit-time admissibility** — every paper has a version, status, and audit trail
+4. **Semantic boundary enforcement** — rejected optimizations are preserved as negative results
+5. **CC-BY-4.0 default** — all papers open access unless otherwise noted
+
+## Roadmap
+
+- [ ] Auto-generate `papers.json` via GitHub Action on manifest push
+- [ ] PDF generation pipeline (pandoc + LaTeX)
+- [ ] DOI registration integration
+- [ ] Citation counter (via API or manual)
+- [ ] Peer review workflow (GitHub Issues → review threads)
+- [ ] RSS/Atom feed for new papers
+- [ ] OpenGraph meta tags for social sharing
 
 ## License
 
-Commercial — see LICENSE file.
-
-## Ecosystem Tiers
-
-- **Lite** — Free primitives ([core-lite](https://github.com/GCAT-BCAT-Engine/core-lite))
-- **Full** — Governance suite ([core-full](https://github.com/GCAT-BCAT-Engine/core-full))
-- **Add-ons** — À la carte extensions ([core-addons](https://github.com/GCAT-BCAT-Engine/core-addons))
-- **Publisher** — This package: publication orchestration
+Publisher system: MIT
+Papers content: CC-BY-4.0 (unless otherwise noted)
