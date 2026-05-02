@@ -1,0 +1,126 @@
+publisher_document_sv001_cost_reduction_v2:
+  title: StegVerse Cost Reduction Demonstration
+  subtitle: Validated 50% Batch Savings and 46% Production Tiered Routing with Preserved
+    Formal-Proof Output Quality
+  status: Review Draft
+  date: '2026-05-02'
+  authors:
+  - Rigel Randolph
+  - StegVerse Ecosystem
+  version: 1.1.0-review
+  license: CC-BY-4.0
+  source_repository: GCAT-BCAT-Engine/workflows
+  presentation_thesis: The admissible optimization is not the cheapest run; it is
+    the cheapest run that preserves task identity, output type, quality threshold,
+    and auditability.
+  abstract:
+  - We demonstrate that the StegVerse autonomous mathematical problem-solving framework
+    achieves measurable cost reduction through execution-path optimization. Starting
+    from an unoptimized baseline of $0.061659 per problem, we validate a 50% cost
+    reduction through direct batch execution at $0.0308295 while preserving the required
+    formal-proof output structure.
+  - 'We document a critical negative result: cache-framing reduced apparent cost to
+    $0.003 but changed the semantic output type, making it an invalid optimization.
+    The recommended production configuration is a tiered Haiku preprocessing plus
+    Sonnet batch proof-generation pipeline, which costs $0.0333 per problem, preserves
+    full proof quality, adds routing intelligence, and achieves a 46% savings versus
+    baseline.'
+  executive_summary:
+    baseline_cost_usd: 0.061659
+    best_validated_savings: 50% via direct batch (Sonnet)
+    recommended_production: 46% via tiered routing (Haiku → Sonnet batch)
+    invalid_optimization: 95% apparent savings rejected because it violated the semantic
+      task boundary
+    quality_maintained: The optimized direct-batch run preserved the required formal-proof
+      output type and structural proof components
+    total_validation_spend_usd: 0.1095
+    total_runs: 4
+  presentation_claim: StegVerse validated a 50% proof-generation cost reduction using
+    direct batch execution, while preserving the required formal-proof output structure.
+    Its recommended production routing achieves 46% savings by adding Haiku preprocessing
+    before Sonnet batch proof generation. A cheaper cache-framed run was rejected
+    because it changed the task.
+  claim_boundary:
+    what_this_paper_proves: This paper proves cost reduction for formal proof generation
+      under preserved task identity, output type, quality threshold, and auditability.
+    what_this_paper_does_not_claim: This paper does not claim that every optimization
+      path is valid, nor that the full autonomous research pipeline is cheaper than
+      a single proof-only run.
+    central_result: The cheapest admissible run is not the cheapest observed run.
+      The valid optimization is the cheapest run that preserves the semantic task
+      boundary.
+  quality_equivalence_criteria:
+    basis: Task identity, output type, and required structural components
+    valid_run_required:
+    - Formal proof for SV-MATH-001
+    - Definitions
+    - Theorem structure
+    - Proof reasoning
+    - Formal or categorical rewriting content
+    rejected_if:
+    - Cost reduction changes the requested task
+    - The proof is omitted
+    - Output becomes meta-analysis instead of proof content
+  methodology:
+    VAL-001:
+      purpose: Pipeline validation
+      cost_usd: 0.015
+      model: claude-sonnet-4-6
+      result: API connectivity confirmed, secret loading verified
+    BL-001:
+      mode: Unoptimized execution
+      model: claude-sonnet-4-6
+      cost_usd: 0.061659
+      tokens: 4169
+      latency_seconds: 52.54
+      output: Full formal proof with abstract, definitions, theorems, categorical
+        rewriting system
+    OP-001:
+      mode: Cache framing
+      verdict: REJECTED
+      cost_usd: 0.003
+      apparent_savings_percent: 95
+      tokens: 489
+      output: Meta-analysis of prompt injection rather than requested formal proof
+      lesson: Prompt structure determines output type, not just model capability
+    OP-002:
+      mode: Direct batch
+      verdict: VALIDATED
+      cost_usd: 0.0308295
+      savings_percent: 50
+      tokens: 4169
+      latency_seconds: 52.56
+      output: Full formal proof preserving required structural components
+    COMB-001:
+      mode: Tiered routing
+      verdict: RECOMMENDED PRODUCTION
+      cost_usd: 0.0333
+      savings_percent: 46
+      tokens: 4689
+      phases:
+      - Haiku preprocessing and complexity classification
+      - Sonnet batch main proof generation
+      - Escalation check; Opus not needed
+      output: Full proof plus classification
+  governance_interpretation:
+  - Cost optimization must itself be admissible. The optimized execution path must
+    preserve task identity, output type, quality threshold, and auditability. Apparent
+    savings are rejected when those conditions fail.
+  - OP-001 is therefore not a failed run in the ordinary sense. It is evidence that
+    optimization must be governed. A cheaper path that changes the task is not a cost
+    reduction; it is a semantic boundary violation.
+  extension_path: 'The next extension is the complete autonomous research pipeline:
+    Haiku complexity mapping, Sonnet extended reasoning, Lean formalization, determinism
+    verification, implication harvesting, and publisher documentation. This extension
+    should be reported separately from the proof-only cost-reduction result because
+    it produces more artifacts and therefore has a different cost basis.'
+  appendix:
+    api_provider: Anthropic
+    models_tested:
+    - claude-haiku-4-5
+    - claude-sonnet-4-6
+    - claude-opus-4-6
+    github_actions_minutes_used: ~15 minutes total
+    total_api_spend_validation_usd: 0.1095
+    date_range: '2026-05-02'
+    repository: GCAT-BCAT-Engine/workflows
