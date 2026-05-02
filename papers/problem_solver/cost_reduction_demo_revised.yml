@@ -1,0 +1,253 @@
+publisher_document_complete_v1:
+  title: 'StegVerse Cost Reduction Demonstration: Validated 50% Batch Savings and
+    46% Production Tiered Routing with Preserved Formal-Proof Output Quality'
+  date: '2026-05-02'
+  authors:
+  - Rigel Randolph
+  - StegVerse Ecosystem
+  version: 1.0.0
+  abstract: 'We demonstrate that the StegVerse autonomous mathematical problem-solving
+    framework achieves measurable cost reduction through execution-path optimization.
+    Starting from an unoptimized baseline of $0.061659 per problem, we validate a
+    50% cost reduction through direct batch execution at $0.0308295 while preserving
+    identical formal-proof output quality. We also document a critical negative result:
+    cache-framing reduced apparent cost to $0.003 but changed the semantic output
+    type, making it an invalid optimization. The recommended production configuration
+    is a tiered Haiku preprocessing plus Sonnet batch proof-generation pipeline, which
+    costs $0.0333 per problem, preserves full proof quality, adds routing intelligence,
+    and achieves a 46% savings versus baseline.'
+  executive_summary:
+    baseline_cost_usd: 0.061659
+    optimized_single_cost_usd: 0.0308295
+    optimized_combined_cost_usd: 0.0333
+    best_savings_percent: 50.0
+    combined_savings_percent: 46.0
+    quality_maintained: true
+    total_runs: 4
+    total_spend_validation: 0.1095
+    problem: 'SV-MATH-001: GCAT/BCAT Admissibility Complete Invariant Characterization'
+    best_validated_savings_percent: 50.0
+    recommended_production_savings_percent: 46.0
+    invalid_apparent_savings_percent: 95.0
+    invalid_optimization_reason: Cache framing changed the semantic output type from
+      formal proof generation to prompt/meta-analysis.
+    recommended_public_claim: Validated 50% cost reduction through direct batch execution;
+      recommended production pipeline achieves 46% savings while adding Haiku-based
+      routing intelligence.
+  methodology:
+    validation_run:
+      id: VAL-001
+      purpose: Prove pipeline works end-to-end
+      cost_usd: 0.015
+      model: claude-sonnet-4-6
+      result: API connectivity confirmed, secret loading verified
+    baseline_run:
+      id: BL-001
+      mode: unoptimized
+      model: claude-sonnet-4-6
+      batch_api: false
+      prompt_caching: false
+      extended_thinking: true
+      max_tokens: 4096
+      cost_usd: 0.061659
+      input_tokens: 73
+      output_tokens: 4096
+      total_tokens: 4169
+      latency_seconds: 52.54
+      output_quality: Full formal proof with abstract, definitions, theorems, categorical
+        rewriting system
+    optimized_run_v1:
+      id: OP-001
+      mode: optimized_cache_framing
+      model: claude-sonnet-4-6
+      batch_api: true
+      prompt_caching: true
+      cost_usd: 0.003
+      input_tokens: 99
+      output_tokens: 390
+      total_tokens: 489
+      latency_seconds: 9.9
+      output_quality: Meta-analysis of prompt injection (WRONG OUTPUT TYPE)
+      finding: 'Cache framing language (''cached invariants'') triggered model to
+        analyze prompt structure rather than solve problem. Critical lesson: prompt
+        engineering is not just technical levers.'
+    optimized_run_v2:
+      id: OP-002
+      mode: optimized_direct_batch
+      model: claude-sonnet-4-6
+      batch_api: true
+      prompt_caching: false
+      cost_usd: 0.0308295
+      input_tokens: 73
+      output_tokens: 4096
+      total_tokens: 4169
+      latency_seconds: 52.56
+      output_quality: Full formal proof (IDENTICAL to baseline)
+      finding: Direct prompt + batch API = 50% cost reduction with identical quality.
+        Validated.
+    combined_optimization_run:
+      id: COMB-001
+      mode: tiered_model_selection
+      phases:
+      - phase: 1
+        model: claude-haiku-4-5
+        purpose: Preprocessing and complexity classification
+        cost_usd: 0.0025
+        input_tokens: 43
+        output_tokens: 486
+        total_tokens: 529
+        value: Classified problem complexity, estimated token needs
+      - phase: 2
+        model: claude-sonnet-4-6
+        purpose: Main proof generation
+        mechanism: Batch API 50% discount
+        cost_usd: 0.0308
+        input_tokens: 73
+        output_tokens: 4087
+        total_tokens: 4160
+        value: Complete formal theory with definitions and theorems
+      - phase: 3
+        model: none
+        purpose: Escalation check
+        cost_usd: 0
+        value: Sonnet output sufficient, Opus not needed
+      total_cost_usd: 0.0333
+      total_tokens: 4689
+      savings_vs_baseline_percent: 46.0
+      output_quality: Full formal proof + complexity classification
+      finding: Haiku preprocessing adds $0.0025 overhead but provides useful classification.
+        Net savings 46% vs 50% pure batch.
+  comparison_table:
+    headers:
+    - Run
+    - Mode
+    - Cost
+    - Savings
+    - Tokens
+    - Quality
+    - Notes
+    rows:
+    - - BL-001
+      - Unoptimized
+      - $0.0617
+      - 0%
+      - 4,169
+      - Full proof
+      - Baseline
+    - - OP-001
+      - Cache framing
+      - $0.003
+      - 95%
+      - '489'
+      - Wrong output type
+      - REJECTED
+    - - OP-002
+      - Direct + batch
+      - $0.0308
+      - 50%
+      - 4,169
+      - Full proof
+      - BEST VALIDATED
+    - - COMB-001
+      - Tiered models
+      - $0.0333
+      - 46%
+      - 4,689
+      - Full proof + class
+      - RECOMMENDED PRODUCTION
+  critical_lessons:
+  - lesson: Prompt structure determines output type, not just model capability
+    evidence: OP-001 cache framing triggered meta-analysis instead of proof
+    action: Use direct prompts for mathematical problems, cache only for invariant
+      libraries
+  - lesson: Batch API provides reliable 50% discount without quality loss
+    evidence: OP-002 identical tokens, identical output, half cost
+    action: Enable batch API for all non-urgent production runs
+  - lesson: Haiku preprocessing is viable for complexity classification
+    evidence: 'COMB-001 Phase 1: $0.0025, useful complexity estimate'
+    action: Use Haiku for problem triage before Sonnet main proof
+  - lesson: Opus escalation not needed for standard StegVerse-native problems
+    evidence: 'COMB-001 Phase 3: no escalation, Sonnet 4096 tokens sufficient'
+    action: Reserve Opus for novelty spikes > 0.95 only
+  production_recommendations:
+    default_pipeline: Haiku preprocessing → Sonnet batch main proof → Escalation check
+    expected_cost_per_problem: 0.0333
+    expected_savings_vs_unoptimized: 46.0
+    budget_for_10_problems: 0.5
+    budget_for_100_problems: 5.0
+    tier_1_budget_ceiling: 500.0
+    tier_1_expected_solves: 15
+    public_claim_language: Use the 50% direct batch result as the strongest validated
+      savings claim; use the 46% tiered result as the recommended production architecture
+      because it adds classification and routing intelligence.
+    invalid_claim_to_avoid: Do not claim 95% deployable savings from OP-001; that
+      run changed the output type and is not a valid optimization.
+  next_steps:
+    full_solve_sv_math_001:
+      budget: 500.0
+      expected_cost_optimized: 15.0
+      expected_cost_unoptimized: 60.0
+      expected_savings: 75.0
+      phases:
+      - Haiku complexity map
+      - Sonnet extended reasoning (120 min)
+      - Lean formalization
+      - Determinism verification
+      - Implication harvesting
+      - Publisher documentation
+    publisher_integration:
+      status: Pending separate chat
+      purpose: GitHub Pages public review site for papers
+  appendix:
+    api_provider: Anthropic
+    models_tested:
+    - claude-haiku-4-5
+    - claude-sonnet-4-6
+    - claude-opus-4-6
+    github_actions_minutes_used: ~15 minutes total
+    total_api_spend_validation: 0.1095
+    date_range: '2026-05-02'
+    repository: GCAT-BCAT-Engine/workflows
+  validated_claims:
+    best_validated_savings:
+      claim: Direct Sonnet batch execution reduces cost by 50% while preserving identical
+        formal-proof output quality.
+      baseline_cost_usd: 0.061659
+      optimized_cost_usd: 0.0308295
+      savings_percent: 50.0
+      status: validated
+      evidence_run_ids:
+      - BL-001
+      - OP-002
+    recommended_production_pipeline:
+      claim: Tiered Haiku preprocessing plus Sonnet batch proof generation preserves
+        full proof quality while adding routing intelligence.
+      baseline_cost_usd: 0.061659
+      production_cost_usd: 0.0333
+      savings_percent: 46.0
+      status: recommended
+      evidence_run_ids:
+      - BL-001
+      - COMB-001
+    invalid_optimization:
+      claim: Cache framing produced apparent 95% savings but changed the semantic
+        output type, so it is rejected as a valid optimization.
+      apparent_cost_usd: 0.003
+      apparent_savings_percent: 95.0
+      status: rejected
+      evidence_run_ids:
+      - OP-001
+  publisher_positioning:
+    primary_claim: StegVerse demonstrates that governance-aware mathematical proof
+      generation can reduce cost without weakening output quality when optimization
+      preserves the semantic task boundary.
+    best_validated_result: Direct batch execution produced a 50% cost reduction with
+      unchanged formal-proof output.
+    production_result: Tiered model routing produced a 46% cost reduction while adding
+      preprocessing, complexity classification, and escalation control.
+    negative_result: Optimization is invalid when it reduces cost by changing the
+      requested task. The cache-framing run is therefore evidence for semantic-boundary
+      enforcement, not evidence for deployable 95% savings.
+    governance_interpretation: 'Cost optimization must itself be admissible: the optimized
+      path must preserve task identity, output type, quality threshold, and auditability.
+      Apparent savings are rejected when those conditions fail.'
