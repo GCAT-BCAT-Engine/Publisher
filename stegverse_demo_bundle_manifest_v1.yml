@@ -1,0 +1,60 @@
+stegverse_demo_bundle_v1:
+  version: 1.0.0
+  timestamp: '2026-04-30T21:36:00Z'
+  description: Complete deliverable bundle for autonomous math solver demonstration
+  files:
+  - filename: stegverse_math_solver_orchestrator_v1.yml
+    path: config/
+    description: Full YAML orchestrator specification
+    size_chars: 5528
+  - filename: stegverse_cost_dashboard_v1.yml
+    path: config/
+    description: Cost tracking and comparison dashboard spec
+    size_chars: 2100
+  - filename: tv_tvc_artifact_schema_v1.yml
+    path: config/
+    description: TV/TVC ephemeral artifact management schema
+    size_chars: 2300
+  - filename: stegverse_methodology_paper_draft.tex
+    path: papers/
+    description: Publishable methodology paper (LaTeX)
+    size_chars: 4844
+  deployment_sequence:
+  - 1. Configure TV/TVC with Anthropic API credentials (ephemeral)
+  - 2. Deploy orchestrator spec to GCAT-BCAT-Engine/workflows/
+  - 3. Deploy cost dashboard to master-records/monitoring/
+  - 4. Deploy artifact schema to StegVerse-org/TV/config/
+  - 5. Initialize StegDB logging across all orgs
+  - 6. Seed invariant library for prompt caching
+  - 7. Run baseline measurement (unoptimized mode)
+  - 8. Run optimized demonstration (StegVerse pipeline)
+  - 9. Generate comparison report
+  - 10. Formalize and publish solved proofs
+  target_repos:
+    StegVerse-Labs:
+    - unsolved-corpus
+    - config
+    StegVerse-org:
+    - StegVerse-SDK
+    - TV
+    - TVC
+    GCAT-BCAT-Engine:
+    - workflows
+    - invariants
+    - Publisher
+    StegGhost:
+    - entity-sandbox-runner
+    - experimental
+    ECAT-ICAT-Formal:
+    - reference-library
+    - lean-verifier
+    master-records:
+    - monitoring
+    - finance
+    - security-audit
+  success_criteria:
+    cost_reduction: '>= 50%'
+    reproducibility: 100% seeded
+    verification: Lean formalization complete
+    documentation: Publisher output generated
+    implications: '>= 3 per solved problem'
