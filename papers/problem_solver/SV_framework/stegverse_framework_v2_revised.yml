@@ -1,0 +1,303 @@
+stegverse_problem_solver_v2:
+  version: 2.0.0
+  date: '2026-05-02'
+  authors:
+  - Rigel Randolph
+  - StegVerse Ecosystem
+  executive_summary:
+    total_validation_runs: 6
+    total_api_spend_usd: 0.25
+    budget_allocated_usd: 500.0
+    budget_remaining_usd: 499.75
+    problems_attempted: 2
+    problems_solved: not_claimed_without_human_verification
+    domains_validated:
+    - StegVerse-native
+    - External-number-theory
+    pipeline_status: proven_end_to_end
+    cost_reduction_validated: true
+    cross_domain_validated: true
+    original_problems_solved_label: 2
+    problems_completed: 2
+    candidate_runs_completed: 2
+    solution_status_note: The framework completed candidate-generation and reconstruction
+      runs. It does not claim autonomous theorem proving or final mathematical correctness
+      without human or external verification.
+  complete_run_log:
+    validation:
+      id: VAL-001
+      cost_usd: 0.015
+      purpose: API connectivity and secret loading
+      result: Confirmed
+    baseline_native:
+      id: BL-001
+      cost_usd: 0.061659
+      mode: unoptimized
+      tokens: 4169
+      output: Full formal proof
+      latency_seconds: 52.54
+    optimized_native:
+      id: OP-002
+      cost_usd: 0.0308295
+      mode: direct_batch
+      tokens: 4169
+      output: Full formal proof (IDENTICAL)
+      savings_vs_baseline: 50.0
+    incremental_native:
+      id: SOLVE-001
+      cost_usd: 0.0729
+      mode: incremental
+      tokens: 11076
+      output: Proof + Lean + classification
+      phases: 3
+    full_process_native:
+      id: SOLVE-002
+      cost_usd: 0.06505
+      mode: full_process
+      tokens: 9429
+      output: Proof + Lean + classification + implications
+      phases: 4
+      implications: 3
+      savings_vs_incremental: 10.7
+    incremental_external:
+      id: EXT-001
+      cost_usd: 0.035
+      mode: incremental
+      tokens: 5083
+      output: Deep analysis + proof strategy
+      savings_vs_baseline: 43.3
+    full_process_external:
+      id: EXT-002-FIXED
+      cost_usd: 0.02086
+      mode: full_process
+      tokens: 3042
+      output: Proof landscape + source verification
+      phases: 3
+      sources_verified: true
+      savings_vs_baseline: 66.2
+      savings_vs_incremental: 40.0
+    run_status_note: Runs marked complete indicate pipeline completion, not final
+      theorem verification.
+  cost_model:
+    native:
+      baseline: 0.061659
+      optimized_single: 0.03083
+      incremental: 0.0729
+      full_process: 0.06505
+      production_recommendation: full_process
+      rationale: Delivers complete pipeline with automated implications
+    external:
+      baseline: 0.061659
+      incremental: 0.035
+      full_process: 0.02086
+      production_recommendation: full_process
+      rationale: Maximum savings with source grounding automation
+    savings_matrix:
+      native_full_vs_baseline: -5.4
+      native_full_vs_incremental: 10.7
+      external_full_vs_baseline: 66.2
+      external_full_vs_incremental: 40.0
+    presentation_note: Cost comparisons distinguish proof-only runs, full native candidate
+      pipelines, and external solved-theorem reconstruction. More phases can cost
+      more because they produce more artifacts.
+    primary_unit: verified_workflow_candidate_or_reconstruction_run
+  production_pipeline:
+    phase_1:
+      name: preprocessing
+      model: claude-haiku-4-5
+      prompt_strategy: tight_constraint_512_tokens_max
+      purpose: complexity_classification_and_status_verification
+      cost_range_usd: 0.0018-0.0026
+      output: complexity_estimate_and_known_status
+    phase_2:
+      name: main_execution
+      model: claude-sonnet-4-6
+      mechanism: batch_api_50_percent_discount
+      purpose: proof_generation_or_landscape_reconstruction
+      cost_range_usd: 0.0191-0.0309
+      output: formal_proof_candidate_or_analysis
+    phase_3:
+      name: formalization
+      model: claude-sonnet-4-6
+      mechanism: batch_api_50_percent_discount
+      purpose: lean_4_code_generation
+      condition: if_needed
+      cost_range_usd: 0.0316-0.0318
+      output: compilable_lean_code_candidate
+    phase_4:
+      name: implication_harvesting
+      mechanism: automated_extraction
+      purpose: cross_repo_routing
+      cost_usd: 0
+      output: structured_implication_manifest
+    phase_5:
+      name: verification
+      type: human_required
+      purpose: correctness_validation
+      cost: time_not_tokens
+      note: LLM_generates_candidates_not_proofs
+  critical_lessons:
+  - lesson: Batch API provides reliable 50% discount without quality loss
+    evidence: OP-002 identical tokens, identical output, half cost
+    confidence: High
+    action: Enable for all non-urgent production runs
+  - lesson: Tight Haiku prompts reduce preprocessing cost 50-75%
+    evidence: SOLVE-002 $0.0026 vs SOLVE-001 $0.0103; EXT-002 $0.0018 vs EXT-001 $0.0041
+    confidence: High
+    action: Use 512 token constraint for classification
+  - lesson: Cache framing alters output type dangerously
+    evidence: OP-001 produced meta-analysis instead of proof
+    confidence: High
+    action: Use direct prompts only; cache for invariant libraries
+  - lesson: Source grounding is mandatory for external problems
+    evidence: EXT-001 mislabeled solved theorem as unsolved
+    confidence: High
+    action: Automated source verification before analysis
+  - lesson: Solved theorems are cheaper to reconstruct than open problems
+    evidence: EXT-002 $0.021 vs SOLVE-002 $0.065
+    confidence: High
+    action: Use solved scaffolding for cost prediction
+  business_claims:
+    what_we_prove:
+    - Cost-efficient mathematical proof-candidate generation in the observed $0.02-$0.07
+      per-problem range
+    - Deterministic pipeline execution with iPhone-triggered GitHub Actions
+    - 50-66% cost reduction in validated contexts via batch API, tiered model selection,
+      and tighter prompts
+    - Cross-domain applicability for native mathematics and external theorem-landscape
+      reconstruction
+    - Automated implication harvesting and cross-repo routing
+    what_we_do_not_claim:
+    - Autonomous theorem proving (human verification required)
+    - Guaranteed correctness (LLM candidates require review)
+    - Replacement for mathematicians (augmentation tool)
+    - Solution of open problems (candidates only)
+    target_customers:
+    - Research labs seeking cost-efficient proof exploration
+    - Financial modeling teams requiring formal documentation
+    - Academic institutions scaling proof attempts
+    - Engineering teams verifying safety properties
+    service_tiers:
+      candidate_generation:
+        description: LLM-powered proof candidate generation
+        price_per_problem: 0.05-0.10
+        deliverable: Structured proof candidate with complexity assessment
+      verification_pipeline:
+        description: Lean compilation and expert routing management
+        price: Platform fee + reviewer costs
+        deliverable: Verified or refuted candidate with audit trail
+      implication_harvesting:
+        description: Auto-extract and cross-repo sync
+        price: Included in platform
+        deliverable: Structured implication manifest
+    primary_claim: Cost-efficient mathematical proof-candidate generation and verification
+      workflow orchestration.
+    public_safe_summary: StegVerse does not sell autonomous theorem proving. It provides
+      governed candidate generation, source-grounded reconstruction, Lean-candidate
+      production, implication harvesting, and audit-trail management for expert verification
+      workflows.
+  technical_specifications:
+    api_provider: Anthropic
+    models_used:
+    - claude-haiku-4-5
+    - claude-sonnet-4-6
+    batch_api: Enabled (50% discount)
+    prompt_caching: Disabled (direct prompts only)
+    github_actions: Ubuntu-latest, 120-180 min timeout
+    secret_management: GitHub Secrets (ANTHROPIC_API_KEY)
+    trigger_method: iPhone GitHub mobile app
+    cost_tracking: Real-time per phase with budget ceiling enforcement
+  next_steps:
+  - Deploy TV/TVC auto-rotation for production security
+  - Implement corrected prompt caching with direct framing
+  - Build cross-domain benchmark set with solved, partially solved, and open problems
+  - Develop Publisher GitHub Pages site for public paper review
+  - Scale to a $500 budget for a 10-15 problem candidate-generation and verification-routing
+    batch
+  - Integrate Lean compiler for automated syntax verification
+  - Add explicit source-grounding checks before public theorem-status labels are emitted
+  - Add human-review handoff receipts for final proof-status claims
+  appendix:
+    total_github_actions_minutes: ~60 minutes
+    total_api_spend: 0.25
+    date_range: '2026-05-02'
+    repository: GCAT-BCAT-Engine/workflows
+    papers_uploaded:
+    - cost_reduction_demo_complete.yml
+    - external_paper_EXT001.yml
+    - stegverse_complete_v2.yml
+    validation_complete: true
+  presentation_role: Umbrella framework overview for the governed StegVerse mathematical
+    problem-solving pipeline, covering cost-controlled proof-candidate generation,
+    Lean-candidate generation, source-grounded external theorem-landscape reconstruction,
+    implication harvesting, and human verification boundaries.
+  presentation_thesis: StegVerse is a governed mathematical problem-solving framework
+    that converts constrained API spend into traceable proof candidates, Lean candidates,
+    external theorem-landscape reconstructions, and implication manifests under explicit
+    cost controls.
+  presentation_headline: A governed math-candidate pipeline with cost controls, source
+    grounding, and human verification boundaries.
+  claim_boundary:
+    what_this_framework_proves:
+    - Cost-efficient mathematical proof-candidate generation in the observed $0.02-$0.07
+      per-problem range
+    - Deterministic pipeline execution with budget tracking and iPhone-triggered GitHub
+      Actions
+    - Cost reduction through direct batch execution, tiered model selection, and tighter
+      classification prompts
+    - Cross-domain operation across StegVerse-native mathematics and external number-theory
+      reconstruction
+    - Automated implication harvesting and structured cross-repo routing
+    what_this_framework_does_not_claim:
+    - Autonomous theorem proving without human verification
+    - Guaranteed correctness of LLM-generated proof candidates
+    - Replacement of mathematicians or expert reviewers
+    - Independent solution of open problems
+    - Lean-verified correctness unless the Lean candidate has actually compiled and
+      been reviewed
+    verification_boundary: LLM output is treated as candidate material. Final proof
+      status requires Lean compilation where applicable, source verification for external
+      claims, and human or expert mathematical review.
+  artifact_type_boundaries:
+    proof_candidate_generation:
+      description: Generates structured proof candidates and formal reasoning drafts.
+      claim_status: candidate_generation_validated
+      requires: human mathematical review
+    lean_candidate_generation:
+      description: Generates Lean 4 code candidates for formalization.
+      claim_status: lean_candidate_generation_validated
+      requires: compiler execution, syntax validation, and expert review before correctness
+        claims
+    source_grounded_external_reconstruction:
+      description: Classifies external problems, verifies public status where possible,
+        and reconstructs known theorem landscapes.
+      claim_status: cross_domain_reconstruction_validated
+      requires: source grounding before public status labels
+    implication_harvesting:
+      description: Extracts structured implications and routes them into downstream
+        repo or publisher workflows.
+      claim_status: automation_validated
+      requires: review before downstream adoption
+    human_verification:
+      description: Final correctness boundary for mathematical claims.
+      claim_status: required_not_optional
+      requires: expert review and/or formal compiler verification
+  public_positioning:
+    framework_overview: 'This framework should be presented as a governed mathematical
+      research-assistance pipeline: it lowers the cost of producing structured candidates
+      and verification artifacts while keeping final correctness outside the autonomous
+      claim boundary.'
+    strongest_claim: The strongest validated claim is not autonomous proof completion;
+      it is low-cost, governed, traceable production of candidate mathematical artifacts
+      under explicit verification boundaries.
+    avoid_saying:
+    - StegVerse solved two problems autonomously
+    - The LLM proved the theorems
+    - Lean verification is complete unless compiler output has been recorded
+    - Open problems are solved without independent review
+    safe_language:
+    - candidate runs completed
+    - proof candidates generated
+    - Lean candidates generated
+    - source-grounded theorem landscape reconstructed
+    - human verification required
