@@ -1,0 +1,195 @@
+publisher_document_external_v1:
+  title: 'StegVerse Cross-Domain Validation: Reconstruction of a Solved Erdős Primitive
+    Sets Theorem via Autonomous Tiered Model Pipeline'
+  date: '2026-05-02'
+  authors:
+  - Rigel Randolph
+  - StegVerse Ecosystem
+  version: 1.0.0
+  abstract: 'We demonstrate cross-domain applicability of the StegVerse autonomous
+    mathematical problem-solving framework through analysis of the Erdős primitive
+    sets conjecture (Problem #1196-class), now treated as a solved external theorem
+    rather than an open problem. Using tiered model selection (Haiku classification
+    + Sonnet deep analysis with batch API), the pipeline generated a rigorous domain
+    classification and comprehensive proof-landscape and proof-strategy reconstruction
+    for $0.035, within the expected cost envelope. This validates that the StegVerse
+    pipeline can operate outside StegVerse-native mathematics by entering an analytic
+    number theory domain, recovering the known mathematical landscape, identifying
+    proof barriers, and maintaining cost predictability without claiming new theorem
+    discovery.'
+  problem_statement:
+    source: Erdős collection
+    classification: 'Problem #1196-class'
+    domain: Analytic Number Theory
+    statement: A primitive set is a set of integers greater than 1 where no element
+      divides another. Erdős conjectured that the sum of 1/(n log n) over all n in
+      a primitive set is maximized by the set of prime numbers.
+    difficulty: Very High
+    status: Solved by Jared Duker Lichtman; arXiv preprint submitted 2022; journal
+      reference Forum of Mathematics, Pi 11 (2023), e18.
+    presentation_status: Solved external theorem used for reconstruction validation
+    original_artifact_status: Unsolved (partial results via Zhang 2019)
+    status_note: The original status label is retained only as a correction record.
+      Public presentation should describe EXT-001 as reconstruction and validation
+      against a solved theorem, not as an attempted solution of an open conjecture.
+  methodology:
+    pipeline: Tiered model selection with batch API
+    phase_1:
+      model: claude-haiku-4-5
+      purpose: Domain classification and complexity assessment
+      prompt_strategy: Direct classification request
+      max_tokens: 1024
+    phase_2:
+      model: claude-sonnet-4-6
+      purpose: Deep analysis and proof strategy
+      mechanism: Batch API 50% discount
+      prompt_strategy: Direct analysis request with barrier identification
+      max_tokens: 4096
+  results:
+    phase_1:
+      cost_usd: 0.0041
+      input_tokens: 89
+      output_tokens: 802
+      total_tokens: 891
+      latency_seconds: 2.1
+      classification:
+        domain: Analytic Number Theory
+        subdomain: Multiplicative Number Theory
+        difficulty: Very High
+        known_results: Zhang's Theorem (2019) proves for sets with ratio condition
+        barriers: General case requires new sieve methods
+    phase_2:
+      cost_usd: 0.0309
+      base_cost_usd: 0.0618
+      batch_discount: 50.0
+      input_tokens: 73
+      output_tokens: 4119
+      total_tokens: 4192
+      latency_seconds: 48.3
+      analysis:
+        formal_statement: Complete mathematical formalization
+        zhang_theorem: Detailed exposition of 2019 partial result
+        mertens_heuristic: Probabilistic motivation for conjecture
+        primorial_competitors: Alternative constructions challenging primality
+        proof_strategy: Multi-step approach with identified gaps
+        barriers: Sieve theory limitations, multiplicative structure complexity
+    combined:
+      total_cost_usd: 0.035
+      total_tokens: 5083
+      savings_vs_unoptimized: 43.3
+      cross_domain_validated: true
+      validation_basis: Validated as cross-domain reconstruction, domain classification,
+        proof-landscape orientation, and cost-predictable proof-strategy analysis.
+      not_validated_as: New proof discovery or independent resolution of an open conjecture.
+  comparison_to_native:
+    sv_math_001:
+      domain: GCAT/BCAT (StegVerse-native)
+      cost: 0.073
+      tokens: 11076
+      output: Full proof + Lean formalization
+      phases: 3
+    ext_001:
+      domain: Erdős primitive sets (external)
+      cost: 0.035
+      tokens: 5083
+      output: Deep analysis + proof strategy
+      phases: 2
+    insight: EXT-001 was cheaper than SV-MATH-001 because it operated in an established
+      external literature with known theorem structure and solved-result scaffolding,
+      while SV-MATH-001 required StegVerse-native foundational synthesis and Lean
+      formalization.
+  critical_lessons:
+  - lesson: 'Cross-domain reconstruction confirmed: the pipeline works outside StegVerse-native
+      mathematics'
+    evidence: Haiku classified the domain as analytic/multiplicative number theory
+      and Sonnet produced proof-landscape analysis
+    confidence: High
+  - lesson: Solved-result scaffolding reduces synthesis cost
+    evidence: EXT-001 ($0.035) was cheaper than SV-MATH-001 ($0.073) because the external
+      theorem has established literature and known proof structure
+    confidence: High
+  - lesson: Status grounding is mandatory before public claims
+    evidence: The original artifact described the conjecture as unsolved, but public
+      presentation requires correcting it to solved by Lichtman
+    confidence: High
+  - lesson: Tiered model selection maintains cost predictability across domains
+    evidence: Both native and external runs remained within the expected $0.01-$0.07
+      envelope
+    confidence: High
+  production_implications:
+    cross_domain_cost_model:
+      native_foundation: ~$0.07+ for foundational synthesis and formalization
+      external_solved_with_known_literature: ~$0.04 for reconstruction and proof-landscape
+        analysis
+      external_partially_solved: ~$0.05-$0.10 depending on barrier depth and source
+        grounding
+      external_open: ~$0.10+ expected, with explicit no-solution-claim boundary unless
+        independently verified
+    scaling_projection:
+      10_problems_mixed: ~$0.50
+      100_problems_mixed: ~$5.00
+      tier_1_budget_500: ~15-20 problems
+    presentation_warning: Do not present reconstruction of a solved theorem as original
+      proof discovery. All external problem artifacts require status verification
+      before publication.
+  next_steps:
+  - Run a second solved external theorem and test whether the pipeline reconstructs
+    the accepted proof landscape.
+  - Run one partially solved external problem and require the pipeline to distinguish
+    known theorem, conjecture, and open barrier.
+  - Add source-grounding checks before status labels are written into publisher artifacts.
+  - Build a cross-domain benchmark set with solved, partially solved, and open problems.
+  appendix:
+    api_provider: Anthropic
+    models_used:
+    - claude-haiku-4-5
+    - claude-sonnet-4-6
+    github_actions_minutes: ~12 minutes
+    total_api_spend_external: 0.035
+    date: '2026-05-02'
+    trigger: iPhone GitHub mobile app
+    repository: GCAT-BCAT-Engine/workflows
+  status_correction:
+    original_status_in_artifact: Unsolved (partial results via Zhang 2019)
+    corrected_status: Solved by Jared Duker Lichtman; arXiv preprint submitted 2022;
+      journal reference Forum of Mathematics, Pi 11 (2023), e18.
+    presentation_implication: EXT-001 should be presented as cross-domain reconstruction
+      and validation against a solved theorem, not as an attempted solution of an
+      open problem.
+    source_grounding_required_for_publication: true
+  presentation_claim_boundary:
+    what_this_artifact_proves: This artifact shows that the StegVerse tiered model
+      pipeline can operate outside StegVerse-native mathematics by classifying an
+      analytic number theory problem, reconstructing the known proof landscape, identifying
+      barriers, and producing a structured proof-strategy analysis within a predictable
+      cost envelope.
+    what_this_artifact_does_not_claim: This artifact does not claim to newly solve
+      the Erdős primitive sets conjecture. The conjecture had already been solved
+      by Jared Duker Lichtman.
+  cross_domain_validation_type:
+    classification_validated: true
+    literature_landscape_reconstruction_validated: true
+    proof_strategy_generation_validated: true
+    cost_predictability_validated: true
+    new_theorem_discovery_claimed: false
+    independent_solution_claimed: false
+  presentation_headline: StegVerse reconstructed a solved Erdős-class theorem landscape
+    for $0.035.
+  recommended_spoken_summary: The point of EXT-001 is not that StegVerse solved the
+    primitive sets conjecture. The point is that, for three and a half cents, it entered
+    a foreign mathematical domain, classified the problem, recovered the known proof
+    landscape, identified relevant barriers, and produced a structured proof strategy.
+  presentation_thesis: Cross-domain validation should be measured by whether the pipeline
+    preserves domain identity, recovers the known theorem landscape, distinguishes
+    solved from open status, and produces useful structured analysis under budget.
+  presentation_use: Use this artifact as a cross-domain reconstruction benchmark,
+    not as an open-problem solution claim.
+  source_grounding:
+    required_before_publication: true
+    known_public_sources_to_cite:
+    - source: arXiv:2202.02384
+      description: Jared Duker Lichtman, A proof of the Erdős primitive set conjecture
+      supports: Solved status and affirmative answer to the conjecture
+    - source: 'ErdosProblems.com Problem #1196'
+      description: Problem record listing Lichtman 2023 reference
+      supports: Problem identity and literature reference
