@@ -1,8 +1,8 @@
 [
   {
     "id": "sv-cost-reduction-2026",
-    "title": "StegVerse Cost Reduction Demonstration: Validated 50% Batch Savings and 46% Production Tiered Routing",
-    "subtitle": "With Preserved Formal-Proof Output Quality",
+    "title": "StegVerse Autonomous Mathematical Problem Solving",
+    "subtitle": "From 50% Cost Reduction to Complete Formal Proof Generation",
     "authors": [
       {
         "name": "Rigel Randolph",
@@ -16,7 +16,7 @@
       }
     ],
     "date": "2026-05-02",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "status": "published",
     "category": "cost_optimization",
     "tags": [
@@ -24,23 +24,27 @@
       "cost reduction",
       "batch optimization",
       "tiered routing",
-      "formal proof"
+      "formal proof",
+      "Lean 4"
     ],
-    "abstract": "We demonstrate that the StegVerse autonomous mathematical problem-solving framework achieves measurable cost reduction through execution-path optimization. Starting from an unoptimized baseline of $0.061659 per problem, we validate a 50% cost reduction through direct batch execution at $0.0308295 while preserving identical formal-proof output quality. We document a critical negative result: cache-framing reduced apparent cost to $0.003 but changed the semantic output type, making it an invalid optimization. The recommended production configuration is a tiered Haiku preprocessing plus Sonnet batch proof-generation pipeline, which costs $0.0333 per problem, preserves full proof quality, adds routing intelligence, and achieves a 46% savings versus baseline.",
+    "abstract": "We demonstrate the StegVerse autonomous mathematical problem-solving framework through a complete end-to-end execution. Starting from validation ($0.015), we establish an unoptimized baseline ($0.062), validate 50% cost reduction via batch API ($0.031), document a critical failure mode with cache framing, achieve 46% combined optimization with tiered model selection ($0.033), and complete a full solve of SV-MATH-001 including complexity assessment, formal proof, and Lean 4 verification for $0.073. Total pipeline spend: $0.21 of $500 budget.",
     "doi": null,
     "pdf_url": null,
-    "html_url": "./papers/sv-cost-reduction-2026.html",
+    "html_url": "./papers/problem_solver/SV/final/sv-cost-reduction-2026.html",
     "source_repo": "GCAT-BCAT-Engine/workflows",
     "license": "CC-BY-4.0",
     "peer_review": false,
     "citations": 0,
     "downloads": 0,
-    "featured": true
+    "featured": true,
+    "raw_path": "./papers/problem_solver/SV/raw/",
+    "revised_path": "./papers/problem_solver/SV/revised/",
+    "final_path": "./papers/problem_solver/SV/final/"
   },
   {
-    "id": "sv-gcat-bcat-admissibility-2026",
-    "title": "GCAT/BCAT Admissibility: Complete Invariant Characterization",
-    "subtitle": "A Categorical Rewriting System for Commit-Time Constraints",
+    "id": "ext001-2026",
+    "title": "EXT001: External Problem Demonstration",
+    "subtitle": "Cross-Domain Applicability of the StegVerse Pipeline",
     "authors": [
       {
         "name": "Rigel Randolph",
@@ -48,59 +52,27 @@
         "orcid": null
       }
     ],
-    "date": "2026-05-01",
-    "version": "0.9.0",
+    "date": "2026-05-02",
+    "version": "1.0.0",
     "status": "draft",
-    "category": "formal_methods",
+    "category": "experimental",
     "tags": [
-      "GCAT/BCAT",
-      "admissibility",
-      "invariants",
-      "categorical rewriting",
-      "commit-time"
+      "external problem",
+      "cross-domain",
+      "Erd\u0151s-class"
     ],
-    "abstract": "This paper establishes the complete invariant characterization for GCAT/BCAT admissibility within a categorical rewriting system. We derive the conditions under which a state transition is admissible at commit-time, proving that the boundary between evaluation and execution is precisely the locus of ontological divergence.",
+    "abstract": "Pending external problem execution to demonstrate cross-domain applicability of the StegVerse autonomous mathematical pipeline beyond GCAT/BCAT-native problems.",
     "doi": null,
     "pdf_url": null,
     "html_url": null,
-    "source_repo": "GCAT-BCAT-Engine",
+    "source_repo": "Publisher/papers/problem_solver/EXT",
     "license": "CC-BY-4.0",
     "peer_review": false,
     "citations": 0,
     "downloads": 0,
-    "featured": false
-  },
-  {
-    "id": "sv-god-framework-2026",
-    "title": "Geometrically Ontological Divergence: The GOD Framework",
-    "subtitle": "Compression, Boundary, and Irreducible Divergence in Computational Ontology",
-    "authors": [
-      {
-        "name": "Rigel Randolph",
-        "affiliation": "StegVerse Ecosystem",
-        "orcid": null
-      }
-    ],
-    "date": "2026-04-28",
-    "version": "0.5.0",
-    "status": "draft",
-    "category": "philosophy_of_computation",
-    "tags": [
-      "GOD",
-      "ontology",
-      "geometry",
-      "divergence",
-      "compression"
-    ],
-    "abstract": "We introduce Geometrically Ontological Divergence (GOD) as the compression point where GCAT/BCAT geometric boundary meets ontological becoming meets irreducible divergence. This is the primitive's self-naming, consequential to the first breakdown, and the foundational concept immortalized in the StegVerse architecture.",
-    "doi": null,
-    "pdf_url": null,
-    "html_url": null,
-    "source_repo": "GCAT-BCAT-Engine",
-    "license": "CC-BY-4.0",
-    "peer_review": false,
-    "citations": 0,
-    "downloads": 0,
-    "featured": false
+    "featured": false,
+    "raw_path": "./papers/problem_solver/EXT/raw/",
+    "revised_path": "./papers/problem_solver/EXT/revised/",
+    "final_path": null
   }
 ]

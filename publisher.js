@@ -1,6 +1,6 @@
 /* ============================================================
-   StegVerse Publisher — Frontend Controller
-   Stateless. Reads papers.json, renders with filters.
+   StegVerse Publisher v2 — Frontend Controller
+   Supports raw → revised → final workflow
    ============================================================ */
 
 (function() {
@@ -9,7 +9,6 @@
   let allPapers = [];
   let filteredPapers = [];
 
-  // ── DOM refs ──
   const els = {
     grid: document.getElementById('paper-grid'),
     featured: document.getElementById('featured-section'),
@@ -21,7 +20,6 @@
     search: document.getElementById('search-input')
   };
 
-  // ── Load papers ──
   async function loadPapers() {
     try {
       const res = await fetch('./papers.json');
@@ -38,14 +36,12 @@
     }
   }
 
-  // ── Update header counts ──
   function updateCounts() {
     els.count.textContent = `${allPapers.length} papers`;
     const feat = allPapers.filter(p => p.featured).length;
     els.featuredCount.textContent = `${feat} featured`;
   }
 
-  // ── Render featured paper ──
   function renderFeatured() {
     const featured = allPapers.find(p => p.featured && p.status === 'published');
     if (!featured) {
@@ -67,17 +63,17 @@
             <span class="status-badge ${esc(featured.status)}">${esc(featured.status)}</span>
           </div>
           <p class="paper-abstract">${esc(featured.abstract)}</p>
+          ${featured.final_path ? `<p class="paper-paths"><strong>Path:</strong> ${esc(featured.final_path)}</p>` : ''}
         </div>
         <div class="paper-actions">
-          ${featured.html_url ? `<a href="${esc(featured.html_url)}" class="btn btn-primary">Read Paper</a>` : '<button class="btn btn-primary" disabled>HTML Soon</button>'}
-          ${featured.pdf_url ? `<a href="${esc(featured.pdf_url)}" class="btn btn-secondary" target="_blank" rel="noopener">PDF</a>` : '<button class="btn btn-secondary" disabled>PDF Soon</button>'}
-          <a href="${esc(featured.source_repo ? 'https://github.com/' + featured.source_repo : '#')}" class="btn btn-ghost" target="_blank" rel="noopener">Source ↗</a>
+          ${featured.html_url ? `<a href="${esc(featured.html_url)}" class="btn btn-primary">Read Final</a>` : '<button class="btn btn-primary" disabled>Final Soon</button>'}
+          ${featured.revised_path ? `<a href="${esc(featured.revised_path)}" class="btn btn-secondary">Revised ↗</a>` : ''}
+          ${featured.raw_path ? `<a href="${esc(featured.raw_path)}" class="btn btn-ghost">Raw ↗</a>` : ''}
         </div>
       </article>
     `;
   }
 
-  // ── Render paper grid ──
   function renderGrid() {
     if (filteredPapers.length === 0) {
       els.grid.style.display = 'none';
@@ -101,6 +97,14 @@
           ${(p.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join('')}
         </div>
         <p class="paper-abstract">${esc(p.abstract)}</p>
+
+        <!-- Workflow paths -->
+        <div class="paper-workflow">
+          ${p.raw_path ? `<a href="${esc(p.raw_path)}" class="workflow-link raw" title="Raw source files">Raw</a>` : ''}
+          ${p.revised_path ? `<span class="workflow-arrow">→</span><a href="${esc(p.revised_path)}" class="workflow-link revised" title="Revised drafts">Revised</a>` : ''}
+          ${p.final_path ? `<span class="workflow-arrow">→</span><a href="${esc(p.final_path)}" class="workflow-link final" title="Final published version">Final</a>` : ''}
+        </div>
+
         <div class="paper-actions">
           ${p.html_url ? `<a href="${esc(p.html_url)}" class="btn btn-primary">Read</a>` : '<button class="btn btn-primary" disabled>HTML Soon</button>'}
           ${p.pdf_url ? `<a href="${esc(p.pdf_url)}" class="btn btn-secondary" target="_blank" rel="noopener">PDF</a>` : '<button class="btn btn-secondary" disabled>PDF Soon</button>'}
@@ -110,7 +114,6 @@
     `).join('');
   }
 
-  // ── Filter logic ──
   function applyFilters() {
     const cat = els.catFilter.value;
     const status = els.statusFilter.value;
@@ -137,7 +140,6 @@
     els.search.addEventListener('input', debounce(applyFilters, 200));
   }
 
-  // ── Utilities ──
   function esc(str) {
     if (!str) return '';
     const div = document.createElement('div');
@@ -167,6 +169,5 @@
     };
   }
 
-  // ── Init ──
   loadPapers();
 })();
