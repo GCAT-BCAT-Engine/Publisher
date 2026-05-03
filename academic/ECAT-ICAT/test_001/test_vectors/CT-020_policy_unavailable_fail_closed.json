@@ -1,0 +1,69 @@
+{
+  "bcat": {
+    "available": true,
+    "cost": 10.0,
+    "pass": true
+  },
+  "budget": {
+    "amount": 100.0,
+    "available": true,
+    "budget_id": "budget.demo"
+  },
+  "ecat": {
+    "available": true,
+    "co_owner_rejected": false,
+    "consent": true,
+    "cost": 10.0,
+    "h": 0.1,
+    "h_max": 1.0,
+    "pass": true,
+    "r_min": 0.5,
+    "reputation": 0.9,
+    "stake_min": 10.0,
+    "stake_risk": 100.0
+  },
+  "expected": {
+    "outcome": "FAIL_CLOSED",
+    "reason": "transition_object_incomplete"
+  },
+  "gcat": {
+    "available": true,
+    "cost": 10.0,
+    "pass": true
+  },
+  "icat": {
+    "available": true,
+    "conservation_available": true,
+    "conservation_pass": true,
+    "cost": 10.0,
+    "independent": true,
+    "inverse_available": true,
+    "inverse_pass": true,
+    "n_min": 2,
+    "n_valid": 3,
+    "pass": true,
+    "proof_available": true,
+    "proof_score": 1.0,
+    "proof_valid": true,
+    "witness_available": true,
+    "witness_min": 0.67,
+    "witness_score": 1.0
+  },
+  "name": "Policy Unavailable",
+  "receipt": {
+    "emit_ok": true
+  },
+  "seed": 42,
+  "test_id": "CT-020",
+  "transition": {
+    "category": "metadata",
+    "commit_time": "2026-05-03T00:00:00Z",
+    "complete": true,
+    "data_id": "data.demo",
+    "delta_hash": "hash_delta",
+    "entity_id": "entity.alpha",
+    "policy_hash": null,
+    "post_state_hash": "hash_post",
+    "pre_state_hash": "hash_pre"
+  }
+}
