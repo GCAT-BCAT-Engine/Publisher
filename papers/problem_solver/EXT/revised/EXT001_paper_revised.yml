@@ -1,5 +1,5 @@
 publisher_document_external_v1:
-  title: 'StegVerse Cross-Domain Validation: Reconstruction of a Solved Erdős Primitive
+  title: 'StegVerse Cross-Domain Validation: Reconstruction of the Solved Erdős Primitive Set Conjecture via Autonomous Tiered Model Pipeline'
     Sets Theorem via Autonomous Tiered Model Pipeline'
   date: '2026-05-02'
   authors:
@@ -19,7 +19,7 @@ publisher_document_external_v1:
     discovery.'
   problem_statement:
     source: Erdős collection
-    classification: 'Problem #1196-class'
+    classification: 'Classical Erdős primitive set conjecture / related primitive-set literature'
     domain: Analytic Number Theory
     statement: A primitive set is a set of integers greater than 1 where no element
       divides another. Erdős conjectured that the sum of 1/(n log n) over all n in
@@ -56,7 +56,7 @@ publisher_document_external_v1:
         domain: Analytic Number Theory
         subdomain: Multiplicative Number Theory
         difficulty: Very High
-        known_results: Zhang's Theorem (2019) proves for sets with ratio condition
+        known_results: Historical partial results preceded Lichtman’s complete solution; this run treated those as proof-landscape scaffolding rather than as the final status.
         barriers: General case requires new sieve methods
     phase_2:
       cost_usd: 0.0309
