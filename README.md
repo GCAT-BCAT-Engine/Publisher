@@ -138,6 +138,16 @@ docs/release-gate-checklist.md
 
 A Site display should not be marked current until Publisher source validity, dispatch readiness, Site mirror validity, public display verification, and governance case posture checks all pass.
 
+## Activation Status
+
+Current repo activation status is tracked in:
+
+```text
+docs/activation-status.md
+```
+
+The current activation boundary is manual dry-run execution, dry-run receipt capture, live dispatch, Site mirror completion, live-dispatch receipt capture, and verification tracker update to `activated`.
+
 ## Governance Case Scaffolding
 
 Publisher can create a four-file emergency AI restriction case family from templates:
@@ -199,6 +209,7 @@ docs/validation.md
 docs/site-paper-display-policy.md
 docs/site-mirror-dispatch-protocol.md
 docs/release-gate-checklist.md
+docs/activation-status.md
 templates/README.md
 governance/README.md
 ```
