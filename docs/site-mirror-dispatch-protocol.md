@@ -6,6 +6,22 @@ This protocol defines how Publisher should notify `StegVerse-Labs/Site` that cur
 
 Publisher remains the source of truth. Site remains the public display surface.
 
+## Publisher Dispatch Workflow
+
+The Publisher workflow that performs validation and dispatch is:
+
+```text
+.github/workflows/dispatch-site-mirror.yml
+```
+
+The workflow name is:
+
+```text
+Dispatch Site Paper Mirror
+```
+
+It runs after eligible Publisher changes on `main` and may also be run manually.
+
 ## Target Site Workflow
 
 The target Site workflow is:
@@ -46,6 +62,7 @@ cases/**
 governance/cases/**
 governance/receipts/**
 docs/site-paper-display-policy.md
+docs/site-mirror-dispatch-protocol.md
 ```
 
 Publisher should not dispatch Site if Publisher validation fails.
@@ -80,6 +97,21 @@ STEGVERSE_REPO_SYNC_TOKEN
 `SITE_MIRROR_DISPATCH_TOKEN` belongs in Publisher when Publisher dispatches Site.
 
 `STEGVERSE_REPO_SYNC_TOKEN` belongs in Site when Site must read Publisher.
+
+## Manual Run Procedure
+
+To test dispatch manually:
+
+```text
+1. Open GCAT-BCAT-Engine/Publisher Actions.
+2. Select Dispatch Site Paper Mirror.
+3. Run workflow on main.
+4. Leave site_repository as StegVerse-Labs/Site unless testing a fork.
+5. Leave source_ref as main unless testing a branch or SHA.
+6. Confirm Publisher validation passes.
+7. Confirm the Site workflow starts.
+8. Confirm Site mirror completes and records the source repository and ref.
+```
 
 ## Failure Handling
 
