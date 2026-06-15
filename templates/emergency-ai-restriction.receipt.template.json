@@ -1,7 +1,7 @@
 {
   "case_id": "CASE-YYYY-MM-SLUG",
-  "event_date": "YYYY-MM-DD",
-  "observed_date": "YYYY-MM-DD",
+  "event_date": "EVENT-YYYY-MM-DD",
+  "observed_date": "OBSERVED-YYYY-MM-DD",
   "authority_claim": "Describe the claimed authority source without treating it as proven.",
   "execution_effect": "Describe the action or effect that occurred.",
   "affected_access_class": "Describe affected users, jurisdictions, model classes, products, or access tiers.",
@@ -10,8 +10,8 @@
     "Disputed claim requiring review"
   ],
   "missing_primary_records": [
-    "government directive text or metadata",
-    "technical report or exploit record",
+    "official directive text or metadata",
+    "technical report or capability record",
     "review, appeal, expiration, or reassessment mechanism"
   ],
   "admissibility_status": "unresolved",
@@ -19,5 +19,5 @@
   "case_object_path": "governance/cases/CASE-YYYY-MM-SLUG.case.json",
   "source_manifest_path": "governance/cases/CASE-YYYY-MM-SLUG.sources.json",
   "receipt_path": "governance/receipts/CASE-YYYY-MM-SLUG.receipt.json",
-  "receipt_boundary_rule": "A receipt records the current transition posture after claims and sources have been separated. It does not prove the underlying claim, the legal authority, the technical exploit, or final admissibility."
+  "receipt_boundary_rule": "A receipt records the current transition posture after claims and sources have been separated. It does not prove the underlying claim, the authority basis, the technical record, or final admissibility."
 }
