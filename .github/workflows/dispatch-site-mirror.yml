@@ -23,6 +23,7 @@ on:
       - "governance/receipts/**"
       - "docs/site-paper-display-policy.md"
       - "docs/site-mirror-dispatch-protocol.md"
+      - "tools/check_site_mirror_dispatch.py"
       - ".github/workflows/dispatch-site-mirror.yml"
 
 jobs:
@@ -56,6 +57,9 @@ jobs:
 
       - name: Validate emergency AI case objects
         run: python tools/validate_emergency_ai_cases.py
+
+      - name: Check Site mirror dispatch configuration
+        run: python tools/check_site_mirror_dispatch.py
 
       - name: Resolve dispatch inputs
         id: dispatch
