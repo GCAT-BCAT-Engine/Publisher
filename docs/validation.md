@@ -4,14 +4,16 @@
 
 Publisher case records that use machine-readable JSON should validate before they are treated as ready for republication.
 
-The current validator checks emergency AI restriction case objects against the emergency AI restriction case schema.
+The current validators check case JSON structure and template scaffold consistency.
 
 ## Files
 
 ```text
 governance/schemas/emergency-ai-restriction.case.schema.json
 governance/cases/*.case.json
+templates/emergency-ai-restriction.*
 tools/validate_emergency_ai_cases.py
+tools/check_emergency_ai_templates.py
 tools/create_emergency_ai_case_scaffold.py
 github/workflows/validate-emergency-ai-cases.yml
 ```
@@ -48,7 +50,13 @@ Install dependencies:
 python -m pip install -r requirements.txt
 ```
 
-Run validation:
+Check template consistency:
+
+```bash
+python tools/check_emergency_ai_templates.py
+```
+
+Run case object validation:
 
 ```bash
 python tools/validate_emergency_ai_cases.py
@@ -56,7 +64,13 @@ python tools/validate_emergency_ai_cases.py
 
 ## Done State
 
-Validation is passing when every emergency AI case object prints as valid and the command exits with status code `0`.
+Validation is passing when the template checker prints:
+
+```text
+valid: emergency AI templates
+```
+
+and every emergency AI case object prints as valid while both commands exit with status code `0`.
 
 Example:
 
@@ -72,6 +86,9 @@ Validation fails if:
 schema file is missing
 no case JSON files are found
 a case object does not match the schema
+a template is missing
+an ambiguous date placeholder is reintroduced
+a scaffold output path is missing or inconsistent
 ```
 
-The validator prints the file path, field location, and schema error message before exiting with status code `1`.
+The validators print the relevant path or consistency error before exiting with status code `1`.
