@@ -22,8 +22,8 @@ Create the full four-file emergency AI case family with:
 ```bash
 python tools/create_emergency_ai_case_scaffold.py CASE-YYYY-MM-SLUG \
   --title "Emergency AI Restriction Case Title" \
-  --event-date YYYY-MM-DD \
-  --observed-date YYYY-MM-DD
+  --event-date EVENT-YYYY-MM-DD \
+  --observed-date OBSERVED-YYYY-MM-DD
 ```
 
 This generates:
@@ -93,7 +93,8 @@ Replace all placeholder values before treating a generated file as case-ready, i
 
 ```text
 CASE-YYYY-MM-SLUG
-YYYY-MM-DD
+EVENT-YYYY-MM-DD
+OBSERVED-YYYY-MM-DD
 Emergency AI Restriction Case Title
 https://example.com/source
 LOCAL-FILE-OR-IMAGE-ID
