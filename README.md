@@ -128,6 +128,16 @@ The Publisher repo secret required for live dispatch is:
 SITE_MIRROR_DISPATCH_TOKEN
 ```
 
+## Release Gate
+
+Publisher-to-Site release status is governed by:
+
+```text
+docs/release-gate-checklist.md
+```
+
+A Site display should not be marked current until Publisher source validity, dispatch readiness, Site mirror validity, public display verification, and governance case posture checks all pass.
+
 ## Governance Case Scaffolding
 
 Publisher can create a four-file emergency AI restriction case family from templates:
@@ -188,6 +198,7 @@ For details, see:
 docs/validation.md
 docs/site-paper-display-policy.md
 docs/site-mirror-dispatch-protocol.md
+docs/release-gate-checklist.md
 templates/README.md
 governance/README.md
 ```
