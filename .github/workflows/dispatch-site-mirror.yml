@@ -11,6 +11,10 @@ on:
         description: "Publisher ref for Site to mirror"
         required: false
         default: "main"
+      dry_run:
+        description: "Validate only; do not require token or dispatch Site"
+        required: false
+        default: "false"
   push:
     branches:
       - main
@@ -66,6 +70,7 @@ jobs:
         run: |
           SITE_REPOSITORY="${{ github.event.inputs.site_repository }}"
           SOURCE_REF="${{ github.event.inputs.source_ref }}"
+          DRY_RUN="${{ github.event.inputs.dry_run }}"
 
           if [ -z "$SITE_REPOSITORY" ]; then
             SITE_REPOSITORY="$DEFAULT_SITE_REPOSITORY"
@@ -75,15 +80,28 @@ jobs:
             SOURCE_REF="$DEFAULT_SOURCE_REF"
           fi
 
+          if [ -z "$DRY_RUN" ]; then
+            DRY_RUN="false"
+          fi
+
           echo "site_repository=$SITE_REPOSITORY" >> "$GITHUB_OUTPUT"
           echo "source_repository=$DEFAULT_SOURCE_REPOSITORY" >> "$GITHUB_OUTPUT"
           echo "source_ref=$SOURCE_REF" >> "$GITHUB_OUTPUT"
+          echo "dry_run=$DRY_RUN" >> "$GITHUB_OUTPUT"
 
           echo "Resolved Site repository: $SITE_REPOSITORY"
           echo "Resolved source repository: $DEFAULT_SOURCE_REPOSITORY"
           echo "Resolved source ref: $SOURCE_REF"
+          echo "Dry run: $DRY_RUN"
+
+      - name: Stop after validation for dry run
+        if: ${{ steps.dispatch.outputs.dry_run == 'true' }}
+        run: |
+          echo "Dry run requested. Publisher validation and dispatch configuration checks passed."
+          echo "Site mirror dispatch was not attempted."
 
       - name: Require dispatch token
+        if: ${{ steps.dispatch.outputs.dry_run != 'true' }}
         run: |
           if [ -z "$SITE_MIRROR_DISPATCH_TOKEN" ]; then
             echo "SITE_MIRROR_DISPATCH_TOKEN is not set."
@@ -92,6 +110,7 @@ jobs:
           fi
 
       - name: Dispatch Site mirror workflow
+        if: ${{ steps.dispatch.outputs.dry_run != 'true' }}
         env:
           SITE_REPOSITORY: ${{ steps.dispatch.outputs.site_repository }}
           SOURCE_REPOSITORY: ${{ steps.dispatch.outputs.source_repository }}
