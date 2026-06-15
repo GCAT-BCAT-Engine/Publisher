@@ -16,6 +16,7 @@ REQUIRED_FILES = [
     Path("docs/verification-run-receipt.template.json"),
     Path("docs/activation-status.md"),
     Path(".github/workflows/dispatch-site-mirror.yml"),
+    Path(".github/workflows/validate-emergency-ai-cases.yml"),
     Path("tools/check_site_mirror_dispatch.py"),
     Path("README.md"),
 ]
@@ -123,9 +124,22 @@ REQUIRED_README_TERMS = [
     "verification tracker update to `activated`",
 ]
 
-REQUIRED_WORKFLOW_TERMS = [
+REQUIRED_DISPATCH_WORKFLOW_TERMS = [
     "python tools/check_emergency_ai_templates.py",
     "python tools/validate_emergency_ai_cases.py",
+    "python tools/check_site_mirror_dispatch.py",
+    "python tools/check_release_gate.py",
+]
+
+REQUIRED_VALIDATION_WORKFLOW_TERMS = [
+    "tools/check_site_mirror_dispatch.py",
+    "tools/check_release_gate.py",
+    "docs/release-gate-checklist.md",
+    "docs/verification-tracker.md",
+    "docs/iphone-dry-run-runbook.md",
+    "docs/verification-run-receipt.template.json",
+    "docs/activation-status.md",
+    ".github/workflows/dispatch-site-mirror.yml",
     "python tools/check_site_mirror_dispatch.py",
     "python tools/check_release_gate.py",
 ]
@@ -184,7 +198,11 @@ def main() -> int:
     if result is not None:
         return result
 
-    result = require_terms(Path(".github/workflows/dispatch-site-mirror.yml"), REQUIRED_WORKFLOW_TERMS)
+    result = require_terms(Path(".github/workflows/dispatch-site-mirror.yml"), REQUIRED_DISPATCH_WORKFLOW_TERMS)
+    if result is not None:
+        return result
+
+    result = require_terms(Path(".github/workflows/validate-emergency-ai-cases.yml"), REQUIRED_VALIDATION_WORKFLOW_TERMS)
     if result is not None:
         return result
 
