@@ -1,8 +1,8 @@
 {
   "case_id": "CASE-YYYY-MM-SLUG",
   "title": "Emergency AI Restriction Case Title",
-  "event_date": "YYYY-MM-DD",
-  "date_observed": "YYYY-MM-DD",
+  "event_date": "EVENT-YYYY-MM-DD",
+  "date_observed": "OBSERVED-YYYY-MM-DD",
   "case_type": "emergency_ai_restriction",
   "authority_claim": "Describe the authority claim without treating it as proven.",
   "execution_effect": "Describe the access, deployment, publication, or execution effect.",
@@ -22,8 +22,8 @@
     "Disputed claim requiring separation from verified evidence"
   ],
   "missing_primary_records": [
-    "government directive text or metadata",
-    "technical report or exploit record",
+    "official directive text or metadata",
+    "technical report or capability record",
     "review or appeal mechanism"
   ],
   "publisher_path": "cases/CASE-YYYY-MM-SLUG.md",
