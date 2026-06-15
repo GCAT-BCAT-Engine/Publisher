@@ -75,6 +75,28 @@ with open('papers.json', 'w') as f:
 
 Or use the GitHub Action (see `.github/workflows/generate-papers.yml`).
 
+## Governance Case Scaffolding
+
+Publisher can create a four-file emergency AI restriction case family from templates:
+
+```bash
+python tools/create_emergency_ai_case_scaffold.py CASE-YYYY-MM-SLUG \
+  --title "Emergency AI Restriction Case Title" \
+  --event-date YYYY-MM-DD \
+  --observed-date YYYY-MM-DD
+```
+
+This generates:
+
+```text
+cases/<CASE-ID>.md
+governance/cases/<CASE-ID>.case.json
+governance/cases/<CASE-ID>.sources.json
+governance/receipts/<CASE-ID>.receipt.json
+```
+
+Existing files are preserved by default. Use `--force` only when overwrite is intended.
+
 ## Validation
 
 Publisher also carries machine-readable governance case objects for public case studies.
@@ -110,6 +132,8 @@ For details, see:
 
 ```text
 docs/validation.md
+templates/README.md
+governance/README.md
 ```
 
 ## Integration with StegVerse Site
