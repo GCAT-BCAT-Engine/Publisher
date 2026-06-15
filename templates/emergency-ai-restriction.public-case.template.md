@@ -1,8 +1,8 @@
 ---
 case_id: CASE-YYYY-MM-SLUG
 title: Emergency AI Restriction Case Title
-date_observed: YYYY-MM-DD
-event_date: YYYY-MM-DD
+date_observed: OBSERVED-YYYY-MM-DD
+event_date: EVENT-YYYY-MM-DD
 case_type: emergency_ai_restriction
 publisher_status: draft
 machine_case_object: governance/cases/CASE-YYYY-MM-SLUG.case.json
@@ -56,8 +56,8 @@ Explain what the available sources can establish and what they cannot establish.
 ## Missing Primary Records
 
 ```text
-government directive text or metadata
-technical report or exploit record
+official directive text or metadata
+technical report or capability record
 review, appeal, expiration, or reassessment mechanism
 ```
 
@@ -83,8 +83,8 @@ governance/receipts/CASE-YYYY-MM-SLUG.receipt.json
 
 ## Working Conclusion
 
-Observation of action is not proof of admissible governance.
+Observation of action is not a final governance determination.
 
-Observation of a public claim is not proof of underlying evidence.
+Observation of a public claim is not proof of underlying records.
 
 Governance begins when the system can preserve both facts at the same time.
