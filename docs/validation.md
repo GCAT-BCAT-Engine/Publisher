@@ -4,7 +4,7 @@
 
 Publisher case records that use machine-readable JSON should validate before they are treated as ready for republication.
 
-The current validators check case JSON structure and template scaffold consistency.
+Publisher-to-Site activation also requires release-gate validation so documentation, workflow hooks, dry-run instructions, activation status, and verification receipt structure do not drift from the operational boundary.
 
 ## Files
 
@@ -14,11 +14,20 @@ governance/cases/*.case.json
 templates/emergency-ai-restriction.*
 tools/validate_emergency_ai_cases.py
 tools/check_emergency_ai_templates.py
+tools/check_site_mirror_dispatch.py
+tools/check_release_gate.py
 tools/create_emergency_ai_case_scaffold.py
+docs/site-mirror-dispatch-protocol.md
+docs/release-gate-checklist.md
+docs/verification-tracker.md
+docs/iphone-dry-run-runbook.md
+docs/verification-run-receipt.template.json
+docs/activation-status.md
 github/workflows/validate-emergency-ai-cases.yml
+github/workflows/dispatch-site-mirror.yml
 ```
 
-The workflow path is shown without its leading dot. In the repository, it is stored under `.github/workflows/validate-emergency-ai-cases.yml`.
+The workflow paths are shown without their leading dot. In the repository, they are stored under `.github/workflows/`.
 
 ## Create a New Emergency AI Case Scaffold
 
@@ -62,6 +71,18 @@ Run case object validation:
 python tools/validate_emergency_ai_cases.py
 ```
 
+Check Publisher-to-Site mirror dispatch configuration:
+
+```bash
+python tools/check_site_mirror_dispatch.py
+```
+
+Check release-gate and activation boundary integrity:
+
+```bash
+python tools/check_release_gate.py
+```
+
 ## Done State
 
 Validation is passing when the template checker prints:
@@ -70,13 +91,20 @@ Validation is passing when the template checker prints:
 valid: emergency AI templates
 ```
 
-and every emergency AI case object prints as valid while both commands exit with status code `0`.
+and every emergency AI case object prints as valid while the dispatch checker and release-gate checker also print:
+
+```text
+valid: Publisher Site mirror dispatch
+valid: Publisher to Site release gate
+```
 
 Example:
 
 ```text
 valid: governance/cases/CASE-2026-06-ANTHROPIC-FABLE-MYTHOS-SUSPENSION.case.json
 ```
+
+All validation commands must exit with status code `0`.
 
 ## Failure State
 
@@ -89,6 +117,12 @@ a case object does not match the schema
 a template is missing
 an ambiguous date placeholder is reintroduced
 a scaffold output path is missing or inconsistent
+Site mirror dispatch configuration drifts
+release-gate documentation drifts
+verification tracker drifts
+iPhone dry-run instructions drift
+verification receipt template drifts
+activation status drifts
 ```
 
 The validators print the relevant path or consistency error before exiting with status code `1`.
