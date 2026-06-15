@@ -10,25 +10,58 @@ Templates are not case records. They are starting points for creating structural
 
 ```text
 templates/emergency-ai-restriction.case.template.json
+templates/emergency-ai-restriction.sources.template.json
+templates/emergency-ai-restriction.receipt.template.json
 ```
 
-This template is used to start a new emergency AI restriction case object.
+## Emergency AI Restriction Template Set
 
-## Use
+```text
+templates/emergency-ai-restriction.case.template.json
+```
 
-Copy the template into:
+Use this to start the schema-compatible machine-readable case object.
+
+Copy it into:
 
 ```text
 governance/cases/<CASE-ID>.case.json
 ```
 
-Then replace all placeholder values, including:
+```text
+templates/emergency-ai-restriction.sources.template.json
+```
+
+Use this to start the source manifest.
+
+Copy it into:
+
+```text
+governance/cases/<CASE-ID>.sources.json
+```
+
+```text
+templates/emergency-ai-restriction.receipt.template.json
+```
+
+Use this to start the receipt stub.
+
+Copy it into:
+
+```text
+governance/receipts/<CASE-ID>.receipt.json
+```
+
+## Placeholder Replacement
+
+Replace all placeholder values before treating a generated file as case-ready, including:
 
 ```text
 CASE-YYYY-MM-SLUG
 YYYY-MM-DD
 Emergency AI Restriction Case Title
 https://example.com/source
+LOCAL-FILE-OR-IMAGE-ID
 ```
 
 ## Validation
@@ -39,7 +72,7 @@ After creating a case object, run:
 python tools/validate_emergency_ai_cases.py
 ```
 
-The case should not be treated as structurally ready until it validates against:
+The case object should not be treated as structurally ready until it validates against:
 
 ```text
 governance/schemas/emergency-ai-restriction.case.schema.json
@@ -50,6 +83,8 @@ governance/schemas/emergency-ai-restriction.case.schema.json
 A template does not establish evidence.
 
 A template does not create authority.
+
+A template does not create a receipt until populated with case-specific transition posture.
 
 A template only preserves structure so the resulting case can separate:
 
