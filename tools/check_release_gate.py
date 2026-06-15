@@ -11,6 +11,7 @@ REQUIRED_FILES = [
     Path("docs/release-gate-checklist.md"),
     Path("docs/site-mirror-dispatch-protocol.md"),
     Path("docs/site-paper-display-policy.md"),
+    Path("docs/verification-tracker.md"),
     Path(".github/workflows/dispatch-site-mirror.yml"),
     Path("tools/check_site_mirror_dispatch.py"),
     Path("README.md"),
@@ -33,6 +34,17 @@ REQUIRED_CHECKLIST_TERMS = [
     "Site text does not convert disputed or provisional claims into final findings",
 ]
 
+REQUIRED_TRACKER_TERMS = [
+    "status: pending_dry_run",
+    "Run Dispatch Site Paper Mirror manually with dry_run: true",
+    "Confirm tools/check_site_mirror_dispatch.py passes",
+    "Confirm tools/check_release_gate.py passes",
+    "Install or confirm SITE_MIRROR_DISPATCH_TOKEN in Publisher",
+    "Confirm Site policy checker runs before mirroring",
+    "Confirm governance case posture is not strengthened by Site wording",
+    "docs/release-gate-checklist.md",
+]
+
 REQUIRED_README_TERMS = [
     "docs/release-gate-checklist.md",
     "Publisher source validity",
@@ -46,6 +58,7 @@ REQUIRED_WORKFLOW_TERMS = [
     "python tools/check_emergency_ai_templates.py",
     "python tools/validate_emergency_ai_cases.py",
     "python tools/check_site_mirror_dispatch.py",
+    "python tools/check_release_gate.py",
 ]
 
 
@@ -79,6 +92,10 @@ def main() -> int:
             return result
 
     result = require_terms(Path("docs/release-gate-checklist.md"), REQUIRED_CHECKLIST_TERMS)
+    if result is not None:
+        return result
+
+    result = require_terms(Path("docs/verification-tracker.md"), REQUIRED_TRACKER_TERMS)
     if result is not None:
         return result
 
