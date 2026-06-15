@@ -1,0 +1,20 @@
+{
+  "case_id": "CASE-2026-06-ANTHROPIC-FABLE-MYTHOS-SUSPENSION",
+  "event_date": "2026-06-12",
+  "observed_date": "2026-06-13",
+  "authority_claim": "U.S. national-security export-control directive",
+  "execution_effect": "Fable 5 and Mythos 5 access suspension",
+  "affected_access_class": "foreign nationals, whether inside or outside the United States, plus broad customer suspension for compliance",
+  "evidence_posture": "public_sources_plus_public_claim_screenshot",
+  "disputed_claims": [
+    "trusted partner found a jailbreak",
+    "administration requested patch or de-deployment",
+    "Anthropic refused",
+    "jailbreak severity was serious enough to justify intervention",
+    "Anthropic claims public justification was insufficient or vulnerability was not uniquely severe"
+  ],
+  "admissibility_status": "unresolved_without_directive_exploit_record_and_review_packet",
+  "publisher_path": "cases/CASE-2026-06-ANTHROPIC-FABLE-MYTHOS-SUSPENSION.md",
+  "source_manifest_path": "governance/cases/CASE-2026-06-ANTHROPIC-FABLE-MYTHOS-SUSPENSION.sources.json",
+  "schema_path": "governance/schemas/emergency-ai-restriction.case.schema.json"
+}
