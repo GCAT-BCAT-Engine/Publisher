@@ -75,6 +75,27 @@ with open('papers.json', 'w') as f:
 
 Or use the GitHub Action (see `.github/workflows/generate-papers.yml`).
 
+## Site Paper Display Policy
+
+The StegVerse Site should display current papers and governance case studies from Publisher-controlled records, not from a separate Site editorial copy.
+
+Policy and update protocol are defined in:
+
+```text
+docs/site-paper-display-policy.md
+```
+
+Site display updates should follow this order:
+
+```text
+1. Update Publisher source record.
+2. Validate Publisher record.
+3. Generate or refresh Publisher runtime data.
+4. Update Site display surface.
+5. Verify Site links resolve to Publisher-owned paths.
+6. Commit Site update with Publisher source reference.
+```
+
 ## Governance Case Scaffolding
 
 Publisher can create a four-file emergency AI restriction case family from templates:
@@ -117,6 +138,7 @@ Run local validation with:
 
 ```bash
 python -m pip install -r requirements.txt
+python tools/check_emergency_ai_templates.py
 python tools/validate_emergency_ai_cases.py
 ```
 
@@ -132,6 +154,7 @@ For details, see:
 
 ```text
 docs/validation.md
+docs/site-paper-display-policy.md
 templates/README.md
 governance/README.md
 ```
