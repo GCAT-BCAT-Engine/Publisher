@@ -10,6 +10,14 @@ Track the operational verification of the Publisher-to-Site mirror path after po
 status: pending_dry_run
 ```
 
+## iPhone Runbook
+
+Use this runbook for the first dry-run test:
+
+```text
+docs/iphone-dry-run-runbook.md
+```
+
 ## Required Verification Sequence
 
 ```text
@@ -43,6 +51,7 @@ tools/check_release_gate.py
 docs/site-mirror-dispatch-protocol.md
 docs/release-gate-checklist.md
 docs/site-paper-display-policy.md
+docs/iphone-dry-run-runbook.md
 ```
 
 ## Next Action
