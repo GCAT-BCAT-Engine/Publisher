@@ -15,6 +15,28 @@ templates/emergency-ai-restriction.sources.template.json
 templates/emergency-ai-restriction.receipt.template.json
 ```
 
+## Scaffold Generator
+
+Create the full four-file emergency AI case family with:
+
+```bash
+python tools/create_emergency_ai_case_scaffold.py CASE-YYYY-MM-SLUG \
+  --title "Emergency AI Restriction Case Title" \
+  --event-date YYYY-MM-DD \
+  --observed-date YYYY-MM-DD
+```
+
+This generates:
+
+```text
+cases/<CASE-ID>.md
+governance/cases/<CASE-ID>.case.json
+governance/cases/<CASE-ID>.sources.json
+governance/receipts/<CASE-ID>.receipt.json
+```
+
+Existing files are preserved by default. Use `--force` only when overwrite is intended.
+
 ## Emergency AI Restriction Template Set
 
 ```text
