@@ -54,6 +54,18 @@ Those files are the Publisher narrative surface.
 
 The governance directory stores support records that allow that narrative to remain auditable and separable from evidence posture.
 
+## Site Display Boundary
+
+The StegVerse Site may summarize or link to Publisher records, but Publisher remains the source of truth for paper and governance case publication state.
+
+Site display policy is defined in:
+
+```text
+docs/site-paper-display-policy.md
+```
+
+Site updates should preserve Publisher status, evidence posture, and admissibility posture rather than strengthening a Publisher record into a separate Site claim.
+
 ## Current Case Family
 
 ```text
@@ -74,6 +86,7 @@ governance/receipts/CASE-2026-06-ANTHROPIC-FABLE-MYTHOS-SUSPENSION.receipt.json
 Emergency AI restriction cases are validated with:
 
 ```bash
+python tools/check_emergency_ai_templates.py
 python tools/validate_emergency_ai_cases.py
 ```
 
@@ -81,6 +94,7 @@ For more detail, see:
 
 ```text
 docs/validation.md
+docs/site-paper-display-policy.md
 governance/cases/README.md
 governance/receipts/README.md
 governance/schemas/README.md
