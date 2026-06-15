@@ -72,6 +72,7 @@
       "enum": [
         "unresolved",
         "unresolved_without_primary_records_and_review_packet",
+        "unresolved_without_directive_exploit_record_and_review_packet",
         "provisional_public_case",
         "admissible_public_record",
         "inadmissible_public_record",
