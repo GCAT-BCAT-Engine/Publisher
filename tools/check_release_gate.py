@@ -14,6 +14,7 @@ REQUIRED_FILES = [
     Path("docs/verification-tracker.md"),
     Path("docs/iphone-dry-run-runbook.md"),
     Path("docs/verification-run-receipt.template.json"),
+    Path("docs/activation-status.md"),
     Path(".github/workflows/dispatch-site-mirror.yml"),
     Path("tools/check_site_mirror_dispatch.py"),
     Path("README.md"),
@@ -92,6 +93,20 @@ REQUIRED_RECEIPT_TERMS = [
     "governance_case_display_verification",
 ]
 
+REQUIRED_ACTIVATION_TERMS = [
+    "activation_state: ready_for_manual_dry_run",
+    "activation_target: Publisher to Site mirror dispatch",
+    "site_target: StegVerse-Labs/Site",
+    "manual dry-run has not been recorded",
+    "SITE_MIRROR_DISPATCH_TOKEN has not been verified in Publisher",
+    "Repo activation occurs when",
+    "Dispatch Site Paper Mirror passes with dry_run: true",
+    "Verification receipt is captured for the dry run",
+    "Dispatch Site Paper Mirror passes with dry_run: false",
+    "Site Mirror Papers from Publisher completes",
+    "docs/verification-tracker.md is updated from pending_dry_run to activated",
+]
+
 REQUIRED_README_TERMS = [
     "docs/release-gate-checklist.md",
     "Publisher source validity",
@@ -151,6 +166,10 @@ def main() -> int:
         return result
 
     result = require_terms(Path("docs/verification-run-receipt.template.json"), REQUIRED_RECEIPT_TERMS)
+    if result is not None:
+        return result
+
+    result = require_terms(Path("docs/activation-status.md"), REQUIRED_ACTIVATION_TERMS)
     if result is not None:
         return result
 
