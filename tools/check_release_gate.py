@@ -12,6 +12,7 @@ REQUIRED_FILES = [
     Path("docs/site-mirror-dispatch-protocol.md"),
     Path("docs/site-paper-display-policy.md"),
     Path("docs/verification-tracker.md"),
+    Path("docs/iphone-dry-run-runbook.md"),
     Path(".github/workflows/dispatch-site-mirror.yml"),
     Path("tools/check_site_mirror_dispatch.py"),
     Path("README.md"),
@@ -36,6 +37,7 @@ REQUIRED_CHECKLIST_TERMS = [
 
 REQUIRED_TRACKER_TERMS = [
     "status: pending_dry_run",
+    "docs/iphone-dry-run-runbook.md",
     "Run Dispatch Site Paper Mirror manually with dry_run: true",
     "Confirm tools/check_site_mirror_dispatch.py passes",
     "Confirm tools/check_release_gate.py passes",
@@ -43,6 +45,25 @@ REQUIRED_TRACKER_TERMS = [
     "Confirm Site policy checker runs before mirroring",
     "Confirm governance case posture is not strengthened by Site wording",
     "docs/release-gate-checklist.md",
+]
+
+REQUIRED_IPHONE_RUNBOOK_TERMS = [
+    "iPhone Dry-Run Runbook",
+    "GitHub mobile app or Safari",
+    "Actions → Dispatch Site Paper Mirror",
+    "branch: main",
+    "site_repository: StegVerse-Labs/Site",
+    "source_ref: main",
+    "dry_run: true",
+    "Check emergency AI templates",
+    "Validate emergency AI case objects",
+    "Check Site mirror dispatch configuration",
+    "Check Publisher to Site release gate",
+    "Stop after validation for dry run",
+    "Require dispatch token",
+    "Dispatch Site mirror workflow",
+    "Dry run requested. Publisher validation and dispatch configuration checks passed.",
+    "Site mirror dispatch was not attempted.",
 ]
 
 REQUIRED_README_TERMS = [
@@ -96,6 +117,10 @@ def main() -> int:
         return result
 
     result = require_terms(Path("docs/verification-tracker.md"), REQUIRED_TRACKER_TERMS)
+    if result is not None:
+        return result
+
+    result = require_terms(Path("docs/iphone-dry-run-runbook.md"), REQUIRED_IPHONE_RUNBOOK_TERMS)
     if result is not None:
         return result
 
