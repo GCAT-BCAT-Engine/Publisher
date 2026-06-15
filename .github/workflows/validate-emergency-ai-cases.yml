@@ -5,6 +5,7 @@ on:
     paths:
       - 'governance/cases/**/*.case.json'
       - 'governance/schemas/emergency-ai-restriction.case.schema.json'
+      - 'tools/validate_emergency_ai_cases.py'
       - '.github/workflows/validate-emergency-ai-cases.yml'
   push:
     branches:
@@ -12,6 +13,7 @@ on:
     paths:
       - 'governance/cases/**/*.case.json'
       - 'governance/schemas/emergency-ai-restriction.case.schema.json'
+      - 'tools/validate_emergency_ai_cases.py'
       - '.github/workflows/validate-emergency-ai-cases.yml'
   workflow_dispatch:
 
@@ -33,36 +35,4 @@ jobs:
         run: python -m pip install --upgrade jsonschema
 
       - name: Validate case JSON files
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          from jsonschema import Draft202012Validator
-
-          schema_path = Path('governance/schemas/emergency-ai-restriction.case.schema.json')
-          case_paths = sorted(Path('governance/cases').glob('*.case.json'))
-
-          if not schema_path.exists():
-              raise SystemExit(f'Missing schema: {schema_path}')
-
-          if not case_paths:
-              raise SystemExit('No emergency AI case JSON files found.')
-
-          schema = json.loads(schema_path.read_text(encoding='utf-8'))
-          validator = Draft202012Validator(schema)
-
-          failures = []
-          for case_path in case_paths:
-              data = json.loads(case_path.read_text(encoding='utf-8'))
-              errors = sorted(validator.iter_errors(data), key=lambda e: list(e.path))
-              if errors:
-                  for error in errors:
-                      location = '.'.join(str(part) for part in error.path) or '<root>'
-                      failures.append(f'{case_path}: {location}: {error.message}')
-              else:
-                  print(f'valid: {case_path}')
-
-          if failures:
-              print('\n'.join(failures))
-              raise SystemExit(1)
-          PY
+        run: python tools/validate_emergency_ai_cases.py
