@@ -109,11 +109,18 @@ REQUIRED_ACTIVATION_TERMS = [
 
 REQUIRED_README_TERMS = [
     "docs/release-gate-checklist.md",
+    "docs/activation-status.md",
     "Publisher source validity",
     "dispatch readiness",
     "Site mirror validity",
     "public display verification",
     "governance case posture checks",
+    "manual dry-run execution",
+    "dry-run receipt capture",
+    "live dispatch",
+    "Site mirror completion",
+    "live-dispatch receipt capture",
+    "verification tracker update to `activated`",
 ]
 
 REQUIRED_WORKFLOW_TERMS = [
