@@ -5,7 +5,9 @@ on:
     paths:
       - 'governance/cases/**/*.case.json'
       - 'governance/schemas/emergency-ai-restriction.case.schema.json'
+      - 'templates/emergency-ai-restriction.*'
       - 'tools/validate_emergency_ai_cases.py'
+      - 'tools/check_emergency_ai_templates.py'
       - '.github/workflows/validate-emergency-ai-cases.yml'
   push:
     branches:
@@ -13,7 +15,9 @@ on:
     paths:
       - 'governance/cases/**/*.case.json'
       - 'governance/schemas/emergency-ai-restriction.case.schema.json'
+      - 'templates/emergency-ai-restriction.*'
       - 'tools/validate_emergency_ai_cases.py'
+      - 'tools/check_emergency_ai_templates.py'
       - '.github/workflows/validate-emergency-ai-cases.yml'
   workflow_dispatch:
 
@@ -33,6 +37,9 @@ jobs:
 
       - name: Install validator
         run: python -m pip install --upgrade jsonschema
+
+      - name: Check emergency AI templates
+        run: python tools/check_emergency_ai_templates.py
 
       - name: Validate case JSON files
         run: python tools/validate_emergency_ai_cases.py
