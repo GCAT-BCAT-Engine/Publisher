@@ -27,7 +27,9 @@ on:
       - "governance/receipts/**"
       - "docs/site-paper-display-policy.md"
       - "docs/site-mirror-dispatch-protocol.md"
+      - "docs/release-gate-checklist.md"
       - "tools/check_site_mirror_dispatch.py"
+      - "tools/check_release_gate.py"
       - ".github/workflows/dispatch-site-mirror.yml"
 
 jobs:
@@ -64,6 +66,9 @@ jobs:
 
       - name: Check Site mirror dispatch configuration
         run: python tools/check_site_mirror_dispatch.py
+
+      - name: Check Publisher to Site release gate
+        run: python tools/check_release_gate.py
 
       - name: Resolve dispatch inputs
         id: dispatch
