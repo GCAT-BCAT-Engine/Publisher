@@ -1,0 +1,35 @@
+{
+  "receipt_type": "publisher_to_site_verification_run",
+  "status": "pending",
+  "run_class": "dry_run_or_live_dispatch",
+  "publisher_repository": "GCAT-BCAT-Engine/Publisher",
+  "site_repository": "StegVerse-Labs/Site",
+  "publisher_workflow": ".github/workflows/dispatch-site-mirror.yml",
+  "site_workflow": "StegVerse-Labs/Site/.github/workflows/mirror-papers.yml",
+  "source_ref": "main",
+  "dry_run": true,
+  "github_run_url": null,
+  "github_run_id": null,
+  "observed_at_utc": null,
+  "observed_by": null,
+  "validation_results": {
+    "check_emergency_ai_templates": "pending",
+    "validate_emergency_ai_cases": "pending",
+    "check_site_mirror_dispatch": "pending",
+    "check_release_gate": "pending"
+  },
+  "dispatch_results": {
+    "site_dispatch_attempted": false,
+    "site_dispatch_status": "not_attempted_for_dry_run",
+    "site_workflow_run_url": null,
+    "site_commit_sha": null
+  },
+  "release_gate_results": {
+    "publisher_source_validity": "pending",
+    "dispatch_readiness": "pending",
+    "site_mirror_validity": "pending",
+    "public_display_verification": "pending",
+    "governance_case_display_verification": "pending"
+  },
+  "notes": []
+}
