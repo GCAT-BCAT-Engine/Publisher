@@ -7,7 +7,7 @@
       "type": "company_statement",
       "title": "Source title",
       "url": "https://example.com/source",
-      "retrieved_or_observed_date": "YYYY-MM-DD",
+      "retrieved_or_observed_date": "OBSERVED-YYYY-MM-DD",
       "verification_status": "public_source_not_independently_verified_here",
       "notes": "Describe what this source claims, without treating the claim as proven."
     },
@@ -16,7 +16,7 @@
       "type": "news_report",
       "title": "Secondary report title",
       "url": "https://example.com/report",
-      "retrieved_or_observed_date": "YYYY-MM-DD",
+      "retrieved_or_observed_date": "OBSERVED-YYYY-MM-DD",
       "verification_status": "public_source_not_independently_verified_here",
       "notes": "Describe the reporting posture and whether it relies on named, unnamed, primary, or secondary sources."
     },
@@ -25,7 +25,7 @@
       "type": "user_provided_screenshot",
       "title": "Screenshot description",
       "local_reference": "LOCAL-FILE-OR-IMAGE-ID",
-      "retrieved_or_observed_date": "YYYY-MM-DD",
+      "retrieved_or_observed_date": "OBSERVED-YYYY-MM-DD",
       "verification_status": "screenshot_claim_unverified_without_original_post_fetch",
       "notes": "Describe visible claim posture and what would be required to verify the original source."
     }
@@ -33,13 +33,13 @@
   "missing_primary_records": [
     {
       "id": "MISSING-001",
-      "record_type": "government_directive",
-      "description": "Directive text, metadata, statutory authority, or order record required to confirm authority posture."
+      "record_type": "official_directive",
+      "description": "Directive text, metadata, authority basis, or order record required to confirm authority posture."
     },
     {
       "id": "MISSING-002",
       "record_type": "technical_report",
-      "description": "Exploit, jailbreak, model-capability, or mitigation record required to confirm technical risk posture."
+      "description": "Technical report, model-capability record, or mitigation record required to confirm technical risk posture."
     },
     {
       "id": "MISSING-003",
