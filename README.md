@@ -75,6 +75,43 @@ with open('papers.json', 'w') as f:
 
 Or use the GitHub Action (see `.github/workflows/generate-papers.yml`).
 
+## Validation
+
+Publisher also carries machine-readable governance case objects for public case studies.
+
+Emergency AI restriction case objects are stored in:
+
+```text
+governance/cases/*.case.json
+```
+
+They are validated against:
+
+```text
+governance/schemas/emergency-ai-restriction.case.schema.json
+```
+
+Run local validation with:
+
+```bash
+python -m pip install -r requirements.txt
+python tools/validate_emergency_ai_cases.py
+```
+
+The GitHub Actions workflow path is shown here without its leading dot:
+
+```text
+github/workflows/validate-emergency-ai-cases.yml
+```
+
+In the repository, the actual path is `.github/workflows/validate-emergency-ai-cases.yml`.
+
+For details, see:
+
+```text
+docs/validation.md
+```
+
 ## Integration with StegVerse Site
 
 The Publisher lives as a subdirectory of the main site:
