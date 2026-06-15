@@ -1,0 +1,32 @@
+{
+  "case_id": "CASE-YYYY-MM-SLUG",
+  "title": "Emergency AI Restriction Case Title",
+  "event_date": "YYYY-MM-DD",
+  "date_observed": "YYYY-MM-DD",
+  "case_type": "emergency_ai_restriction",
+  "authority_claim": "Describe the authority claim without treating it as proven.",
+  "execution_effect": "Describe the access, deployment, publication, or execution effect.",
+  "affected_access_class": "Describe affected users, actors, jurisdictions, models, or access tiers.",
+  "evidence_posture": "public_sources_only",
+  "admissibility_status": "unresolved",
+  "sources": [
+    {
+      "id": "SRC-001",
+      "type": "company_statement",
+      "title": "Source title",
+      "url": "https://example.com/source",
+      "verification_status": "public_source_not_independently_verified_here"
+    }
+  ],
+  "disputed_claims": [
+    "Disputed claim requiring separation from verified evidence"
+  ],
+  "missing_primary_records": [
+    "government directive text or metadata",
+    "technical report or exploit record",
+    "review or appeal mechanism"
+  ],
+  "publisher_path": "cases/CASE-YYYY-MM-SLUG.md",
+  "source_manifest_path": "governance/cases/CASE-YYYY-MM-SLUG.sources.json",
+  "receipt_path": "governance/receipts/CASE-YYYY-MM-SLUG.receipt.json"
+}
