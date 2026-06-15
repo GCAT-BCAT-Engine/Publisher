@@ -25,8 +25,8 @@ Generate the four-file case family from templates:
 ```bash
 python tools/create_emergency_ai_case_scaffold.py CASE-YYYY-MM-SLUG \
   --title "Emergency AI Restriction Case Title" \
-  --event-date YYYY-MM-DD \
-  --observed-date YYYY-MM-DD
+  --event-date EVENT-YYYY-MM-DD \
+  --observed-date OBSERVED-YYYY-MM-DD
 ```
 
 This creates:
