@@ -114,7 +114,15 @@ Operational details are defined in:
 docs/site-mirror-dispatch-protocol.md
 ```
 
-The Publisher repo secret required for dispatch is:
+Before installing or relying on dispatch credentials, run the workflow manually with:
+
+```text
+dry_run: true
+```
+
+Dry run validates Publisher records and dispatch configuration without requiring a token or triggering Site.
+
+The Publisher repo secret required for live dispatch is:
 
 ```text
 SITE_MIRROR_DISPATCH_TOKEN
