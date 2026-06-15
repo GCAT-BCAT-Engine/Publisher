@@ -1,0 +1,51 @@
+{
+  "case_id": "CASE-YYYY-MM-SLUG",
+  "source_posture": "public_sources_only",
+  "sources": [
+    {
+      "id": "SRC-001",
+      "type": "company_statement",
+      "title": "Source title",
+      "url": "https://example.com/source",
+      "retrieved_or_observed_date": "YYYY-MM-DD",
+      "verification_status": "public_source_not_independently_verified_here",
+      "notes": "Describe what this source claims, without treating the claim as proven."
+    },
+    {
+      "id": "SRC-002",
+      "type": "news_report",
+      "title": "Secondary report title",
+      "url": "https://example.com/report",
+      "retrieved_or_observed_date": "YYYY-MM-DD",
+      "verification_status": "public_source_not_independently_verified_here",
+      "notes": "Describe the reporting posture and whether it relies on named, unnamed, primary, or secondary sources."
+    },
+    {
+      "id": "SRC-003",
+      "type": "user_provided_screenshot",
+      "title": "Screenshot description",
+      "local_reference": "LOCAL-FILE-OR-IMAGE-ID",
+      "retrieved_or_observed_date": "YYYY-MM-DD",
+      "verification_status": "screenshot_claim_unverified_without_original_post_fetch",
+      "notes": "Describe visible claim posture and what would be required to verify the original source."
+    }
+  ],
+  "missing_primary_records": [
+    {
+      "id": "MISSING-001",
+      "record_type": "government_directive",
+      "description": "Directive text, metadata, statutory authority, or order record required to confirm authority posture."
+    },
+    {
+      "id": "MISSING-002",
+      "record_type": "technical_report",
+      "description": "Exploit, jailbreak, model-capability, or mitigation record required to confirm technical risk posture."
+    },
+    {
+      "id": "MISSING-003",
+      "record_type": "review_mechanism",
+      "description": "Appeal, expiration, reassessment, or independent review mechanism required to evaluate admissibility over time."
+    }
+  ],
+  "source_boundary_rule": "A public source may establish that a claim was made. It does not by itself establish that the underlying claim is true, complete, lawful, or admissible."
+}
