@@ -20,8 +20,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("case_id", help="Case ID, for example CASE-2026-06-EXAMPLE")
     parser.add_argument("--title", default="Emergency AI Restriction Case Title")
-    parser.add_argument("--event-date", default="YYYY-MM-DD")
-    parser.add_argument("--observed-date", default="YYYY-MM-DD")
+    parser.add_argument("--event-date", default="EVENT-YYYY-MM-DD")
+    parser.add_argument("--observed-date", default="OBSERVED-YYYY-MM-DD")
     parser.add_argument(
         "--force",
         action="store_true",
@@ -34,8 +34,8 @@ def render_template(text: str, args: argparse.Namespace) -> str:
     return (
         text.replace("CASE-YYYY-MM-SLUG", args.case_id)
         .replace("Emergency AI Restriction Case Title", args.title)
-        .replace("YYYY-MM-DD", args.event_date, 1)
-        .replace("YYYY-MM-DD", args.observed_date, 1)
+        .replace("EVENT-YYYY-MM-DD", args.event_date)
+        .replace("OBSERVED-YYYY-MM-DD", args.observed_date)
     )
 
 
