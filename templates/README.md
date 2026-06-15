@@ -4,17 +4,30 @@
 
 This directory stores reusable templates for Publisher governance records.
 
-Templates are not case records. They are starting points for creating structurally consistent case objects, source manifests, receipts, and public case drafts.
+Templates are not case records. They are starting points for creating structurally consistent public case drafts, case objects, source manifests, and receipts.
 
 ## Current Templates
 
 ```text
+templates/emergency-ai-restriction.public-case.template.md
 templates/emergency-ai-restriction.case.template.json
 templates/emergency-ai-restriction.sources.template.json
 templates/emergency-ai-restriction.receipt.template.json
 ```
 
 ## Emergency AI Restriction Template Set
+
+```text
+templates/emergency-ai-restriction.public-case.template.md
+```
+
+Use this to start the public-readable Publisher case study.
+
+Copy it into:
+
+```text
+cases/<CASE-ID>.md
+```
 
 ```text
 templates/emergency-ai-restriction.case.template.json
@@ -85,6 +98,8 @@ A template does not establish evidence.
 A template does not create authority.
 
 A template does not create a receipt until populated with case-specific transition posture.
+
+A template does not create a public case until populated with case-specific public narrative and boundary language.
 
 A template only preserves structure so the resulting case can separate:
 
