@@ -98,19 +98,39 @@ STEGVERSE_REPO_SYNC_TOKEN
 
 `STEGVERSE_REPO_SYNC_TOKEN` belongs in Site when Site must read Publisher.
 
-## Manual Run Procedure
+## Dry-Run Procedure
 
-To test dispatch manually:
+Use dry run before installing or relying on cross-repo dispatch credentials.
 
 ```text
 1. Open GCAT-BCAT-Engine/Publisher Actions.
 2. Select Dispatch Site Paper Mirror.
 3. Run workflow on main.
-4. Leave site_repository as StegVerse-Labs/Site unless testing a fork.
-5. Leave source_ref as main unless testing a branch or SHA.
-6. Confirm Publisher validation passes.
-7. Confirm the Site workflow starts.
-8. Confirm Site mirror completes and records the source repository and ref.
+4. Set dry_run to true.
+5. Leave site_repository as StegVerse-Labs/Site unless testing a fork.
+6. Leave source_ref as main unless testing a branch or SHA.
+7. Confirm Publisher validation passes.
+8. Confirm Site mirror dispatch configuration check passes.
+9. Confirm the workflow prints that Site mirror dispatch was not attempted.
+```
+
+Dry run does not require `SITE_MIRROR_DISPATCH_TOKEN` and does not trigger the Site workflow.
+
+## Manual Dispatch Procedure
+
+To test live dispatch after dry run passes:
+
+```text
+1. Confirm SITE_MIRROR_DISPATCH_TOKEN is installed in Publisher.
+2. Open GCAT-BCAT-Engine/Publisher Actions.
+3. Select Dispatch Site Paper Mirror.
+4. Run workflow on main.
+5. Set dry_run to false.
+6. Leave site_repository as StegVerse-Labs/Site unless testing a fork.
+7. Leave source_ref as main unless testing a branch or SHA.
+8. Confirm Publisher validation passes.
+9. Confirm the Site workflow starts.
+10. Confirm Site mirror completes and records the source repository and ref.
 ```
 
 ## Failure Handling
@@ -125,6 +145,7 @@ Publisher-to-Site dispatch is complete when:
 
 ```text
 Publisher validates source records
+Publisher dry run passes without requiring a dispatch token
 Publisher can trigger Site mirror workflow
 Site policy checker runs before mirroring
 Site records source repository and source ref in workflow summary
