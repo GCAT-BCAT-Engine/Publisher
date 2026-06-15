@@ -96,6 +96,30 @@ Site display updates should follow this order:
 6. Commit Site update with Publisher source reference.
 ```
 
+## Site Mirror Dispatch
+
+Publisher can dispatch the Site mirror workflow after Publisher validation passes.
+
+The Publisher dispatch workflow is:
+
+```text
+github/workflows/dispatch-site-mirror.yml
+```
+
+In the repository, the actual path is `.github/workflows/dispatch-site-mirror.yml`.
+
+Operational details are defined in:
+
+```text
+docs/site-mirror-dispatch-protocol.md
+```
+
+The Publisher repo secret required for dispatch is:
+
+```text
+SITE_MIRROR_DISPATCH_TOKEN
+```
+
 ## Governance Case Scaffolding
 
 Publisher can create a four-file emergency AI restriction case family from templates:
@@ -155,6 +179,7 @@ For details, see:
 ```text
 docs/validation.md
 docs/site-paper-display-policy.md
+docs/site-mirror-dispatch-protocol.md
 templates/README.md
 governance/README.md
 ```
