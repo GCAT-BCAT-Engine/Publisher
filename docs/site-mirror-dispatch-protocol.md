@@ -22,6 +22,14 @@ Dispatch Site Paper Mirror
 
 It runs after eligible Publisher changes on `main` and may also be run manually.
 
+The dispatch workflow uses the shared activation runner before any dry-run completion or live Site dispatch:
+
+```bash
+python tools/check_publisher_activation.py
+```
+
+The activation runner executes the emergency-template check, emergency-case validation, Site mirror dispatch configuration check, and Publisher-to-Site release-gate check.
+
 ## Target Site Workflow
 
 The target Site workflow is:
@@ -63,9 +71,16 @@ governance/cases/**
 governance/receipts/**
 docs/site-paper-display-policy.md
 docs/site-mirror-dispatch-protocol.md
+docs/release-gate-checklist.md
+docs/validation.md
+docs/verification-tracker.md
+docs/iphone-dry-run-runbook.md
+docs/verification-run-receipt.template.json
+docs/activation-status.md
+tools/check_publisher_activation.py
 ```
 
-Publisher should not dispatch Site if Publisher validation fails.
+Publisher should not dispatch Site if Publisher activation validation fails.
 
 ## Required Dispatch Sequence
 
@@ -73,7 +88,7 @@ Use this order:
 
 ```text
 1. Publisher paper or case source record changes.
-2. Publisher validation passes.
+2. Publisher activation validation passes.
 3. Publisher sends workflow_dispatch to Site mirror workflow.
 4. Site mirror workflow runs Site policy checker.
 5. Site checks out Publisher at the requested ref.
@@ -109,9 +124,8 @@ Use dry run before installing or relying on cross-repo dispatch credentials.
 4. Set dry_run to true.
 5. Leave site_repository as StegVerse-Labs/Site unless testing a fork.
 6. Leave source_ref as main unless testing a branch or SHA.
-7. Confirm Publisher validation passes.
-8. Confirm Site mirror dispatch configuration check passes.
-9. Confirm the workflow prints that Site mirror dispatch was not attempted.
+7. Confirm Publisher activation validation passes.
+8. Confirm the workflow prints that Site mirror dispatch was not attempted.
 ```
 
 Dry run does not require `SITE_MIRROR_DISPATCH_TOKEN` and does not trigger the Site workflow.
@@ -128,7 +142,7 @@ To test live dispatch after dry run passes:
 5. Set dry_run to false.
 6. Leave site_repository as StegVerse-Labs/Site unless testing a fork.
 7. Leave source_ref as main unless testing a branch or SHA.
-8. Confirm Publisher validation passes.
+8. Confirm Publisher activation validation passes.
 9. Confirm the Site workflow starts.
 10. Confirm Site mirror completes and records the source repository and ref.
 ```
@@ -144,7 +158,7 @@ If Site mirror fails, Site should keep the last successful public display and ex
 Publisher-to-Site dispatch is complete when:
 
 ```text
-Publisher validates source records
+Publisher activation validation passes
 Publisher dry run passes without requiring a dispatch token
 Publisher can trigger Site mirror workflow
 Site policy checker runs before mirroring
