@@ -1,0 +1,55 @@
+name: GCAT BCAT Cosmos Sweep Verify
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'academic/cosmos/governance_random_sweep.py'
+      - 'academic/cosmos/verify_sweep_results.py'
+      - 'academic/cosmos/sweep_randomized_results.json'
+      - '.github/workflows/cosmos-sweep-verify.yml'
+  pull_request:
+    paths:
+      - 'academic/cosmos/governance_random_sweep.py'
+      - 'academic/cosmos/verify_sweep_results.py'
+      - 'academic/cosmos/sweep_randomized_results.json'
+      - '.github/workflows/cosmos-sweep-verify.yml'
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  sweep-verify:
+    name: Run and verify cosmos sweep
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run deterministic sweep
+        working-directory: academic/cosmos
+        run: |
+          python governance_random_sweep.py --samples 100 --seed 42 --stats sweep_statistics.json
+
+      - name: Verify generated sweep results
+        run: |
+          python academic/cosmos/verify_sweep_results.py academic/cosmos/sweep_randomized_results.json
+
+      - name: Upload sweep artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: gcat-bcat-cosmos-sweep-results
+          path: |
+            academic/cosmos/sweep_randomized_results.json
+            academic/cosmos/sweep_statistics.json
+          if-no-files-found: error
