@@ -3,7 +3,7 @@
 Assumptions for this hub:
 
 - This folder contains GCAT/BCAT materials that use physics-facing language, including quantum, classical, astrophysical, cosmological, entropy, information, dark-matter, dark-energy, and black-hole terminology.
-- This README is an entry point. It does not replace the formalism documentation, posture note, executable sweep artifact, verifier, stress suite, baseline plan, baseline registry, baseline verifier, or workflow.
+- This README is an entry point. It does not replace the formalism documentation, posture note, executable sweep artifact, verifier, stress suite, baseline plan, baseline registry, baseline verifier, placeholder results, or workflow.
 - Repository paths are shown without a leading slash.
 
 ## Purpose
@@ -18,6 +18,7 @@ This folder organizes the GCAT/BCAT physics-facing formalism materials so reader
 - the multi-seed stress suite,
 - the external-baseline comparison plan,
 - the baseline claim registry,
+- the baseline result placeholders,
 - the baseline record verifier,
 - the reproducibility workflow,
 - generated sweep evidence,
@@ -235,7 +236,25 @@ Current posture:
 Baseline folder documentation
 ```
 
-### 10. Baseline record verifier
+### 10. Baseline result placeholders
+
+```text
+academic/cosmos/baselines/results/COSMOS-SCALAR-REGIME-001.json
+academic/cosmos/baselines/results/COSMOS-ENTROPY-DEBT-001.json
+academic/cosmos/baselines/results/COSMOS-MASS-ENERGY-IMPRINT-001.json
+academic/cosmos/baselines/results/COSMOS-DARK-COMPONENTS-001.json
+academic/cosmos/baselines/results/COSMOS-BLACK-HOLE-CIRCLE-001.json
+```
+
+Use these to preserve machine-readable status for claims that are not externally testable yet.
+
+Current posture:
+
+```text
+Placeholder baseline records / not_testable_yet
+```
+
+### 11. Baseline record verifier
 
 ```text
 academic/cosmos/verify_baseline_records.py
@@ -266,7 +285,7 @@ Current posture:
 Baseline record discipline verifier
 ```
 
-### 11. Reproducibility workflow
+### 12. Reproducibility workflow
 
 ```text
 github/workflows/cosmos-sweep-verify.yml
@@ -288,7 +307,7 @@ Current posture:
 Repo-level reproducibility workflow
 ```
 
-### 12. Generated sweep output
+### 13. Generated sweep output
 
 ```text
 academic/cosmos/sweep_randomized_results.json
@@ -328,6 +347,7 @@ The repo should not yet claim:
 | `academic/cosmos/EXTERNAL_BASELINE_COMPARISON_PLAN.md` | External baseline plan | Public empirical-comparison scaffold |
 | `academic/cosmos/baselines/claim_registry.json` | Claim registry | Physics-facing claim catalog |
 | `academic/cosmos/baselines/README.md` | Baseline guide | Baseline folder documentation |
+| `academic/cosmos/baselines/results/*.json` | Baseline result placeholders | not_testable_yet result records |
 | `academic/cosmos/verify_baseline_records.py` | Baseline verifier | Registry/result-record discipline check |
 | `github/workflows/cosmos-sweep-verify.yml` | GitHub Actions workflow | Repo-level reproducibility workflow |
 | `academic/cosmos/sweep_randomized_results.json` | Generated output | Run-output evidence |
@@ -356,6 +376,7 @@ Deterministic reproducibility workflow: yes
 Internal stress-test suite: yes
 External physics baseline comparison: scaffolded
 Baseline claim registry: yes
+Baseline result placeholders: yes
 Baseline record verifier: yes
 Independent reproduction package: partial
 Validated physical result: not yet
@@ -363,10 +384,10 @@ Validated physical result: not yet
 
 ## Next recommended additions
 
-1. Add placeholder result records under `academic/cosmos/baselines/results/` marked `not_testable_yet`.
-2. Add a public reproduction note explaining how to run the workflow and interpret artifacts.
-3. Add edge-case tests for invalid states and boundary-condition states.
-4. Add a changelog entry for the cosmos validation slice.
+1. Add a public reproduction note explaining how to run the workflow and interpret artifacts.
+2. Add edge-case tests for invalid states and boundary-condition states.
+3. Add a changelog entry for the cosmos validation slice.
+4. Add actual baseline comparison scripts only after observables, units, and data sources are defined.
 
 ## Minimal public summary
 
