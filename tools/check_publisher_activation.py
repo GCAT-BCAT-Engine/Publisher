@@ -15,6 +15,7 @@ COMMANDS = [
     [sys.executable, "tools/check_site_mirror_dispatch.py"],
     [sys.executable, "tools/check_release_gate.py"],
     [sys.executable, "tools/check_verification_receipt_template.py"],
+    [sys.executable, "tools/check_generate_papers_workflow.py"],
 ]
 
 
