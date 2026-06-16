@@ -169,10 +169,19 @@ REQUIRED_README_TERMS = [
 ]
 
 REQUIRED_DISPATCH_WORKFLOW_TERMS = [
-    "python tools/check_emergency_ai_templates.py",
-    "python tools/validate_emergency_ai_cases.py",
-    "python tools/check_site_mirror_dispatch.py",
-    "python tools/check_release_gate.py",
+    "tools/check_publisher_activation.py",
+    "tools/check_site_mirror_dispatch.py",
+    "tools/check_release_gate.py",
+    "docs/release-gate-checklist.md",
+    "docs/validation.md",
+    "docs/verification-tracker.md",
+    "docs/iphone-dry-run-runbook.md",
+    "docs/verification-run-receipt.template.json",
+    "docs/activation-status.md",
+    ".github/workflows/validate-emergency-ai-cases.yml",
+    "python tools/check_publisher_activation.py",
+    "Dry run requested. Publisher validation and dispatch configuration checks passed.",
+    "Site mirror dispatch was not attempted.",
 ]
 
 REQUIRED_VALIDATION_WORKFLOW_TERMS = [
