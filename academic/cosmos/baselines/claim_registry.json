@@ -1,0 +1,133 @@
+{
+  "registry": "gcat_bcat_cosmos_claim_registry",
+  "version": "0.1.0",
+  "status": "initial_scaffold",
+  "scope": "Physics-facing GCAT/BCAT claims in academic/cosmos.",
+  "does_not_claim": [
+    "validated physical theory",
+    "replacement for quantum mechanics",
+    "replacement for general relativity",
+    "proof of dark matter",
+    "proof of dark energy",
+    "completed cosmological validation"
+  ],
+  "claim_layers": [
+    "physics_analogy",
+    "physics_hypothesis"
+  ],
+  "validation_status_values": [
+    "cataloged",
+    "model_level_reproducible",
+    "internal_stress_tested",
+    "external_baseline_planned",
+    "external_baseline_scaffolded",
+    "external_baseline_compared",
+    "validated_physical_result_candidate"
+  ],
+  "claims": [
+    {
+      "claim_id": "COSMOS-SCALAR-REGIME-001",
+      "title": "Reality selector scalar regimes",
+      "claim_layer": "physics_analogy",
+      "validation_status": "external_baseline_scaffolded",
+      "source_artifacts": [
+        "academic/cosmos/GCAT_BCAT_Formalism_Documentation.txt",
+        "academic/cosmos/governance_random_sweep.py",
+        "academic/cosmos/stress_sweep.py"
+      ],
+      "summary": "The GCAT/BCAT scalar labels model regimes as quantum-contracted, classical-critical, and astrophysical-expanded, with intermediate bands.",
+      "external_baseline_needed": true,
+      "candidate_external_baselines": [
+        "dimensionless scale ratios",
+        "Planck-to-laboratory-to-cosmological scale separation",
+        "accepted cosmological parameter distributions where appropriate"
+      ],
+      "observable_required": "A measurable or normalized quantity that distinguishes scalar regimes without relying on labels alone.",
+      "units_or_normalization_required": "dimensionless scale normalization required before comparison",
+      "failure_condition": "No defined observable or no stable mapping from scalar regime to external baseline.",
+      "safe_public_language": "GCAT/BCAT uses scalar-regime labels as an analogy and hypothesis framework until external observables are defined and compared."
+    },
+    {
+      "claim_id": "COSMOS-ENTROPY-DEBT-001",
+      "title": "Entropy debt as unresolved transition information cost",
+      "claim_layer": "physics_hypothesis",
+      "validation_status": "external_baseline_scaffolded",
+      "source_artifacts": [
+        "academic/cosmos/GCAT_BCAT_Formalism_Documentation.txt"
+      ],
+      "summary": "Entropy debt is used to describe information lost or unresolved across the transition gap.",
+      "external_baseline_needed": true,
+      "candidate_external_baselines": [
+        "Shannon entropy for discrete distributions",
+        "Landauer-style information-energy bounds",
+        "thermodynamic entropy only when units and temperature are defined"
+      ],
+      "observable_required": "A defined entropy measure and a distinction between model-local information entropy and physical thermodynamic entropy.",
+      "units_or_normalization_required": "bits for Shannon entropy, physical units only if thermodynamic conversion is justified",
+      "failure_condition": "Entropy terminology remains ambiguous or conversion to physical entropy is dimensionally unsupported.",
+      "safe_public_language": "Entropy debt is currently a model-local information-cost hypothesis unless physical entropy conversion is explicitly justified."
+    },
+    {
+      "claim_id": "COSMOS-MASS-ENERGY-IMPRINT-001",
+      "title": "Imprint mass-energy mapping",
+      "claim_layer": "physics_hypothesis",
+      "validation_status": "external_baseline_scaffolded",
+      "source_artifacts": [
+        "academic/cosmos/GCAT_BCAT_Formalism_Documentation.txt"
+      ],
+      "summary": "GCAT/BCAT proposes that entropy debt may be mapped into imprint energy and imprint mass under stated assumptions.",
+      "external_baseline_needed": true,
+      "candidate_external_baselines": [
+        "dimensional analysis",
+        "information-energy conversion bounds",
+        "accepted mass-energy equivalence only under valid physical assumptions"
+      ],
+      "observable_required": "A dimensionally consistent mapping from information quantity to energy/mass quantity.",
+      "units_or_normalization_required": "joules and kilograms only if constants, temperature, and conversion assumptions are stated",
+      "failure_condition": "Dimensional inconsistency or missing constants/temperature/scale assumptions.",
+      "safe_public_language": "Imprint mass-energy remains a hypothesis-level mapping until dimensional consistency and baseline comparison are complete."
+    },
+    {
+      "claim_id": "COSMOS-DARK-COMPONENTS-001",
+      "title": "Ordinary matter, dark matter, and dark energy transition mapping",
+      "claim_layer": "physics_hypothesis",
+      "validation_status": "external_baseline_scaffolded",
+      "source_artifacts": [
+        "academic/cosmos/GCAT_BCAT_Formalism_Documentation.txt"
+      ],
+      "summary": "GCAT/BCAT hypothesizes a mapping from ALLOW/DENY/unresolved-gap transitions to ordinary matter, dark-matter-like trace, and dark-energy-like expansion.",
+      "external_baseline_needed": true,
+      "candidate_external_baselines": [
+        "accepted matter density fraction",
+        "accepted dark matter density fraction",
+        "accepted dark energy density fraction",
+        "public cosmological parameter tables"
+      ],
+      "observable_required": "A normalized output fraction or density-parameter-like quantity derived from model runs.",
+      "units_or_normalization_required": "dimensionless density-parameter normalization before comparison",
+      "failure_condition": "No normalization from model transition counts/scalars into external density-parameter quantities.",
+      "safe_public_language": "The dark-component mapping is a proposed analogy/hypothesis unless normalized outputs are compared against external cosmological baselines."
+    },
+    {
+      "claim_id": "COSMOS-BLACK-HOLE-CIRCLE-001",
+      "title": "Circle condition as black-hole-like symmetry limit",
+      "claim_layer": "physics_analogy",
+      "validation_status": "external_baseline_scaffolded",
+      "source_artifacts": [
+        "academic/cosmos/GCAT_BCAT_Formalism_Documentation.txt"
+      ],
+      "summary": "GCAT/BCAT uses an equal-obscurity circle condition as a black-hole-like symmetry or maximum-obscurity limit.",
+      "external_baseline_needed": true,
+      "candidate_external_baselines": [
+        "black-hole information paradox literature as conceptual baseline",
+        "entropy-area relation only if units and surface assumptions are defined",
+        "symmetry or degeneracy metrics",
+        "toy-model collapse-to-center behavior"
+      ],
+      "observable_required": "A defined quantity linking circle-condition behavior to a selected black-hole observable or conceptual baseline.",
+      "units_or_normalization_required": "dimensionless symmetry metric unless physical units are explicitly justified",
+      "failure_condition": "The analogy is treated as physical equivalence without equation-level or observable-level comparison.",
+      "safe_public_language": "The circle condition is currently a black-hole-like analogy unless directly compared against accepted black-hole observables or equations."
+    }
+  ]
+}
