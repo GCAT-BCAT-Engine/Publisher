@@ -1,0 +1,25 @@
+{
+  "claim_id": "COSMOS-DARK-COMPONENTS-001",
+  "claim_layer": "physics_hypothesis",
+  "artifact": "academic/cosmos/GCAT_BCAT_Formalism_Documentation.txt",
+  "external_baseline": "accepted matter, dark matter, and dark energy density fractions",
+  "observable": "not_defined_yet",
+  "units": "dimensionless_density_parameter_pending_normalization",
+  "normalization": "not_defined_yet",
+  "input_data": "not_selected_yet",
+  "method": "not_selected_yet",
+  "metric": "not_selected_yet",
+  "result": "not_testable_yet",
+  "limitations": [
+    "The dark-component mapping is currently a proposed analogy/hypothesis.",
+    "No normalization from transition outcomes/scalars to cosmological density parameters is defined yet.",
+    "No public cosmological parameter source has been selected for comparison yet."
+  ],
+  "does_not_claim": [
+    "validated physical theory",
+    "replacement for quantum mechanics",
+    "replacement for general relativity",
+    "proof of dark matter",
+    "proof of dark energy"
+  ]
+}
