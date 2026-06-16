@@ -16,6 +16,7 @@ tools/validate_emergency_ai_cases.py
 tools/check_emergency_ai_templates.py
 tools/check_site_mirror_dispatch.py
 tools/check_release_gate.py
+tools/check_verification_receipt_template.py
 tools/check_publisher_activation.py
 tools/create_emergency_ai_case_scaffold.py
 docs/site-mirror-dispatch-protocol.md
@@ -73,6 +74,7 @@ python tools/check_emergency_ai_templates.py
 python tools/validate_emergency_ai_cases.py
 python tools/check_site_mirror_dispatch.py
 python tools/check_release_gate.py
+python tools/check_verification_receipt_template.py
 ```
 
 ## Done State
@@ -89,6 +91,7 @@ The underlying checks should also print:
 valid: emergency AI templates
 valid: Publisher Site mirror dispatch
 valid: Publisher to Site release gate
+valid: Publisher verification receipt template
 ```
 
 Example case validation output:
