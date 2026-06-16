@@ -7,14 +7,18 @@ on:
       - 'academic/cosmos/governance_random_sweep.py'
       - 'academic/cosmos/verify_sweep_results.py'
       - 'academic/cosmos/stress_sweep.py'
+      - 'academic/cosmos/verify_baseline_records.py'
       - 'academic/cosmos/sweep_randomized_results.json'
+      - 'academic/cosmos/baselines/**'
       - '.github/workflows/cosmos-sweep-verify.yml'
   pull_request:
     paths:
       - 'academic/cosmos/governance_random_sweep.py'
       - 'academic/cosmos/verify_sweep_results.py'
       - 'academic/cosmos/stress_sweep.py'
+      - 'academic/cosmos/verify_baseline_records.py'
       - 'academic/cosmos/sweep_randomized_results.json'
+      - 'academic/cosmos/baselines/**'
       - '.github/workflows/cosmos-sweep-verify.yml'
 
 permissions:
@@ -51,6 +55,10 @@ jobs:
         working-directory: academic/cosmos
         run: |
           python stress_sweep.py --samples 100 --seeds 1,7,13,42,101 --output stress_sweep_results.json
+
+      - name: Verify baseline registry and records
+        run: |
+          python academic/cosmos/verify_baseline_records.py
 
       - name: Upload sweep artifacts
         uses: actions/upload-artifact@v4
