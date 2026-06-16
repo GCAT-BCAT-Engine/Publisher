@@ -7,6 +7,7 @@ on:
       - 'academic/cosmos/governance_random_sweep.py'
       - 'academic/cosmos/verify_sweep_results.py'
       - 'academic/cosmos/stress_sweep.py'
+      - 'academic/cosmos/edge_case_tests.py'
       - 'academic/cosmos/verify_baseline_records.py'
       - 'academic/cosmos/sweep_randomized_results.json'
       - 'academic/cosmos/baselines/**'
@@ -16,6 +17,7 @@ on:
       - 'academic/cosmos/governance_random_sweep.py'
       - 'academic/cosmos/verify_sweep_results.py'
       - 'academic/cosmos/stress_sweep.py'
+      - 'academic/cosmos/edge_case_tests.py'
       - 'academic/cosmos/verify_baseline_records.py'
       - 'academic/cosmos/sweep_randomized_results.json'
       - 'academic/cosmos/baselines/**'
@@ -55,6 +57,11 @@ jobs:
         working-directory: academic/cosmos
         run: |
           python stress_sweep.py --samples 100 --seeds 1,7,13,42,101 --output stress_sweep_results.json
+
+      - name: Run edge-case tests
+        working-directory: academic/cosmos
+        run: |
+          python edge_case_tests.py
 
       - name: Verify baseline registry and records
         run: |
