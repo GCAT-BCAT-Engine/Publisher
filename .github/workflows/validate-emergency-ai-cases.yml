@@ -11,6 +11,7 @@ on:
       - 'tools/check_site_mirror_dispatch.py'
       - 'tools/check_release_gate.py'
       - 'tools/check_verification_receipt_template.py'
+      - 'tools/check_generate_papers_workflow.py'
       - 'tools/check_publisher_activation.py'
       - 'docs/site-paper-display-policy.md'
       - 'docs/site-mirror-dispatch-protocol.md'
@@ -20,6 +21,7 @@ on:
       - 'docs/iphone-dry-run-runbook.md'
       - 'docs/verification-run-receipt.template.json'
       - 'docs/activation-status.md'
+      - '.github/workflows/generate-papers.yml'
       - '.github/workflows/dispatch-site-mirror.yml'
       - '.github/workflows/validate-emergency-ai-cases.yml'
   push:
@@ -34,6 +36,7 @@ on:
       - 'tools/check_site_mirror_dispatch.py'
       - 'tools/check_release_gate.py'
       - 'tools/check_verification_receipt_template.py'
+      - 'tools/check_generate_papers_workflow.py'
       - 'tools/check_publisher_activation.py'
       - 'docs/site-paper-display-policy.md'
       - 'docs/site-mirror-dispatch-protocol.md'
@@ -43,6 +46,7 @@ on:
       - 'docs/iphone-dry-run-runbook.md'
       - 'docs/verification-run-receipt.template.json'
       - 'docs/activation-status.md'
+      - '.github/workflows/generate-papers.yml'
       - '.github/workflows/dispatch-site-mirror.yml'
       - '.github/workflows/validate-emergency-ai-cases.yml'
   workflow_dispatch:
