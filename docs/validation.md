@@ -4,7 +4,7 @@
 
 Publisher case records that use machine-readable JSON should validate before they are treated as ready for republication.
 
-Publisher-to-Site activation also requires release-gate validation so documentation, workflow hooks, dry-run instructions, activation status, and verification receipt structure do not drift from the operational boundary.
+Publisher-to-Site activation also requires release-gate validation so documentation, workflow hooks, dry-run instructions, activation status, generated-paper workflow paths, and verification receipt structure do not drift from the operational boundary.
 
 ## Files
 
@@ -17,6 +17,7 @@ tools/check_emergency_ai_templates.py
 tools/check_site_mirror_dispatch.py
 tools/check_release_gate.py
 tools/check_verification_receipt_template.py
+tools/check_generate_papers_workflow.py
 tools/check_publisher_activation.py
 tools/create_emergency_ai_case_scaffold.py
 docs/site-mirror-dispatch-protocol.md
@@ -25,6 +26,7 @@ docs/verification-tracker.md
 docs/iphone-dry-run-runbook.md
 docs/verification-run-receipt.template.json
 docs/activation-status.md
+github/workflows/generate-papers.yml
 github/workflows/validate-emergency-ai-cases.yml
 github/workflows/dispatch-site-mirror.yml
 ```
@@ -75,6 +77,7 @@ python tools/validate_emergency_ai_cases.py
 python tools/check_site_mirror_dispatch.py
 python tools/check_release_gate.py
 python tools/check_verification_receipt_template.py
+python tools/check_generate_papers_workflow.py
 ```
 
 ## Done State
@@ -92,6 +95,7 @@ valid: emergency AI templates
 valid: Publisher Site mirror dispatch
 valid: Publisher to Site release gate
 valid: Publisher verification receipt template
+valid: Generate Papers JSON workflow
 ```
 
 Example case validation output:
@@ -118,6 +122,7 @@ release-gate documentation drifts
 verification tracker drifts
 iPhone dry-run instructions drift
 verification receipt template drifts
+Generate Papers JSON workflow paths drift
 activation status drifts
 ```
 
