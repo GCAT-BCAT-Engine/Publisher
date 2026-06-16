@@ -156,6 +156,8 @@ REQUIRED_README_TERMS = [
     "Site mirror completion",
     "live-dispatch receipt capture",
     "verification tracker update to `activated`",
+    "python tools/check_publisher_activation.py",
+    "The activation runner executes",
     "python tools/check_site_mirror_dispatch.py",
     "python tools/check_release_gate.py",
     "docs/iphone-dry-run-runbook.md",
