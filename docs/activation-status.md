@@ -19,6 +19,10 @@ Dispatch dry-run mode exists
 Site mirror dispatch checker exists
 Release gate checklist exists
 Release gate checker exists
+Shared Publisher activation runner exists
+Validation workflow uses the activation runner
+Dispatch workflow uses the activation runner
+Verification receipt template checker exists
 Verification tracker exists
 iPhone dry-run runbook exists
 Verification run receipt template exists
@@ -48,6 +52,24 @@ Repo activation occurs when:
 6. docs/verification-tracker.md is updated from pending_dry_run to activated.
 ```
 
+## Current Validation Contract
+
+Before dry-run completion or live dispatch, Publisher runs:
+
+```text
+python tools/check_publisher_activation.py
+```
+
+That activation runner currently includes:
+
+```text
+tools/check_emergency_ai_templates.py
+tools/validate_emergency_ai_cases.py
+tools/check_site_mirror_dispatch.py
+tools/check_release_gate.py
+tools/check_verification_receipt_template.py
+```
+
 ## Next Action
 
 ```text
@@ -61,4 +83,9 @@ docs/verification-tracker.md
 docs/verification-run-receipt.template.json
 docs/release-gate-checklist.md
 docs/iphone-dry-run-runbook.md
+docs/validation.md
+tools/check_publisher_activation.py
+tools/check_verification_receipt_template.py
+.github/workflows/dispatch-site-mirror.yml
+.github/workflows/validate-emergency-ai-cases.yml
 ```
