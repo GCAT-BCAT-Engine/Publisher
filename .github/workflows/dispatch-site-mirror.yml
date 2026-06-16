@@ -28,9 +28,16 @@ on:
       - "docs/site-paper-display-policy.md"
       - "docs/site-mirror-dispatch-protocol.md"
       - "docs/release-gate-checklist.md"
+      - "docs/validation.md"
+      - "docs/verification-tracker.md"
+      - "docs/iphone-dry-run-runbook.md"
+      - "docs/verification-run-receipt.template.json"
+      - "docs/activation-status.md"
       - "tools/check_site_mirror_dispatch.py"
       - "tools/check_release_gate.py"
+      - "tools/check_publisher_activation.py"
       - ".github/workflows/dispatch-site-mirror.yml"
+      - ".github/workflows/validate-emergency-ai-cases.yml"
 
 jobs:
   validate-and-dispatch:
@@ -58,17 +65,8 @@ jobs:
       - name: Install validator dependencies
         run: python -m pip install -r requirements.txt
 
-      - name: Check emergency AI templates
-        run: python tools/check_emergency_ai_templates.py
-
-      - name: Validate emergency AI case objects
-        run: python tools/validate_emergency_ai_cases.py
-
-      - name: Check Site mirror dispatch configuration
-        run: python tools/check_site_mirror_dispatch.py
-
-      - name: Check Publisher to Site release gate
-        run: python tools/check_release_gate.py
+      - name: Run Publisher activation validation
+        run: python tools/check_publisher_activation.py
 
       - name: Resolve dispatch inputs
         id: dispatch
