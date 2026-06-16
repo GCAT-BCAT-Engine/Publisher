@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "case_id": "RTG-001",
+  "case_type": "live-basis solver handoff",
+  "publisher_status": "handoff_installed_in_execution_repo__workflow_dispatch_pending",
+  "source_repo": "Data-Continuation/RTG-Tests",
+  "execution_repo": "GCAT-BCAT-Engine/workflows",
+  "publisher_repo": "GCAT-BCAT-Engine/Publisher",
+  "workflow": ".github/workflows/validation_run.yml",
+  "workflow_dispatch_inputs": {
+    "run_id": "RTG-001",
+    "budget_ceiling": "50.00"
+  },
+  "required_secret": "ANTHROPIC_API_KEY",
+  "runner": "ubuntu-latest",
+  "workflows_paths": [
+    "docs/RTG_001_WORKFLOWS_INSTALL_CONTRACT.md",
+    "math_solver/validation/problem_spec_rtg_001.yml",
+    "math_solver/validation/candidate_vectors/rtg/rtg_001.json",
+    "math_solver/validation/cost_estimates/rtg_001_cost_estimate.json",
+    "math_solver/validation/rtg_handoff_manifest.json",
+    "math_solver/validation/rtg_declared_tasks.json",
+    "math_solver/validation/tests/test_rtg_001_workflows_install_contract.py"
+  ],
+  "expected_returned_artifact": {
+    "name": "external-full-results",
+    "files": [
+      "ext2_phase1.json",
+      "ext2_sources.json",
+      "ext2_phase3.json",
+      "ext2_report.json"
+    ]
+  },
+  "claim_boundary": {
+    "handoff_contract_ready": true,
+    "handoff_installed_in_execution_repo": true,
+    "workflow_dispatch_attempted": false,
+    "artifact_returned": false,
+    "artifact_ingested": false,
+    "rtg_state_updated": false,
+    "autonomous_theorem_proving_claimed": false,
+    "final_correctness_claimed": false
+  },
+  "next_action": "Run workflow_dispatch in GCAT-BCAT-Engine/workflows with run_id=RTG-001 and budget_ceiling=50.00."
+}
