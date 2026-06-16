@@ -186,10 +186,16 @@ They are validated against:
 governance/schemas/emergency-ai-restriction.case.schema.json
 ```
 
-Run local validation with:
+Run the full local activation validation sequence with:
 
 ```bash
 python -m pip install -r requirements.txt
+python tools/check_publisher_activation.py
+```
+
+The activation runner executes:
+
+```bash
 python tools/check_emergency_ai_templates.py
 python tools/validate_emergency_ai_cases.py
 python tools/check_site_mirror_dispatch.py
