@@ -10,9 +10,11 @@ on:
       - 'tools/check_emergency_ai_templates.py'
       - 'tools/check_site_mirror_dispatch.py'
       - 'tools/check_release_gate.py'
+      - 'tools/check_publisher_activation.py'
       - 'docs/site-paper-display-policy.md'
       - 'docs/site-mirror-dispatch-protocol.md'
       - 'docs/release-gate-checklist.md'
+      - 'docs/validation.md'
       - 'docs/verification-tracker.md'
       - 'docs/iphone-dry-run-runbook.md'
       - 'docs/verification-run-receipt.template.json'
@@ -30,9 +32,11 @@ on:
       - 'tools/check_emergency_ai_templates.py'
       - 'tools/check_site_mirror_dispatch.py'
       - 'tools/check_release_gate.py'
+      - 'tools/check_publisher_activation.py'
       - 'docs/site-paper-display-policy.md'
       - 'docs/site-mirror-dispatch-protocol.md'
       - 'docs/release-gate-checklist.md'
+      - 'docs/validation.md'
       - 'docs/verification-tracker.md'
       - 'docs/iphone-dry-run-runbook.md'
       - 'docs/verification-run-receipt.template.json'
@@ -58,14 +62,5 @@ jobs:
       - name: Install validator
         run: python -m pip install --upgrade jsonschema
 
-      - name: Check emergency AI templates
-        run: python tools/check_emergency_ai_templates.py
-
-      - name: Validate case JSON files
-        run: python tools/validate_emergency_ai_cases.py
-
-      - name: Check Site mirror dispatch configuration
-        run: python tools/check_site_mirror_dispatch.py
-
-      - name: Check Publisher to Site release gate
-        run: python tools/check_release_gate.py
+      - name: Run Publisher activation validation
+        run: python tools/check_publisher_activation.py
