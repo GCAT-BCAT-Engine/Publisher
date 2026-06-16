@@ -81,14 +81,16 @@ REQUIRED_TRACKER_TERMS = [
     "docs/iphone-dry-run-runbook.md",
     "docs/verification-run-receipt.template.json",
     "Run Dispatch Site Paper Mirror manually with dry_run: true",
-    "Confirm tools/check_site_mirror_dispatch.py passes",
-    "Confirm tools/check_release_gate.py passes",
+    "Confirm Run Publisher activation validation completes",
+    "Confirm tools/check_publisher_activation.py prints valid: Publisher activation checks",
     "Capture the dry-run result using docs/verification-run-receipt.template.json",
     "Install or confirm SITE_MIRROR_DISPATCH_TOKEN in Publisher",
     "Confirm Site policy checker runs before mirroring",
     "Confirm governance case posture is not strengthened by Site wording",
     "Capture the live-dispatch result using docs/verification-run-receipt.template.json",
     "docs/release-gate-checklist.md",
+    "docs/validation.md",
+    "docs/activation-status.md",
 ]
 
 REQUIRED_IPHONE_RUNBOOK_TERMS = [
