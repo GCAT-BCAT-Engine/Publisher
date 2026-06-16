@@ -16,6 +16,7 @@ tools/validate_emergency_ai_cases.py
 tools/check_emergency_ai_templates.py
 tools/check_site_mirror_dispatch.py
 tools/check_release_gate.py
+tools/check_publisher_activation.py
 tools/create_emergency_ai_case_scaffold.py
 docs/site-mirror-dispatch-protocol.md
 docs/release-gate-checklist.md
@@ -59,46 +60,38 @@ Install dependencies:
 python -m pip install -r requirements.txt
 ```
 
-Check template consistency:
+Run the full activation validation sequence:
+
+```bash
+python tools/check_publisher_activation.py
+```
+
+That runner executes:
 
 ```bash
 python tools/check_emergency_ai_templates.py
-```
-
-Run case object validation:
-
-```bash
 python tools/validate_emergency_ai_cases.py
-```
-
-Check Publisher-to-Site mirror dispatch configuration:
-
-```bash
 python tools/check_site_mirror_dispatch.py
-```
-
-Check release-gate and activation boundary integrity:
-
-```bash
 python tools/check_release_gate.py
 ```
 
 ## Done State
 
-Validation is passing when the template checker prints:
+Validation is passing when the full activation runner prints:
+
+```text
+valid: Publisher activation checks
+```
+
+The underlying checks should also print:
 
 ```text
 valid: emergency AI templates
-```
-
-and every emergency AI case object prints as valid while the dispatch checker and release-gate checker also print:
-
-```text
 valid: Publisher Site mirror dispatch
 valid: Publisher to Site release gate
 ```
 
-Example:
+Example case validation output:
 
 ```text
 valid: governance/cases/CASE-2026-06-ANTHROPIC-FABLE-MYTHOS-SUSPENSION.case.json
