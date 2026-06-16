@@ -3,7 +3,7 @@
 Assumptions for this hub:
 
 - This folder contains GCAT/BCAT materials that use physics-facing language, including quantum, classical, astrophysical, cosmological, entropy, information, dark-matter, dark-energy, and black-hole terminology.
-- This README is an entry point. It does not replace the formalism documentation, posture note, executable sweep artifact, verifier, stress suite, or workflow.
+- This README is an entry point. It does not replace the formalism documentation, posture note, executable sweep artifact, verifier, stress suite, baseline plan, or workflow.
 - Repository paths are shown without a leading slash.
 
 ## Purpose
@@ -16,6 +16,7 @@ This folder organizes the GCAT/BCAT physics-facing formalism materials so reader
 - the executable scalar-regime sweep,
 - the result verifier,
 - the multi-seed stress suite,
+- the external-baseline comparison plan,
 - the reproducibility workflow,
 - generated sweep evidence,
 - and the remaining validation path.
@@ -174,7 +175,29 @@ Current posture:
 Internal model-level stress suite
 ```
 
-### 7. Reproducibility workflow
+### 7. External-baseline comparison plan
+
+```text
+academic/cosmos/EXTERNAL_BASELINE_COMPARISON_PLAN.md
+```
+
+Use this before comparing GCAT/BCAT physics-facing hypotheses against accepted physical or cosmological baselines.
+
+It defines:
+
+- required external comparison records,
+- claim classes requiring external comparison,
+- baseline readiness criteria,
+- public-language limits,
+- proposed baseline registry and verifier artifacts.
+
+Current posture:
+
+```text
+External validation plan / not yet empirical validation
+```
+
+### 8. Reproducibility workflow
 
 ```text
 github/workflows/cosmos-sweep-verify.yml
@@ -196,7 +219,7 @@ Current posture:
 Repo-level reproducibility workflow
 ```
 
-### 8. Generated sweep output
+### 9. Generated sweep output
 
 ```text
 academic/cosmos/sweep_randomized_results.json
@@ -233,6 +256,7 @@ The repo should not yet claim:
 | `academic/cosmos/governance_random_sweep.py` | Executable sweep | In-model reproducibility artifact |
 | `academic/cosmos/verify_sweep_results.py` | Result verifier | Model-level consistency check |
 | `academic/cosmos/stress_sweep.py` | Stress suite | Multi-seed model-level threshold check |
+| `academic/cosmos/EXTERNAL_BASELINE_COMPARISON_PLAN.md` | External baseline plan | Public empirical-comparison scaffold |
 | `github/workflows/cosmos-sweep-verify.yml` | GitHub Actions workflow | Repo-level reproducibility workflow |
 | `academic/cosmos/sweep_randomized_results.json` | Generated output | Run-output evidence |
 
@@ -258,17 +282,18 @@ Executable model artifact: yes
 Model-level result verifier: yes
 Deterministic reproducibility workflow: yes
 Internal stress-test suite: yes
-External physics baseline comparison: not yet
+External physics baseline comparison: planned / scaffold-started
 Independent reproduction package: partial
 Validated physical result: not yet
 ```
 
 ## Next recommended additions
 
-1. Add an external-baseline comparison plan before making public physics-strength claims.
-2. Add a public reproduction note explaining how to run the workflow and interpret artifacts.
-3. Add edge-case tests for invalid states and boundary-condition states.
-4. Add a short changelog entry for the cosmos validation slice.
+1. Create `academic/cosmos/baselines/claim_registry.json`.
+2. Add `academic/cosmos/baselines/README.md`.
+3. Add `academic/cosmos/verify_baseline_records.py`.
+4. Add a public reproduction note explaining how to run the workflow and interpret artifacts.
+5. Add edge-case tests for invalid states and boundary-condition states.
 
 ## Minimal public summary
 
