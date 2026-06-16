@@ -19,6 +19,7 @@ REQUIRED_FILES = [
     Path(".github/workflows/dispatch-site-mirror.yml"),
     Path(".github/workflows/validate-emergency-ai-cases.yml"),
     Path("tools/check_site_mirror_dispatch.py"),
+    Path("tools/check_publisher_activation.py"),
     Path("README.md"),
 ]
 
@@ -43,19 +44,32 @@ REQUIRED_VALIDATION_DOC_TERMS = [
     "Publisher-to-Site activation also requires release-gate validation",
     "tools/check_site_mirror_dispatch.py",
     "tools/check_release_gate.py",
+    "tools/check_publisher_activation.py",
     "docs/release-gate-checklist.md",
     "docs/verification-tracker.md",
     "docs/iphone-dry-run-runbook.md",
     "docs/verification-run-receipt.template.json",
     "docs/activation-status.md",
     "github/workflows/dispatch-site-mirror.yml",
+    "python tools/check_publisher_activation.py",
     "python tools/check_site_mirror_dispatch.py",
     "python tools/check_release_gate.py",
+    "valid: Publisher activation checks",
     "valid: Publisher Site mirror dispatch",
     "valid: Publisher to Site release gate",
     "release-gate documentation drifts",
     "verification receipt template drifts",
     "activation status drifts",
+]
+
+REQUIRED_ACTIVATION_RUNNER_TERMS = [
+    "Run the complete Publisher local activation validation sequence",
+    "tools/check_emergency_ai_templates.py",
+    "tools/validate_emergency_ai_cases.py",
+    "tools/check_site_mirror_dispatch.py",
+    "tools/check_release_gate.py",
+    "activation validation failed",
+    "valid: Publisher activation checks",
 ]
 
 REQUIRED_TRACKER_TERMS = [
@@ -203,6 +217,10 @@ def main() -> int:
         return result
 
     result = require_terms(Path("docs/validation.md"), REQUIRED_VALIDATION_DOC_TERMS)
+    if result is not None:
+        return result
+
+    result = require_terms(Path("tools/check_publisher_activation.py"), REQUIRED_ACTIVATION_RUNNER_TERMS)
     if result is not None:
         return result
 
