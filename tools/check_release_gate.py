@@ -99,6 +99,7 @@ REQUIRED_IPHONE_RUNBOOK_TERMS = [
     "site_repository: StegVerse-Labs/Site",
     "source_ref: main",
     "dry_run: true",
+    "Run Publisher activation validation",
     "Check emergency AI templates",
     "Validate emergency AI case objects",
     "Check Site mirror dispatch configuration",
@@ -108,6 +109,7 @@ REQUIRED_IPHONE_RUNBOOK_TERMS = [
     "Dispatch Site mirror workflow",
     "Dry run requested. Publisher validation and dispatch configuration checks passed.",
     "Site mirror dispatch was not attempted.",
+    "valid: Publisher activation checks",
 ]
 
 REQUIRED_RECEIPT_TERMS = [
