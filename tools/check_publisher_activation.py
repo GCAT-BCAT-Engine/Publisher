@@ -14,6 +14,7 @@ COMMANDS = [
     [sys.executable, "tools/validate_emergency_ai_cases.py"],
     [sys.executable, "tools/check_site_mirror_dispatch.py"],
     [sys.executable, "tools/check_release_gate.py"],
+    [sys.executable, "tools/check_verification_receipt_template.py"],
 ]
 
 
