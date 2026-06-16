@@ -35,6 +35,7 @@ on:
       - "docs/activation-status.md"
       - "tools/check_site_mirror_dispatch.py"
       - "tools/check_release_gate.py"
+      - "tools/check_verification_receipt_template.py"
       - "tools/check_publisher_activation.py"
       - ".github/workflows/dispatch-site-mirror.yml"
       - ".github/workflows/validate-emergency-ai-cases.yml"
