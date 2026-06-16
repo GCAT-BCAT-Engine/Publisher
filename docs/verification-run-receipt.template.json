@@ -5,6 +5,7 @@
   "publisher_repository": "GCAT-BCAT-Engine/Publisher",
   "site_repository": "StegVerse-Labs/Site",
   "publisher_workflow": ".github/workflows/dispatch-site-mirror.yml",
+  "publisher_activation_runner": "tools/check_publisher_activation.py",
   "site_workflow": "StegVerse-Labs/Site/.github/workflows/mirror-papers.yml",
   "source_ref": "main",
   "dry_run": true,
@@ -13,6 +14,7 @@
   "observed_at_utc": null,
   "observed_by": null,
   "validation_results": {
+    "check_publisher_activation": "pending",
     "check_emergency_ai_templates": "pending",
     "validate_emergency_ai_cases": "pending",
     "check_site_mirror_dispatch": "pending",
