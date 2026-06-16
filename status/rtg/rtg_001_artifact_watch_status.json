@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "case_id": "RTG-001",
+  "watched_repo": "GCAT-BCAT-Engine/workflows",
+  "artifact_returned": false,
+  "matched_run": null,
+  "artifacts": [],
+  "claim_boundary": {
+    "artifact_returned": false,
+    "artifact_ingested": false,
+    "rtg_state_updated": false,
+    "autonomous_theorem_proving_claimed": false,
+    "final_correctness_claimed": false
+  },
+  "status": "watcher_installed_waiting_for_first_poll"
+}
