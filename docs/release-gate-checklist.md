@@ -19,6 +19,9 @@ governance/cases/**
 governance/receipts/**
 docs/site-paper-display-policy.md
 docs/site-mirror-dispatch-protocol.md
+docs/validation.md
+docs/activation-status.md
+tools/check_publisher_activation.py
 ```
 
 ## Gate 1 — Publisher Source Validity
@@ -34,12 +37,19 @@ receipts preserve transition posture
 no draft/provisional/admissibility-limited record is strengthened by wording
 ```
 
-Required commands:
+Primary local activation command:
+
+```bash
+python tools/check_publisher_activation.py
+```
+
+The activation runner executes these underlying checks:
 
 ```bash
 python tools/check_emergency_ai_templates.py
 python tools/validate_emergency_ai_cases.py
 python tools/check_site_mirror_dispatch.py
+python tools/check_release_gate.py
 ```
 
 ## Gate 2 — Dispatch Readiness
