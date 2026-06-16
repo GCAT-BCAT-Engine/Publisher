@@ -11,6 +11,7 @@ REQUIRED_FILES = [
     Path("docs/release-gate-checklist.md"),
     Path("docs/site-mirror-dispatch-protocol.md"),
     Path("docs/site-paper-display-policy.md"),
+    Path("docs/validation.md"),
     Path("docs/verification-tracker.md"),
     Path("docs/iphone-dry-run-runbook.md"),
     Path("docs/verification-run-receipt.template.json"),
@@ -36,6 +37,25 @@ REQUIRED_CHECKLIST_TERMS = [
     "Site policy checker runs before mirroring",
     "Site display does not overwrite Publisher status or posture",
     "Site text does not convert disputed or provisional claims into final findings",
+]
+
+REQUIRED_VALIDATION_DOC_TERMS = [
+    "Publisher-to-Site activation also requires release-gate validation",
+    "tools/check_site_mirror_dispatch.py",
+    "tools/check_release_gate.py",
+    "docs/release-gate-checklist.md",
+    "docs/verification-tracker.md",
+    "docs/iphone-dry-run-runbook.md",
+    "docs/verification-run-receipt.template.json",
+    "docs/activation-status.md",
+    "github/workflows/dispatch-site-mirror.yml",
+    "python tools/check_site_mirror_dispatch.py",
+    "python tools/check_release_gate.py",
+    "valid: Publisher Site mirror dispatch",
+    "valid: Publisher to Site release gate",
+    "release-gate documentation drifts",
+    "verification receipt template drifts",
+    "activation status drifts",
 ]
 
 REQUIRED_TRACKER_TERMS = [
@@ -179,6 +199,10 @@ def main() -> int:
             return result
 
     result = require_terms(Path("docs/release-gate-checklist.md"), REQUIRED_CHECKLIST_TERMS)
+    if result is not None:
+        return result
+
+    result = require_terms(Path("docs/validation.md"), REQUIRED_VALIDATION_DOC_TERMS)
     if result is not None:
         return result
 
