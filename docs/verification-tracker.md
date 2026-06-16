@@ -2,7 +2,7 @@
 
 ## Objective
 
-Track the operational verification of the Publisher-to-Site mirror path after policy, dispatch, dry-run, and release-gate checks were added.
+Track the operational verification of the Publisher-to-Site mirror path after policy, dispatch, dry-run, activation-runner, and release-gate checks were added.
 
 ## Status
 
@@ -30,9 +30,8 @@ docs/verification-run-receipt.template.json
 
 ```text
 [ ] Run Dispatch Site Paper Mirror manually with dry_run: true.
-[ ] Confirm Publisher validation passes.
-[ ] Confirm tools/check_site_mirror_dispatch.py passes.
-[ ] Confirm tools/check_release_gate.py passes.
+[ ] Confirm Run Publisher activation validation completes.
+[ ] Confirm tools/check_publisher_activation.py prints valid: Publisher activation checks.
 [ ] Confirm workflow prints that Site mirror dispatch was not attempted.
 [ ] Capture the dry-run result using docs/verification-run-receipt.template.json.
 [ ] Install or confirm SITE_MIRROR_DISPATCH_TOKEN in Publisher.
@@ -56,13 +55,17 @@ Do not mark Site paper display current until every applicable check in `docs/rel
 
 ```text
 .github/workflows/dispatch-site-mirror.yml
+.github/workflows/validate-emergency-ai-cases.yml
+tools/check_publisher_activation.py
 tools/check_site_mirror_dispatch.py
 tools/check_release_gate.py
 docs/site-mirror-dispatch-protocol.md
 docs/release-gate-checklist.md
 docs/site-paper-display-policy.md
+docs/validation.md
 docs/iphone-dry-run-runbook.md
 docs/verification-run-receipt.template.json
+docs/activation-status.md
 ```
 
 ## Next Action
