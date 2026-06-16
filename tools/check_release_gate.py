@@ -172,16 +172,17 @@ REQUIRED_DISPATCH_WORKFLOW_TERMS = [
 ]
 
 REQUIRED_VALIDATION_WORKFLOW_TERMS = [
+    "tools/check_publisher_activation.py",
     "tools/check_site_mirror_dispatch.py",
     "tools/check_release_gate.py",
     "docs/release-gate-checklist.md",
+    "docs/validation.md",
     "docs/verification-tracker.md",
     "docs/iphone-dry-run-runbook.md",
     "docs/verification-run-receipt.template.json",
     "docs/activation-status.md",
     ".github/workflows/dispatch-site-mirror.yml",
-    "python tools/check_site_mirror_dispatch.py",
-    "python tools/check_release_gate.py",
+    "python tools/check_publisher_activation.py",
 ]
 
 
