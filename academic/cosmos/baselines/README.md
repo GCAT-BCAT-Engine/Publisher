@@ -16,15 +16,28 @@ It provides a structured place to:
 - identify source artifacts,
 - name external baselines needed for comparison,
 - define observables, units, normalization, and failure conditions,
-- store future machine-readable comparison result records.
+- store machine-readable comparison result records.
 
 ## Current files
 
 ```text
 academic/cosmos/baselines/claim_registry.json
+academic/cosmos/baselines/results/COSMOS-SCALAR-REGIME-001.json
+academic/cosmos/baselines/results/COSMOS-ENTROPY-DEBT-001.json
+academic/cosmos/baselines/results/COSMOS-MASS-ENERGY-IMPRINT-001.json
+academic/cosmos/baselines/results/COSMOS-DARK-COMPONENTS-001.json
+academic/cosmos/baselines/results/COSMOS-BLACK-HOLE-CIRCLE-001.json
 ```
 
-Initial registry of physics-facing GCAT/BCAT claims that require external comparison before any validated-physics language is used.
+The registry catalogs physics-facing GCAT/BCAT claims that require external comparison before any validated-physics language is used.
+
+The result records currently exist as placeholders marked:
+
+```text
+not_testable_yet
+```
+
+They are machine-readable boundary records, not empirical validation results.
 
 ## Current claim posture
 
@@ -32,6 +45,7 @@ Initial registry of physics-facing GCAT/BCAT claims that require external compar
 Physics analogy: present
 Physics hypothesis: present
 External baseline scaffold: present
+Placeholder result records: present
 External comparison results: not yet
 Validated physical result: not yet
 ```
@@ -61,19 +75,18 @@ Each claim record includes:
 - failure condition,
 - safe public language.
 
-## Required result location
+## Result records
 
-Future baseline comparison records should be stored under:
+Current result records are placeholders. Each one states:
 
-```text
-academic/cosmos/baselines/results/
-```
-
-Recommended file naming:
-
-```text
-academic/cosmos/baselines/results/<claim_id>.json
-```
+- the claim ID,
+- the claim layer,
+- the source artifact,
+- the candidate external baseline,
+- the fact that observable, normalization, input data, method, and metric are not defined yet,
+- result status: `not_testable_yet`,
+- limitations,
+- explicit does-not-claim boundaries.
 
 ## Required result status values
 
@@ -105,9 +118,22 @@ GCAT/BCAT replaces general relativity.
 GCAT/BCAT has validated a cosmological theory.
 ```
 
+## Verifier
+
+Use:
+
+```bash
+python academic/cosmos/verify_baseline_records.py
+```
+
+The verifier checks the claim registry and all JSON records under:
+
+```text
+academic/cosmos/baselines/results/
+```
+
 ## Next work
 
-1. Add `academic/cosmos/verify_baseline_records.py`.
-2. Add placeholder result records under `academic/cosmos/baselines/results/` marked `not_testable_yet`.
-3. Add a workflow step to validate baseline records.
-4. Add actual baseline comparison scripts only after observables, units, and data sources are defined.
+1. Add a public reproduction note explaining how to run the workflow and interpret artifacts.
+2. Add edge-case tests for invalid states and boundary-condition states.
+3. Add actual baseline comparison scripts only after observables, units, and data sources are defined.
