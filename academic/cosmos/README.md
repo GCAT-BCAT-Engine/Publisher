@@ -3,7 +3,7 @@
 Assumptions for this hub:
 
 - This folder contains GCAT/BCAT materials that use physics-facing language, including quantum, classical, astrophysical, cosmological, entropy, information, dark-matter, dark-energy, and black-hole terminology.
-- This README is an entry point. It does not replace the formalism documentation, posture note, executable sweep artifact, verifier, or workflow.
+- This README is an entry point. It does not replace the formalism documentation, posture note, executable sweep artifact, verifier, stress suite, or workflow.
 - Repository paths are shown without a leading slash.
 
 ## Purpose
@@ -15,6 +15,7 @@ This folder organizes the GCAT/BCAT physics-facing formalism materials so reader
 - the public posture and overclaim boundary,
 - the executable scalar-regime sweep,
 - the result verifier,
+- the multi-seed stress suite,
 - the reproducibility workflow,
 - generated sweep evidence,
 - and the remaining validation path.
@@ -142,7 +143,38 @@ Current posture:
 Model-level verifier
 ```
 
-### 6. Reproducibility workflow
+### 6. Multi-seed stress suite
+
+```text
+academic/cosmos/stress_sweep.py
+```
+
+Use this to run multiple deterministic seeds through the in-repo sweep model and check model-health thresholds.
+
+Expected command:
+
+```bash
+python academic/cosmos/stress_sweep.py --samples 100 --seeds 1,7,13,42,101 --output academic/cosmos/stress_sweep_results.json
+```
+
+It verifies:
+
+- zero `FAIL_CLOSED` rate for generated valid states,
+- sparse-boundary `ALLOW` behavior under the current model threshold,
+- dense-interior `DENY` behavior under the current model threshold,
+- scalar values within `[0, 1]`,
+- boundary-proximity values within the model range,
+- one summary record per deterministic seed.
+
+It does not validate physical or cosmological claims.
+
+Current posture:
+
+```text
+Internal model-level stress suite
+```
+
+### 7. Reproducibility workflow
 
 ```text
 github/workflows/cosmos-sweep-verify.yml
@@ -150,13 +182,13 @@ github/workflows/cosmos-sweep-verify.yml
 
 Note: the actual repository path starts with a leading dot. It is shown here without the leading dot.
 
-Use this workflow to run the deterministic sweep, verify the generated JSON, and upload sweep artifacts through GitHub Actions.
+Use this workflow to run the deterministic sweep, verify the generated JSON, run the multi-seed stress suite, and upload sweep artifacts through GitHub Actions.
 
 The workflow runs on:
 
 - manual dispatch,
-- pushes affecting the cosmos sweep/verifier files,
-- pull requests affecting the cosmos sweep/verifier files.
+- pushes affecting the cosmos sweep/verifier/stress files,
+- pull requests affecting the cosmos sweep/verifier/stress files.
 
 Current posture:
 
@@ -164,7 +196,7 @@ Current posture:
 Repo-level reproducibility workflow
 ```
 
-### 7. Generated sweep output
+### 8. Generated sweep output
 
 ```text
 academic/cosmos/sweep_randomized_results.json
@@ -200,6 +232,7 @@ The repo should not yet claim:
 | `academic/cosmos/PHYSICS_POSTURE.md` | Public posture note | Claim-layer and validation boundary |
 | `academic/cosmos/governance_random_sweep.py` | Executable sweep | In-model reproducibility artifact |
 | `academic/cosmos/verify_sweep_results.py` | Result verifier | Model-level consistency check |
+| `academic/cosmos/stress_sweep.py` | Stress suite | Multi-seed model-level threshold check |
 | `github/workflows/cosmos-sweep-verify.yml` | GitHub Actions workflow | Repo-level reproducibility workflow |
 | `academic/cosmos/sweep_randomized_results.json` | Generated output | Run-output evidence |
 
@@ -224,7 +257,7 @@ Public posture boundary: yes
 Executable model artifact: yes
 Model-level result verifier: yes
 Deterministic reproducibility workflow: yes
-Internal stress-test suite: not yet
+Internal stress-test suite: yes
 External physics baseline comparison: not yet
 Independent reproduction package: partial
 Validated physical result: not yet
@@ -232,10 +265,10 @@ Validated physical result: not yet
 
 ## Next recommended additions
 
-1. Add a multi-seed internal stress-test suite for `governance_random_sweep.py`.
-2. Add explicit expected-output thresholds for multi-seed runs.
-3. Add an external-baseline comparison plan before making public physics-strength claims.
-4. Add a public reproduction note explaining how to run the workflow and interpret artifacts.
+1. Add an external-baseline comparison plan before making public physics-strength claims.
+2. Add a public reproduction note explaining how to run the workflow and interpret artifacts.
+3. Add edge-case tests for invalid states and boundary-condition states.
+4. Add a short changelog entry for the cosmos validation slice.
 
 ## Minimal public summary
 
