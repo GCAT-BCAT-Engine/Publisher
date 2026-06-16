@@ -200,6 +200,7 @@ python tools/check_emergency_ai_templates.py
 python tools/validate_emergency_ai_cases.py
 python tools/check_site_mirror_dispatch.py
 python tools/check_release_gate.py
+python tools/check_verification_receipt_template.py
 ```
 
 The GitHub Actions workflow path is shown here without its leading dot:
