@@ -9,7 +9,7 @@ Assumptions for this note:
 
 ## Purpose
 
-The GCAT/BCAT cosmos slice now includes documentation, posture boundaries, executable model checks, stress tests, edge-case tests, baseline claim records, and a GitHub Actions workflow.
+The GCAT/BCAT cosmos slice now includes documentation, posture boundaries, executable model checks, stress tests, edge-case tests, baseline claim records, a changelog, an activation receipt, and a GitHub Actions workflow.
 
 The purpose of this note is to make reproduction clear while preserving the distinction between:
 
@@ -20,6 +20,15 @@ validated physical result
 ```
 
 At this stage, the repo supports model-level reproducibility and baseline-record discipline. It does not yet establish validated physical theory.
+
+## Activation records
+
+```text
+academic/cosmos/CHANGELOG.md
+academic/cosmos/COSMOS_VALIDATION_ACTIVATION_RECEIPT.md
+```
+
+Use these files to review what was activated, what remains unvalidated, and what must be completed before any physical-result language is used.
 
 ## Quick start: local commands
 
@@ -226,6 +235,8 @@ Edge-case test suite: yes
 Baseline claim registry: yes
 Baseline result placeholders: yes
 Baseline record verifier: yes
+Changelog: yes
+Activation receipt: yes
 External physics baseline comparison: scaffolded, not completed
 Validated physical result: not yet
 ```
@@ -250,5 +261,5 @@ GCAT/BCAT has validated a cosmological theory.
 
 ## Next reproducibility work
 
-1. Add a changelog entry for the cosmos validation slice.
+1. Confirm the GitHub Actions workflow passes on the current branch.
 2. Add actual baseline comparison scripts only after observables, units, normalization, and public data sources are defined.
