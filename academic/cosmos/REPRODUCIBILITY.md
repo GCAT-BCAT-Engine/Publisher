@@ -9,7 +9,7 @@ Assumptions for this note:
 
 ## Purpose
 
-The GCAT/BCAT cosmos slice now includes documentation, posture boundaries, executable model checks, stress tests, baseline claim records, and a GitHub Actions workflow.
+The GCAT/BCAT cosmos slice now includes documentation, posture boundaries, executable model checks, stress tests, edge-case tests, baseline claim records, and a GitHub Actions workflow.
 
 The purpose of this note is to make reproduction clear while preserving the distinction between:
 
@@ -70,7 +70,26 @@ academic/cosmos/stress_sweep_results.json
 
 The stress suite checks model-health thresholds across deterministic seeds.
 
-### 4. Verify baseline registry and result records
+### 4. Run edge-case tests
+
+```bash
+cd academic/cosmos
+python edge_case_tests.py
+```
+
+These tests cover:
+
+- invalid simplex states,
+- zero-invariant boundary states,
+- ALLOW / DENY / FAIL_CLOSED classification behavior,
+- projection clamping and renormalization,
+- scalar range behavior,
+- reality-label boundary behavior,
+- random simplex generator smoke checks.
+
+They verify model-level behavior only.
+
+### 5. Verify baseline registry and result records
 
 From repository root:
 
@@ -103,8 +122,8 @@ Note: the actual repository path starts with a leading dot.
 The workflow runs on:
 
 - manual dispatch,
-- pushes affecting the cosmos sweep/verifier/stress/baseline files,
-- pull requests affecting the cosmos sweep/verifier/stress/baseline files.
+- pushes affecting the cosmos sweep/verifier/stress/edge-case/baseline files,
+- pull requests affecting the cosmos sweep/verifier/stress/edge-case/baseline files.
 
 Workflow steps:
 
@@ -113,8 +132,9 @@ Workflow steps:
 3. Run deterministic seed-42 sweep.
 4. Verify generated sweep results.
 5. Run multi-seed stress suite.
-6. Verify baseline registry and result records.
-7. Upload generated artifacts.
+6. Run edge-case tests.
+7. Verify baseline registry and result records.
+8. Upload generated artifacts.
 
 ## Workflow artifacts
 
@@ -163,6 +183,22 @@ Does not mean:
 - the scalar labels are physical observables,
 - cosmological claims are validated.
 
+### PASS from `edge_case_tests.py`
+
+Means:
+
+- invalid states are rejected,
+- boundary states are handled deterministically,
+- classification behavior is stable for direct ALLOW / DENY / FAIL_CLOSED cases,
+- projection behavior remains normalized,
+- scalar and label behavior remains bounded.
+
+Does not mean:
+
+- boundary states correspond to physical states,
+- scalar labels are empirical observables,
+- external physics comparison has been completed.
+
 ### PASS from `verify_baseline_records.py`
 
 Means:
@@ -186,6 +222,7 @@ Executable model artifact: yes
 Model-level result verifier: yes
 Deterministic reproducibility workflow: yes
 Internal stress-test suite: yes
+Edge-case test suite: yes
 Baseline claim registry: yes
 Baseline result placeholders: yes
 Baseline record verifier: yes
@@ -213,6 +250,5 @@ GCAT/BCAT has validated a cosmological theory.
 
 ## Next reproducibility work
 
-1. Add edge-case tests for invalid states and boundary-condition states.
-2. Add a changelog entry for the cosmos validation slice.
-3. Add actual baseline comparison scripts only after observables, units, normalization, and public data sources are defined.
+1. Add a changelog entry for the cosmos validation slice.
+2. Add actual baseline comparison scripts only after observables, units, normalization, and public data sources are defined.
