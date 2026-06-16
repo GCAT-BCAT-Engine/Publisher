@@ -6,12 +6,14 @@ on:
     paths:
       - 'academic/cosmos/governance_random_sweep.py'
       - 'academic/cosmos/verify_sweep_results.py'
+      - 'academic/cosmos/stress_sweep.py'
       - 'academic/cosmos/sweep_randomized_results.json'
       - '.github/workflows/cosmos-sweep-verify.yml'
   pull_request:
     paths:
       - 'academic/cosmos/governance_random_sweep.py'
       - 'academic/cosmos/verify_sweep_results.py'
+      - 'academic/cosmos/stress_sweep.py'
       - 'academic/cosmos/sweep_randomized_results.json'
       - '.github/workflows/cosmos-sweep-verify.yml'
 
@@ -45,6 +47,11 @@ jobs:
         run: |
           python academic/cosmos/verify_sweep_results.py academic/cosmos/sweep_randomized_results.json
 
+      - name: Run multi-seed stress suite
+        working-directory: academic/cosmos
+        run: |
+          python stress_sweep.py --samples 100 --seeds 1,7,13,42,101 --output stress_sweep_results.json
+
       - name: Upload sweep artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -52,4 +59,5 @@ jobs:
           path: |
             academic/cosmos/sweep_randomized_results.json
             academic/cosmos/sweep_statistics.json
+            academic/cosmos/stress_sweep_results.json
           if-no-files-found: error
