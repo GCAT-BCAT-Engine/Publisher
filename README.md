@@ -192,6 +192,8 @@ Run local validation with:
 python -m pip install -r requirements.txt
 python tools/check_emergency_ai_templates.py
 python tools/validate_emergency_ai_cases.py
+python tools/check_site_mirror_dispatch.py
+python tools/check_release_gate.py
 ```
 
 The GitHub Actions workflow path is shown here without its leading dot:
@@ -210,6 +212,8 @@ docs/site-paper-display-policy.md
 docs/site-mirror-dispatch-protocol.md
 docs/release-gate-checklist.md
 docs/activation-status.md
+docs/iphone-dry-run-runbook.md
+docs/verification-run-receipt.template.json
 templates/README.md
 governance/README.md
 ```
