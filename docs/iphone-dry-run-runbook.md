@@ -39,13 +39,24 @@ dry_run: true
 
 ## Expected Passing Steps
 
-The dry run should complete these checks:
+The dry run should complete this shared activation check:
+
+```text
+Run Publisher activation validation
+```
+
+That activation step runs:
 
 ```text
 Check emergency AI templates
 Validate emergency AI case objects
 Check Site mirror dispatch configuration
 Check Publisher to Site release gate
+```
+
+The dry run should then complete:
+
+```text
 Resolve dispatch inputs
 Stop after validation for dry run
 ```
@@ -64,6 +75,12 @@ Look for this message in the workflow logs:
 ```text
 Dry run requested. Publisher validation and dispatch configuration checks passed.
 Site mirror dispatch was not attempted.
+```
+
+The activation runner should also print:
+
+```text
+valid: Publisher activation checks
 ```
 
 ## Failure Handling
