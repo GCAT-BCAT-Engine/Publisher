@@ -3,7 +3,7 @@
 Assumptions for this hub:
 
 - This folder contains GCAT/BCAT materials that use physics-facing language, including quantum, classical, astrophysical, cosmological, entropy, information, dark-matter, dark-energy, and black-hole terminology.
-- This README is an entry point. It does not replace the formalism documentation, posture note, executable sweep artifact, verifier, stress suite, baseline plan, baseline registry, or workflow.
+- This README is an entry point. It does not replace the formalism documentation, posture note, executable sweep artifact, verifier, stress suite, baseline plan, baseline registry, baseline verifier, or workflow.
 - Repository paths are shown without a leading slash.
 
 ## Purpose
@@ -18,6 +18,7 @@ This folder organizes the GCAT/BCAT physics-facing formalism materials so reader
 - the multi-seed stress suite,
 - the external-baseline comparison plan,
 - the baseline claim registry,
+- the baseline record verifier,
 - the reproducibility workflow,
 - generated sweep evidence,
 - and the remaining validation path.
@@ -234,7 +235,38 @@ Current posture:
 Baseline folder documentation
 ```
 
-### 10. Reproducibility workflow
+### 10. Baseline record verifier
+
+```text
+academic/cosmos/verify_baseline_records.py
+```
+
+Use this to verify the baseline claim registry and future baseline result records.
+
+Expected command:
+
+```bash
+python academic/cosmos/verify_baseline_records.py
+```
+
+It verifies:
+
+- registry identity and required fields,
+- claim IDs and uniqueness,
+- analogy/hypothesis-only claim layers,
+- recognized validation statuses,
+- required does-not-claim boundaries,
+- optional future result records under `academic/cosmos/baselines/results/`.
+
+It does not validate physical or cosmological claims.
+
+Current posture:
+
+```text
+Baseline record discipline verifier
+```
+
+### 11. Reproducibility workflow
 
 ```text
 github/workflows/cosmos-sweep-verify.yml
@@ -242,13 +274,13 @@ github/workflows/cosmos-sweep-verify.yml
 
 Note: the actual repository path starts with a leading dot. It is shown here without the leading dot.
 
-Use this workflow to run the deterministic sweep, verify the generated JSON, run the multi-seed stress suite, and upload sweep artifacts through GitHub Actions.
+Use this workflow to run the deterministic sweep, verify the generated JSON, run the multi-seed stress suite, validate baseline records, and upload sweep artifacts through GitHub Actions.
 
 The workflow runs on:
 
 - manual dispatch,
-- pushes affecting the cosmos sweep/verifier/stress files,
-- pull requests affecting the cosmos sweep/verifier/stress files.
+- pushes affecting the cosmos sweep/verifier/stress/baseline files,
+- pull requests affecting the cosmos sweep/verifier/stress/baseline files.
 
 Current posture:
 
@@ -256,7 +288,7 @@ Current posture:
 Repo-level reproducibility workflow
 ```
 
-### 11. Generated sweep output
+### 12. Generated sweep output
 
 ```text
 academic/cosmos/sweep_randomized_results.json
@@ -296,6 +328,7 @@ The repo should not yet claim:
 | `academic/cosmos/EXTERNAL_BASELINE_COMPARISON_PLAN.md` | External baseline plan | Public empirical-comparison scaffold |
 | `academic/cosmos/baselines/claim_registry.json` | Claim registry | Physics-facing claim catalog |
 | `academic/cosmos/baselines/README.md` | Baseline guide | Baseline folder documentation |
+| `academic/cosmos/verify_baseline_records.py` | Baseline verifier | Registry/result-record discipline check |
 | `github/workflows/cosmos-sweep-verify.yml` | GitHub Actions workflow | Repo-level reproducibility workflow |
 | `academic/cosmos/sweep_randomized_results.json` | Generated output | Run-output evidence |
 
@@ -323,16 +356,17 @@ Deterministic reproducibility workflow: yes
 Internal stress-test suite: yes
 External physics baseline comparison: scaffolded
 Baseline claim registry: yes
+Baseline record verifier: yes
 Independent reproduction package: partial
 Validated physical result: not yet
 ```
 
 ## Next recommended additions
 
-1. Add `academic/cosmos/verify_baseline_records.py`.
-2. Add placeholder result records under `academic/cosmos/baselines/results/` marked `not_testable_yet`.
-3. Add a public reproduction note explaining how to run the workflow and interpret artifacts.
-4. Add edge-case tests for invalid states and boundary-condition states.
+1. Add placeholder result records under `academic/cosmos/baselines/results/` marked `not_testable_yet`.
+2. Add a public reproduction note explaining how to run the workflow and interpret artifacts.
+3. Add edge-case tests for invalid states and boundary-condition states.
+4. Add a changelog entry for the cosmos validation slice.
 
 ## Minimal public summary
 
