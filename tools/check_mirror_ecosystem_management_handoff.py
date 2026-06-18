@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+"""Verify Publisher-to-Site mirror ecosystem management handoff."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+
+REQUIRED_FILES = [
+    Path("docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md"),
+    Path("docs/PUBLISHER_MIRROR_HANDOFF.md"),
+    Path("docs/activation-status.md"),
+    Path("docs/verification-tracker.md"),
+    Path("tools/close_site_mirror_activation.py"),
+    Path("tools/write_verification_run_receipt.py"),
+    Path(".github/workflows/dispatch-site-mirror.yml"),
+    Path(".github/workflows/close-site-mirror-activation.yml"),
+]
+
+MANAGEMENT_TERMS = [
+    "self_managed_handoff_ready",
+    "self_managed_handoff_completion",
+    "thread_archive_ready: true",
+    "automation chain",
+    "acceptance criteria",
+    "live GitHub Actions artifact production",
+    "not an activation receipt",
+    "fresh, ordered, and evidence-valid",
+]
+
+PUBLISHER_HANDOFF_TERMS = [
+    "docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
+    "self_managed_handoff_ready",
+    "self_managed_handoff_completion",
+    "fresh ordered bounded retry closure workflow",
+]
+
+STATUS_TERMS = [
+    "ready_for_fresh_ordered_automated_closure",
+    "Publisher closure script rejects stale or out-of-order Publisher/Site artifact pairs",
+    "MAX_ARTIFACT_AGE_HOURS",
+    "ORDER_GRACE_MINUTES",
+]
+
+CLOSURE_SCRIPT_TERMS = [
+    "artifact_freshness_ready",
+    "write_pending_probe",
+    "write_closure_receipt",
+    "update_tracker",
+    "update_status",
+]
+
+
+def fail(message: str) -> int:
+    print(f"mirror ecosystem management handoff check failed: {message}")
+    return 1
+
+
+def read(path: Path) -> str:
+    return (REPO_ROOT / path).read_text(encoding="utf-8")
+
+
+def require_file(path: Path) -> int | None:
+    if not (REPO_ROOT / path).exists():
+        return fail(f"missing required file: {path}")
+    return None
+
+
+def require_terms(path: Path, terms: list[str]) -> int | None:
+    text = read(path)
+    for term in terms:
+        if term not in text:
+            return fail(f"missing {term!r} in {path}")
+    return None
+
+
+def main() -> int:
+    for path in REQUIRED_FILES:
+        result = require_file(path)
+        if result is not None:
+            return result
+
+    checks = [
+        (Path("docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md"), MANAGEMENT_TERMS),
+        (Path("docs/PUBLISHER_MIRROR_HANDOFF.md"), PUBLISHER_HANDOFF_TERMS),
+        (Path("docs/activation-status.md"), STATUS_TERMS),
+        (Path("tools/close_site_mirror_activation.py"), CLOSURE_SCRIPT_TERMS),
+    ]
+    for path, terms in checks:
+        result = require_terms(path, terms)
+        if result is not None:
+            return result
+
+    print("valid: mirror ecosystem management handoff")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
