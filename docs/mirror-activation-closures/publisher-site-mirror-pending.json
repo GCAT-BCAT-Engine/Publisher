@@ -1,0 +1,10 @@
+{
+  "activation_state": "pending_evidence",
+  "attempt": 10,
+  "generated_utc": "2026-06-18T05:47:26.612173+00:00",
+  "non_claim": "This pending probe is not an activation receipt.",
+  "publisher_artifact_prefix": "publisher-site-verification-receipt",
+  "reason": "missing artifact prefix: GCAT-BCAT-Engine/Publisher/publisher-site-verification-receipt; missing artifact prefix: StegVerse-Labs/Site/site-mirror-evidence",
+  "schema": "stegverse.publisher.site_mirror.pending_probe.v1",
+  "site_artifact_prefix": "site-mirror-evidence"
+}
