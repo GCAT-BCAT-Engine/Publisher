@@ -6,8 +6,8 @@ verification receipt artifact and the newest Site mirror evidence artifact. When
 both are present, it updates Publisher-side tracker/status files to activated.
 
 It does not fabricate evidence. If required artifacts are missing, it leaves the
-repo in a pending state and exits successfully so scheduled automation can try
-again on the next run.
+repo in a pending state and exits successfully so scheduled or event-driven
+automation can try again on the next run.
 """
 
 from __future__ import annotations
@@ -15,7 +15,7 @@ from __future__ import annotations
 import json
 import os
 import re
-import sys
+import time
 import urllib.request
 import zipfile
 from datetime import datetime, timezone
@@ -38,6 +38,16 @@ API_ROOT = "https://api.github.com"
 
 def env(name: str, default: str = "") -> str:
     return os.environ.get(name, default).strip()
+
+
+def env_int(name: str, default: int) -> int:
+    raw = env(name)
+    if not raw:
+        return default
+    try:
+        return max(1, int(raw))
+    except ValueError:
+        return default
 
 
 def token() -> str:
@@ -152,8 +162,20 @@ def evidence_ready(publisher_receipt: dict[str, Any], site_state: dict[str, Any]
     return not missing, missing
 
 
-def sanitize(value: str) -> str:
-    return re.sub(r"[^A-Za-z0-9_.:/#-]+", "-", value).strip("-") or "unknown"
+def write_pending_probe(attempt: int, reason: str) -> None:
+    CLOSURE_DIR.mkdir(parents=True, exist_ok=True)
+    path = CLOSURE_DIR / "publisher-site-mirror-pending.json"
+    payload = {
+        "schema": "stegverse.publisher.site_mirror.pending_probe.v1",
+        "generated_utc": datetime.now(timezone.utc).isoformat(),
+        "activation_state": "pending_evidence",
+        "attempt": attempt,
+        "reason": reason,
+        "publisher_artifact_prefix": PUBLISHER_ARTIFACT_PREFIX,
+        "site_artifact_prefix": SITE_ARTIFACT_PREFIX,
+        "non_claim": "This pending probe is not an activation receipt.",
+    }
+    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def write_closure_receipt(publisher_artifact: dict[str, Any], site_artifact: dict[str, Any], publisher_receipt: dict[str, Any], site_state: dict[str, Any]) -> Path:
@@ -340,19 +362,22 @@ This activation status contains the activated closure evidence and no longer req
     STATUS_PATH.write_text(content, encoding="utf-8")
 
 
-def main() -> int:
+def try_close_once(attempt: int) -> bool:
     with TemporaryDirectory() as temp_name:
         temp_dir = Path(temp_name)
         publisher_artifact = newest_artifact(PUBLISHER_REPOSITORY, PUBLISHER_ARTIFACT_PREFIX)
         site_artifact = newest_artifact(SITE_REPOSITORY, SITE_ARTIFACT_PREFIX)
 
         if not publisher_artifact or not site_artifact:
-            print("activation closure pending: required artifacts not found")
+            missing = []
             if not publisher_artifact:
-                print(f"missing artifact prefix: {PUBLISHER_REPOSITORY}/{PUBLISHER_ARTIFACT_PREFIX}")
+                missing.append(f"missing artifact prefix: {PUBLISHER_REPOSITORY}/{PUBLISHER_ARTIFACT_PREFIX}")
             if not site_artifact:
-                print(f"missing artifact prefix: {SITE_REPOSITORY}/{SITE_ARTIFACT_PREFIX}")
-            return 0
+                missing.append(f"missing artifact prefix: {SITE_REPOSITORY}/{SITE_ARTIFACT_PREFIX}")
+            reason = "; ".join(missing)
+            print(f"activation closure pending on attempt {attempt}: {reason}")
+            write_pending_probe(attempt, reason)
+            return False
 
         publisher_paths = extract_artifact(PUBLISHER_REPOSITORY, publisher_artifact, temp_dir)
         site_paths = extract_artifact(SITE_REPOSITORY, site_artifact, temp_dir)
@@ -360,19 +385,36 @@ def main() -> int:
         site_state = load_site_state(site_paths)
 
         if not publisher_receipt or not site_state:
-            print("activation closure pending: artifacts did not contain required JSON evidence")
-            return 0
+            reason = "artifacts did not contain required JSON evidence"
+            print(f"activation closure pending on attempt {attempt}: {reason}")
+            write_pending_probe(attempt, reason)
+            return False
 
         ready, missing = evidence_ready(publisher_receipt, site_state)
         if not ready:
-            print("activation closure pending: missing evidence: " + ", ".join(missing))
-            return 0
+            reason = "missing evidence: " + ", ".join(missing)
+            print(f"activation closure pending on attempt {attempt}: {reason}")
+            write_pending_probe(attempt, reason)
+            return False
 
         closure_path = write_closure_receipt(publisher_artifact, site_artifact, publisher_receipt, site_state)
         update_tracker(closure_path, publisher_artifact, site_artifact, publisher_receipt, site_state)
         update_status(closure_path, publisher_artifact, site_artifact)
         print(f"activated Publisher-to-Site mirror using closure receipt: {closure_path.relative_to(REPO_ROOT)}")
-        return 0
+        return True
+
+
+def main() -> int:
+    attempts = env_int("CLOSURE_ATTEMPTS", 6)
+    sleep_seconds = env_int("CLOSURE_SLEEP_SECONDS", 30)
+    for attempt in range(1, attempts + 1):
+        if try_close_once(attempt):
+            return 0
+        if attempt < attempts:
+            print(f"waiting {sleep_seconds} seconds before next closure attempt")
+            time.sleep(sleep_seconds)
+    print("activation closure still pending after bounded retry window")
+    return 0
 
 
 if __name__ == "__main__":
