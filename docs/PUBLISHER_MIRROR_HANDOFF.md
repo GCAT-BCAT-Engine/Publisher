@@ -80,20 +80,27 @@ tools/check_verification_receipt_template.py
 ## Required Run Order
 
 ```text
-1. Publisher: Run Dispatch Site Paper Mirror manually with dry_run: true.
-2. Publisher: Confirm activation validation completes.
-3. Publisher: Confirm tools/check_publisher_activation.py prints valid: Publisher activation checks.
-4. Publisher: Confirm dry run prints that Site mirror dispatch was not attempted.
-5. Publisher: Capture dry-run receipt using docs/verification-run-receipt.template.json.
-6. Publisher: Install or confirm SITE_MIRROR_DISPATCH_TOKEN.
-7. Site: Confirm Site can read Publisher for mirror workflow.
-8. Publisher: Run Dispatch Site Paper Mirror manually with dry_run: false.
-9. Site: Confirm Mirror Papers from Publisher workflow starts.
-10. Site: Confirm papers/papers_manifest.json includes source metadata.
-11. Site: Confirm public aliases resolve.
-12. Publisher: Capture live-dispatch receipt.
-13. Publisher: Update docs/verification-tracker.md from pending_dry_run to activated.
-14. Publisher: Update docs/activation-status.md to activated after evidence is recorded.
+1. Publisher: Generate Papers JSON.
+2. Publisher: Validate Emergency AI Cases.
+3. Publisher: run python tools/check_publisher_activation.py.
+4. Publisher: confirm tools/check_publisher_activation.py prints valid: Publisher activation checks.
+5. Publisher: run Dispatch Site Paper Mirror manually with dry_run: true.
+6. Publisher: confirm dry run prints that Site mirror dispatch was not attempted.
+7. Publisher: capture dry-run workflow URL.
+8. Publisher: capture dry-run receipt commit using docs/verification-run-receipt.template.json.
+9. Publisher: confirm dispatch credentials are configured.
+10. Publisher: run Dispatch Site Paper Mirror manually with dry_run: false.
+11. Publisher: capture live dispatch workflow URL.
+12. Site: confirm Mirror Papers from Publisher workflow starts and completes.
+13. Site: capture Site mirror workflow URL.
+14. Site: capture Site mirror commit SHA.
+15. Site: confirm papers/papers_manifest.json includes source metadata.
+16. Site: confirm public aliases resolve.
+17. Site: update docs/SITE_MIRROR_EVIDENCE_PACKET.md with real evidence values.
+18. Site: run python scripts/check_site_mirror_evidence_packet.py.
+19. Publisher: capture live-dispatch receipt commit.
+20. Publisher: update docs/verification-tracker.md from pending_dry_run to activated.
+21. Publisher: update docs/activation-status.md to activated after evidence is recorded.
 ```
 
 ## Evidence To Capture
@@ -118,7 +125,8 @@ Publisher activation-status update commit
 ```text
 Resolved: Publisher validation, release gate, dispatch protocol, dry-run mode, receipt template, and verification tracker exist.
 Resolved: Site checked-in papers/papers_manifest.json now includes required source metadata.
-Pending: Publisher manual dry run, Publisher live dispatch, Site workflow evidence, alias verification, receipt commits, verification tracker activation, and activation-status update.
+Resolved: Publisher handoff run order now separates validation, dry-run workflow capture, dry-run receipt commit, dispatch credential confirmation, live dispatch, Site evidence capture, Site evidence-packet validation, live-dispatch receipt commit, verification tracker activation, and activation-status update.
+Pending: Publisher manual dry run, dry-run receipt commit, Publisher live dispatch, Site workflow evidence, alias verification, Site evidence packet completion, live-dispatch receipt commit, verification tracker activation, and activation-status update.
 ```
 
 ## Companion Site Handoff
