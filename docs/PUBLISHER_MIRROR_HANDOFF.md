@@ -20,12 +20,14 @@ Activation state: ready_for_manual_dry_run
 ## Built Files
 
 ```text
-.github/workflows/dispatch-site-mirror.yml
-.github/workflows/validate-emergency-ai-cases.yml
+github/workflows/dispatch-site-mirror.yml
+github/workflows/validate-emergency-ai-cases.yml
+github/workflows/generate-papers.yml
 tools/check_publisher_activation.py
 tools/check_site_mirror_dispatch.py
 tools/check_release_gate.py
 tools/check_verification_receipt_template.py
+tools/check_generate_papers_workflow.py
 docs/site-paper-display-policy.md
 docs/site-mirror-dispatch-protocol.md
 docs/release-gate-checklist.md
@@ -37,6 +39,8 @@ docs/activation-status.md
 docs/PUBLISHER_MIRROR_HANDOFF.md
 ```
 
+Note: workflow paths are displayed without the leading dot. The actual repository paths include the leading dot.
+
 ## Publisher Mirror Contract
 
 Publisher remains the source of truth. Site remains the public display surface.
@@ -47,6 +51,14 @@ The Publisher dispatch workflow is displayed as:
 
 ```text
 github/workflows/dispatch-site-mirror.yml
+```
+
+The actual repository path includes the leading dot.
+
+The Publisher generate workflow is displayed as:
+
+```text
+github/workflows/generate-papers.yml
 ```
 
 The actual repository path includes the leading dot.
@@ -75,6 +87,7 @@ tools/validate_emergency_ai_cases.py
 tools/check_site_mirror_dispatch.py
 tools/check_release_gate.py
 tools/check_verification_receipt_template.py
+tools/check_generate_papers_workflow.py
 ```
 
 ## Required Run Order
@@ -141,6 +154,7 @@ This prevents Publisher from claiming live dispatch activation while Site still 
 
 ```text
 Resolved: Publisher validation, release gate, dispatch protocol, dry-run mode, receipt template, and verification tracker exist.
+Resolved: Publisher handoff now records the Generate Papers JSON workflow and its checker as part of the activation runner.
 Resolved: Site checked-in papers/papers_manifest.json now includes required source metadata.
 Resolved: Publisher handoff run order now separates validation, dry-run workflow capture, dry-run receipt commit, dispatch credential confirmation, live dispatch, Site evidence capture, Site evidence-packet validation, live-dispatch receipt commit, verification tracker activation, and activation-status update.
 Resolved: Publisher handoff now requires Site live evidence state completion and validation before Publisher activation is marked activated.
