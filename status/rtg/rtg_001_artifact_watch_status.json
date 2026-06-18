@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "case_id": "RTG-001",
   "watched_repo": "GCAT-BCAT-Engine/workflows",
-  "generated_unix": 1781772383.997605,
+  "generated_unix": 1781785539.9874063,
   "artifact_returned": true,
   "matched_run": {
     "id": 27597978374,
