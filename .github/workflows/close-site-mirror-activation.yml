@@ -1,0 +1,54 @@
+name: Close Site Mirror Activation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "41 */6 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/verification-tracker.md"
+      - "docs/activation-status.md"
+      - "docs/PUBLISHER_MIRROR_HANDOFF.md"
+      - "tools/close_site_mirror_activation.py"
+      - ".github/workflows/close-site-mirror-activation.yml"
+      - ".github/workflows/dispatch-site-mirror.yml"
+
+jobs:
+  close-activation:
+    name: Close activation from Publisher and Site evidence artifacts
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      actions: read
+
+    env:
+      GH_TOKEN: ${{ secrets.SITE_MIRROR_DISPATCH_TOKEN || github.token }}
+
+    steps:
+      - name: Checkout Publisher
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run activation closure updater
+        run: python tools/close_site_mirror_activation.py
+
+      - name: Commit activation closure when changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add docs/verification-tracker.md docs/activation-status.md docs/mirror-activation-closures tools/close_site_mirror_activation.py .github/workflows/close-site-mirror-activation.yml
+
+          if git diff --cached --quiet; then
+            echo "No activation closure changes to commit. Evidence may still be pending."
+          else
+            git commit -m "Close Publisher-to-Site mirror activation from evidence"
+            git push
+          fi
