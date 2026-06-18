@@ -33,12 +33,16 @@ on:
       - "docs/iphone-dry-run-runbook.md"
       - "docs/verification-run-receipt.template.json"
       - "docs/activation-status.md"
+      - "docs/PUBLISHER_MIRROR_HANDOFF.md"
+      - "docs/mirror-activation-closures/**"
       - "tools/check_site_mirror_dispatch.py"
       - "tools/check_release_gate.py"
       - "tools/check_verification_receipt_template.py"
       - "tools/check_publisher_activation.py"
       - "tools/write_verification_run_receipt.py"
+      - "tools/close_site_mirror_activation.py"
       - ".github/workflows/dispatch-site-mirror.yml"
+      - ".github/workflows/close-site-mirror-activation.yml"
       - ".github/workflows/validate-emergency-ai-cases.yml"
 
 jobs:
