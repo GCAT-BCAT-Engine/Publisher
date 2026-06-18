@@ -44,7 +44,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add docs/verification-tracker.md docs/activation-status.md docs/mirror-activation-closures tools/close_site_mirror_activation.py .github/workflows/close-site-mirror-activation.yml
+          mkdir -p docs/mirror-activation-closures
+          git add docs/verification-tracker.md docs/activation-status.md tools/close_site_mirror_activation.py .github/workflows/close-site-mirror-activation.yml
+          if ls docs/mirror-activation-closures/*.json >/dev/null 2>&1; then
+            git add docs/mirror-activation-closures/*.json
+          fi
 
           if git diff --cached --quiet; then
             echo "No activation closure changes to commit. Evidence may still be pending."
