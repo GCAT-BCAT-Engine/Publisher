@@ -156,7 +156,7 @@ jobs:
           echo "Source ref: $SOURCE_REF"
 
       - name: Write verification receipt
-        if: ${{ always() && steps.dispatch.outcome == 'success' }}
+        if: ${{ success() && steps.dispatch.outcome == 'success' }}
         env:
           DRY_RUN: ${{ steps.dispatch.outputs.dry_run }}
           SITE_REPOSITORY: ${{ steps.dispatch.outputs.site_repository }}
@@ -169,7 +169,7 @@ jobs:
         run: python tools/write_verification_run_receipt.py
 
       - name: Upload verification receipt
-        if: ${{ always() && steps.dispatch.outcome == 'success' }}
+        if: ${{ success() && steps.dispatch.outcome == 'success' }}
         uses: actions/upload-artifact@v4
         with:
           name: publisher-site-verification-receipt-${{ github.run_id }}-${{ github.run_attempt }}
