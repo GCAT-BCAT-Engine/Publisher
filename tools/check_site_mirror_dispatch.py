@@ -11,6 +11,7 @@ REQUIRED_FILES = [
     Path(".github/workflows/dispatch-site-mirror.yml"),
     Path("docs/site-mirror-dispatch-protocol.md"),
     Path("docs/site-paper-display-policy.md"),
+    Path("tools/write_verification_run_receipt.py"),
     Path("README.md"),
 ]
 
@@ -27,6 +28,19 @@ REQUIRED_WORKFLOW_TERMS = [
     "actions/workflows/mirror-papers.yml/dispatches",
     "source_repository",
     "source_ref",
+    "python tools/write_verification_run_receipt.py",
+    "actions/upload-artifact@v4",
+    "publisher-site-verification-receipt",
+    "verification-runs/*.json",
+]
+
+REQUIRED_RECEIPT_WRITER_TERMS = [
+    "receipt_type",
+    "publisher_to_site_verification_run",
+    "github_run_url",
+    "site_dispatch_attempted",
+    "dispatch_request_accepted",
+    "pending_site_workflow_evidence",
 ]
 
 REQUIRED_PROTOCOL_TERMS = [
@@ -79,6 +93,10 @@ def main() -> int:
             return result
 
     result = require_terms(Path(".github/workflows/dispatch-site-mirror.yml"), REQUIRED_WORKFLOW_TERMS)
+    if result is not None:
+        return result
+
+    result = require_terms(Path("tools/write_verification_run_receipt.py"), REQUIRED_RECEIPT_WRITER_TERMS)
     if result is not None:
         return result
 
