@@ -31,6 +31,8 @@ jobs:
 
     env:
       GH_TOKEN: ${{ secrets.SITE_MIRROR_DISPATCH_TOKEN || github.token }}
+      CLOSURE_ATTEMPTS: "10"
+      CLOSURE_SLEEP_SECONDS: "45"
 
     steps:
       - name: Checkout Publisher
