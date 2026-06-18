@@ -4,7 +4,7 @@
 
 This handoff lets a Publisher-side build session continue Publisher-to-Site mirror activation without needing prior chat context.
 
-Use this file as the Publisher-side source of truth for mirror dispatch continuation.
+Use this file as the Publisher-side source of truth for mirror dispatch and automated closure continuation.
 
 ## Current Goal
 
@@ -14,13 +14,14 @@ Repository: GCAT-BCAT-Engine/Publisher
 Target repository: StegVerse-Labs/Site
 Source path: papers
 Target path: papers
-Activation state: ready_for_automated_push_dispatch
+Activation state: ready_for_automated_closure
 ```
 
 ## Built Files
 
 ```text
 github/workflows/dispatch-site-mirror.yml
+github/workflows/close-site-mirror-activation.yml
 github/workflows/validate-emergency-ai-cases.yml
 github/workflows/generate-papers.yml
 tools/check_publisher_activation.py
@@ -29,6 +30,7 @@ tools/check_release_gate.py
 tools/check_verification_receipt_template.py
 tools/check_generate_papers_workflow.py
 tools/write_verification_run_receipt.py
+tools/close_site_mirror_activation.py
 docs/site-paper-display-policy.md
 docs/site-mirror-dispatch-protocol.md
 docs/release-gate-checklist.md
@@ -48,50 +50,26 @@ Publisher remains the source of truth. Site remains the public display surface.
 
 Publisher may dispatch Site only after Publisher activation validation passes.
 
-The Publisher dispatch workflow is displayed as:
-
-```text
-github/workflows/dispatch-site-mirror.yml
-```
-
-The actual repository path includes the leading dot.
-
-The Publisher generate workflow is displayed as:
-
-```text
-github/workflows/generate-papers.yml
-```
-
-The actual repository path includes the leading dot.
-
-The target Site workflow is displayed as:
-
-```text
-StegVerse-Labs/Site/github/workflows/mirror-papers.yml
-```
-
-The actual Site repository path includes the leading dot.
-
 ## Automated Activation Sequence
 
-The preferred activation path is push-triggered automation. A workflow-dispatch dry run remains available as an optional diagnostic fallback, but forward activation no longer depends on a manual dry-run step.
+The preferred activation path is push-triggered automation plus scheduled closure. A workflow-dispatch dry run remains available as an optional diagnostic fallback, but forward activation no longer depends on a manual dry-run or hand-filled evidence step.
 
 ```text
 1. Publisher: a qualifying push to main triggers Dispatch Site Paper Mirror.
-2. Publisher workflow: checks out Publisher.
-3. Publisher workflow: installs validator dependencies.
-4. Publisher workflow: runs python tools/check_publisher_activation.py.
-5. Publisher workflow: resolves target Site repository and source ref.
-6. Publisher workflow: verifies dispatch credentials are available without exposing values.
-7. Publisher workflow: dispatches the Site mirror workflow when validation and credential checks pass.
-8. Publisher workflow: writes a verification receipt using tools/write_verification_run_receipt.py.
-9. Publisher workflow: uploads the receipt as a workflow artifact named publisher-site-verification-receipt-<run>-<attempt>.
-10. Site workflow: mirrors papers from Publisher.
-11. Site workflow: validates manifest metadata and aliases.
-12. Site workflow or follow-up automation: completes Site evidence packet and live evidence state from captured workflow evidence.
-13. Site validators: run python scripts/check_site_mirror_evidence_packet.py and python scripts/check_site_mirror_live_evidence_state.py.
-14. Publisher automation or follow-up governed commit: updates docs/verification-tracker.md from pending_automated_dispatch to activated after evidence is complete.
-15. Publisher automation or follow-up governed commit: updates docs/activation-status.md to activated after evidence is complete.
+2. Publisher workflow: runs python tools/check_publisher_activation.py.
+3. Publisher workflow: verifies dispatch credentials are available without exposing values.
+4. Publisher workflow: dispatches the Site mirror workflow when validation and credential checks pass.
+5. Publisher workflow: writes a verification receipt using tools/write_verification_run_receipt.py.
+6. Publisher workflow: uploads the receipt as a workflow artifact named publisher-site-verification-receipt-<run>-<attempt>.
+7. Site workflow: mirrors papers from Publisher.
+8. Site workflow: validates manifest metadata and aliases.
+9. Site workflow: writes Site evidence using scripts/write_site_mirror_evidence.py.
+10. Site workflow: uploads the Site evidence artifact named site-mirror-evidence-<run>-<attempt>.
+11. Publisher closure workflow: runs tools/close_site_mirror_activation.py on schedule, push, or dispatch.
+12. Publisher closure workflow: finds newest Publisher and Site evidence artifacts.
+13. Publisher closure workflow: writes docs/mirror-activation-closures/<closure>.json when both artifact classes contain minimum activation evidence.
+14. Publisher closure workflow: updates docs/verification-tracker.md and docs/activation-status.md to activated.
+15. Publisher closure workflow: commits the closure files automatically when changed.
 ```
 
 ## Required Validation Command
@@ -113,7 +91,16 @@ tools/check_verification_receipt_template.py
 tools/check_generate_papers_workflow.py
 ```
 
-The Site mirror dispatch checker now also requires the automated receipt writer and workflow artifact upload path.
+The Site mirror dispatch checker now also requires:
+
+```text
+tools/write_verification_run_receipt.py
+tools/close_site_mirror_activation.py
+github/workflows/close-site-mirror-activation.yml
+Publisher receipt artifact upload path
+Site evidence artifact discovery path
+activation closure receipt path
+```
 
 ## Evidence To Capture Automatically Or By Governed Follow-Up
 
@@ -127,35 +114,36 @@ papers/papers_manifest.json source_repository
 papers/papers_manifest.json source_ref
 papers/papers_manifest.json source_of_truth
 public alias verification results
-Site evidence packet completion commit
-Site live evidence state completion commit
+Site evidence artifact
+Publisher activation closure receipt
 Publisher verification tracker activation commit
 Publisher activation-status update commit
 ```
 
 ## Cross-Repo Evidence Gate
 
-Publisher activation must not be marked activated until both Site evidence files are complete and their validators pass:
+Publisher activation must not be marked activated until the closure updater has found both evidence artifact classes and written a closure receipt:
 
 ```text
-StegVerse-Labs/Site/docs/SITE_MIRROR_EVIDENCE_PACKET.md
-StegVerse-Labs/Site/docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json
-python scripts/check_site_mirror_evidence_packet.py
-python scripts/check_site_mirror_live_evidence_state.py
+publisher-site-verification-receipt-<run>-<attempt>
+site-mirror-evidence-<run>-<attempt>
+docs/mirror-activation-closures/<closure>.json
+python tools/close_site_mirror_activation.py
 ```
 
-This prevents Publisher from claiming live dispatch activation while Site still contains pending evidence placeholders.
+This prevents Publisher from claiming live dispatch activation while Site still lacks mirror/evidence artifacts.
 
 ## Current Delta
 
 ```text
 Resolved: Publisher validation, release gate, dispatch protocol, dry-run mode, receipt template, and verification tracker exist.
 Resolved: Publisher handoff records the Generate Papers JSON workflow and its checker as part of the activation runner.
-Resolved: Site checked-in papers/papers_manifest.json now includes required source metadata.
-Resolved: Publisher handoff separates validation, dispatch credential confirmation, live dispatch, Site evidence capture, Site evidence validation, verification tracker activation, and activation-status update.
-Resolved: Publisher handoff requires Site live evidence state completion and validation before Publisher activation is marked activated.
-Resolved: Publisher dispatch workflow now generates verification receipt artifacts automatically using tools/write_verification_run_receipt.py.
-Pending: automated Publisher dispatch run evidence, Publisher receipt artifact, Site workflow evidence, alias verification, Site evidence packet completion, Site live evidence state completion, verification tracker activation, and activation-status update.
+Resolved: Publisher dispatch workflow generates verification receipt artifacts automatically using tools/write_verification_run_receipt.py.
+Resolved: Site mirror workflow generates Site evidence artifacts automatically using scripts/write_site_mirror_evidence.py.
+Resolved: Publisher now has tools/close_site_mirror_activation.py to consume Publisher and Site evidence artifacts and close tracker/status automatically when evidence is ready.
+Resolved: Publisher now has github/workflows/close-site-mirror-activation.yml to run closure on schedule, push, or dispatch and commit closure changes automatically.
+Resolved: Publisher activation validation now requires the automated closure script and workflow.
+Pending: actual Publisher receipt artifact, actual Site evidence artifact, and closure commit from the scheduled/dispatch closure workflow.
 ```
 
 ## Companion Site Handoff
@@ -166,4 +154,4 @@ StegVerse-Labs/Site/docs/SITE_MIRROR_HANDOFF.md
 
 ## Archive Readiness
 
-This handoff contains the Publisher repo state, automated activation sequence, and evidence requirements needed to continue. Prior chat thread context is not required for forward progress once this file is present in the repository.
+This handoff contains the Publisher repo state, automated activation sequence, closure workflow, and evidence requirements needed to continue. Prior chat thread context is not required for forward progress once this file is present in the repository.
