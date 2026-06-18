@@ -16,7 +16,9 @@ on:
       - "docs/verification-tracker.md"
       - "docs/activation-status.md"
       - "docs/PUBLISHER_MIRROR_HANDOFF.md"
+      - "docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md"
       - "tools/close_site_mirror_activation.py"
+      - "tools/check_mirror_ecosystem_management_handoff.py"
       - ".github/workflows/close-site-mirror-activation.yml"
       - ".github/workflows/dispatch-site-mirror.yml"
 
@@ -44,6 +46,9 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Check ecosystem management handoff
+        run: python tools/check_mirror_ecosystem_management_handoff.py
+
       - name: Run activation closure updater
         run: python tools/close_site_mirror_activation.py
 
@@ -53,7 +58,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           mkdir -p docs/mirror-activation-closures
-          git add docs/verification-tracker.md docs/activation-status.md tools/close_site_mirror_activation.py .github/workflows/close-site-mirror-activation.yml
+          git add docs/verification-tracker.md docs/activation-status.md docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md tools/close_site_mirror_activation.py tools/check_mirror_ecosystem_management_handoff.py .github/workflows/close-site-mirror-activation.yml
           if ls docs/mirror-activation-closures/*.json >/dev/null 2>&1; then
             git add docs/mirror-activation-closures/*.json
           fi
