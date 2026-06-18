@@ -3,22 +3,22 @@
 
 This script is designed for GitHub Actions. It looks for the newest Publisher
 verification receipt artifact and the newest Site mirror evidence artifact. When
-both are present, it updates Publisher-side tracker/status files to activated.
+both are present, fresh, correctly ordered, and evidence-valid, it updates
+Publisher-side tracker/status files to activated.
 
-It does not fabricate evidence. If required artifacts are missing, it leaves the
-repo in a pending state and exits successfully so scheduled or event-driven
-automation can try again on the next run.
+It does not fabricate evidence. If required artifacts are missing, stale, or not
+ordered correctly, it leaves the repo in a pending state and exits successfully
+so scheduled or event-driven automation can try again on the next run.
 """
 
 from __future__ import annotations
 
 import json
 import os
-import re
 import time
 import urllib.request
 import zipfile
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Any
@@ -34,6 +34,7 @@ PUBLISHER_ARTIFACT_PREFIX = "publisher-site-verification-receipt"
 SITE_ARTIFACT_PREFIX = "site-mirror-evidence"
 
 API_ROOT = "https://api.github.com"
+ORDER_GRACE_MINUTES = 5
 
 
 def env(name: str, default: str = "") -> str:
@@ -52,6 +53,16 @@ def env_int(name: str, default: int) -> int:
 
 def token() -> str:
     return env("GH_TOKEN") or env("GITHUB_TOKEN")
+
+
+def parse_github_time(value: str) -> datetime | None:
+    value = value.strip()
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
 
 
 def request_json(url: str) -> dict[str, Any]:
@@ -87,6 +98,29 @@ def newest_artifact(repository: str, prefix: str) -> dict[str, Any] | None:
         return None
     matches.sort(key=lambda artifact: str(artifact.get("created_at", "")), reverse=True)
     return matches[0]
+
+
+def artifact_freshness_ready(publisher_artifact: dict[str, Any], site_artifact: dict[str, Any]) -> tuple[bool, str]:
+    max_age_hours = env_int("MAX_ARTIFACT_AGE_HOURS", 48)
+    now = datetime.now(timezone.utc)
+    publisher_created = parse_github_time(str(publisher_artifact.get("created_at", "")))
+    site_created = parse_github_time(str(site_artifact.get("created_at", "")))
+
+    if publisher_created is None:
+        return False, "Publisher artifact created_at is missing or invalid"
+    if site_created is None:
+        return False, "Site artifact created_at is missing or invalid"
+
+    max_age = timedelta(hours=max_age_hours)
+    if now - publisher_created > max_age:
+        return False, f"Publisher artifact is older than {max_age_hours} hours"
+    if now - site_created > max_age:
+        return False, f"Site artifact is older than {max_age_hours} hours"
+
+    if site_created + timedelta(minutes=ORDER_GRACE_MINUTES) < publisher_created:
+        return False, "Site evidence artifact is older than the Publisher dispatch artifact outside the grace window"
+
+    return True, "artifacts are fresh and ordered"
 
 
 def extract_artifact(repository: str, artifact: dict[str, Any], target_dir: Path) -> list[Path]:
@@ -191,12 +225,18 @@ def write_closure_receipt(publisher_artifact: dict[str, Any], site_artifact: dic
         "publisher_artifact": {
             "id": publisher_artifact.get("id"),
             "name": publisher_artifact.get("name"),
+            "created_at": publisher_artifact.get("created_at"),
             "url": artifact_url(PUBLISHER_REPOSITORY, publisher_artifact),
         },
         "site_artifact": {
             "id": site_artifact.get("id"),
             "name": site_artifact.get("name"),
+            "created_at": site_artifact.get("created_at"),
             "url": artifact_url(SITE_REPOSITORY, site_artifact),
+        },
+        "freshness_gate": {
+            "max_artifact_age_hours": env_int("MAX_ARTIFACT_AGE_HOURS", 48),
+            "order_grace_minutes": ORDER_GRACE_MINUTES,
         },
         "publisher_run_url": publisher_receipt.get("github_run_url"),
         "site_workflow_url": site_state.get("evidence", {}).get("site_mirror_workflow_url"),
@@ -250,7 +290,7 @@ publisher_activation_status_update_commit: generated_by_closure_workflow
 
 ## Activation Closure
 
-The Publisher-to-Site mirror activation is marked activated because the closure workflow found both required artifact classes and verified their minimum evidence fields:
+The Publisher-to-Site mirror activation is marked activated because the closure workflow found both required artifact classes and verified their minimum evidence fields, freshness, and ordering:
 
 ```text
 Publisher artifact prefix: {PUBLISHER_ARTIFACT_PREFIX}
@@ -260,7 +300,7 @@ Closure receipt: {closure_rel}
 
 ## Release Gate
 
-Site paper display may be treated as current only for the evidence represented in the closure receipt above. Future mirror runs must produce their own Publisher and Site evidence artifacts.
+Site paper display may be treated as current only for the evidence represented in the closure receipt above. Future mirror runs must produce their own fresh Publisher and Site evidence artifacts.
 
 ## Relevant Files
 
@@ -307,7 +347,7 @@ Site mirror dispatch workflow exists
 Dispatch workflow runs on qualifying push to main
 Dispatch workflow writes verification receipt artifacts automatically
 Site mirror workflow writes Site evidence artifacts automatically
-Automated closure workflow found Publisher and Site evidence artifacts
+Automated closure workflow found fresh ordered Publisher and Site evidence artifacts
 Automated closure workflow wrote activation closure receipt
 Publisher verification tracker is marked activated
 Publisher activation status is marked activated
@@ -377,6 +417,12 @@ def try_close_once(attempt: int) -> bool:
             reason = "; ".join(missing)
             print(f"activation closure pending on attempt {attempt}: {reason}")
             write_pending_probe(attempt, reason)
+            return False
+
+        fresh, freshness_reason = artifact_freshness_ready(publisher_artifact, site_artifact)
+        if not fresh:
+            print(f"activation closure pending on attempt {attempt}: {freshness_reason}")
+            write_pending_probe(attempt, freshness_reason)
             return False
 
         publisher_paths = extract_artifact(PUBLISHER_REPOSITORY, publisher_artifact, temp_dir)
