@@ -50,6 +50,8 @@ Publisher remains the source of truth. Site remains the public display surface.
 
 Publisher may dispatch Site only after Publisher activation validation passes.
 
+Publisher must not upload a live accepted verification receipt after a failed credential check or failed Site workflow dispatch. The dispatch workflow gates receipt writing and artifact upload with `success()` so only a successful dry run or successful live dispatch can produce a verification receipt artifact.
+
 ## Automated Activation Sequence
 
 The preferred activation path is push-triggered automation plus scheduled closure. A workflow-dispatch dry run remains available as an optional diagnostic fallback, but forward activation no longer depends on a manual dry-run or hand-filled evidence step.
@@ -59,8 +61,8 @@ The preferred activation path is push-triggered automation plus scheduled closur
 2. Publisher workflow: runs python tools/check_publisher_activation.py.
 3. Publisher workflow: verifies dispatch credentials are available without exposing values.
 4. Publisher workflow: dispatches the Site mirror workflow when validation and credential checks pass.
-5. Publisher workflow: writes a verification receipt using tools/write_verification_run_receipt.py.
-6. Publisher workflow: uploads the receipt as a workflow artifact named publisher-site-verification-receipt-<run>-<attempt>.
+5. Publisher workflow: writes a verification receipt using tools/write_verification_run_receipt.py only after the workflow remains successful.
+6. Publisher workflow: uploads the receipt as a workflow artifact named publisher-site-verification-receipt-<run>-<attempt> only after the workflow remains successful.
 7. Site workflow: mirrors papers from Publisher.
 8. Site workflow: validates manifest metadata and aliases.
 9. Site workflow: writes Site evidence using scripts/write_site_mirror_evidence.py.
@@ -139,6 +141,7 @@ This prevents Publisher from claiming live dispatch activation while Site still 
 Resolved: Publisher validation, release gate, dispatch protocol, dry-run mode, receipt template, and verification tracker exist.
 Resolved: Publisher handoff records the Generate Papers JSON workflow and its checker as part of the activation runner.
 Resolved: Publisher dispatch workflow generates verification receipt artifacts automatically using tools/write_verification_run_receipt.py.
+Resolved: Publisher dispatch workflow now gates verification receipt writing and upload with success() to prevent accepted receipt artifacts after failed credential or Site dispatch steps.
 Resolved: Site mirror workflow generates Site evidence artifacts automatically using scripts/write_site_mirror_evidence.py.
 Resolved: Publisher now has tools/close_site_mirror_activation.py to consume Publisher and Site evidence artifacts and close tracker/status automatically when evidence is ready.
 Resolved: Publisher now has github/workflows/close-site-mirror-activation.yml to run closure on schedule, push, or dispatch and commit closure changes automatically.
