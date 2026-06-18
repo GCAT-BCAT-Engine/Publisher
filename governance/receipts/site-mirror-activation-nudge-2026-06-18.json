@@ -1,0 +1,23 @@
+{
+  "receipt_type": "site_mirror_activation_nudge",
+  "created_utc": "2026-06-18T00:00:00Z",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "target_repository": "StegVerse-Labs/Site",
+  "source_path": "papers",
+  "target_path": "papers",
+  "goal": "trigger Publisher-to-Site mirror dispatch automation without manual workflow action",
+  "handoff_sources": [
+    "docs/PUBLISHER_MIRROR_HANDOFF.md",
+    "StegVerse-Labs/Site/docs/SITE_MIRROR_HANDOFF.md"
+  ],
+  "expected_automation": [
+    "Dispatch Site Paper Mirror workflow runs from qualifying push",
+    "Publisher validation runs before dispatch",
+    "Publisher verification receipt artifact is uploaded only after successful validation/dispatch path",
+    "Site mirror workflow is dispatched when credentials are available",
+    "Site evidence artifact is written and uploaded by Site workflow",
+    "Publisher closure workflow writes pending probe or activation closure based on artifact availability"
+  ],
+  "activation_claim": "not_activated_by_this_receipt",
+  "manual_action_required": false
+}
