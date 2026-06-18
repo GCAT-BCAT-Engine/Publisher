@@ -100,7 +100,7 @@ Site display updates should follow this order:
 
 Publisher can dispatch the Site mirror workflow after Publisher validation passes.
 
-The Publisher dispatch workflow is:
+The Publisher dispatch workflow is displayed as:
 
 ```text
 github/workflows/dispatch-site-mirror.yml
@@ -112,6 +112,12 @@ Operational details are defined in:
 
 ```text
 docs/site-mirror-dispatch-protocol.md
+```
+
+The current Publisher-side continuation handoff is:
+
+```text
+docs/PUBLISHER_MIRROR_HANDOFF.md
 ```
 
 Before installing or relying on dispatch credentials, run the workflow manually with:
@@ -179,97 +185,3 @@ Emergency AI restriction case objects are stored in:
 ```text
 governance/cases/*.case.json
 ```
-
-They are validated against:
-
-```text
-governance/schemas/emergency-ai-restriction.case.schema.json
-```
-
-Run the full local activation validation sequence with:
-
-```bash
-python -m pip install -r requirements.txt
-python tools/check_publisher_activation.py
-```
-
-The activation runner executes:
-
-```bash
-python tools/check_emergency_ai_templates.py
-python tools/validate_emergency_ai_cases.py
-python tools/check_site_mirror_dispatch.py
-python tools/check_release_gate.py
-python tools/check_verification_receipt_template.py
-```
-
-The GitHub Actions workflow path is shown here without its leading dot:
-
-```text
-github/workflows/validate-emergency-ai-cases.yml
-```
-
-In the repository, the actual path is `.github/workflows/validate-emergency-ai-cases.yml`.
-
-For details, see:
-
-```text
-docs/validation.md
-docs/site-paper-display-policy.md
-docs/site-mirror-dispatch-protocol.md
-docs/release-gate-checklist.md
-docs/activation-status.md
-docs/iphone-dry-run-runbook.md
-docs/verification-run-receipt.template.json
-templates/README.md
-governance/README.md
-```
-
-## Integration with StegVerse Site
-
-The Publisher lives as a subdirectory of the main site:
-
-```
-Site/
-├── index.html
-├── demo.html
-├── assets/
-│   └── css/
-│       └── demo-styles.css
-└── publisher/          # ← this directory
-    ├── papers.html
-    ├── publisher.css
-    ├── publisher.js
-    ├── papers.json
-    ├── papers_manifest.yml
-    └── papers/
-        └── *.html
-```
-
-Navigation links between pages use relative paths:
-- Home → `https://stegverse.org`
-- Demo → `https://stegverse.org/demo.html`
-- Papers → `https://stegverse.org/publisher/papers.html`
-
-## Design Principles
-
-1. **No build step required** — vanilla JS, no frameworks
-2. **No backend required** — static JSON feed
-3. **Commit-time admissibility** — every paper has a version, status, and audit trail
-4. **Semantic boundary enforcement** — rejected optimizations are preserved as negative results
-5. **CC-BY-4.0 default** — all papers open access unless otherwise noted
-
-## Roadmap
-
-- [ ] Auto-generate `papers.json` via GitHub Action on manifest push
-- [ ] PDF generation pipeline (pandoc + LaTeX)
-- [ ] DOI registration integration
-- [ ] Citation counter (via API or manual)
-- [ ] Peer review workflow (GitHub Issues → review threads)
-- [ ] RSS/Atom feed for new papers
-- [ ] OpenGraph meta tags for social sharing
-
-## License
-
-Publisher system: MIT
-Papers content: CC-BY-4.0 (unless otherwise noted)
