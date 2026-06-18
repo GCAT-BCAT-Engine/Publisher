@@ -7,7 +7,9 @@ Track the operational verification of the Publisher-to-Site mirror path after po
 ## Status
 
 ```text
-status: pending_automated_dispatch
+status: pending_automated_dispatch_nudged
+last_automation_nudge_utc: 2026-06-18T05:38:00Z
+nudge_reason: continue_without_manual_actions_through_completion
 ```
 
 ## Automated Receipt Path
