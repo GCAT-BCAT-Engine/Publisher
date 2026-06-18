@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify Publisher-to-Site mirror dispatch configuration."""
+"""Verify Publisher-to-Site mirror dispatch and closure configuration."""
 
 from __future__ import annotations
 
@@ -9,9 +9,11 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = [
     Path(".github/workflows/dispatch-site-mirror.yml"),
+    Path(".github/workflows/close-site-mirror-activation.yml"),
     Path("docs/site-mirror-dispatch-protocol.md"),
     Path("docs/site-paper-display-policy.md"),
     Path("tools/write_verification_run_receipt.py"),
+    Path("tools/close_site_mirror_activation.py"),
     Path("README.md"),
 ]
 
@@ -34,6 +36,14 @@ REQUIRED_WORKFLOW_TERMS = [
     "verification-runs/*.json",
 ]
 
+REQUIRED_CLOSURE_WORKFLOW_TERMS = [
+    "name: Close Site Mirror Activation",
+    "python tools/close_site_mirror_activation.py",
+    "docs/mirror-activation-closures",
+    "Close activation from Publisher and Site evidence artifacts",
+    "No activation closure changes to commit. Evidence may still be pending.",
+]
+
 REQUIRED_RECEIPT_WRITER_TERMS = [
     "receipt_type",
     "publisher_to_site_verification_run",
@@ -41,6 +51,17 @@ REQUIRED_RECEIPT_WRITER_TERMS = [
     "site_dispatch_attempted",
     "dispatch_request_accepted",
     "pending_site_workflow_evidence",
+]
+
+REQUIRED_CLOSURE_SCRIPT_TERMS = [
+    "PUBLISHER_ARTIFACT_PREFIX",
+    "SITE_ARTIFACT_PREFIX",
+    "publisher-site-verification-receipt",
+    "site-mirror-evidence",
+    "close_site_mirror_activation.py",
+    "activation_state",
+    "activated",
+    "mirror-activation-closures",
 ]
 
 REQUIRED_PROTOCOL_TERMS = [
@@ -96,7 +117,15 @@ def main() -> int:
     if result is not None:
         return result
 
+    result = require_terms(Path(".github/workflows/close-site-mirror-activation.yml"), REQUIRED_CLOSURE_WORKFLOW_TERMS)
+    if result is not None:
+        return result
+
     result = require_terms(Path("tools/write_verification_run_receipt.py"), REQUIRED_RECEIPT_WRITER_TERMS)
+    if result is not None:
+        return result
+
+    result = require_terms(Path("tools/close_site_mirror_activation.py"), REQUIRED_CLOSURE_SCRIPT_TERMS)
     if result is not None:
         return result
 
@@ -108,7 +137,7 @@ def main() -> int:
     if result is not None:
         return result
 
-    print("valid: Publisher Site mirror dispatch")
+    print("valid: Publisher Site mirror dispatch and closure")
     return 0
 
 
