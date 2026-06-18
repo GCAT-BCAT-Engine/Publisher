@@ -3,7 +3,7 @@
 ## Current State
 
 ```text
-activation_state: ready_for_automated_closure
+activation_state: ready_for_fresh_ordered_automated_closure
 repository: GCAT-BCAT-Engine/Publisher
 activation_target: Publisher to Site mirror dispatch
 site_target: StegVerse-Labs/Site
@@ -41,14 +41,18 @@ Site mirror workflow can nudge Publisher closure after evidence upload when cros
 Publisher closure script exists
 Publisher closure workflow exists
 Publisher closure workflow runs on schedule, dispatch, push, and Publisher dispatch workflow completion
+Publisher closure workflow runs with bounded retry
+Publisher closure script writes pending probe records while evidence is missing or stale
+Publisher closure script rejects stale or out-of-order Publisher/Site artifact pairs
+Publisher closure receipt records artifact created_at values and freshness gate metadata
 Publisher validation requires automated closure path
 ```
 
 ## What Is Not Yet Complete
 
 ```text
-actual Publisher verification receipt artifact has not been recorded in this status file
-actual Site evidence artifact has not been recorded in this status file
+actual fresh Publisher verification receipt artifact has not been recorded in this status file
+actual fresh Site evidence artifact has not been recorded in this status file
 automated closure receipt has not been generated in this status file
 Publisher verification tracker has not been marked activated by closure workflow
 Publisher activation status has not been marked activated by closure workflow
@@ -70,10 +74,11 @@ Repo activation occurs when:
 9. Site workflow nudges Publisher closure when cross-repo credentials are available, while scheduled Publisher closure remains fallback.
 10. Publisher Close Site Mirror Activation workflow runs tools/close_site_mirror_activation.py.
 11. Closure updater finds newest Publisher and Site evidence artifacts.
-12. Closure updater writes docs/mirror-activation-closures/<closure>.json.
-13. Closure updater updates docs/verification-tracker.md to activated.
-14. Closure updater updates docs/activation-status.md to activated.
-15. Closure workflow commits the activation closure.
+12. Closure updater verifies both artifacts are within MAX_ARTIFACT_AGE_HOURS and ordered within ORDER_GRACE_MINUTES.
+13. Closure updater writes docs/mirror-activation-closures/<closure>.json.
+14. Closure updater updates docs/verification-tracker.md to activated.
+15. Closure updater updates docs/activation-status.md to activated.
+16. Closure workflow commits the activation closure.
 ```
 
 ## Current Validation Contract
@@ -95,7 +100,7 @@ tools/check_verification_receipt_template.py
 tools/check_generate_papers_workflow.py
 ```
 
-The Site mirror dispatch checker now also requires:
+The Site mirror dispatch checker requires:
 
 ```text
 tools/write_verification_run_receipt.py
@@ -109,7 +114,7 @@ docs/mirror-activation-closures closure receipt path
 ## Next Action
 
 ```text
-Let the automated workflows proceed: Publisher dispatch produces a Publisher receipt artifact, Site mirror produces a Site evidence artifact, and Publisher closure workflow commits activation when both artifact classes are ready.
+Let the automated workflows proceed: Publisher dispatch produces a fresh Publisher receipt artifact, Site mirror produces a fresh Site evidence artifact, and Publisher closure workflow commits activation when both artifact classes are fresh, ordered, and evidence-valid.
 ```
 
 ## Activation Evidence Files
@@ -118,6 +123,7 @@ Let the automated workflows proceed: Publisher dispatch produces a Publisher rec
 docs/verification-tracker.md
 docs/activation-status.md
 docs/PUBLISHER_MIRROR_HANDOFF.md
+docs/mirror-activation-closures/publisher-site-mirror-pending.json
 docs/mirror-activation-closures/<closure>.json
 tools/check_publisher_activation.py
 tools/check_verification_receipt_template.py
@@ -137,4 +143,4 @@ Note: workflow paths are displayed without the leading dot. The actual repositor
 
 ## Archive Readiness
 
-This activation status contains the automated dispatch path, automated Site closure nudge, automated closure path, activation boundary, pending evidence list, and next action. Prior chat context is not required once this file, docs/verification-tracker.md, docs/PUBLISHER_MIRROR_HANDOFF.md, tools/close_site_mirror_activation.py, and github/workflows/close-site-mirror-activation.yml are present in the repository.
+This activation status contains the automated dispatch path, automated Site closure nudge, fresh ordered automated closure path, activation boundary, pending evidence list, and next action. Prior chat context is not required once this file, docs/verification-tracker.md, docs/PUBLISHER_MIRROR_HANDOFF.md, tools/close_site_mirror_activation.py, and github/workflows/close-site-mirror-activation.yml are present in the repository.
