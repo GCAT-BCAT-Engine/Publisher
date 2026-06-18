@@ -97,10 +97,12 @@ tools/check_verification_receipt_template.py
 15. Site: confirm papers/papers_manifest.json includes source metadata.
 16. Site: confirm public aliases resolve.
 17. Site: update docs/SITE_MIRROR_EVIDENCE_PACKET.md with real evidence values.
-18. Site: run python scripts/check_site_mirror_evidence_packet.py.
-19. Publisher: capture live-dispatch receipt commit.
-20. Publisher: update docs/verification-tracker.md from pending_dry_run to activated.
-21. Publisher: update docs/activation-status.md to activated after evidence is recorded.
+18. Site: update docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json with matching real evidence values.
+19. Site: run python scripts/check_site_mirror_evidence_packet.py.
+20. Site: run python scripts/check_site_mirror_live_evidence_state.py.
+21. Publisher: capture live-dispatch receipt commit.
+22. Publisher: update docs/verification-tracker.md from pending_dry_run to activated.
+23. Publisher: update docs/activation-status.md to activated after evidence is recorded.
 ```
 
 ## Evidence To Capture
@@ -115,10 +117,25 @@ papers/papers_manifest.json source_repository
 papers/papers_manifest.json source_ref
 papers/papers_manifest.json source_of_truth
 public alias verification results
+Site evidence packet completion commit
+Site live evidence state completion commit
 Publisher live-dispatch receipt commit
 Publisher verification tracker activation commit
 Publisher activation-status update commit
 ```
+
+## Cross-Repo Evidence Gate
+
+Publisher activation must not be marked activated until both Site evidence files are complete and their validators pass:
+
+```text
+StegVerse-Labs/Site/docs/SITE_MIRROR_EVIDENCE_PACKET.md
+StegVerse-Labs/Site/docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json
+python scripts/check_site_mirror_evidence_packet.py
+python scripts/check_site_mirror_live_evidence_state.py
+```
+
+This prevents Publisher from claiming live dispatch activation while Site still contains pending evidence placeholders.
 
 ## Current Delta
 
@@ -126,7 +143,8 @@ Publisher activation-status update commit
 Resolved: Publisher validation, release gate, dispatch protocol, dry-run mode, receipt template, and verification tracker exist.
 Resolved: Site checked-in papers/papers_manifest.json now includes required source metadata.
 Resolved: Publisher handoff run order now separates validation, dry-run workflow capture, dry-run receipt commit, dispatch credential confirmation, live dispatch, Site evidence capture, Site evidence-packet validation, live-dispatch receipt commit, verification tracker activation, and activation-status update.
-Pending: Publisher manual dry run, dry-run receipt commit, Publisher live dispatch, Site workflow evidence, alias verification, Site evidence packet completion, live-dispatch receipt commit, verification tracker activation, and activation-status update.
+Resolved: Publisher handoff now requires Site live evidence state completion and validation before Publisher activation is marked activated.
+Pending: Publisher manual dry run, dry-run receipt commit, Publisher live dispatch, Site workflow evidence, alias verification, Site evidence packet completion, Site live evidence state completion, live-dispatch receipt commit, verification tracker activation, and activation-status update.
 ```
 
 ## Companion Site Handoff
