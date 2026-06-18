@@ -12,7 +12,7 @@ on:
         required: false
         default: "main"
       dry_run:
-        description: "Validate only; do not require token or dispatch Site"
+        description: "Validate only; do not dispatch Site"
         required: false
         default: "false"
   push:
@@ -37,6 +37,7 @@ on:
       - "tools/check_release_gate.py"
       - "tools/check_verification_receipt_template.py"
       - "tools/check_publisher_activation.py"
+      - "tools/write_verification_run_receipt.py"
       - ".github/workflows/dispatch-site-mirror.yml"
       - ".github/workflows/validate-emergency-ai-cases.yml"
 
@@ -108,8 +109,8 @@ jobs:
         if: ${{ steps.dispatch.outputs.dry_run != 'true' }}
         run: |
           if [ -z "$SITE_MIRROR_DISPATCH_TOKEN" ]; then
-            echo "SITE_MIRROR_DISPATCH_TOKEN is not set."
-            echo "Publisher validation passed, but Site mirror dispatch cannot run without a dispatch token."
+            echo "Dispatch credential is not configured."
+            echo "Publisher validation passed, but Site mirror dispatch cannot run until dispatch credentials are available."
             exit 1
           fi
 
@@ -123,17 +124,17 @@ jobs:
           API_URL="https://api.github.com/repos/$SITE_REPOSITORY/actions/workflows/mirror-papers.yml/dispatches"
 
           payload=$(python - <<'PY'
-import json
-import os
-print(json.dumps({
-    "ref": "main",
-    "inputs": {
-        "source_repository": os.environ["SOURCE_REPOSITORY"],
-        "source_ref": os.environ["SOURCE_REF"],
-    },
-}))
-PY
-)
+          import json
+          import os
+          print(json.dumps({
+              "ref": "main",
+              "inputs": {
+                  "source_repository": os.environ["SOURCE_REPOSITORY"],
+                  "source_ref": os.environ["SOURCE_REF"],
+              },
+          }))
+          PY
+          )
 
           status=$(curl -sS -o /tmp/site-dispatch-response.json -w "%{http_code}" \
             -X POST \
@@ -153,3 +154,24 @@ PY
           echo "Site repository: $SITE_REPOSITORY"
           echo "Source repository: $SOURCE_REPOSITORY"
           echo "Source ref: $SOURCE_REF"
+
+      - name: Write verification receipt
+        if: ${{ always() && steps.dispatch.outcome == 'success' }}
+        env:
+          DRY_RUN: ${{ steps.dispatch.outputs.dry_run }}
+          SITE_REPOSITORY: ${{ steps.dispatch.outputs.site_repository }}
+          SOURCE_REPOSITORY: ${{ steps.dispatch.outputs.source_repository }}
+          SOURCE_REF: ${{ steps.dispatch.outputs.source_ref }}
+          SITE_DISPATCH_ATTEMPTED: ${{ steps.dispatch.outputs.dry_run != 'true' }}
+          SITE_DISPATCH_STATUS: ${{ steps.dispatch.outputs.dry_run == 'true' && 'not_attempted_for_dry_run' || 'dispatch_request_accepted' }}
+          RECEIPT_STATUS: ${{ job.status }}
+          RECEIPT_OUTPUT_DIR: verification-runs
+        run: python tools/write_verification_run_receipt.py
+
+      - name: Upload verification receipt
+        if: ${{ always() && steps.dispatch.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: publisher-site-verification-receipt-${{ github.run_id }}-${{ github.run_attempt }}
+          path: verification-runs/*.json
+          if-no-files-found: error
