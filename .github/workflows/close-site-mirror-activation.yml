@@ -33,6 +33,7 @@ jobs:
       GH_TOKEN: ${{ secrets.SITE_MIRROR_DISPATCH_TOKEN || github.token }}
       CLOSURE_ATTEMPTS: "10"
       CLOSURE_SLEEP_SECONDS: "45"
+      MAX_ARTIFACT_AGE_HOURS: "48"
 
     steps:
       - name: Checkout Publisher
