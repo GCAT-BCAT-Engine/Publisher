@@ -4,6 +4,11 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "41 */6 * * *"
+  workflow_run:
+    workflows:
+      - "Dispatch Site Paper Mirror"
+    types:
+      - completed
   push:
     branches:
       - main
