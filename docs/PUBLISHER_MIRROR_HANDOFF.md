@@ -4,7 +4,13 @@
 
 This handoff lets a Publisher-side build session continue Publisher-to-Site mirror activation without needing prior chat context.
 
-Use this file as the Publisher-side source of truth for mirror dispatch and automated closure continuation.
+Use this file as the Publisher-side source of truth for mirror dispatch, automated closure continuation, and ecosystem-management handoff.
+
+## Current Assessment Goal
+
+```text
+Continue building without manual actions needed through completion OR until task handoff and task completion is capable of being handled by the ecosystem's own management.
+```
 
 ## Current Goal
 
@@ -14,7 +20,8 @@ Repository: GCAT-BCAT-Engine/Publisher
 Target repository: StegVerse-Labs/Site
 Source path: papers
 Target path: papers
-Activation state: ready_for_fresh_ordered_automated_closure
+Activation state: self_managed_handoff_ready
+Completion class: self_managed_handoff_completion
 ```
 
 ## Built Files
@@ -39,6 +46,7 @@ docs/iphone-dry-run-runbook.md
 docs/verification-run-receipt.template.json
 docs/verification-tracker.md
 docs/activation-status.md
+docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 docs/mirror-activation-closures/publisher-site-mirror-pending.json
 docs/mirror-activation-closures/<closure>.json
 docs/PUBLISHER_MIRROR_HANDOFF.md
@@ -78,6 +86,28 @@ The preferred activation path is push-triggered automation plus event/scheduled 
 17. Publisher closure workflow: updates docs/verification-tracker.md and docs/activation-status.md to activated.
 18. Publisher closure workflow: commits pending probe or closure files automatically when changed.
 ```
+
+## Ecosystem Management Handoff
+
+The management handoff is:
+
+```text
+docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+```
+
+That file defines:
+
+```text
+management_state
+repo_state
+source-of-truth files
+automation chain
+acceptance criteria
+self-managed handoff completion
+archive readiness
+```
+
+The management handoff is the repo-resident continuation source once this chat is archived.
 
 ## Required Validation Command
 
@@ -160,6 +190,7 @@ Resolved: Publisher closure updater performs bounded retry and writes a pending 
 Resolved: Publisher closure updater rejects stale or out-of-order Publisher/Site artifact pairs.
 Resolved: Publisher closure receipt records artifact created_at values and freshness gate metadata.
 Resolved: Publisher has github/workflows/close-site-mirror-activation.yml to run closure on schedule, push, dispatch, or Publisher dispatch completion and commit pending/closure changes automatically.
+Resolved: Publisher has docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md as repo-resident self-management handoff.
 Resolved: Publisher activation validation requires the automated closure script and workflow.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, and closure commit from the automated closure workflow.
 ```
@@ -168,8 +199,9 @@ Pending: actual Publisher receipt artifact, actual Site evidence artifact, and c
 
 ```text
 StegVerse-Labs/Site/docs/SITE_MIRROR_HANDOFF.md
+StegVerse-Labs/Site/docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 ```
 
 ## Archive Readiness
 
-This handoff contains the Publisher repo state, automated activation sequence, fresh ordered bounded retry closure workflow, and evidence requirements needed to continue. Prior chat thread context is not required for forward progress once this file is present in the repository.
+This handoff contains the Publisher repo state, automated activation sequence, fresh ordered bounded retry closure workflow, self-management handoff link, and evidence requirements needed to continue. Prior chat thread context is not required for forward progress once this file and docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md are present in the repository.
