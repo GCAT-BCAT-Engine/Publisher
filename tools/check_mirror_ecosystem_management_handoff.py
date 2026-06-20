@@ -10,10 +10,12 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_FILES = [
     Path("docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md"),
     Path("docs/PUBLISHER_MIRROR_HANDOFF.md"),
+    Path("docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md"),
     Path("docs/activation-status.md"),
     Path("docs/verification-tracker.md"),
     Path("tools/close_site_mirror_activation.py"),
     Path("tools/write_verification_run_receipt.py"),
+    Path("tools/check_publisher_closure_evidence_production.py"),
     Path(".github/workflows/dispatch-site-mirror.yml"),
     Path(".github/workflows/close-site-mirror-activation.yml"),
 ]
@@ -21,6 +23,9 @@ REQUIRED_FILES = [
 MANAGEMENT_TERMS = [
     "self_managed_handoff_ready",
     "self_managed_handoff_completion",
+    "current_goal: Publisher closure evidence production",
+    "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
+    "tools/check_publisher_closure_evidence_production.py",
     "thread_archive_ready: true",
     "automation chain",
     "acceptance criteria",
@@ -30,14 +35,28 @@ MANAGEMENT_TERMS = [
 ]
 
 PUBLISHER_HANDOFF_TERMS = [
+    "Goal: Publisher closure evidence production",
     "docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
-    "self_managed_handoff_ready",
+    "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
+    "tools/check_publisher_closure_evidence_production.py",
     "self_managed_handoff_completion",
     "fresh ordered bounded retry closure workflow",
 ]
 
+CLOSURE_EVIDENCE_TERMS = [
+    "Goal: Publisher closure evidence production",
+    "Publisher state: ready_for_fresh_ordered_automated_closure",
+    "Site state: repository_managed_continuation_complete",
+    "Activation state: pending_fresh_ordered_artifacts",
+    "publisher-site-verification-receipt",
+    "site-mirror-evidence",
+    "This pending probe is not an activation receipt.",
+]
+
 STATUS_TERMS = [
     "ready_for_fresh_ordered_automated_closure",
+    "Publisher closure evidence production packet exists",
+    "Publisher closure workflow checks Publisher closure evidence production before closure attempt",
     "Publisher closure script rejects stale or out-of-order Publisher/Site artifact pairs",
     "MAX_ARTIFACT_AGE_HOURS",
     "ORDER_GRACE_MINUTES",
@@ -84,6 +103,7 @@ def main() -> int:
     checks = [
         (Path("docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md"), MANAGEMENT_TERMS),
         (Path("docs/PUBLISHER_MIRROR_HANDOFF.md"), PUBLISHER_HANDOFF_TERMS),
+        (Path("docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md"), CLOSURE_EVIDENCE_TERMS),
         (Path("docs/activation-status.md"), STATUS_TERMS),
         (Path("tools/close_site_mirror_activation.py"), CLOSURE_SCRIPT_TERMS),
     ]
