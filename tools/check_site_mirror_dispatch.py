@@ -12,8 +12,10 @@ REQUIRED_FILES = [
     Path(".github/workflows/close-site-mirror-activation.yml"),
     Path("docs/site-mirror-dispatch-protocol.md"),
     Path("docs/site-paper-display-policy.md"),
+    Path("docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md"),
     Path("tools/write_verification_run_receipt.py"),
     Path("tools/close_site_mirror_activation.py"),
+    Path("tools/check_publisher_closure_evidence_production.py"),
     Path("README.md"),
 ]
 
@@ -38,6 +40,9 @@ REQUIRED_WORKFLOW_TERMS = [
 
 REQUIRED_CLOSURE_WORKFLOW_TERMS = [
     "name: Close Site Mirror Activation",
+    "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
+    "tools/check_publisher_closure_evidence_production.py",
+    "python tools/check_publisher_closure_evidence_production.py",
     "python tools/close_site_mirror_activation.py",
     "docs/mirror-activation-closures",
     "Close activation from Publisher and Site evidence artifacts",
@@ -68,6 +73,8 @@ REQUIRED_PROTOCOL_TERMS = [
     ".github/workflows/dispatch-site-mirror.yml",
     "Dispatch Site Paper Mirror",
     "python tools/check_publisher_activation.py",
+    "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
+    "tools/check_publisher_closure_evidence_production.py",
     "Publisher activation validation passes",
     "StegVerse-Labs/Site/.github/workflows/mirror-papers.yml",
     "Mirror Papers from Publisher",
@@ -75,6 +82,14 @@ REQUIRED_PROTOCOL_TERMS = [
     "source_ref: main",
     "SITE_MIRROR_DISPATCH_TOKEN",
     "STEGVERSE_REPO_SYNC_TOKEN",
+    "Publisher closure writes a pending probe or activation closure receipt",
+]
+
+REQUIRED_CLOSURE_EVIDENCE_TERMS = [
+    "Goal: Publisher closure evidence production",
+    "publisher_artifact_prefix: publisher-site-verification-receipt",
+    "site_artifact_prefix: site-mirror-evidence",
+    "This pending probe is not an activation receipt.",
 ]
 
 REQUIRED_README_TERMS = [
@@ -130,6 +145,10 @@ def main() -> int:
         return result
 
     result = require_terms(Path("docs/site-mirror-dispatch-protocol.md"), REQUIRED_PROTOCOL_TERMS)
+    if result is not None:
+        return result
+
+    result = require_terms(Path("docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md"), REQUIRED_CLOSURE_EVIDENCE_TERMS)
     if result is not None:
         return result
 
