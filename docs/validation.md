@@ -4,7 +4,7 @@
 
 Publisher case records that use machine-readable JSON should validate before they are treated as ready for republication.
 
-Publisher-to-Site activation also requires release-gate validation so documentation, workflow hooks, dispatch behavior, activation status, generated-paper workflow paths, verification receipt structure, handoff state, and closure evidence production do not drift from the operational boundary.
+Publisher-to-Site activation also requires release-gate validation so documentation, workflow hooks, dispatch behavior, activation status, generated-paper workflow paths, verification receipt structure, handoff state, closure evidence production, and self-managed completion status do not drift from the operational boundary.
 
 ## Files
 
@@ -21,6 +21,7 @@ tools/check_generate_papers_workflow.py
 tools/check_publisher_mirror_handoff.py
 tools/check_mirror_ecosystem_management_handoff.py
 tools/check_publisher_closure_evidence_production.py
+tools/check_publisher_self_managed_completion.py
 tools/check_publisher_activation.py
 tools/create_emergency_ai_case_scaffold.py
 docs/site-mirror-dispatch-protocol.md
@@ -32,6 +33,8 @@ docs/activation-status.md
 docs/PUBLISHER_MIRROR_HANDOFF.md
 docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
+docs/PUBLISHER_SELF_MANAGED_COMPLETION.md
 github/workflows/generate-papers.yml
 github/workflows/validate-emergency-ai-cases.yml
 github/workflows/dispatch-site-mirror.yml
@@ -88,6 +91,7 @@ python tools/check_generate_papers_workflow.py
 python tools/check_publisher_mirror_handoff.py
 python tools/check_mirror_ecosystem_management_handoff.py
 python tools/check_publisher_closure_evidence_production.py
+python tools/check_publisher_self_managed_completion.py
 ```
 
 ## Done State
@@ -109,7 +113,10 @@ valid: Generate Papers JSON workflow
 valid: publisher mirror handoff
 valid: mirror ecosystem management handoff
 valid: publisher closure evidence production
+valid: publisher self-managed completion
 ```
+
+Self-managed completion means the repository contains the handoffs, workflows, validators, receipt boundary, pending-status runtime update, and closure updater needed to continue without prior chat context. It does not mean live activation has occurred.
 
 Example case validation output:
 
@@ -140,6 +147,7 @@ activation status drifts
 Publisher mirror handoff drifts
 ecosystem management handoff drifts
 Publisher closure evidence production drifts
+Publisher self-managed completion drifts
 ```
 
 The validators print the relevant path or consistency error before exiting with status code `1`.
