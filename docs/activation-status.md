@@ -37,6 +37,7 @@ Verification tracker is aligned with automated dispatch evidence flow
 Verification run receipt template exists
 Publisher mirror handoff exists
 Publisher closure evidence production packet exists
+Publisher pending closure status exists
 Site mirror handoff exists
 Site mirror evidence packet exists
 Site live evidence state exists
@@ -47,6 +48,7 @@ Publisher closure workflow exists
 Publisher closure workflow runs on schedule, dispatch, push, and Publisher dispatch workflow completion
 Publisher closure workflow runs with bounded retry
 Publisher closure workflow checks Publisher closure evidence production before closure attempt
+Publisher closure workflow watches Publisher pending closure status
 Publisher closure script writes pending probe records while evidence is missing or stale
 Publisher closure script rejects stale or out-of-order Publisher/Site artifact pairs
 Publisher closure receipt records artifact created_at values and freshness gate metadata
@@ -62,6 +64,14 @@ automated closure receipt has not been generated in this status file
 Publisher verification tracker has not been marked activated by closure workflow
 Publisher activation status has not been marked activated by closure workflow
 ```
+
+## Pending Status Surface
+
+```text
+docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
+```
+
+That file records the current pending boundary without treating it as activation evidence.
 
 ## Activation Boundary
 
@@ -133,6 +143,7 @@ docs/verification-tracker.md
 docs/activation-status.md
 docs/PUBLISHER_MIRROR_HANDOFF.md
 docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
 docs/mirror-activation-closures/publisher-site-mirror-pending.json
 docs/mirror-activation-closures/<closure>.json
 tools/check_publisher_activation.py
@@ -156,4 +167,4 @@ Note: workflow paths are displayed without the leading dot. The actual repositor
 
 ## Archive Readiness
 
-This activation status contains the automated dispatch path, automated Site closure nudge, fresh ordered automated closure path, activation boundary, pending evidence list, Publisher closure evidence production packet, and next action. Prior chat context is not required once this file, docs/verification-tracker.md, docs/PUBLISHER_MIRROR_HANDOFF.md, docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md, tools/close_site_mirror_activation.py, and github/workflows/close-site-mirror-activation.yml are present in the repository.
+This activation status contains the automated dispatch path, automated Site closure nudge, fresh ordered automated closure path, activation boundary, pending evidence list, Publisher closure evidence production packet, pending closure status, and next action. Prior chat context is not required once this file, docs/verification-tracker.md, docs/PUBLISHER_MIRROR_HANDOFF.md, docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md, docs/PUBLISHER_PENDING_CLOSURE_STATUS.md, tools/close_site_mirror_activation.py, and github/workflows/close-site-mirror-activation.yml are present in the repository.
