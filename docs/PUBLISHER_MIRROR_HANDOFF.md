@@ -142,6 +142,9 @@ tools/check_site_mirror_dispatch.py
 tools/check_release_gate.py
 tools/check_verification_receipt_template.py
 tools/check_generate_papers_workflow.py
+tools/check_publisher_mirror_handoff.py
+tools/check_mirror_ecosystem_management_handoff.py
+tools/check_publisher_closure_evidence_production.py
 ```
 
 The Site mirror dispatch checker requires:
@@ -210,6 +213,8 @@ Resolved: Publisher has docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md as repo-resi
 Resolved: Publisher activation validation requires the automated closure script and workflow.
 Resolved: Publisher has docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md to define the current evidence-production goal after Site repository-managed continuation completion.
 Resolved: Publisher closure workflow watches and checks tools/check_publisher_closure_evidence_production.py before running closure.
+Resolved: Publisher activation runner now checks Publisher handoff, ecosystem management handoff, and Publisher closure evidence production before dispatch completion.
+Resolved: Publisher activation status records the closure evidence production packet and runner coverage.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, and closure commit from the automated closure workflow.
 ```
 
