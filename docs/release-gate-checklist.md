@@ -4,7 +4,7 @@
 
 This checklist defines when a Publisher update may be treated as current on the StegVerse Site.
 
-A green workflow alone is not the full release gate. The release gate requires source validity, dispatch validity, Site mirror validity, and public-link verification.
+A green workflow alone is not the full release gate. The release gate requires source validity, dispatch validity, Site mirror validity, public-link verification, governance case posture preservation, and fresh ordered closure evidence.
 
 ## Scope
 
@@ -19,9 +19,19 @@ governance/cases/**
 governance/receipts/**
 docs/site-paper-display-policy.md
 docs/site-mirror-dispatch-protocol.md
+docs/release-gate-checklist.md
 docs/validation.md
+docs/verification-tracker.md
+docs/iphone-dry-run-runbook.md
+docs/verification-run-receipt.template.json
 docs/activation-status.md
+docs/PUBLISHER_MIRROR_HANDOFF.md
+docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 tools/check_publisher_activation.py
+tools/check_site_mirror_dispatch.py
+tools/check_release_gate.py
+tools/check_publisher_closure_evidence_production.py
 ```
 
 ## Gate 1 — Publisher Source Validity
@@ -50,6 +60,11 @@ python tools/check_emergency_ai_templates.py
 python tools/validate_emergency_ai_cases.py
 python tools/check_site_mirror_dispatch.py
 python tools/check_release_gate.py
+python tools/check_verification_receipt_template.py
+python tools/check_generate_papers_workflow.py
+python tools/check_publisher_mirror_handoff.py
+python tools/check_mirror_ecosystem_management_handoff.py
+python tools/check_publisher_closure_evidence_production.py
 ```
 
 ## Gate 2 — Dispatch Readiness
@@ -57,12 +72,15 @@ python tools/check_release_gate.py
 Required before live dispatch:
 
 ```text
-dry_run: true has passed
+Publisher activation validation passes
 SITE_MIRROR_DISPATCH_TOKEN is installed in Publisher for live dispatch
 Site target repository is StegVerse-Labs/Site unless intentionally testing
 source_ref is main unless intentionally testing a branch or SHA
 Publisher dispatch workflow resolves source_repository as GCAT-BCAT-Engine/Publisher
+Publisher verification receipt artifact is produced only after a successful dispatch path
 ```
+
+Dry run remains an optional diagnostic fallback, not the activation boundary.
 
 ## Gate 3 — Site Mirror Validity
 
@@ -78,11 +96,12 @@ Site regenerates Papers.html
 Site regenerates papers/index.html
 Site preserves alias redirects
 Site workflow summary records source repository and source ref
+Site evidence artifact is produced
 ```
 
 ## Gate 4 — Public Display Verification
 
-Required before marking the Site display current:
+Required before treating the Site display as current for this evidence window:
 
 ```text
 Papers.html resolves
@@ -107,18 +126,34 @@ receipt posture remains separate from public narrative
 Site text does not convert disputed or provisional claims into final findings
 ```
 
+## Gate 6 — Closure Evidence Verification
+
+Required before marking activation complete:
+
+```text
+Publisher verification receipt artifact exists
+Site evidence artifact exists
+artifacts are fresh under MAX_ARTIFACT_AGE_HOURS
+artifacts are ordered within ORDER_GRACE_MINUTES
+Publisher closure workflow runs tools/check_publisher_closure_evidence_production.py
+Publisher closure workflow runs tools/close_site_mirror_activation.py
+Publisher closure writes docs/mirror-activation-closures/<closure>.json
+Publisher verification tracker is updated to activated
+Publisher activation status is updated to activated
+```
+
+The pending probe is not an activation receipt.
+
 ## Release Decision
 
-A Publisher to Site release is complete only when all gates pass.
+A Publisher to Site release is complete only when all applicable gates pass and the closure evidence gate writes an activation closure receipt.
 
-If any gate fails, do not mark the Site display current. Fix the failing source, workflow, mirror, or public-link condition and rerun from the earliest affected gate.
+If any gate fails, do not mark the Site display current. Fix the failing source, workflow, mirror, public-link, posture, artifact, freshness, ordering, or closure condition and rerun from the earliest affected gate.
 
 ## Current Next Step
 
 The next operational step is:
 
 ```text
-Run Dispatch Site Paper Mirror manually with dry_run: true.
+Let the automated workflows proceed: Publisher dispatch produces a fresh Publisher receipt artifact, Site mirror produces a fresh Site evidence artifact, and Publisher closure workflow commits activation when both artifact classes are fresh, ordered, and evidence-valid.
 ```
-
-If dry run passes, install or confirm `SITE_MIRROR_DISPATCH_TOKEN` and run a live dispatch.
