@@ -28,7 +28,18 @@ The dispatch workflow uses the shared activation runner before any dry-run compl
 python tools/check_publisher_activation.py
 ```
 
-The activation runner executes the emergency-template check, emergency-case validation, Site mirror dispatch configuration check, and Publisher-to-Site release-gate check.
+The activation runner executes the emergency-template check, emergency-case validation, Site mirror dispatch configuration check, Publisher-to-Site release-gate check, verification receipt template check, Generate Papers workflow check, Publisher mirror handoff check, ecosystem management handoff check, and Publisher closure evidence production check.
+
+## Closure Evidence Guard
+
+The dispatch path is now bound to the Publisher closure evidence production packet:
+
+```text
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+tools/check_publisher_closure_evidence_production.py
+```
+
+This prevents the dispatch path from treating activation as complete unless the closure path remains capable of rejecting missing, stale, out-of-order, or evidence-incomplete Publisher/Site artifact pairs.
 
 ## Target Site Workflow
 
@@ -77,7 +88,13 @@ docs/verification-tracker.md
 docs/iphone-dry-run-runbook.md
 docs/verification-run-receipt.template.json
 docs/activation-status.md
+docs/PUBLISHER_MIRROR_HANDOFF.md
+docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 tools/check_publisher_activation.py
+tools/check_publisher_mirror_handoff.py
+tools/check_mirror_ecosystem_management_handoff.py
+tools/check_publisher_closure_evidence_production.py
 ```
 
 Publisher should not dispatch Site if Publisher activation validation fails.
@@ -93,7 +110,9 @@ Use this order:
 4. Site mirror workflow runs Site policy checker.
 5. Site checks out Publisher at the requested ref.
 6. Site mirrors papers and regenerates indexes.
-7. Site commits visible paper display changes if needed.
+7. Site writes and uploads the Site evidence artifact.
+8. Publisher closure workflow observes Publisher and Site artifacts.
+9. Publisher closure workflow writes a pending probe or activation closure receipt.
 ```
 
 ## Required Token Boundary
@@ -145,6 +164,7 @@ To test live dispatch after dry run passes:
 8. Confirm Publisher activation validation passes.
 9. Confirm the Site workflow starts.
 10. Confirm Site mirror completes and records the source repository and ref.
+11. Confirm Publisher closure writes a pending probe or activation closure receipt.
 ```
 
 ## Failure Handling
@@ -152,6 +172,8 @@ To test live dispatch after dry run passes:
 If dispatch fails, Publisher should not mark the Site display as current.
 
 If Site mirror fails, Site should keep the last successful public display and expose failure through workflow logs rather than silently publishing partial mirror output.
+
+If closure evidence is missing, stale, out-of-order, or evidence-incomplete, Publisher should write or retain a pending probe and must not mark activation complete.
 
 ## Done State
 
@@ -164,4 +186,6 @@ Publisher can trigger Site mirror workflow
 Site policy checker runs before mirroring
 Site records source repository and source ref in workflow summary
 Site commit references Publisher as source
+Site evidence artifact is produced
+Publisher closure writes a pending probe or activation closure receipt
 ```
