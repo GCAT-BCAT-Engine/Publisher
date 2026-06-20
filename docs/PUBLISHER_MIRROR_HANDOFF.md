@@ -245,6 +245,8 @@ Resolved: Publisher release gate checker now requires closure evidence productio
 Resolved: Publisher verification receipt template now records closure_evidence_results and closure_evidence_verification.
 Resolved: Publisher verification receipt checker now requires closure evidence fields, expected freshness/order values, pending status, and non-activation language.
 Resolved: Publisher verification receipt writer now emits closure evidence fields automatically from workflow context.
+Resolved: Publisher release gate checklist now requires Publisher receipt non-activation preservation and pending closure status preservation before activation.
+Resolved: Publisher release gate checker now requires verification receipt boundary fields and pending closure status fields.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, and closure commit from the automated closure workflow.
 ```
 
@@ -258,4 +260,4 @@ StegVerse-Labs/Site/docs/SITE_SELF_MANAGED_COMPLETION.md
 
 ## Archive Readiness
 
-This handoff contains the Publisher repo state, automated activation sequence, fresh ordered bounded retry closure workflow, self-management handoff link, Publisher closure evidence production packet, verification receipt boundary, and evidence requirements needed to continue. Prior chat thread context is not required for forward progress once this file, docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md, and docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md are present in the repository.
+This handoff contains the Publisher repo state, automated activation sequence, fresh ordered bounded retry closure workflow, self-management handoff link, Publisher closure evidence production packet, verification receipt boundary, release gate receipt-boundary enforcement, pending closure status preservation, and evidence requirements needed to continue. Prior chat thread context is not required for forward progress once this file, docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md, and docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md are present in the repository.
