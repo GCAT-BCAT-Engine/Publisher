@@ -19,6 +19,7 @@ COMMANDS = [
     [sys.executable, "tools/check_publisher_mirror_handoff.py"],
     [sys.executable, "tools/check_mirror_ecosystem_management_handoff.py"],
     [sys.executable, "tools/check_publisher_closure_evidence_production.py"],
+    [sys.executable, "tools/check_publisher_self_managed_completion.py"],
 ]
 
 
