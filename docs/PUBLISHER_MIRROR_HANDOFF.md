@@ -15,12 +15,12 @@ Continue building without manual actions needed through completion OR until task
 ## Current Goal
 
 ```text
-Goal: Publisher-to-Site mirror dispatch activation
+Goal: Publisher closure evidence production
 Repository: GCAT-BCAT-Engine/Publisher
 Target repository: StegVerse-Labs/Site
 Source path: papers
 Target path: papers
-Activation state: self_managed_handoff_ready
+Activation state: pending_fresh_ordered_artifacts
 Completion class: self_managed_handoff_completion
 ```
 
@@ -38,6 +38,9 @@ tools/check_verification_receipt_template.py
 tools/check_generate_papers_workflow.py
 tools/write_verification_run_receipt.py
 tools/close_site_mirror_activation.py
+tools/check_publisher_mirror_handoff.py
+tools/check_mirror_ecosystem_management_handoff.py
+tools/check_publisher_closure_evidence_production.py
 docs/site-paper-display-policy.md
 docs/site-mirror-dispatch-protocol.md
 docs/release-gate-checklist.md
@@ -47,6 +50,7 @@ docs/verification-run-receipt.template.json
 docs/verification-tracker.md
 docs/activation-status.md
 docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 docs/mirror-activation-closures/publisher-site-mirror-pending.json
 docs/mirror-activation-closures/<closure>.json
 docs/PUBLISHER_MIRROR_HANDOFF.md
@@ -79,12 +83,13 @@ The preferred activation path is push-triggered automation plus event/scheduled 
 10. Site workflow: writes Site evidence using scripts/write_site_mirror_evidence.py.
 11. Site workflow: uploads the Site evidence artifact named site-mirror-evidence-<run>-<attempt>.
 12. Site workflow nudges Publisher closure when cross-repo credentials are available; scheduled Publisher closure remains fallback.
-13. Publisher closure workflow: runs tools/close_site_mirror_activation.py with bounded retry.
-14. Publisher closure script: rejects stale or out-of-order artifact pairs.
-15. Publisher closure script: writes docs/mirror-activation-closures/publisher-site-mirror-pending.json while waiting for fresh ordered artifacts.
-16. Publisher closure script: writes docs/mirror-activation-closures/<closure>.json when both artifact classes contain minimum activation evidence and pass freshness/order gates.
-17. Publisher closure workflow: updates docs/verification-tracker.md and docs/activation-status.md to activated.
-18. Publisher closure workflow: commits pending probe or closure files automatically when changed.
+13. Publisher closure workflow: runs tools/check_publisher_closure_evidence_production.py.
+14. Publisher closure workflow: runs tools/close_site_mirror_activation.py with bounded retry.
+15. Publisher closure script: rejects stale or out-of-order artifact pairs.
+16. Publisher closure script: writes docs/mirror-activation-closures/publisher-site-mirror-pending.json while waiting for fresh ordered artifacts.
+17. Publisher closure script: writes docs/mirror-activation-closures/<closure>.json when both artifact classes contain minimum activation evidence and pass freshness/order gates.
+18. Publisher closure workflow: updates docs/verification-tracker.md and docs/activation-status.md to activated.
+19. Publisher closure workflow: commits pending probe or closure files automatically when changed.
 ```
 
 ## Ecosystem Management Handoff
@@ -108,6 +113,17 @@ archive readiness
 ```
 
 The management handoff is the repo-resident continuation source once this chat is archived.
+
+## Publisher Closure Evidence Production
+
+The current Publisher-side continuation packet is:
+
+```text
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+python tools/check_publisher_closure_evidence_production.py
+```
+
+That packet defines the current evidence-production goal, required Publisher/Site artifact pair, freshness/order gate, pending-probe non-activation rule, and closure receipt condition.
 
 ## Required Validation Command
 
@@ -192,6 +208,8 @@ Resolved: Publisher closure receipt records artifact created_at values and fresh
 Resolved: Publisher has github/workflows/close-site-mirror-activation.yml to run closure on schedule, push, dispatch, or Publisher dispatch completion and commit pending/closure changes automatically.
 Resolved: Publisher has docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md as repo-resident self-management handoff.
 Resolved: Publisher activation validation requires the automated closure script and workflow.
+Resolved: Publisher has docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md to define the current evidence-production goal after Site repository-managed continuation completion.
+Resolved: Publisher closure workflow watches and checks tools/check_publisher_closure_evidence_production.py before running closure.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, and closure commit from the automated closure workflow.
 ```
 
@@ -200,8 +218,9 @@ Pending: actual Publisher receipt artifact, actual Site evidence artifact, and c
 ```text
 StegVerse-Labs/Site/docs/SITE_MIRROR_HANDOFF.md
 StegVerse-Labs/Site/docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+StegVerse-Labs/Site/docs/SITE_SELF_MANAGED_COMPLETION.md
 ```
 
 ## Archive Readiness
 
-This handoff contains the Publisher repo state, automated activation sequence, fresh ordered bounded retry closure workflow, self-management handoff link, and evidence requirements needed to continue. Prior chat thread context is not required for forward progress once this file and docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md are present in the repository.
+This handoff contains the Publisher repo state, automated activation sequence, fresh ordered bounded retry closure workflow, self-management handoff link, Publisher closure evidence production packet, and evidence requirements needed to continue. Prior chat thread context is not required for forward progress once this file, docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md, and docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md are present in the repository.
