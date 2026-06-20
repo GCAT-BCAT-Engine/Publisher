@@ -32,8 +32,11 @@ remaining_dependency: live GitHub Actions artifact production and automated clos
 GCAT-BCAT-Engine/Publisher/docs/PUBLISHER_MIRROR_HANDOFF.md
 GCAT-BCAT-Engine/Publisher/docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 GCAT-BCAT-Engine/Publisher/docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
+GCAT-BCAT-Engine/Publisher/docs/verification-run-receipt.template.json
 GCAT-BCAT-Engine/Publisher/docs/activation-status.md
 GCAT-BCAT-Engine/Publisher/docs/verification-tracker.md
+GCAT-BCAT-Engine/Publisher/tools/write_verification_run_receipt.py
+GCAT-BCAT-Engine/Publisher/tools/check_verification_receipt_template.py
 GCAT-BCAT-Engine/Publisher/tools/close_site_mirror_activation.py
 GCAT-BCAT-Engine/Publisher/tools/check_publisher_closure_evidence_production.py
 GCAT-BCAT-Engine/Publisher/.github/workflows/dispatch-site-mirror.yml
@@ -54,19 +57,20 @@ StegVerse-Labs/Site/.github/workflows/mirror-papers.yml
 1. Publisher dispatch workflow validates Publisher readiness.
 2. Publisher dispatch workflow dispatches Site mirror workflow when validation and dispatch credentials pass.
 3. Publisher dispatch workflow writes publisher-site-verification-receipt artifact only after successful dispatch path.
-4. Publisher closure workflow starts through workflow_run after Publisher dispatch completion.
-5. Publisher closure workflow checks docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md.
-6. Publisher closure workflow checks docs/PUBLISHER_PENDING_CLOSURE_STATUS.md.
-7. Site mirror workflow mirrors Publisher papers.
-8. Site mirror workflow writes Site evidence packet and live evidence state.
-9. Site mirror workflow uploads site-mirror-evidence artifact.
-10. Site mirror workflow nudges Publisher closure when cross-repo credentials are available.
-11. Publisher closure workflow retries artifact discovery using bounded retry.
-12. Publisher closure script rejects stale or out-of-order artifact pairs.
-13. Publisher closure script writes pending probe while waiting; the pending probe is not an activation receipt.
-14. Publisher closure script writes closure receipt when Publisher and Site artifacts are fresh, ordered, and evidence-valid.
-15. Publisher closure script updates verification tracker and activation status to activated.
-16. Publisher closure workflow commits pending probe or closure receipt automatically.
+4. Publisher verification receipt records closure_evidence_results while preserving that it is not an activation receipt.
+5. Publisher closure workflow starts through workflow_run after Publisher dispatch completion.
+6. Publisher closure workflow checks docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md.
+7. Publisher closure workflow checks docs/PUBLISHER_PENDING_CLOSURE_STATUS.md.
+8. Site mirror workflow mirrors Publisher papers.
+9. Site mirror workflow writes Site evidence packet and live evidence state.
+10. Site mirror workflow uploads site-mirror-evidence artifact.
+11. Site mirror workflow nudges Publisher closure when cross-repo credentials are available.
+12. Publisher closure workflow retries artifact discovery using bounded retry.
+13. Publisher closure script rejects stale or out-of-order artifact pairs.
+14. Publisher closure script writes pending probe while waiting; the pending probe is not an activation receipt.
+15. Publisher closure script writes closure receipt when Publisher and Site artifacts are fresh, ordered, and evidence-valid.
+16. Publisher closure script updates verification tracker and activation status to activated.
+17. Publisher closure workflow commits pending probe or closure receipt automatically.
 ```
 
 ## Acceptance Criteria
@@ -87,6 +91,7 @@ B. Self-managed handoff completion:
    - Publisher activation status points to automated fresh ordered closure.
    - Publisher closure evidence production packet exists.
    - Publisher pending closure status exists.
+   - Publisher verification receipts preserve closure_evidence_results without claiming activation.
    - Site handoff points to automated Site evidence and closure nudge.
    - Site transition discovery status is repository-governed and non-activating.
    - Closure workflow can retry and commit pending/closure state.
@@ -98,7 +103,7 @@ B. Self-managed handoff completion:
 ```text
 classification: self_managed_handoff_completion
 activated_completion: not_yet_observed
-reason: live Publisher/Site workflow artifacts have not been observed in this repository state, but automation, Publisher closure evidence production, pending closure status, and management handoff are sufficient for the ecosystem to continue without this chat.
+reason: live Publisher/Site workflow artifacts have not been observed in this repository state, but automation, Publisher closure evidence production, pending closure status, receipt boundary, and management handoff are sufficient for the ecosystem to continue without this chat.
 ```
 
 ## Non-Claims
@@ -112,7 +117,8 @@ This handoff does not claim:
 - closure receipt has been generated;
 - tracker/status have been activated by closure workflow;
 - the pending probe is an activation receipt;
-- the pending closure status is an activation receipt.
+- the pending closure status is not an activation receipt;
+- Publisher verification receipts are activation receipts.
 ```
 
 ## Next Ecosystem Action
@@ -125,5 +131,5 @@ Allow the repository automation to run. If artifacts are missing, the closure wo
 
 ```text
 thread_archive_ready: true
-archive_reason: The task is now represented by repo-resident handoffs, validators, workflows, retry logic, the Publisher closure evidence production packet, pending closure status, and this management handoff. No additional content from this chat is required for the ecosystem to continue or close the task.
+archive_reason: The task is now represented by repo-resident handoffs, validators, workflows, retry logic, the Publisher closure evidence production packet, pending closure status, verification receipt boundary, and this management handoff. No additional content from this chat is required for the ecosystem to continue or close the task.
 ```
