@@ -26,6 +26,7 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TRACKER_PATH = REPO_ROOT / "docs" / "verification-tracker.md"
 STATUS_PATH = REPO_ROOT / "docs" / "activation-status.md"
+PENDING_STATUS_PATH = REPO_ROOT / "docs" / "PUBLISHER_PENDING_CLOSURE_STATUS.md"
 CLOSURE_DIR = REPO_ROOT / "docs" / "mirror-activation-closures"
 
 PUBLISHER_REPOSITORY = "GCAT-BCAT-Engine/Publisher"
@@ -102,6 +103,7 @@ def newest_artifact(repository: str, prefix: str) -> dict[str, Any] | None:
 
 def artifact_freshness_ready(publisher_artifact: dict[str, Any], site_artifact: dict[str, Any]) -> tuple[bool, str]:
     max_age_hours = env_int("MAX_ARTIFACT_AGE_HOURS", 48)
+    order_grace_minutes = env_int("ORDER_GRACE_MINUTES", ORDER_GRACE_MINUTES)
     now = datetime.now(timezone.utc)
     publisher_created = parse_github_time(str(publisher_artifact.get("created_at", "")))
     site_created = parse_github_time(str(site_artifact.get("created_at", "")))
@@ -117,7 +119,7 @@ def artifact_freshness_ready(publisher_artifact: dict[str, Any], site_artifact: 
     if now - site_created > max_age:
         return False, f"Site artifact is older than {max_age_hours} hours"
 
-    if site_created + timedelta(minutes=ORDER_GRACE_MINUTES) < publisher_created:
+    if site_created + timedelta(minutes=order_grace_minutes) < publisher_created:
         return False, "Site evidence artifact is older than the Publisher dispatch artifact outside the grace window"
 
     return True, "artifacts are fresh and ordered"
@@ -196,6 +198,73 @@ def evidence_ready(publisher_receipt: dict[str, Any], site_state: dict[str, Any]
     return not missing, missing
 
 
+def write_pending_status(attempt: int, reason: str) -> None:
+    PENDING_STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    generated = datetime.now(timezone.utc).isoformat()
+    content = f"""# Publisher Pending Closure Status
+
+## Status
+
+```text
+repository: GCAT-BCAT-Engine/Publisher
+target_repository: StegVerse-Labs/Site
+status: waiting_for_fresh_ordered_artifact_pair
+source_path: papers
+target_path: papers
+site_state: repository_managed_continuation_complete
+last_attempt: {attempt}
+last_reason: {reason}
+last_observed_utc: {generated}
+```
+
+## Required artifact pair
+
+```text
+publisher_prefix: publisher-site-verification-receipt
+site_prefix: site-mirror-evidence
+max_age_hours: {env_int('MAX_ARTIFACT_AGE_HOURS', 48)}
+order_grace_minutes: {env_int('ORDER_GRACE_MINUTES', ORDER_GRACE_MINUTES)}
+```
+
+## Current boundary
+
+```text
+publisher_receipt_recorded_here: false
+site_evidence_recorded_here: false
+closure_recorded_here: false
+pending_probe_only: true
+```
+
+## Next valid step
+
+Let the automated path observe a fresh ordered Publisher/Site artifact pair and then write the governed closure record.
+
+## Validation
+
+```text
+python tools/check_publisher_closure_evidence_production.py
+```
+
+Expected result:
+
+```text
+valid: publisher closure evidence production
+```
+
+## Source of truth
+
+```text
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+docs/activation-status.md
+docs/PUBLISHER_MIRROR_HANDOFF.md
+docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+tools/close_site_mirror_activation.py
+tools/check_publisher_closure_evidence_production.py
+```
+"""
+    PENDING_STATUS_PATH.write_text(content, encoding="utf-8")
+
+
 def write_pending_probe(attempt: int, reason: str) -> None:
     CLOSURE_DIR.mkdir(parents=True, exist_ok=True)
     path = CLOSURE_DIR / "publisher-site-mirror-pending.json"
@@ -210,6 +279,7 @@ def write_pending_probe(attempt: int, reason: str) -> None:
         "non_claim": "This pending probe is not an activation receipt.",
     }
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    write_pending_status(attempt, reason)
 
 
 def write_closure_receipt(publisher_artifact: dict[str, Any], site_artifact: dict[str, Any], publisher_receipt: dict[str, Any], site_state: dict[str, Any]) -> Path:
@@ -236,7 +306,7 @@ def write_closure_receipt(publisher_artifact: dict[str, Any], site_artifact: dic
         },
         "freshness_gate": {
             "max_artifact_age_hours": env_int("MAX_ARTIFACT_AGE_HOURS", 48),
-            "order_grace_minutes": ORDER_GRACE_MINUTES,
+            "order_grace_minutes": env_int("ORDER_GRACE_MINUTES", ORDER_GRACE_MINUTES),
         },
         "publisher_run_url": publisher_receipt.get("github_run_url"),
         "site_workflow_url": site_state.get("evidence", {}).get("site_mirror_workflow_url"),
