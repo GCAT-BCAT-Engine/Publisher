@@ -11,6 +11,7 @@ REQUIRED_FILES = [
     Path("docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md"),
     Path("docs/PUBLISHER_MIRROR_HANDOFF.md"),
     Path("docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md"),
+    Path("docs/PUBLISHER_PENDING_CLOSURE_STATUS.md"),
     Path("docs/activation-status.md"),
     Path("docs/verification-tracker.md"),
     Path("tools/close_site_mirror_activation.py"),
@@ -25,12 +26,15 @@ MANAGEMENT_TERMS = [
     "self_managed_handoff_completion",
     "current_goal: Publisher closure evidence production",
     "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
+    "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
+    "StegVerse-Labs/Site/docs/TRANSITION_DISCOVERY_STATUS.md",
+    "StegVerse-Labs/Site/data/transition-discovery-status-v1.json",
     "tools/check_publisher_closure_evidence_production.py",
     "thread_archive_ready: true",
     "automation chain",
     "acceptance criteria",
     "live GitHub Actions artifact production",
-    "not an activation receipt",
+    "pending closure status is an activation receipt",
     "fresh, ordered, and evidence-valid",
 ]
 
@@ -38,13 +42,15 @@ PUBLISHER_HANDOFF_TERMS = [
     "Goal: Publisher closure evidence production",
     "docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
     "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
+    "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
     "tools/check_publisher_closure_evidence_production.py",
     "self_managed_handoff_completion",
-    "fresh ordered bounded retry closure workflow",
+    "fresh ordered artifacts",
 ]
 
 CLOSURE_EVIDENCE_TERMS = [
     "Goal: Publisher closure evidence production",
+    "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
     "Publisher state: ready_for_fresh_ordered_automated_closure",
     "Site state: repository_managed_continuation_complete",
     "Activation state: pending_fresh_ordered_artifacts",
@@ -53,10 +59,24 @@ CLOSURE_EVIDENCE_TERMS = [
     "This pending probe is not an activation receipt.",
 ]
 
+PENDING_STATUS_TERMS = [
+    "Publisher Pending Closure Status",
+    "status: waiting_for_fresh_ordered_artifact_pair",
+    "publisher_prefix: publisher-site-verification-receipt",
+    "site_prefix: site-mirror-evidence",
+    "publisher_receipt_recorded_here: false",
+    "site_evidence_recorded_here: false",
+    "closure_recorded_here: false",
+    "pending_probe_only: true",
+    "valid: publisher closure evidence production",
+]
+
 STATUS_TERMS = [
     "ready_for_fresh_ordered_automated_closure",
     "Publisher closure evidence production packet exists",
+    "Publisher pending closure status exists",
     "Publisher closure workflow checks Publisher closure evidence production before closure attempt",
+    "Publisher closure workflow watches Publisher pending closure status",
     "Publisher closure script rejects stale or out-of-order Publisher/Site artifact pairs",
     "MAX_ARTIFACT_AGE_HOURS",
     "ORDER_GRACE_MINUTES",
@@ -104,6 +124,7 @@ def main() -> int:
         (Path("docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md"), MANAGEMENT_TERMS),
         (Path("docs/PUBLISHER_MIRROR_HANDOFF.md"), PUBLISHER_HANDOFF_TERMS),
         (Path("docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md"), CLOSURE_EVIDENCE_TERMS),
+        (Path("docs/PUBLISHER_PENDING_CLOSURE_STATUS.md"), PENDING_STATUS_TERMS),
         (Path("docs/activation-status.md"), STATUS_TERMS),
         (Path("tools/close_site_mirror_activation.py"), CLOSURE_SCRIPT_TERMS),
     ]
