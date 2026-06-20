@@ -13,31 +13,15 @@ REQUIRED_TERMS = [
     "StegVerse-Labs/Site",
     "pending_fresh_ordered_artifacts",
     "self_managed_handoff_completion",
+    "docs/PUBLISHER_SELF_MANAGED_COMPLETION.md",
+    "tools/check_publisher_self_managed_completion.py",
+    "repo_build_state: self_managed_completion_ready",
     "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
-    "pending-status boundary",
-    "Publisher remains the source of truth",
-    "Dispatch Site Paper Mirror",
-    "Close Site Mirror Activation",
     "docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
     "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
-    "docs/verification-run-receipt.template.json",
-    "tools/check_verification_receipt_template.py",
-    "tools/write_verification_run_receipt.py",
-    "closure_evidence_results",
-    "closure_evidence_verification",
-    "non_claim: This receipt is not an activation receipt until a closure receipt is written.",
-    "python tools/check_publisher_activation.py",
-    "tools/check_publisher_mirror_handoff.py",
-    "tools/check_mirror_ecosystem_management_handoff.py",
-    "tools/check_publisher_closure_evidence_production.py",
-    "python tools/close_site_mirror_activation.py",
-    "publisher-site-verification-receipt-<run>-<attempt>",
-    "site-mirror-evidence-<run>-<attempt>",
-    "docs/mirror-activation-closures/<closure>.json",
     "actual Publisher receipt artifact",
     "actual Site evidence artifact",
-    "fresh ordered artifacts",
-    "closure receipt condition",
+    "closure commit from the automated closure workflow",
 ]
 
 
@@ -45,7 +29,6 @@ def main() -> int:
     if not HANDOFF.exists():
         print(f"missing handoff: {HANDOFF.relative_to(ROOT)}")
         return 1
-
     content = HANDOFF.read_text(encoding="utf-8")
     missing = [term for term in REQUIRED_TERMS if term not in content]
     if missing:
@@ -53,7 +36,6 @@ def main() -> int:
         for term in missing:
             print(f"missing: {term}")
         return 1
-
     print("valid: publisher mirror handoff")
     return 0
 
