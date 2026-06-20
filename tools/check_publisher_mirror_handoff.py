@@ -13,6 +13,8 @@ REQUIRED_TERMS = [
     "StegVerse-Labs/Site",
     "pending_fresh_ordered_artifacts",
     "self_managed_handoff_completion",
+    "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
+    "pending-status boundary",
     "Publisher remains the source of truth",
     "Dispatch Site Paper Mirror",
     "Close Site Mirror Activation",
@@ -28,8 +30,8 @@ REQUIRED_TERMS = [
     "docs/mirror-activation-closures/<closure>.json",
     "actual Publisher receipt artifact",
     "actual Site evidence artifact",
-    "closure commit from the automated closure workflow",
-    "Prior chat thread context is not required",
+    "fresh ordered artifacts",
+    "closure receipt condition",
 ]
 
 
