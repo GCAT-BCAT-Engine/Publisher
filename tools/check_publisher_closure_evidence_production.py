@@ -23,10 +23,21 @@ CHECKS = {
         "docs/mirror-activation-closures/publisher-site-mirror-pending.json",
         "docs/mirror-activation-closures/publisher-site-mirror-closure-<timestamp>.json",
     ],
+    "docs/PUBLISHER_SELF_MANAGED_COMPLETION.md": [
+        "repo_build_state: self_managed_completion_ready",
+        "activation_state: pending_fresh_ordered_artifacts",
+        "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
+        "The pending closure status is not an activation receipt.",
+        "thread_archive_ready: true",
+    ],
     ".github/workflows/close-site-mirror-activation.yml": [
         "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
         "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
+        "docs/PUBLISHER_SELF_MANAGED_COMPLETION.md",
+        "tools/check_publisher_closure_evidence_production.py",
+        "tools/check_publisher_self_managed_completion.py",
         "python tools/check_publisher_closure_evidence_production.py",
+        "python tools/check_publisher_self_managed_completion.py",
         "python tools/close_site_mirror_activation.py",
         "MAX_ARTIFACT_AGE_HOURS",
         "ORDER_GRACE_MINUTES",
@@ -34,8 +45,8 @@ CHECKS = {
     ".github/workflows/dispatch-site-mirror.yml": [
         "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
         "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
-        "CLOSURE_EVIDENCE_STATUS: \"pending_fresh_ordered_artifacts\"",
-        "CLOSURE_EVIDENCE_VERIFICATION: \"pending_fresh_ordered_artifacts\"",
+        "CLOSURE_EVIDENCE_STATUS: pending_fresh_ordered_artifacts",
+        "CLOSURE_EVIDENCE_VERIFICATION: pending_fresh_ordered_artifacts",
     ],
     "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md": [
         "Publisher Pending Closure Status",
