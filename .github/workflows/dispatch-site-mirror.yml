@@ -64,6 +64,11 @@ jobs:
       DEFAULT_SOURCE_REPOSITORY: "GCAT-BCAT-Engine/Publisher"
       DEFAULT_SOURCE_REF: "main"
       SITE_MIRROR_DISPATCH_TOKEN: ${{ secrets.SITE_MIRROR_DISPATCH_TOKEN }}
+      MAX_ARTIFACT_AGE_HOURS: "48"
+      ORDER_GRACE_MINUTES: "5"
+      PENDING_PROBE_PATH: "docs/mirror-activation-closures/publisher-site-mirror-pending.json"
+      CLOSURE_EVIDENCE_STATUS: "pending_fresh_ordered_artifacts"
+      CLOSURE_EVIDENCE_VERIFICATION: "pending_fresh_ordered_artifacts"
 
     steps:
       - name: Checkout Publisher
@@ -176,6 +181,11 @@ jobs:
           SITE_DISPATCH_STATUS: ${{ steps.dispatch.outputs.dry_run == 'true' && 'not_attempted_for_dry_run' || 'dispatch_request_accepted' }}
           RECEIPT_STATUS: ${{ job.status }}
           RECEIPT_OUTPUT_DIR: verification-runs
+          CLOSURE_EVIDENCE_VERIFICATION: pending_fresh_ordered_artifacts
+          CLOSURE_EVIDENCE_STATUS: pending_fresh_ordered_artifacts
+          MAX_ARTIFACT_AGE_HOURS: "48"
+          ORDER_GRACE_MINUTES: "5"
+          PENDING_PROBE_PATH: docs/mirror-activation-closures/publisher-site-mirror-pending.json
         run: python tools/write_verification_run_receipt.py
 
       - name: Upload verification receipt
