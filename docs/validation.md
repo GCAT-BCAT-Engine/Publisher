@@ -4,7 +4,7 @@
 
 Publisher case records that use machine-readable JSON should validate before they are treated as ready for republication.
 
-Publisher-to-Site activation also requires release-gate validation so documentation, workflow hooks, dry-run instructions, activation status, generated-paper workflow paths, and verification receipt structure do not drift from the operational boundary.
+Publisher-to-Site activation also requires release-gate validation so documentation, workflow hooks, dispatch behavior, activation status, generated-paper workflow paths, verification receipt structure, handoff state, and closure evidence production do not drift from the operational boundary.
 
 ## Files
 
@@ -18,6 +18,9 @@ tools/check_site_mirror_dispatch.py
 tools/check_release_gate.py
 tools/check_verification_receipt_template.py
 tools/check_generate_papers_workflow.py
+tools/check_publisher_mirror_handoff.py
+tools/check_mirror_ecosystem_management_handoff.py
+tools/check_publisher_closure_evidence_production.py
 tools/check_publisher_activation.py
 tools/create_emergency_ai_case_scaffold.py
 docs/site-mirror-dispatch-protocol.md
@@ -26,9 +29,13 @@ docs/verification-tracker.md
 docs/iphone-dry-run-runbook.md
 docs/verification-run-receipt.template.json
 docs/activation-status.md
+docs/PUBLISHER_MIRROR_HANDOFF.md
+docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 github/workflows/generate-papers.yml
 github/workflows/validate-emergency-ai-cases.yml
 github/workflows/dispatch-site-mirror.yml
+github/workflows/close-site-mirror-activation.yml
 ```
 
 The workflow paths are shown without their leading dot. In the repository, they are stored under `.github/workflows/`.
@@ -78,6 +85,9 @@ python tools/check_site_mirror_dispatch.py
 python tools/check_release_gate.py
 python tools/check_verification_receipt_template.py
 python tools/check_generate_papers_workflow.py
+python tools/check_publisher_mirror_handoff.py
+python tools/check_mirror_ecosystem_management_handoff.py
+python tools/check_publisher_closure_evidence_production.py
 ```
 
 ## Done State
@@ -96,6 +106,9 @@ valid: Publisher Site mirror dispatch
 valid: Publisher to Site release gate
 valid: Publisher verification receipt template
 valid: Generate Papers JSON workflow
+valid: publisher mirror handoff
+valid: mirror ecosystem management handoff
+valid: publisher closure evidence production
 ```
 
 Example case validation output:
@@ -124,6 +137,9 @@ iPhone dry-run instructions drift
 verification receipt template drifts
 Generate Papers JSON workflow paths drift
 activation status drifts
+Publisher mirror handoff drifts
+ecosystem management handoff drifts
+Publisher closure evidence production drifts
 ```
 
 The validators print the relevant path or consistency error before exiting with status code `1`.
