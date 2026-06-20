@@ -13,7 +13,10 @@ CHECKS = {
         "repo_build_state: self_managed_completion_ready",
         "activation_state: pending_fresh_ordered_artifacts",
         "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
+        "docs/PUBLISHER_VALIDATION_REMAINDER.md",
+        "Issue #1 is not activation evidence.",
         "This document is not an activation receipt.",
+        "The validation remainder document is not activation evidence.",
         "The pending closure status is not an activation receipt.",
         "actual_fresh_publisher_receipt_artifact: required",
         "actual_fresh_site_evidence_artifact: required",
@@ -23,6 +26,8 @@ CHECKS = {
     "docs/PUBLISHER_MIRROR_HANDOFF.md": [
         "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
         "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
+        "docs/PUBLISHER_VALIDATION_REMAINDER.md",
+        "Issue #1 is not activation evidence.",
         "tools/check_publisher_closure_evidence_production.py",
         "self_managed_handoff_completion",
         "actual Publisher receipt artifact",
@@ -33,6 +38,13 @@ CHECKS = {
         "classification: self_managed_handoff_completion",
         "thread_archive_ready: true",
         "pending closure status",
+    ],
+    "docs/PUBLISHER_VALIDATION_REMAINDER.md": [
+        "repo_build_state: self_managed_completion_ready",
+        "activation_state: pending_fresh_ordered_artifacts",
+        "fresh Publisher verification receipt artifact: required",
+        "fresh Site mirror evidence artifact: required",
+        "This validation remainder is not an activation receipt.",
     ],
     "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md": [
         "Publisher Pending Closure Status",
