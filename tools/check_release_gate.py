@@ -173,6 +173,16 @@ CHECKS = {
     ],
     Path(".github/workflows/validate-emergency-ai-cases.yml"): [
         "python tools/check_publisher_activation.py",
+        "tools/check_publisher_mirror_handoff.py",
+        "tools/check_mirror_ecosystem_management_handoff.py",
+        "tools/check_publisher_closure_evidence_production.py",
+        "tools/check_publisher_self_managed_completion.py",
+        "docs/PUBLISHER_MIRROR_HANDOFF.md",
+        "docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
+        "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
+        "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
+        "docs/PUBLISHER_SELF_MANAGED_COMPLETION.md",
+        ".github/workflows/close-site-mirror-activation.yml",
     ],
     Path("docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md"): [
         "Goal: Publisher closure evidence production",
