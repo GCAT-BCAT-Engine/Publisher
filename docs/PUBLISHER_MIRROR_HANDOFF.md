@@ -125,7 +125,7 @@ docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
 python tools/check_publisher_closure_evidence_production.py
 ```
 
-That packet defines the current evidence-production goal, required Publisher/Site artifact pair, freshness/order gate, pending-probe non-activation rule, pending-status boundary, and closure receipt condition.
+That packet defines the current evidence-production goal, required Publisher/Site artifact pair, freshness/order gate, pending-probe non-activation rule, pending-status boundary, fresh ordered artifacts, and closure receipt condition.
 
 ## Required Validation Command
 
