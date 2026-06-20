@@ -127,6 +127,26 @@ python tools/check_publisher_closure_evidence_production.py
 
 That packet defines the current evidence-production goal, required Publisher/Site artifact pair, freshness/order gate, pending-probe non-activation rule, pending-status boundary, fresh ordered artifacts, and closure receipt condition.
 
+## Verification Receipt Boundary
+
+Publisher verification receipts are Publisher workflow evidence, not activation receipts.
+
+The receipt template and writer now preserve closure evidence fields:
+
+```text
+docs/verification-run-receipt.template.json
+tools/check_verification_receipt_template.py
+tools/write_verification_run_receipt.py
+closure_evidence_results
+closure_evidence_verification
+publisher_artifact_prefix: publisher-site-verification-receipt
+site_artifact_prefix: site-mirror-evidence
+closure_evidence_status: pending_fresh_ordered_artifacts
+non_claim: This receipt is not an activation receipt until a closure receipt is written.
+```
+
+A Publisher receipt can support closure, but it cannot complete activation until `tools/close_site_mirror_activation.py` observes the fresh ordered Publisher/Site artifact pair and writes a closure receipt.
+
 ## Required Validation Command
 
 Before dispatch completion, Publisher runs:
@@ -148,3 +168,94 @@ tools/check_publisher_mirror_handoff.py
 tools/check_mirror_ecosystem_management_handoff.py
 tools/check_publisher_closure_evidence_production.py
 ```
+
+The Site mirror dispatch checker requires:
+
+```text
+tools/write_verification_run_receipt.py
+tools/close_site_mirror_activation.py
+github/workflows/close-site-mirror-activation.yml
+Publisher receipt artifact upload path
+Site evidence artifact discovery path
+activation closure receipt path
+Publisher closure evidence production guard
+```
+
+## Evidence To Capture Automatically Or By Governed Follow-Up
+
+```text
+Publisher workflow run URL
+Publisher verification receipt artifact
+Publisher live dispatch workflow URL
+Site mirror workflow URL
+Site mirror commit SHA
+papers/papers_manifest.json source_repository
+papers/papers_manifest.json source_ref
+papers/papers_manifest.json source_of_truth
+public alias verification results
+Site evidence artifact
+Publisher pending probe while evidence is not ready
+Publisher activation closure receipt with freshness gate metadata
+Publisher verification tracker activation commit
+Publisher activation-status update commit
+```
+
+## Cross-Repo Evidence Gate
+
+Publisher activation must not be marked activated until the closure updater has found both evidence artifact classes, verified they are fresh and ordered, and written a closure receipt:
+
+```text
+publisher-site-verification-receipt-<run>-<attempt>
+site-mirror-evidence-<run>-<attempt>
+MAX_ARTIFACT_AGE_HOURS: 48
+ORDER_GRACE_MINUTES: 5
+docs/mirror-activation-closures/<closure>.json
+python tools/close_site_mirror_activation.py
+```
+
+The pending probe file is not an activation receipt.
+
+This prevents Publisher from claiming live dispatch activation while Site still lacks fresh mirror/evidence artifacts or while only stale Site evidence exists.
+
+## Current Delta
+
+```text
+Resolved: Publisher validation, release gate, dispatch protocol, dry-run mode, receipt template, and verification tracker exist.
+Resolved: Publisher handoff records the Generate Papers JSON workflow and its checker as part of the activation runner.
+Resolved: Publisher dispatch workflow generates verification receipt artifacts automatically using tools/write_verification_run_receipt.py.
+Resolved: Publisher dispatch workflow gates verification receipt writing and upload with success() to prevent accepted receipt artifacts after failed credential or Site dispatch steps.
+Resolved: Publisher closure workflow runs after Publisher dispatch workflow completion through workflow_run.
+Resolved: Site mirror workflow generates Site evidence artifacts automatically using scripts/write_site_mirror_evidence.py.
+Resolved: Site mirror workflow nudges Publisher closure when cross-repo credentials are available and falls back to scheduled Publisher closure when unavailable.
+Resolved: Publisher has tools/close_site_mirror_activation.py to consume Publisher and Site evidence artifacts and close tracker/status automatically when evidence is ready.
+Resolved: Publisher closure updater performs bounded retry and writes a pending probe while waiting for artifacts.
+Resolved: Publisher closure updater rejects stale or out-of-order Publisher/Site artifact pairs.
+Resolved: Publisher closure receipt records artifact created_at values and freshness gate metadata.
+Resolved: Publisher has github/workflows/close-site-mirror-activation.yml to run closure on schedule, push, dispatch, or Publisher dispatch completion and commit pending/closure changes automatically.
+Resolved: Publisher has docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md as repo-resident self-management handoff.
+Resolved: Publisher activation validation requires the automated closure script and workflow.
+Resolved: Publisher has docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md to define the current evidence-production goal after Site repository-managed continuation completion.
+Resolved: Publisher closure workflow watches and checks tools/check_publisher_closure_evidence_production.py before running closure.
+Resolved: Publisher activation runner now checks Publisher handoff, ecosystem management handoff, and Publisher closure evidence production before dispatch completion.
+Resolved: Publisher activation status records the closure evidence production packet and runner coverage.
+Resolved: Publisher dispatch protocol now records closure evidence production as part of dispatch validation and done-state evidence handling.
+Resolved: Publisher Site mirror dispatch checker now requires the closure evidence production packet and closure workflow guard.
+Resolved: Publisher release gate checklist, validation doc, tracker, and README now use the fresh ordered closure evidence boundary instead of the older dry-run activation boundary.
+Resolved: Publisher release gate checker now requires closure evidence production, pending-probe non-activation language, and current activation blockers.
+Resolved: Publisher verification receipt template now records closure_evidence_results and closure_evidence_verification.
+Resolved: Publisher verification receipt checker now requires closure evidence fields, expected freshness/order values, pending status, and non-activation language.
+Resolved: Publisher verification receipt writer now emits closure evidence fields automatically from workflow context.
+Pending: actual Publisher receipt artifact, actual Site evidence artifact, and closure commit from the automated closure workflow.
+```
+
+## Companion Site Handoff
+
+```text
+StegVerse-Labs/Site/docs/SITE_MIRROR_HANDOFF.md
+StegVerse-Labs/Site/docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+StegVerse-Labs/Site/docs/SITE_SELF_MANAGED_COMPLETION.md
+```
+
+## Archive Readiness
+
+This handoff contains the Publisher repo state, automated activation sequence, fresh ordered bounded retry closure workflow, self-management handoff link, Publisher closure evidence production packet, verification receipt boundary, and evidence requirements needed to continue. Prior chat thread context is not required for forward progress once this file, docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md, and docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md are present in the repository.
