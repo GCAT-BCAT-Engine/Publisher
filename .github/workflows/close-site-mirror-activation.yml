@@ -17,9 +17,11 @@ on:
       - "docs/activation-status.md"
       - "docs/PUBLISHER_MIRROR_HANDOFF.md"
       - "docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md"
+      - "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md"
       - "tools/close_site_mirror_activation.py"
       - "tools/check_publisher_mirror_handoff.py"
       - "tools/check_mirror_ecosystem_management_handoff.py"
+      - "tools/check_publisher_closure_evidence_production.py"
       - ".github/workflows/close-site-mirror-activation.yml"
       - ".github/workflows/dispatch-site-mirror.yml"
 
@@ -53,6 +55,9 @@ jobs:
       - name: Check ecosystem management handoff
         run: python tools/check_mirror_ecosystem_management_handoff.py
 
+      - name: Check Publisher closure evidence production
+        run: python tools/check_publisher_closure_evidence_production.py
+
       - name: Run activation closure updater
         run: python tools/close_site_mirror_activation.py
 
@@ -62,7 +67,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           mkdir -p docs/mirror-activation-closures
-          git add docs/verification-tracker.md docs/activation-status.md docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md tools/close_site_mirror_activation.py tools/check_publisher_mirror_handoff.py tools/check_mirror_ecosystem_management_handoff.py .github/workflows/close-site-mirror-activation.yml
+          git add docs/verification-tracker.md docs/activation-status.md docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md tools/close_site_mirror_activation.py tools/check_publisher_mirror_handoff.py tools/check_mirror_ecosystem_management_handoff.py tools/check_publisher_closure_evidence_production.py .github/workflows/close-site-mirror-activation.yml
           if ls docs/mirror-activation-closures/*.json >/dev/null 2>&1; then
             git add docs/mirror-activation-closures/*.json
           fi
