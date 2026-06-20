@@ -24,6 +24,7 @@ Shared Publisher activation runner exists
 Validation workflow uses the activation runner
 Dispatch workflow uses the activation runner
 Dispatch workflow runs on qualifying push to main
+Dispatch workflow watches Publisher continuation handoffs and pending closure status
 Dispatch workflow writes verification receipt artifacts automatically
 Generate Papers JSON workflow exists
 Generate Papers JSON workflow checker exists
@@ -119,6 +120,18 @@ tools/check_mirror_ecosystem_management_handoff.py
 tools/check_publisher_closure_evidence_production.py
 ```
 
+The dispatch workflow push trigger now watches:
+
+```text
+docs/PUBLISHER_MIRROR_HANDOFF.md
+docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
+tools/check_publisher_mirror_handoff.py
+tools/check_mirror_ecosystem_management_handoff.py
+tools/check_publisher_closure_evidence_production.py
+```
+
 The Site mirror dispatch checker requires:
 
 ```text
@@ -167,4 +180,4 @@ Note: workflow paths are displayed without the leading dot. The actual repositor
 
 ## Archive Readiness
 
-This activation status contains the automated dispatch path, automated Site closure nudge, fresh ordered automated closure path, activation boundary, pending evidence list, Publisher closure evidence production packet, pending closure status, and next action. Prior chat context is not required once this file, docs/verification-tracker.md, docs/PUBLISHER_MIRROR_HANDOFF.md, docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md, docs/PUBLISHER_PENDING_CLOSURE_STATUS.md, tools/close_site_mirror_activation.py, and github/workflows/close-site-mirror-activation.yml are present in the repository.
+This activation status contains the automated dispatch path, automated Site closure nudge, fresh ordered automated closure path, activation boundary, pending evidence list, Publisher closure evidence production packet, pending closure status, and dispatch/closure workflow watch paths. Prior chat context is not required once this file, docs/verification-tracker.md, docs/PUBLISHER_MIRROR_HANDOFF.md, docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md, docs/PUBLISHER_PENDING_CLOSURE_STATUS.md, tools/close_site_mirror_activation.py, and github/workflows/close-site-mirror-activation.yml are present in the repository.
