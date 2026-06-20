@@ -27,6 +27,11 @@ REQUIRED_WORKFLOW_TERMS = [
     "DEFAULT_SOURCE_REPOSITORY: \"GCAT-BCAT-Engine/Publisher\"",
     "DEFAULT_SOURCE_REF: \"main\"",
     "SITE_MIRROR_DISPATCH_TOKEN",
+    "MAX_ARTIFACT_AGE_HOURS: \"48\"",
+    "ORDER_GRACE_MINUTES: \"5\"",
+    "PENDING_PROBE_PATH: \"docs/mirror-activation-closures/publisher-site-mirror-pending.json\"",
+    "CLOSURE_EVIDENCE_STATUS: \"pending_fresh_ordered_artifacts\"",
+    "CLOSURE_EVIDENCE_VERIFICATION: \"pending_fresh_ordered_artifacts\"",
     "dry_run",
     "Dry run requested. Publisher validation and dispatch configuration checks passed.",
     "python tools/check_publisher_activation.py",
@@ -63,6 +68,8 @@ REQUIRED_RECEIPT_WRITER_TERMS = [
     "site_dispatch_attempted",
     "dispatch_request_accepted",
     "pending_site_workflow_evidence",
+    "closure_evidence_results",
+    "closure_evidence_verification",
 ]
 
 REQUIRED_CLOSURE_SCRIPT_TERMS = [
@@ -86,6 +93,8 @@ REQUIRED_PROTOCOL_TERMS = [
     "site_evidence_recorded_here: false",
     "closure_recorded_here: false",
     "pending_probe_only: true",
+    "CLOSURE_EVIDENCE_STATUS",
+    "CLOSURE_EVIDENCE_VERIFICATION",
     "tools/check_publisher_closure_evidence_production.py",
     "Publisher activation validation passes",
     "StegVerse-Labs/Site/.github/workflows/mirror-papers.yml",
