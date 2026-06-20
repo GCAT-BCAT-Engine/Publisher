@@ -16,6 +16,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "verification-runs"
+DEFAULT_PENDING_PROBE_PATH = "docs/mirror-activation-closures/publisher-site-mirror-pending.json"
 
 
 def env(name: str, default: str = "") -> str:
@@ -27,6 +28,20 @@ def env_bool(name: str, default: bool = False) -> bool:
     if not value:
         return default
     return value.lower() in {"1", "true", "yes", "y", "on"}
+
+
+def env_int(name: str, default: int) -> int:
+    value = env(name)
+    if not value:
+        return default
+    try:
+        return int(value)
+    except ValueError:
+        return default
+
+
+def none_if_empty(value: str) -> str | None:
+    return value or None
 
 
 def safe_name(value: str) -> str:
@@ -72,6 +87,11 @@ def build_receipt() -> dict:
             "validate_emergency_ai_cases": env("VALIDATE_EMERGENCY_AI_CASES", "covered_by_activation_runner"),
             "check_site_mirror_dispatch": env("CHECK_SITE_MIRROR_DISPATCH", "covered_by_activation_runner"),
             "check_release_gate": env("CHECK_RELEASE_GATE", "covered_by_activation_runner"),
+            "check_verification_receipt_template": env("CHECK_VERIFICATION_RECEIPT_TEMPLATE", "covered_by_activation_runner"),
+            "check_generate_papers_workflow": env("CHECK_GENERATE_PAPERS_WORKFLOW", "covered_by_activation_runner"),
+            "check_publisher_mirror_handoff": env("CHECK_PUBLISHER_MIRROR_HANDOFF", "covered_by_activation_runner"),
+            "check_mirror_ecosystem_management_handoff": env("CHECK_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF", "covered_by_activation_runner"),
+            "check_publisher_closure_evidence_production": env("CHECK_PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION", "covered_by_activation_runner"),
         },
         "dispatch_results": {
             "site_dispatch_attempted": site_dispatch_attempted,
@@ -79,8 +99,8 @@ def build_receipt() -> dict:
                 "SITE_DISPATCH_STATUS",
                 "not_attempted_for_dry_run" if dry_run else "dispatch_step_completed",
             ),
-            "site_workflow_run_url": env("SITE_WORKFLOW_RUN_URL") or None,
-            "site_commit_sha": env("SITE_COMMIT_SHA") or None,
+            "site_workflow_run_url": none_if_empty(env("SITE_WORKFLOW_RUN_URL")),
+            "site_commit_sha": none_if_empty(env("SITE_COMMIT_SHA")),
         },
         "release_gate_results": {
             "publisher_source_validity": env("PUBLISHER_SOURCE_VALIDITY", "covered_by_activation_runner"),
@@ -88,10 +108,24 @@ def build_receipt() -> dict:
             "site_mirror_validity": env("SITE_MIRROR_VALIDITY", "pending_site_workflow_evidence"),
             "public_display_verification": env("PUBLIC_DISPLAY_VERIFICATION", "pending_public_alias_evidence"),
             "governance_case_display_verification": env("GOVERNANCE_CASE_DISPLAY_VERIFICATION", "covered_by_release_gate"),
+            "closure_evidence_verification": env("CLOSURE_EVIDENCE_VERIFICATION", "pending_fresh_ordered_artifacts"),
+        },
+        "closure_evidence_results": {
+            "publisher_artifact_prefix": "publisher-site-verification-receipt",
+            "site_artifact_prefix": "site-mirror-evidence",
+            "publisher_verification_receipt_artifact": none_if_empty(env("PUBLISHER_VERIFICATION_RECEIPT_ARTIFACT")),
+            "site_evidence_artifact": none_if_empty(env("SITE_EVIDENCE_ARTIFACT")),
+            "max_artifact_age_hours": env_int("MAX_ARTIFACT_AGE_HOURS", 48),
+            "order_grace_minutes": env_int("ORDER_GRACE_MINUTES", 5),
+            "pending_probe_path": env("PENDING_PROBE_PATH", DEFAULT_PENDING_PROBE_PATH),
+            "closure_receipt_path": none_if_empty(env("CLOSURE_RECEIPT_PATH")),
+            "closure_evidence_status": env("CLOSURE_EVIDENCE_STATUS", "pending_fresh_ordered_artifacts"),
+            "non_claim": "This receipt is not an activation receipt until a closure receipt is written.",
         },
         "notes": [
             "Generated automatically by tools/write_verification_run_receipt.py.",
             "This receipt records Publisher workflow evidence; Site evidence remains pending until Site workflow outputs are captured.",
+            "This receipt is not an activation receipt until a closure receipt is written.",
         ],
     }
 
