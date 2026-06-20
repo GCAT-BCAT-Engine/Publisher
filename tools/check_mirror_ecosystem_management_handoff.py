@@ -40,7 +40,7 @@ MANAGEMENT_TERMS = [
     "acceptance criteria",
     "live GitHub Actions artifact production",
     "the pending closure status is not an activation receipt",
-    "Publisher verification receipts are activation receipts",
+    "Publisher verification receipts preserve closure_evidence_results without claiming activation",
     "fresh, ordered, and evidence-valid",
 ]
 
