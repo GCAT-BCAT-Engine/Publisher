@@ -81,6 +81,11 @@ REQUIRED_PROTOCOL_TERMS = [
     "Dispatch Site Paper Mirror",
     "python tools/check_publisher_activation.py",
     "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
+    "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
+    "publisher_receipt_recorded_here: false",
+    "site_evidence_recorded_here: false",
+    "closure_recorded_here: false",
+    "pending_probe_only: true",
     "tools/check_publisher_closure_evidence_production.py",
     "Publisher activation validation passes",
     "StegVerse-Labs/Site/.github/workflows/mirror-papers.yml",
@@ -113,6 +118,9 @@ REQUIRED_PENDING_STATUS_TERMS = [
 
 REQUIRED_README_TERMS = [
     "docs/site-mirror-dispatch-protocol.md",
+    "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
+    "The pending closure status is not activation evidence.",
+    "The pending probe is not an activation receipt. The pending closure status is also not an activation receipt.",
     "SITE_MIRROR_DISPATCH_TOKEN",
     "github/workflows/dispatch-site-mirror.yml",
 ]
