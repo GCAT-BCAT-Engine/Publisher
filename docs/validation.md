@@ -4,7 +4,7 @@
 
 Publisher case records that use machine-readable JSON should validate before they are treated as ready for republication.
 
-Publisher-to-Site activation also requires release-gate validation so documentation, workflow hooks, dispatch behavior, activation status, generated-paper workflow paths, verification receipt structure, handoff state, closure evidence production, and self-managed completion status do not drift from the operational boundary.
+Publisher-to-Site activation also requires release-gate validation so documentation, workflow hooks, dispatch behavior, activation status, generated-paper workflow paths, verification receipt structure, handoff state, closure evidence production, pending closure status, close-workflow self-managed completion checks, and self-managed completion status do not drift from the operational boundary.
 
 ## Files
 
@@ -94,6 +94,20 @@ python tools/check_publisher_closure_evidence_production.py
 python tools/check_publisher_self_managed_completion.py
 ```
 
+## Closure Workflow Validation
+
+The close activation workflow also validates the repo-resident continuation state before attempting closure:
+
+```bash
+python tools/check_publisher_mirror_handoff.py
+python tools/check_mirror_ecosystem_management_handoff.py
+python tools/check_publisher_closure_evidence_production.py
+python tools/check_publisher_self_managed_completion.py
+python tools/close_site_mirror_activation.py
+```
+
+The self-managed completion check is intentionally run before `tools/close_site_mirror_activation.py` so scheduled or event-driven closure attempts cannot bypass pending-status, handoff, workflow, and non-activation boundaries.
+
 ## Done State
 
 Validation is passing when the full activation runner prints:
@@ -147,6 +161,8 @@ activation status drifts
 Publisher mirror handoff drifts
 ecosystem management handoff drifts
 Publisher closure evidence production drifts
+Publisher pending closure status drifts
+close-workflow self-managed completion check drifts
 Publisher self-managed completion drifts
 ```
 
