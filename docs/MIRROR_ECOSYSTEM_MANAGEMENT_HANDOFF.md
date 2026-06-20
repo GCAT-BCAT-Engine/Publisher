@@ -59,7 +59,7 @@ StegVerse-Labs/Site/.github/workflows/mirror-papers.yml
 9. Site mirror workflow nudges Publisher closure when cross-repo credentials are available.
 10. Publisher closure workflow retries artifact discovery using bounded retry.
 11. Publisher closure script rejects stale or out-of-order artifact pairs.
-12. Publisher closure script writes pending probe while waiting.
+12. Publisher closure script writes pending probe while waiting; the pending probe is not an activation receipt.
 13. Publisher closure script writes closure receipt when Publisher and Site artifacts are fresh, ordered, and evidence-valid.
 14. Publisher closure script updates verification tracker and activation status to activated.
 15. Publisher closure workflow commits pending probe or closure receipt automatically.
@@ -104,7 +104,8 @@ This handoff does not claim:
 - Publisher receipt artifact has been observed;
 - Site evidence artifact has been observed;
 - closure receipt has been generated;
-- tracker/status have been activated by closure workflow.
+- tracker/status have been activated by closure workflow;
+- the pending probe is an activation receipt.
 ```
 
 ## Next Ecosystem Action
