@@ -19,6 +19,22 @@ Site state: repository_managed_continuation_complete
 Activation state: pending_fresh_ordered_artifacts
 ```
 
+## Pending Status Surface
+
+```text
+docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
+```
+
+The pending status surface records the current missing-evidence boundary without claiming activation:
+
+```text
+status: waiting_for_fresh_ordered_artifact_pair
+publisher_receipt_recorded_here: false
+site_evidence_recorded_here: false
+closure_recorded_here: false
+pending_probe_only: true
+```
+
 ## Evidence Pair Required For Closure
 
 Publisher activation remains blocked until both artifact classes exist, are fresh, and are ordered within the configured grace window:
@@ -60,8 +76,9 @@ activation_state: activated
 4. Run the closure workflow on dispatch completion, schedule, push, or workflow dispatch.
 5. Reject missing, stale, out-of-order, or evidence-incomplete artifact pairs.
 6. Write a pending probe when evidence is missing or not closure-ready.
-7. Write a closure receipt only when evidence is fresh, ordered, and valid.
-8. Update verification tracker and activation status only from the closure receipt path.
+7. Keep docs/PUBLISHER_PENDING_CLOSURE_STATUS.md as a pending boundary while evidence is missing.
+8. Write a closure receipt only when evidence is fresh, ordered, and valid.
+9. Update verification tracker and activation status only from the closure receipt path.
 ```
 
 ## Site Completion Dependency
@@ -74,6 +91,8 @@ The relevant Site handoffs are:
 StegVerse-Labs/Site/docs/SITE_MIRROR_HANDOFF.md
 StegVerse-Labs/Site/docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 StegVerse-Labs/Site/docs/SITE_SELF_MANAGED_COMPLETION.md
+StegVerse-Labs/Site/docs/TRANSITION_DISCOVERY_STATUS.md
+StegVerse-Labs/Site/data/transition-discovery-status-v1.json
 ```
 
 Publisher must still require live Site evidence artifact production. Site repository-managed continuation completion is not the same as mirror activation.
@@ -93,6 +112,7 @@ A. Activated closure:
 
 B. Self-managed pending closure:
    - This packet exists.
+   - docs/PUBLISHER_PENDING_CLOSURE_STATUS.md exists.
    - The close activation workflow checks this packet.
    - The close activation workflow watches this packet.
    - The management handoff names this packet.
