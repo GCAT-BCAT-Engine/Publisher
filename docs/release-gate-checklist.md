@@ -4,7 +4,7 @@
 
 This checklist defines when a Publisher update may be treated as current on the StegVerse Site.
 
-A green workflow alone is not the full release gate. The release gate requires source validity, dispatch validity, Site mirror validity, public-link verification, governance case posture preservation, and fresh ordered closure evidence.
+A green workflow alone is not the full release gate. The release gate requires source validity, dispatch validity, Site mirror validity, public-link verification, governance case posture preservation, Publisher receipt non-activation preservation, pending closure status preservation, and fresh ordered closure evidence.
 
 ## Scope
 
@@ -28,9 +28,12 @@ docs/activation-status.md
 docs/PUBLISHER_MIRROR_HANDOFF.md
 docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
 tools/check_publisher_activation.py
 tools/check_site_mirror_dispatch.py
 tools/check_release_gate.py
+tools/check_verification_receipt_template.py
+tools/write_verification_run_receipt.py
 tools/check_publisher_closure_evidence_production.py
 ```
 
@@ -78,6 +81,9 @@ Site target repository is StegVerse-Labs/Site unless intentionally testing
 source_ref is main unless intentionally testing a branch or SHA
 Publisher dispatch workflow resolves source_repository as GCAT-BCAT-Engine/Publisher
 Publisher verification receipt artifact is produced only after a successful dispatch path
+Publisher verification receipt preserves closure_evidence_results
+Publisher verification receipt preserves closure_evidence_verification
+Publisher verification receipt remains non-activating until a closure receipt is written
 ```
 
 Dry run remains an optional diagnostic fallback, not the activation boundary.
@@ -135,6 +141,8 @@ Publisher verification receipt artifact exists
 Site evidence artifact exists
 artifacts are fresh under MAX_ARTIFACT_AGE_HOURS
 artifacts are ordered within ORDER_GRACE_MINUTES
+Publisher pending closure status remains waiting_for_fresh_ordered_artifact_pair until closure
+Publisher pending closure status is not an activation receipt
 Publisher closure workflow runs tools/check_publisher_closure_evidence_production.py
 Publisher closure workflow runs tools/close_site_mirror_activation.py
 Publisher closure writes docs/mirror-activation-closures/<closure>.json
@@ -143,12 +151,14 @@ Publisher activation status is updated to activated
 ```
 
 The pending probe is not an activation receipt.
+Publisher verification receipts are not activation receipts.
+The pending closure status is not an activation receipt.
 
 ## Release Decision
 
 A Publisher to Site release is complete only when all applicable gates pass and the closure evidence gate writes an activation closure receipt.
 
-If any gate fails, do not mark the Site display current. Fix the failing source, workflow, mirror, public-link, posture, artifact, freshness, ordering, or closure condition and rerun from the earliest affected gate.
+If any gate fails, do not mark the Site display current. Fix the failing source, workflow, mirror, public-link, posture, artifact, freshness, ordering, receipt-boundary, pending-status, or closure condition and rerun from the earliest affected gate.
 
 ## Current Next Step
 
