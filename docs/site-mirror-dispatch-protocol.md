@@ -51,6 +51,18 @@ closure_recorded_here: false
 pending_probe_only: true
 ```
 
+Publisher dispatch receipts must also preserve the closure-evidence boundary:
+
+```text
+CLOSURE_EVIDENCE_STATUS: pending_fresh_ordered_artifacts
+CLOSURE_EVIDENCE_VERIFICATION: pending_fresh_ordered_artifacts
+MAX_ARTIFACT_AGE_HOURS: 48
+ORDER_GRACE_MINUTES: 5
+PENDING_PROBE_PATH: docs/mirror-activation-closures/publisher-site-mirror-pending.json
+```
+
+Those values describe dispatch receipt posture only. They do not activate the mirror.
+
 ## Target Site Workflow
 
 The target Site workflow is:
