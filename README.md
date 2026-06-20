@@ -127,6 +127,14 @@ The current Publisher-side closure evidence packet is:
 docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 ```
 
+The current pending closure status is:
+
+```text
+docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
+```
+
+The pending closure status is not activation evidence. It records that Publisher receipt, Site evidence, and closure have not been recorded in that status surface.
+
 Dry run remains available with:
 
 ```text
@@ -161,7 +169,7 @@ docs/activation-status.md
 
 The current activation boundary is fresh ordered evidence production: Publisher receipt artifact, Site evidence artifact, freshness/order verification, closure receipt, verification tracker activation, and activation status update to `activated`.
 
-The pending probe is not an activation receipt.
+The pending probe is not an activation receipt. The pending closure status is also not an activation receipt.
 
 ## Validation
 
