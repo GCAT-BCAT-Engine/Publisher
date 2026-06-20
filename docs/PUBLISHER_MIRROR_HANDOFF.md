@@ -156,6 +156,7 @@ github/workflows/close-site-mirror-activation.yml
 Publisher receipt artifact upload path
 Site evidence artifact discovery path
 activation closure receipt path
+Publisher closure evidence production guard
 ```
 
 ## Evidence To Capture Automatically Or By Governed Follow-Up
@@ -215,6 +216,8 @@ Resolved: Publisher has docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md to define 
 Resolved: Publisher closure workflow watches and checks tools/check_publisher_closure_evidence_production.py before running closure.
 Resolved: Publisher activation runner now checks Publisher handoff, ecosystem management handoff, and Publisher closure evidence production before dispatch completion.
 Resolved: Publisher activation status records the closure evidence production packet and runner coverage.
+Resolved: Publisher dispatch protocol now records closure evidence production as part of dispatch validation and done-state evidence handling.
+Resolved: Publisher Site mirror dispatch checker now requires the closure evidence production packet and closure workflow guard.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, and closure commit from the automated closure workflow.
 ```
 
