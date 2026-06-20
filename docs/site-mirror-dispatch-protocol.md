@@ -32,14 +32,24 @@ The activation runner executes the emergency-template check, emergency-case vali
 
 ## Closure Evidence Guard
 
-The dispatch path is now bound to the Publisher closure evidence production packet:
+The dispatch path is now bound to the Publisher closure evidence production packet and the pending closure status:
 
 ```text
 docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
 tools/check_publisher_closure_evidence_production.py
 ```
 
 This prevents the dispatch path from treating activation as complete unless the closure path remains capable of rejecting missing, stale, out-of-order, or evidence-incomplete Publisher/Site artifact pairs.
+
+The pending closure status must remain non-activating until fresh ordered artifacts are observed:
+
+```text
+publisher_receipt_recorded_here: false
+site_evidence_recorded_here: false
+closure_recorded_here: false
+pending_probe_only: true
+```
 
 ## Target Site Workflow
 
@@ -91,6 +101,7 @@ docs/activation-status.md
 docs/PUBLISHER_MIRROR_HANDOFF.md
 docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
 tools/check_publisher_activation.py
 tools/check_publisher_mirror_handoff.py
 tools/check_mirror_ecosystem_management_handoff.py
