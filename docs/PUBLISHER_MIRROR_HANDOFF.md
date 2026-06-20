@@ -77,20 +77,21 @@ The preferred activation path is push-triggered automation plus event/scheduled 
 3. Publisher workflow: verifies dispatch credentials are available without exposing values.
 4. Publisher workflow: dispatches the Site mirror workflow when validation and credential checks pass.
 5. Publisher workflow: writes a verification receipt using tools/write_verification_run_receipt.py only after the workflow remains successful.
-6. Publisher workflow: uploads the receipt as a workflow artifact named publisher-site-verification-receipt-<run>-<attempt> only after the workflow remains successful.
-7. Publisher workflow completion triggers Close Site Mirror Activation through workflow_run.
-8. Site workflow: mirrors papers from Publisher.
-9. Site workflow: validates manifest metadata and aliases.
-10. Site workflow: writes Site evidence using scripts/write_site_mirror_evidence.py.
-11. Site workflow: uploads the Site evidence artifact named site-mirror-evidence-<run>-<attempt>.
-12. Site workflow nudges Publisher closure when cross-repo credentials are available; scheduled Publisher closure remains fallback.
-13. Publisher closure workflow: runs tools/check_publisher_closure_evidence_production.py.
-14. Publisher closure workflow: runs tools/close_site_mirror_activation.py with bounded retry.
-15. Publisher closure script: rejects stale or out-of-order artifact pairs.
-16. Publisher closure script: writes docs/mirror-activation-closures/publisher-site-mirror-pending.json while waiting for fresh ordered artifacts.
-17. Publisher closure script: writes docs/mirror-activation-closures/<closure>.json when both artifact classes contain minimum activation evidence and pass freshness/order gates.
-18. Publisher closure workflow: updates docs/verification-tracker.md and docs/activation-status.md to activated.
-19. Publisher closure workflow: commits pending probe or closure files automatically when changed.
+6. Publisher workflow: writes receipt closure fields as pending_fresh_ordered_artifacts.
+7. Publisher workflow: uploads the receipt as a workflow artifact named publisher-site-verification-receipt-<run>-<attempt> only after the workflow remains successful.
+8. Publisher workflow completion triggers Close Site Mirror Activation through workflow_run.
+9. Site workflow: mirrors papers from Publisher.
+10. Site workflow: validates manifest metadata and aliases.
+11. Site workflow: writes Site evidence using scripts/write_site_mirror_evidence.py.
+12. Site workflow: uploads the Site evidence artifact named site-mirror-evidence-<run>-<attempt>.
+13. Site workflow nudges Publisher closure when cross-repo credentials are available; scheduled Publisher closure remains fallback.
+14. Publisher closure workflow: runs tools/check_publisher_closure_evidence_production.py.
+15. Publisher closure workflow: runs tools/close_site_mirror_activation.py with bounded retry.
+16. Publisher closure script: rejects stale or out-of-order artifact pairs.
+17. Publisher closure script: writes docs/mirror-activation-closures/publisher-site-mirror-pending.json while waiting for fresh ordered artifacts.
+18. Publisher closure script: writes docs/mirror-activation-closures/<closure>.json when both artifact classes contain minimum activation evidence and pass freshness/order gates.
+19. Publisher closure workflow: updates docs/verification-tracker.md and docs/activation-status.md to activated.
+20. Publisher closure workflow: commits pending probe or closure files automatically when changed.
 ```
 
 ## Ecosystem Management Handoff
@@ -143,6 +144,16 @@ publisher_artifact_prefix: publisher-site-verification-receipt
 site_artifact_prefix: site-mirror-evidence
 closure_evidence_status: pending_fresh_ordered_artifacts
 non_claim: This receipt is not an activation receipt until a closure receipt is written.
+```
+
+The dispatch workflow explicitly sets the receipt posture environment:
+
+```text
+CLOSURE_EVIDENCE_STATUS: pending_fresh_ordered_artifacts
+CLOSURE_EVIDENCE_VERIFICATION: pending_fresh_ordered_artifacts
+MAX_ARTIFACT_AGE_HOURS: 48
+ORDER_GRACE_MINUTES: 5
+PENDING_PROBE_PATH: docs/mirror-activation-closures/publisher-site-mirror-pending.json
 ```
 
 A Publisher receipt can support closure, but it cannot complete activation until `tools/close_site_mirror_activation.py` observes the fresh ordered Publisher/Site artifact pair and writes a closure receipt.
@@ -247,6 +258,9 @@ Resolved: Publisher verification receipt checker now requires closure evidence f
 Resolved: Publisher verification receipt writer now emits closure evidence fields automatically from workflow context.
 Resolved: Publisher release gate checklist now requires Publisher receipt non-activation preservation and pending closure status preservation before activation.
 Resolved: Publisher release gate checker now requires verification receipt boundary fields and pending closure status fields.
+Resolved: Publisher dispatch workflow now explicitly emits closure evidence receipt posture environment values for every generated Publisher receipt.
+Resolved: Publisher dispatch checker now requires closure evidence receipt posture env values and receipt writer fields.
+Resolved: Publisher dispatch protocol now documents the receipt posture environment values as non-activating.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, and closure commit from the automated closure workflow.
 ```
 
@@ -260,4 +274,4 @@ StegVerse-Labs/Site/docs/SITE_SELF_MANAGED_COMPLETION.md
 
 ## Archive Readiness
 
-This handoff contains the Publisher repo state, automated activation sequence, fresh ordered bounded retry closure workflow, self-management handoff link, Publisher closure evidence production packet, verification receipt boundary, release gate receipt-boundary enforcement, pending closure status preservation, and evidence requirements needed to continue. Prior chat thread context is not required for forward progress once this file, docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md, and docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md are present in the repository.
+This handoff contains the Publisher repo state, automated activation sequence, fresh ordered bounded retry closure workflow, self-management handoff link, Publisher closure evidence production packet, verification receipt boundary, release gate receipt-boundary enforcement, pending closure status preservation, dispatch receipt posture env values, and evidence requirements needed to continue. Prior chat thread context is not required for forward progress once this file, docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md, and docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md are present in the repository.
