@@ -7,10 +7,12 @@
   "publisher_workflow": ".github/workflows/dispatch-site-mirror.yml",
   "publisher_activation_runner": "tools/check_publisher_activation.py",
   "site_workflow": "StegVerse-Labs/Site/.github/workflows/mirror-papers.yml",
+  "source_repository": "GCAT-BCAT-Engine/Publisher",
   "source_ref": "main",
   "dry_run": true,
   "github_run_url": null,
   "github_run_id": null,
+  "github_run_attempt": null,
   "observed_at_utc": null,
   "observed_by": null,
   "validation_results": {
@@ -18,7 +20,12 @@
     "check_emergency_ai_templates": "pending",
     "validate_emergency_ai_cases": "pending",
     "check_site_mirror_dispatch": "pending",
-    "check_release_gate": "pending"
+    "check_release_gate": "pending",
+    "check_verification_receipt_template": "pending",
+    "check_generate_papers_workflow": "pending",
+    "check_publisher_mirror_handoff": "pending",
+    "check_mirror_ecosystem_management_handoff": "pending",
+    "check_publisher_closure_evidence_production": "pending"
   },
   "dispatch_results": {
     "site_dispatch_attempted": false,
@@ -31,7 +38,20 @@
     "dispatch_readiness": "pending",
     "site_mirror_validity": "pending",
     "public_display_verification": "pending",
-    "governance_case_display_verification": "pending"
+    "governance_case_display_verification": "pending",
+    "closure_evidence_verification": "pending"
+  },
+  "closure_evidence_results": {
+    "publisher_artifact_prefix": "publisher-site-verification-receipt",
+    "site_artifact_prefix": "site-mirror-evidence",
+    "publisher_verification_receipt_artifact": null,
+    "site_evidence_artifact": null,
+    "max_artifact_age_hours": 48,
+    "order_grace_minutes": 5,
+    "pending_probe_path": "docs/mirror-activation-closures/publisher-site-mirror-pending.json",
+    "closure_receipt_path": null,
+    "closure_evidence_status": "pending_fresh_ordered_artifacts",
+    "non_claim": "This receipt is not an activation receipt until a closure receipt is written."
   },
   "notes": []
 }
