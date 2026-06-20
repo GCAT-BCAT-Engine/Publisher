@@ -13,6 +13,7 @@ FILES = {
     "management_handoff": ROOT / "docs" / "MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
     "publisher_handoff": ROOT / "docs" / "PUBLISHER_MIRROR_HANDOFF.md",
     "activation_status": ROOT / "docs" / "activation-status.md",
+    "pending_status": ROOT / "docs" / "PUBLISHER_PENDING_CLOSURE_STATUS.md",
     "pending_probe": ROOT / "docs" / "mirror-activation-closures" / "publisher-site-mirror-pending.json",
     "closure_script": ROOT / "tools" / "close_site_mirror_activation.py",
 }
@@ -37,6 +38,7 @@ REQUIRED = {
     ],
     "workflow": [
         "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
+        "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
         "tools/check_publisher_closure_evidence_production.py",
         "python tools/check_publisher_closure_evidence_production.py",
         "python tools/close_site_mirror_activation.py",
@@ -50,6 +52,7 @@ REQUIRED = {
     ],
     "publisher_handoff": [
         "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
+        "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
         "Publisher closure evidence production",
         "actual Publisher receipt artifact",
         "actual Site evidence artifact",
@@ -59,6 +62,19 @@ REQUIRED = {
         "actual fresh Publisher verification receipt artifact has not been recorded",
         "actual fresh Site evidence artifact has not been recorded",
         "Let the automated workflows proceed",
+    ],
+    "pending_status": [
+        "Publisher Pending Closure Status",
+        "status: waiting_for_fresh_ordered_artifact_pair",
+        "publisher_prefix: publisher-site-verification-receipt",
+        "site_prefix: site-mirror-evidence",
+        "max_age_hours: 48",
+        "order_grace_minutes: 5",
+        "publisher_receipt_recorded_here: false",
+        "site_evidence_recorded_here: false",
+        "closure_recorded_here: false",
+        "pending_probe_only: true",
+        "valid: publisher closure evidence production",
     ],
     "pending_probe": [
         "pending_evidence",
@@ -84,6 +100,11 @@ FORBIDDEN = {
     ],
     "activation_status": [
         "activation_state: activated",
+    ],
+    "pending_status": [
+        "closure_recorded_here: true",
+        "publisher_receipt_recorded_here: true",
+        "site_evidence_recorded_here: true",
     ],
 }
 
