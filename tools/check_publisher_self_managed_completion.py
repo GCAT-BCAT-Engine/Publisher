@@ -12,8 +12,6 @@ CHECKS = {
     "docs/PUBLISHER_SELF_MANAGED_COMPLETION.md": [
         "repo_build_state: self_managed_completion_ready",
         "activation_state: pending_fresh_ordered_artifacts",
-        "Publisher dispatch workflow emits non-activating verification receipt artifacts.",
-        "Publisher closure updater updates docs/PUBLISHER_PENDING_CLOSURE_STATUS.md during unresolved attempts.",
         "This document is not an activation receipt.",
         "actual_fresh_publisher_receipt_artifact: required",
         "actual_fresh_site_evidence_artifact: required",
@@ -21,14 +19,12 @@ CHECKS = {
         "thread_archive_ready: true",
     ],
     "docs/PUBLISHER_MIRROR_HANDOFF.md": [
-        "dispatch receipt posture env values",
-        "verification receipt boundary",
-        "Pending: actual Publisher receipt artifact, actual Site evidence artifact, and closure commit from the automated closure workflow.",
-    ],
-    "docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md": [
-        "self_managed_handoff_completion",
-        "live GitHub Actions artifact production",
-        "Publisher verification receipts preserve closure_evidence_results without claiming activation",
+        "docs/PUBLISHER_SELF_MANAGED_COMPLETION.md",
+        "tools/check_publisher_self_managed_completion.py",
+        "repo_build_state: self_managed_completion_ready",
+        "actual Publisher receipt artifact",
+        "actual Site evidence artifact",
+        "closure commit from the automated closure workflow",
     ],
     "tools/close_site_mirror_activation.py": [
         "PENDING_STATUS_PATH",
