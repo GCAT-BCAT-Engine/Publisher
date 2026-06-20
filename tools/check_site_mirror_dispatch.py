@@ -13,6 +13,7 @@ REQUIRED_FILES = [
     Path("docs/site-mirror-dispatch-protocol.md"),
     Path("docs/site-paper-display-policy.md"),
     Path("docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md"),
+    Path("docs/PUBLISHER_PENDING_CLOSURE_STATUS.md"),
     Path("tools/write_verification_run_receipt.py"),
     Path("tools/close_site_mirror_activation.py"),
     Path("tools/check_publisher_closure_evidence_production.py"),
@@ -29,6 +30,11 @@ REQUIRED_WORKFLOW_TERMS = [
     "dry_run",
     "Dry run requested. Publisher validation and dispatch configuration checks passed.",
     "python tools/check_publisher_activation.py",
+    "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
+    "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
+    "tools/check_publisher_mirror_handoff.py",
+    "tools/check_mirror_ecosystem_management_handoff.py",
+    "tools/check_publisher_closure_evidence_production.py",
     "actions/workflows/mirror-papers.yml/dispatches",
     "source_repository",
     "source_ref",
@@ -41,6 +47,7 @@ REQUIRED_WORKFLOW_TERMS = [
 REQUIRED_CLOSURE_WORKFLOW_TERMS = [
     "name: Close Site Mirror Activation",
     "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
+    "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
     "tools/check_publisher_closure_evidence_production.py",
     "python tools/check_publisher_closure_evidence_production.py",
     "python tools/close_site_mirror_activation.py",
@@ -87,9 +94,21 @@ REQUIRED_PROTOCOL_TERMS = [
 
 REQUIRED_CLOSURE_EVIDENCE_TERMS = [
     "Goal: Publisher closure evidence production",
+    "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
     "publisher_artifact_prefix: publisher-site-verification-receipt",
     "site_artifact_prefix: site-mirror-evidence",
     "This pending probe is not an activation receipt.",
+]
+
+REQUIRED_PENDING_STATUS_TERMS = [
+    "Publisher Pending Closure Status",
+    "status: waiting_for_fresh_ordered_artifact_pair",
+    "publisher_prefix: publisher-site-verification-receipt",
+    "site_prefix: site-mirror-evidence",
+    "publisher_receipt_recorded_here: false",
+    "site_evidence_recorded_here: false",
+    "closure_recorded_here: false",
+    "pending_probe_only: true",
 ]
 
 REQUIRED_README_TERMS = [
@@ -128,33 +147,20 @@ def main() -> int:
         if result is not None:
             return result
 
-    result = require_terms(Path(".github/workflows/dispatch-site-mirror.yml"), REQUIRED_WORKFLOW_TERMS)
-    if result is not None:
-        return result
-
-    result = require_terms(Path(".github/workflows/close-site-mirror-activation.yml"), REQUIRED_CLOSURE_WORKFLOW_TERMS)
-    if result is not None:
-        return result
-
-    result = require_terms(Path("tools/write_verification_run_receipt.py"), REQUIRED_RECEIPT_WRITER_TERMS)
-    if result is not None:
-        return result
-
-    result = require_terms(Path("tools/close_site_mirror_activation.py"), REQUIRED_CLOSURE_SCRIPT_TERMS)
-    if result is not None:
-        return result
-
-    result = require_terms(Path("docs/site-mirror-dispatch-protocol.md"), REQUIRED_PROTOCOL_TERMS)
-    if result is not None:
-        return result
-
-    result = require_terms(Path("docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md"), REQUIRED_CLOSURE_EVIDENCE_TERMS)
-    if result is not None:
-        return result
-
-    result = require_terms(Path("README.md"), REQUIRED_README_TERMS)
-    if result is not None:
-        return result
+    checks = [
+        (Path(".github/workflows/dispatch-site-mirror.yml"), REQUIRED_WORKFLOW_TERMS),
+        (Path(".github/workflows/close-site-mirror-activation.yml"), REQUIRED_CLOSURE_WORKFLOW_TERMS),
+        (Path("tools/write_verification_run_receipt.py"), REQUIRED_RECEIPT_WRITER_TERMS),
+        (Path("tools/close_site_mirror_activation.py"), REQUIRED_CLOSURE_SCRIPT_TERMS),
+        (Path("docs/site-mirror-dispatch-protocol.md"), REQUIRED_PROTOCOL_TERMS),
+        (Path("docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md"), REQUIRED_CLOSURE_EVIDENCE_TERMS),
+        (Path("docs/PUBLISHER_PENDING_CLOSURE_STATUS.md"), REQUIRED_PENDING_STATUS_TERMS),
+        (Path("README.md"), REQUIRED_README_TERMS),
+    ]
+    for path, terms in checks:
+        result = require_terms(path, terms)
+        if result is not None:
+            return result
 
     print("valid: Publisher Site mirror dispatch and closure")
     return 0
