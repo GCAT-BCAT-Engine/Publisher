@@ -2,19 +2,20 @@
 
 ## Objective
 
-Track the operational verification of the Publisher-to-Site mirror path after policy, dispatch automation, activation-runner, release-gate, Site handoff, Publisher handoff, and automated receipt artifacts were added.
+Track the operational verification of the Publisher-to-Site mirror path after policy, dispatch automation, activation-runner, release-gate, Site handoff, Publisher handoff, automated receipt artifacts, and Publisher closure evidence production were added.
 
 ## Status
 
 ```text
-status: pending_automated_dispatch_nudged
+status: pending_fresh_ordered_artifacts
 last_automation_nudge_utc: 2026-06-18T05:38:00Z
 nudge_reason: continue_without_manual_actions_through_completion
+activation_boundary: Publisher closure evidence production
 ```
 
 ## Automated Receipt Path
 
-The Publisher dispatch workflow now writes verification receipts automatically using:
+The Publisher dispatch workflow writes verification receipts automatically using:
 
 ```text
 tools/write_verification_run_receipt.py
@@ -24,6 +25,26 @@ The receipt is uploaded as a workflow artifact matching:
 
 ```text
 publisher-site-verification-receipt-<run>-<attempt>
+```
+
+## Closure Evidence Production Path
+
+Publisher closure evidence production is defined by:
+
+```text
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+tools/check_publisher_closure_evidence_production.py
+tools/close_site_mirror_activation.py
+github/workflows/close-site-mirror-activation.yml
+```
+
+Activation remains pending until both required artifact classes are fresh, ordered, and evidence-valid:
+
+```text
+publisher-site-verification-receipt-<run>-<attempt>
+site-mirror-evidence-<run>-<attempt>
+MAX_ARTIFACT_AGE_HOURS: 48
+ORDER_GRACE_MINUTES: 5
 ```
 
 ## Verification Receipt Template
@@ -51,12 +72,12 @@ docs/verification-run-receipt.template.json
 [ ] Site: capture Site mirror commit SHA.
 [ ] Site: confirm papers/papers_manifest.json includes source metadata.
 [ ] Site: confirm public aliases resolve.
-[ ] Site: update docs/SITE_MIRROR_EVIDENCE_PACKET.md with real evidence values.
-[ ] Site: update docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json with matching real evidence values.
-[ ] Site: run python scripts/check_site_mirror_evidence_packet.py.
-[ ] Site: run python scripts/check_site_mirror_live_evidence_state.py.
-[ ] Publisher: update docs/verification-tracker.md from pending_automated_dispatch to activated.
-[ ] Publisher: update docs/activation-status.md to activated after evidence is recorded.
+[ ] Site: Site evidence artifact is uploaded as site-mirror-evidence-<run>-<attempt>.
+[ ] Publisher: close-site-mirror-activation workflow runs tools/check_publisher_closure_evidence_production.py.
+[ ] Publisher: closure updater verifies freshness and ordering.
+[ ] Publisher: closure updater writes a pending probe or activation closure receipt.
+[ ] Publisher: verification tracker is updated to activated only from closure receipt evidence.
+[ ] Publisher: activation status is updated to activated only from closure receipt evidence.
 ```
 
 ## Evidence Fields To Capture
@@ -71,26 +92,35 @@ manifest_source_repository: PENDING
 manifest_source_ref: PENDING
 manifest_source_of_truth: PENDING
 alias_verification_results: PENDING
-site_evidence_packet_completion_commit: PENDING
-site_live_evidence_state_completion_commit: PENDING
+site_evidence_artifact: PENDING
+publisher_pending_probe: docs/mirror-activation-closures/publisher-site-mirror-pending.json
+publisher_activation_closure_receipt: PENDING
 publisher_verification_tracker_activation_commit: PENDING
 publisher_activation_status_update_commit: PENDING
 ```
 
 ## Release Gate
 
-Do not mark Site paper display current until every applicable check in `docs/release-gate-checklist.md` passes and both Site evidence validators pass.
+Do not mark Site paper display current until every applicable check in `docs/release-gate-checklist.md` passes and the Publisher closure evidence gate has produced a closure receipt.
+
+The pending probe is not an activation receipt.
 
 ## Relevant Files
 
 ```text
 .github/workflows/dispatch-site-mirror.yml
+.github/workflows/close-site-mirror-activation.yml
 .github/workflows/validate-emergency-ai-cases.yml
 tools/check_publisher_activation.py
 tools/check_site_mirror_dispatch.py
 tools/check_release_gate.py
 tools/check_verification_receipt_template.py
+tools/check_generate_papers_workflow.py
+tools/check_publisher_mirror_handoff.py
+tools/check_mirror_ecosystem_management_handoff.py
+tools/check_publisher_closure_evidence_production.py
 tools/write_verification_run_receipt.py
+tools/close_site_mirror_activation.py
 docs/site-mirror-dispatch-protocol.md
 docs/release-gate-checklist.md
 docs/site-paper-display-policy.md
@@ -98,6 +128,8 @@ docs/validation.md
 docs/verification-run-receipt.template.json
 docs/activation-status.md
 docs/PUBLISHER_MIRROR_HANDOFF.md
+docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 StegVerse-Labs/Site/docs/SITE_MIRROR_HANDOFF.md
 StegVerse-Labs/Site/docs/SITE_MIRROR_EVIDENCE_PACKET.md
 StegVerse-Labs/Site/docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json
@@ -106,9 +138,9 @@ StegVerse-Labs/Site/docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json
 ## Next Action
 
 ```text
-Allow the push-triggered Dispatch Site Paper Mirror workflow to produce the Publisher verification receipt artifact, then use the artifact and Site workflow evidence to complete the Site evidence files and activation closure.
+Let the automated workflows proceed: Publisher dispatch produces a fresh Publisher receipt artifact, Site mirror produces a fresh Site evidence artifact, and Publisher closure workflow commits activation when both artifact classes are fresh, ordered, and evidence-valid.
 ```
 
 ## Archive Readiness
 
-This tracker contains the automated mirror verification sequence and evidence fields needed for the next workflow-running session. Older chat context is not required once this file and docs/PUBLISHER_MIRROR_HANDOFF.md are present in the repository.
+This tracker contains the automated mirror verification sequence, closure evidence production boundary, evidence fields, pending probe reference, and activation blockers needed for the next workflow-running session. Older chat context is not required once this file and docs/PUBLISHER_MIRROR_HANDOFF.md are present in the repository.
