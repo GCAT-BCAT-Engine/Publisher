@@ -139,7 +139,14 @@ The current self-managed completion record is:
 docs/PUBLISHER_SELF_MANAGED_COMPLETION.md
 ```
 
-The pending closure status is not activation evidence. It records that Publisher receipt, Site evidence, and closure have not been recorded in that status surface.
+The current validation remainder is:
+
+```text
+docs/PUBLISHER_VALIDATION_REMAINDER.md
+Issue #1: Track final Publisher closure checker alignment
+```
+
+The pending closure status is not activation evidence. It records that Publisher receipt, Site evidence, and closure have not been recorded in that status surface. The validation remainder and Issue #1 are also not activation evidence.
 
 Dry run remains available with:
 
@@ -163,7 +170,7 @@ Publisher-to-Site release status is governed by:
 docs/release-gate-checklist.md
 ```
 
-A Site display should not be marked current until Publisher source validity, dispatch readiness, Site mirror validity, public display verification, governance case posture checks, closure evidence verification, and self-managed completion validation all pass.
+A Site display should not be marked current until Publisher source validity, dispatch readiness, Site mirror validity, public display verification, governance case posture checks, closure evidence verification, validation remainder tracking, and self-managed completion validation all pass.
 
 ## Activation Status
 
@@ -175,7 +182,7 @@ docs/activation-status.md
 
 The current activation boundary is fresh ordered evidence production: Publisher receipt artifact, Site evidence artifact, freshness/order verification, closure receipt, verification tracker activation, and activation status update to `activated`.
 
-The pending probe is not an activation receipt. The pending closure status is also not an activation receipt. The self-managed completion document is also not an activation receipt.
+The pending probe is not an activation receipt. The pending closure status is also not an activation receipt. The self-managed completion document, validation remainder, and Issue #1 are also not activation receipts.
 
 ## Validation
 
@@ -196,7 +203,7 @@ python tools/check_publisher_closure_evidence_production.py
 python tools/check_publisher_self_managed_completion.py
 ```
 
-Self-managed completion means the repository can continue with repo-resident workflows, validators, handoffs, pending-status runtime updates, receipt-boundary preservation, and closure receipt logic. Live activation still requires the fresh Publisher receipt artifact, fresh Site evidence artifact, and closure receipt commit.
+Self-managed completion means the repository can continue with repo-resident workflows, validators, handoffs, pending-status runtime updates, receipt-boundary preservation, validation remainder tracking, Issue #1 tracking, and closure receipt logic. Live activation still requires the fresh Publisher receipt artifact, fresh Site evidence artifact, and closure receipt commit.
 
 ## Governance Case Scaffolding
 
@@ -216,14 +223,4 @@ cases/<CASE-ID>.md
 governance/cases/<CASE-ID>.case.json
 governance/cases/<CASE-ID>.sources.json
 governance/receipts/<CASE-ID>.receipt.json
-```
-
-Existing files are preserved by default. Use `--force` only when overwrite is intended.
-
-Publisher also carries machine-readable governance case objects for public case studies.
-
-Emergency AI restriction case objects are stored in:
-
-```text
-governance/cases/*.case.json
 ```
