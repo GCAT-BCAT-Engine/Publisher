@@ -23,6 +23,7 @@ Target path: papers
 Activation state: pending_fresh_ordered_artifacts
 Completion class: self_managed_handoff_completion
 Self-managed completion: docs/PUBLISHER_SELF_MANAGED_COMPLETION.md
+Open alignment issue: #1 Track final Publisher closure checker alignment
 ```
 
 ## Self-Managed Completion
@@ -66,6 +67,7 @@ docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
 docs/PUBLISHER_SELF_MANAGED_COMPLETION.md
+docs/PUBLISHER_VALIDATION_REMAINDER.md
 docs/mirror-activation-closures/publisher-site-mirror-pending.json
 docs/mirror-activation-closures/<closure>.json
 docs/PUBLISHER_MIRROR_HANDOFF.md
@@ -80,6 +82,7 @@ Publisher verification receipts are not activation receipts.
 The pending probe file is not an activation receipt.
 The pending closure status is not an activation receipt.
 The self-managed completion document is not an activation receipt.
+Issue #1 is not activation evidence.
 ```
 
 ## Current Delta
@@ -90,9 +93,10 @@ Resolved: Publisher closure runtime writes pending closure status during unresol
 Resolved: Publisher closure evidence checker validates runtime pending-status behavior.
 Resolved: Publisher self-managed completion document records repository-managed continuation readiness.
 Resolved: Publisher self-managed completion checker validates the completion boundary.
+Tracked: Issue #1 records final closure-checker handoff-term alignment.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, and closure commit from the automated closure workflow.
 ```
 
 ## Archive Readiness
 
-This handoff now points to the Publisher self-managed completion artifact. Prior chat thread context is not required for forward progress once this file, docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md, docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md, and docs/PUBLISHER_SELF_MANAGED_COMPLETION.md are present in the repository.
+This handoff now points to the Publisher self-managed completion artifact and Issue #1 for the final checker-alignment tracking item. Prior chat thread context is not required for forward progress once this file, docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md, docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md, docs/PUBLISHER_SELF_MANAGED_COMPLETION.md, docs/PUBLISHER_VALIDATION_REMAINDER.md, and the Issue #1 tracker are present in the repository.
