@@ -218,6 +218,8 @@ Resolved: Publisher activation runner now checks Publisher handoff, ecosystem ma
 Resolved: Publisher activation status records the closure evidence production packet and runner coverage.
 Resolved: Publisher dispatch protocol now records closure evidence production as part of dispatch validation and done-state evidence handling.
 Resolved: Publisher Site mirror dispatch checker now requires the closure evidence production packet and closure workflow guard.
+Resolved: Publisher release gate checklist, validation doc, tracker, and README now use the fresh ordered closure evidence boundary instead of the older dry-run activation boundary.
+Resolved: Publisher release gate checker now requires closure evidence production, pending-probe non-activation language, and current activation blockers.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, and closure commit from the automated closure workflow.
 ```
 
