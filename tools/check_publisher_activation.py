@@ -16,6 +16,9 @@ COMMANDS = [
     [sys.executable, "tools/check_release_gate.py"],
     [sys.executable, "tools/check_verification_receipt_template.py"],
     [sys.executable, "tools/check_generate_papers_workflow.py"],
+    [sys.executable, "tools/check_publisher_mirror_handoff.py"],
+    [sys.executable, "tools/check_mirror_ecosystem_management_handoff.py"],
+    [sys.executable, "tools/check_publisher_closure_evidence_production.py"],
 ]
 
 
