@@ -29,6 +29,9 @@ MANAGEMENT_TERMS = [
     "current_goal: Publisher closure evidence production",
     "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
     "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
+    "docs/verification-run-receipt.template.json",
+    "tools/write_verification_run_receipt.py",
+    "tools/check_verification_receipt_template.py",
     "StegVerse-Labs/Site/docs/TRANSITION_DISCOVERY_STATUS.md",
     "StegVerse-Labs/Site/data/transition-discovery-status-v1.json",
     "tools/check_publisher_closure_evidence_production.py",
@@ -36,7 +39,8 @@ MANAGEMENT_TERMS = [
     "automation chain",
     "acceptance criteria",
     "live GitHub Actions artifact production",
-    "the pending closure status is an activation receipt",
+    "the pending closure status is not an activation receipt",
+    "Publisher verification receipts are activation receipts",
     "fresh, ordered, and evidence-valid",
 ]
 
