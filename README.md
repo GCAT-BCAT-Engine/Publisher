@@ -133,6 +133,12 @@ The current pending closure status is:
 docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
 ```
 
+The current self-managed completion record is:
+
+```text
+docs/PUBLISHER_SELF_MANAGED_COMPLETION.md
+```
+
 The pending closure status is not activation evidence. It records that Publisher receipt, Site evidence, and closure have not been recorded in that status surface.
 
 Dry run remains available with:
@@ -157,7 +163,7 @@ Publisher-to-Site release status is governed by:
 docs/release-gate-checklist.md
 ```
 
-A Site display should not be marked current until Publisher source validity, dispatch readiness, Site mirror validity, public display verification, governance case posture checks, and closure evidence verification all pass.
+A Site display should not be marked current until Publisher source validity, dispatch readiness, Site mirror validity, public display verification, governance case posture checks, closure evidence verification, and self-managed completion validation all pass.
 
 ## Activation Status
 
@@ -169,7 +175,7 @@ docs/activation-status.md
 
 The current activation boundary is fresh ordered evidence production: Publisher receipt artifact, Site evidence artifact, freshness/order verification, closure receipt, verification tracker activation, and activation status update to `activated`.
 
-The pending probe is not an activation receipt. The pending closure status is also not an activation receipt.
+The pending probe is not an activation receipt. The pending closure status is also not an activation receipt. The self-managed completion document is also not an activation receipt.
 
 ## Validation
 
@@ -187,7 +193,10 @@ python tools/check_release_gate.py
 python tools/check_publisher_mirror_handoff.py
 python tools/check_mirror_ecosystem_management_handoff.py
 python tools/check_publisher_closure_evidence_production.py
+python tools/check_publisher_self_managed_completion.py
 ```
+
+Self-managed completion means the repository can continue with repo-resident workflows, validators, handoffs, pending-status runtime updates, receipt-boundary preservation, and closure receipt logic. Live activation still requires the fresh Publisher receipt artifact, fresh Site evidence artifact, and closure receipt commit.
 
 ## Governance Case Scaffolding
 
