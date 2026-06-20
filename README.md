@@ -91,9 +91,10 @@ Site display updates should follow this order:
 1. Update Publisher source record.
 2. Validate Publisher record.
 3. Generate or refresh Publisher runtime data.
-4. Update Site display surface.
+4. Dispatch Site mirror workflow.
 5. Verify Site links resolve to Publisher-owned paths.
-6. Commit Site update with Publisher source reference.
+6. Produce Site evidence artifact.
+7. Close Publisher activation only from fresh ordered Publisher/Site evidence artifacts.
 ```
 
 ## Site Mirror Dispatch
@@ -120,13 +121,19 @@ The current Publisher-side continuation handoff is:
 docs/PUBLISHER_MIRROR_HANDOFF.md
 ```
 
-Before installing or relying on dispatch credentials, run the workflow manually with:
+The current Publisher-side closure evidence packet is:
+
+```text
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+```
+
+Dry run remains available with:
 
 ```text
 dry_run: true
 ```
 
-Dry run validates Publisher records and dispatch configuration without requiring a token or triggering Site.
+Dry run validates Publisher records and dispatch configuration without requiring a token or triggering Site. It is an optional diagnostic fallback, not the activation boundary.
 
 The Publisher repo secret required for live dispatch is:
 
@@ -142,7 +149,7 @@ Publisher-to-Site release status is governed by:
 docs/release-gate-checklist.md
 ```
 
-A Site display should not be marked current until Publisher source validity, dispatch readiness, Site mirror validity, public display verification, and governance case posture checks all pass.
+A Site display should not be marked current until Publisher source validity, dispatch readiness, Site mirror validity, public display verification, governance case posture checks, and closure evidence verification all pass.
 
 ## Activation Status
 
@@ -152,7 +159,27 @@ Current repo activation status is tracked in:
 docs/activation-status.md
 ```
 
-The current activation boundary is manual dry-run execution, dry-run receipt capture, live dispatch, Site mirror completion, live-dispatch receipt capture, and verification tracker update to `activated`.
+The current activation boundary is fresh ordered evidence production: Publisher receipt artifact, Site evidence artifact, freshness/order verification, closure receipt, verification tracker activation, and activation status update to `activated`.
+
+The pending probe is not an activation receipt.
+
+## Validation
+
+Run the complete Publisher activation validation sequence with:
+
+```bash
+python tools/check_publisher_activation.py
+```
+
+The activation runner executes:
+
+```text
+python tools/check_site_mirror_dispatch.py
+python tools/check_release_gate.py
+python tools/check_publisher_mirror_handoff.py
+python tools/check_mirror_ecosystem_management_handoff.py
+python tools/check_publisher_closure_evidence_production.py
+```
 
 ## Governance Case Scaffolding
 
@@ -175,8 +202,6 @@ governance/receipts/<CASE-ID>.receipt.json
 ```
 
 Existing files are preserved by default. Use `--force` only when overwrite is intended.
-
-## Validation
 
 Publisher also carries machine-readable governance case objects for public case studies.
 
