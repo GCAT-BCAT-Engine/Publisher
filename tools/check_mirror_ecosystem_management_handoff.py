@@ -12,10 +12,12 @@ REQUIRED_FILES = [
     Path("docs/PUBLISHER_MIRROR_HANDOFF.md"),
     Path("docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md"),
     Path("docs/PUBLISHER_PENDING_CLOSURE_STATUS.md"),
+    Path("docs/verification-run-receipt.template.json"),
     Path("docs/activation-status.md"),
     Path("docs/verification-tracker.md"),
     Path("tools/close_site_mirror_activation.py"),
     Path("tools/write_verification_run_receipt.py"),
+    Path("tools/check_verification_receipt_template.py"),
     Path("tools/check_publisher_closure_evidence_production.py"),
     Path(".github/workflows/dispatch-site-mirror.yml"),
     Path(".github/workflows/close-site-mirror-activation.yml"),
@@ -34,7 +36,7 @@ MANAGEMENT_TERMS = [
     "automation chain",
     "acceptance criteria",
     "live GitHub Actions artifact production",
-    "pending closure status is an activation receipt",
+    "the pending closure status is an activation receipt",
     "fresh, ordered, and evidence-valid",
 ]
 
@@ -44,6 +46,12 @@ PUBLISHER_HANDOFF_TERMS = [
     "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
     "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
     "tools/check_publisher_closure_evidence_production.py",
+    "docs/verification-run-receipt.template.json",
+    "tools/check_verification_receipt_template.py",
+    "tools/write_verification_run_receipt.py",
+    "closure_evidence_results",
+    "closure_evidence_verification",
+    "not activation receipts",
     "self_managed_handoff_completion",
     "fresh ordered artifacts",
 ]
@@ -69,6 +77,15 @@ PENDING_STATUS_TERMS = [
     "closure_recorded_here: false",
     "pending_probe_only: true",
     "valid: publisher closure evidence production",
+]
+
+RECEIPT_TEMPLATE_TERMS = [
+    "closure_evidence_results",
+    "closure_evidence_verification",
+    "publisher-site-verification-receipt",
+    "site-mirror-evidence",
+    "pending_fresh_ordered_artifacts",
+    "This receipt is not an activation receipt until a closure receipt is written.",
 ]
 
 STATUS_TERMS = [
@@ -125,6 +142,7 @@ def main() -> int:
         (Path("docs/PUBLISHER_MIRROR_HANDOFF.md"), PUBLISHER_HANDOFF_TERMS),
         (Path("docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md"), CLOSURE_EVIDENCE_TERMS),
         (Path("docs/PUBLISHER_PENDING_CLOSURE_STATUS.md"), PENDING_STATUS_TERMS),
+        (Path("docs/verification-run-receipt.template.json"), RECEIPT_TEMPLATE_TERMS),
         (Path("docs/activation-status.md"), STATUS_TERMS),
         (Path("tools/close_site_mirror_activation.py"), CLOSURE_SCRIPT_TERMS),
     ]
