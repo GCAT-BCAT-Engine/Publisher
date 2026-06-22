@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "receipt_type": "publisher_receipt",
+  "target_repo": "GCAT-BCAT-Engine/Publisher",
+  "source_repo": "StegVerse-Labs/Site",
+  "origin_repo": "StegVerse-Labs/StegTalk",
+  "production_ready": false,
+  "installed_files": [
+    "PUBLISHER_MIRROR_HANDOFF.md",
+    "data/stegtalk-local-candidate.json"
+  ],
+  "remaining_targets": [
+    "admissibility-wiki",
+    "stegguardian-wiki"
+  ]
+}
