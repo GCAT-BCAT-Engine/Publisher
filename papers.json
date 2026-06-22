@@ -42,6 +42,40 @@
     "final_path": "./papers/problem_solver/SV/final/"
   },
   {
+    "id": "sv-iict-2026",
+    "title": "Irreversibility-Inference Convergence Theorem",
+    "subtitle": "A theorem candidate for commit-time admissibility geometry",
+    "authors": [
+      {
+        "name": "Rigel Randolph",
+        "affiliation": "StegVerse Ecosystem",
+        "orcid": null
+      }
+    ],
+    "date": "2026-06-22",
+    "version": "0.1.0",
+    "status": "draft",
+    "category": "governance",
+    "tags": [
+      "IICT",
+      "commit-time admissibility",
+      "admissibility geometry",
+      "governance distance",
+      "reconstructability",
+      "transition elements"
+    ],
+    "abstract": "The Irreversibility-Inference Convergence Theorem proposes that governance systems subjected to repeated admissibility optimization converge toward structures that minimize the distance between irreversible commitment and the final admissible inference while preserving reconstructability. The paper frames IICT as a theorem candidate under Commit-Time Admissibility, not as a replacement for it, and defines transition-element constructions for inference windows, irreversibility points, governance distance measurements, convergence observations, and theorem evaluation.",
+    "doi": null,
+    "pdf_url": null,
+    "html_url": null,
+    "source_repo": "Admissible-Existence/IICT",
+    "license": "CC-BY-4.0",
+    "peer_review": false,
+    "citations": 0,
+    "downloads": 0,
+    "featured": false
+  },
+  {
     "id": "ext001-2026",
     "title": "EXT001: External Problem Demonstration",
     "subtitle": "Cross-Domain Applicability of the StegVerse Pipeline",
@@ -59,7 +93,7 @@
     "tags": [
       "external problem",
       "cross-domain",
-      "Erd\u0151s-class"
+      "Erdős-class"
     ],
     "abstract": "Pending external problem execution to demonstrate cross-domain applicability of the StegVerse autonomous mathematical pipeline beyond GCAT/BCAT-native problems.",
     "doi": null,
