@@ -6,7 +6,7 @@ This file is the current handoff and task source of truth for `GCAT-BCAT-Engine/
 
 ## Current Priority
 
-Publish or update StegTalk non-production local candidate status from the Site mirror and StegTalk source artifacts.
+StegTalk non-production local candidate status has been published to Publisher and propagated through the known wiki targets.
 
 ## Source Artifacts
 
@@ -23,22 +23,26 @@ Original source: `StegVerse-Labs/StegTalk`
 - `STEGTALK_LOCAL_CANDIDATE.json`
 - `STEGTALK_RELEASE_HANDOFF.json`
 
-## Required Publisher Install
+## Publisher Install Complete
 
 Destination: `GCAT-BCAT-Engine/Publisher`
 
-- Publisher-visible StegTalk local candidate record
-- Publisher receipt preserving non-production boundary and downstream wiki targets
+- `data/stegtalk-local-candidate.json`
+- `data/stegtalk-local-candidate-publisher-receipt.json`
 
-## Downstream Propagation Still Required
+## Downstream Propagation Complete
 
-Destination: `admissibility-wiki`
+Destination: `StegVerse-Labs/admissibility-wiki`
 
-- add/update StegTalk admissibility boundary notes
+- `ADMISSIBILITY_MIRROR_HANDOFF.md`
+- `pages/stegtalk-admissibility-boundary.md`
+- `receipts/stegtalk-admissibility-boundary-receipt.json`
 
-Destination: `stegguardian-wiki`
+Destination: `StegVerse-002/stegguardian-wiki`
 
-- add/update StegTalk guardian/account boundary notes
+- `STEGGUARDIAN_WIKI_MIRROR_HANDOFF.md`
+- `pages/stegtalk-guardian-account-boundary.md`
+- `receipts/stegtalk-boundary-receipt.json`
 
 ## Build Rule
 
@@ -47,3 +51,7 @@ Before continuing any Publisher mirror task, check this file first and treat it 
 ## Boundary
 
 StegTalk remains a non-production local prototype candidate. Do not publish it as production ready.
+
+## Next Integration Candidate
+
+No additional StegTalk propagation target is currently known from this handoff.
