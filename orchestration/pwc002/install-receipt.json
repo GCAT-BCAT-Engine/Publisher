@@ -1,0 +1,11 @@
+{
+  "receipt_type": "pwc002_repo_install_receipt",
+  "repo": "GCAT-BCAT-Engine/Publisher",
+  "role": "publisher",
+  "branch": "pwc002/install-runtime-handoff",
+  "live_default_branch_write": false,
+  "merge_authorized": false,
+  "publication_acceptance_claimed": false,
+  "manual_task_eliminated": "publisher handoff placement",
+  "result": "DRAFT_BRANCH_INSTALLED"
+}
