@@ -1,0 +1,20 @@
+{
+  "receipt_id": "publisher-tcl-propagation-receipt-001",
+  "receipt_type": "publisher_tcl_propagation_intake_receipt",
+  "created_at": "2026-06-24T00:00:00Z",
+  "source_repository": "StegVerse-Labs/T-CL",
+  "destination_repository": "GCAT-BCAT-Engine/Publisher",
+  "source_handoff": "docs/TCL_RELEASE_CANDIDATE_MIRROR_HANDOFF.md",
+  "destination_handoff_checked": "PUBLISHER_MIRROR_HANDOFF.md",
+  "intake_record": "data/tcl-propagation-intake.json",
+  "manual_task_required": false,
+  "standing": "intake_recorded_route_not_yet_published",
+  "publisher_boundary": {
+    "routing_surface_only": true,
+    "no_semantic_redefinition": true,
+    "no_release_certification_claim": true,
+    "no_downstream_completion_claim": true,
+    "no_measured_savings_claim": true
+  },
+  "next_step": "Validate with scripts/check_tcl_propagation_receipt.py before adding any publication route."
+}
