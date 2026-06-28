@@ -1,0 +1,29 @@
+name: Publisher T-CL Propagation Receipt
+
+on:
+  push:
+    paths:
+      - "data/tcl-propagation-intake.json"
+      - "data/tcl-propagation-receipt.json"
+      - "scripts/check_tcl_propagation_receipt.py"
+      - ".github/workflows/tcl-propagation-receipt.yml"
+  pull_request:
+    paths:
+      - "data/tcl-propagation-intake.json"
+      - "data/tcl-propagation-receipt.json"
+      - "scripts/check_tcl_propagation_receipt.py"
+      - ".github/workflows/tcl-propagation-receipt.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - run: python scripts/check_tcl_propagation_receipt.py
