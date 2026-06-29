@@ -4,7 +4,7 @@
 
 This checklist defines when a Publisher update may be treated as current on the StegVerse Site.
 
-A green workflow alone is not the full release gate. The release gate requires source validity, dispatch validity, Site mirror validity, public-link verification, governance case posture preservation, Publisher receipt non-activation preservation, pending closure status preservation, and fresh ordered closure evidence.
+A green workflow alone is not the full release gate. The release gate requires source validity, dispatch validity, Site mirror validity, public-link verification, governance case posture preservation, source-geometry citation-boundary preservation, Publisher receipt non-activation preservation, pending closure status preservation, and fresh ordered closure evidence.
 
 ## Scope
 
@@ -29,12 +29,17 @@ docs/PUBLISHER_MIRROR_HANDOFF.md
 docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
+docs/PUBLISHER_SELF_MANAGED_COMPLETION.md
+docs/PUBLISHER_VALIDATION_REMAINDER.md
+docs/SOURCE_GEOMETRY_PROVENANCE.md
 tools/check_publisher_activation.py
 tools/check_site_mirror_dispatch.py
 tools/check_release_gate.py
 tools/check_verification_receipt_template.py
 tools/write_verification_run_receipt.py
 tools/check_publisher_closure_evidence_production.py
+tools/check_publisher_self_managed_completion.py
+tools/check_publisher_mirror_handoff.py
 ```
 
 ## Gate 1 — Publisher Source Validity
@@ -68,6 +73,7 @@ python tools/check_generate_papers_workflow.py
 python tools/check_publisher_mirror_handoff.py
 python tools/check_mirror_ecosystem_management_handoff.py
 python tools/check_publisher_closure_evidence_production.py
+python tools/check_publisher_self_managed_completion.py
 ```
 
 ## Gate 2 — Dispatch Readiness
@@ -132,7 +138,26 @@ receipt posture remains separate from public narrative
 Site text does not convert disputed or provisional claims into final findings
 ```
 
-## Gate 6 — Closure Evidence Verification
+## Gate 6 — Source Geometry Citation Verification
+
+Required when Publisher records, papers, manifests, or Site mirrors reference SG-001 or the original drawing:
+
+```text
+docs/SOURCE_GEOMETRY_PROVENANCE.md exists
+Publisher local note identifies StegVerse-Labs/admissibility-wiki as source authority
+Publisher local note references docs/formalisms/original-drawing-reference.md
+Publisher local note identifies Source Geometry ID: SG-001
+Publisher local note identifies Creator: Rigel Randolph
+Publisher local note classifies the artifact as pre_BCAT_GCAT_recoverability_geometry
+Publisher local note states Publisher role as citation_and_publication_surface_only
+Publisher handoff states Publisher role: citation and publication surface only
+Publisher handoff states the Source Geometry Provenance note is not custody authority or proof authority
+Publisher self-managed completion states the source-geometry provenance note is not custody authority, proof authority, priority authority, or derivation authority
+```
+
+This gate does not require binary source images to be committed to Publisher. If binary image preservation is required later, the custody packet should be added through the governed Admissibility Wiki source-authority path first.
+
+## Gate 7 — Closure Evidence Verification
 
 Required before marking activation complete:
 
@@ -153,12 +178,13 @@ Publisher activation status is updated to activated
 The pending probe is not an activation receipt.
 Publisher verification receipts are not activation receipts.
 The pending closure status is not an activation receipt.
+The source-geometry provenance note is not an activation receipt.
 
 ## Release Decision
 
 A Publisher to Site release is complete only when all applicable gates pass and the closure evidence gate writes an activation closure receipt.
 
-If any gate fails, do not mark the Site display current. Fix the failing source, workflow, mirror, public-link, posture, artifact, freshness, ordering, receipt-boundary, pending-status, or closure condition and rerun from the earliest affected gate.
+If any gate fails, do not mark the Site display current. Fix the failing source, workflow, mirror, public-link, posture, source-geometry citation-boundary, artifact, freshness, ordering, receipt-boundary, pending-status, or closure condition and rerun from the earliest affected gate.
 
 ## Current Next Step
 
