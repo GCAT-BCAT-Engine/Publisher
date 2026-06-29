@@ -1,0 +1,9 @@
+{
+  "source_repo": "StegVerse-Labs/Site",
+  "original_source_repo": "StegVerse-Labs/Standing-Proof-Engine",
+  "snapshot": "v0.5.0",
+  "publisher_status": "RECEIVED",
+  "receipt_chain_package": "COMPLETE_LOCAL_SPE_PACKAGE",
+  "master_records_emission": "master-records/core-lite:records/spe_destination_receipt_chain_001.json",
+  "wiki_propagation_required": true
+}
