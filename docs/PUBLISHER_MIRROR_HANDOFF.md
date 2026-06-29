@@ -4,7 +4,7 @@
 
 This handoff lets a Publisher-side build session continue Publisher-to-Site mirror activation without needing prior chat context.
 
-Use this file as the Publisher-side source of truth for mirror dispatch, automated closure continuation, and ecosystem-management handoff.
+Use this file as the Publisher-side source of truth for mirror dispatch, automated closure continuation, source-geometry citation posture, and ecosystem-management handoff.
 
 ## Current Assessment Goal
 
@@ -26,6 +26,22 @@ Self-managed completion: docs/PUBLISHER_SELF_MANAGED_COMPLETION.md
 Open alignment issue: #1 Track final Publisher closure checker alignment
 ```
 
+## Source Geometry Citation Posture
+
+```text
+Source authority: StegVerse-Labs/admissibility-wiki
+Source authority page: docs/formalisms/original-drawing-reference.md
+Publisher local note: docs/SOURCE_GEOMETRY_PROVENANCE.md
+Source Geometry ID: SG-001
+Creator: Rigel Randolph
+Classification: pre-BCAT/GCAT precursor source geometry
+Current earliest preserved copy: 2026-03-05
+Earlier upload state: not yet located
+Publisher role: citation and publication surface only
+```
+
+Publisher may cite SG-001 provenance when relevant to a paper, manifest record, governance case, or public mirror. Publisher must not become the custody authority, proof authority, priority authority, or derivation authority for the source geometry.
+
 ## Self-Managed Completion
 
 ```text
@@ -35,7 +51,7 @@ repo_build_state: self_managed_completion_ready
 activation_state: pending_fresh_ordered_artifacts
 ```
 
-The Publisher repository can continue this goal through repository-resident workflows, validators, handoffs, pending-status runtime updates, receipt-boundary preservation, and closure receipt logic. Live activation remains pending until the fresh Publisher receipt artifact, fresh Site evidence artifact, and closure receipt commit exist.
+The Publisher repository can continue this goal through repository-resident workflows, validators, handoffs, pending-status runtime updates, receipt-boundary preservation, source-geometry citation posture, and closure receipt logic. Live activation remains pending until the fresh Publisher receipt artifact, fresh Site evidence artifact, and closure receipt commit exist.
 
 ## Built Files
 
@@ -68,12 +84,24 @@ docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
 docs/PUBLISHER_SELF_MANAGED_COMPLETION.md
 docs/PUBLISHER_VALIDATION_REMAINDER.md
+docs/SOURCE_GEOMETRY_PROVENANCE.md
 docs/mirror-activation-closures/publisher-site-mirror-pending.json
 docs/mirror-activation-closures/<closure>.json
 docs/PUBLISHER_MIRROR_HANDOFF.md
 ```
 
 Note: workflow paths are displayed without the leading dot. The actual repository paths include the leading dot.
+
+## Known Remaining Install / Activation Items
+
+| Item | Destination Org/Repo | Status | Boundary |
+|---|---|---:|---|
+| Fresh Publisher receipt artifact | `GCAT-BCAT-Engine/Publisher` | Pending | Required for live mirror activation evidence. |
+| Fresh Site evidence artifact | `StegVerse-Labs/Site` | Pending | Required for closure evidence. |
+| Closure receipt commit | `GCAT-BCAT-Engine/Publisher` | Pending | Required before activation can be marked complete. |
+| Final closure-checker handoff-term alignment | `GCAT-BCAT-Engine/Publisher` | Tracked by Issue #1 | Not activation evidence by itself. |
+| Optional SG-001 binary image custody packet | `StegVerse-Labs/admissibility-wiki` | Not installed | Add only through governed source-authority path if binary images are committed later. |
+| Optional Publisher paper citation update for SG-001 | `GCAT-BCAT-Engine/Publisher` | Pending until a paper discusses chronology | Citation only; no provenance authority. |
 
 ## Non-Activation Boundary
 
@@ -82,6 +110,7 @@ Publisher verification receipts are not activation receipts.
 The pending probe file is not an activation receipt.
 The pending closure status is not an activation receipt.
 The self-managed completion document is not an activation receipt.
+The Source Geometry Provenance note is not custody authority or proof authority.
 Issue #1 is not activation evidence.
 ```
 
@@ -93,10 +122,11 @@ Resolved: Publisher closure runtime writes pending closure status during unresol
 Resolved: Publisher closure evidence checker validates runtime pending-status behavior.
 Resolved: Publisher self-managed completion document records repository-managed continuation readiness.
 Resolved: Publisher self-managed completion checker validates the completion boundary.
+Resolved: Publisher source-geometry provenance note records SG-001 citation posture without moving authority out of Admissibility Wiki.
 Tracked: Issue #1 records final closure-checker handoff-term alignment.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, and closure commit from the automated closure workflow.
 ```
 
 ## Archive Readiness
 
-This handoff now points to the Publisher self-managed completion artifact and Issue #1 for the final checker-alignment tracking item. Prior chat thread context is not required for forward progress once this file, docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md, docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md, docs/PUBLISHER_SELF_MANAGED_COMPLETION.md, docs/PUBLISHER_VALIDATION_REMAINDER.md, and the Issue #1 tracker are present in the repository.
+This handoff now points to the Publisher self-managed completion artifact, source-geometry provenance note, and Issue #1 for the final checker-alignment tracking item. Prior chat thread context is not required for forward progress once this file, docs/SOURCE_GEOMETRY_PROVENANCE.md, docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md, docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md, docs/PUBLISHER_SELF_MANAGED_COMPLETION.md, docs/PUBLISHER_VALIDATION_REMAINDER.md, and the Issue #1 tracker are present in the repository.
