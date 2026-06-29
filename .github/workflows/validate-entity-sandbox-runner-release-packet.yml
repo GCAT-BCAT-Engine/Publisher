@@ -1,0 +1,33 @@
+name: Validate Entity Sandbox Runner Release Packet
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/validate-entity-sandbox-runner-release-packet.yml"
+      - "docs/ENTITY_SANDBOX_RUNNER_RELEASE_PACKET_STATUS.md"
+      - "docs/ENTITY_SANDBOX_RUNNER_RELEASE_PACKET_STATUS.json"
+      - "tools/check_entity_sandbox_runner_release_packet_status.py"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-entity-sandbox-runner-release-packet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Publisher
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate Publisher release packet status
+        run: python tools/check_entity_sandbox_runner_release_packet_status.py
