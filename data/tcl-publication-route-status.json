@@ -1,0 +1,28 @@
+{
+  "route_status_id": "publisher-tcl-route-status-001",
+  "created_at": "2026-06-24T00:00:00Z",
+  "source_repository": "StegVerse-Labs/T-CL",
+  "destination_repository": "GCAT-BCAT-Engine/Publisher",
+  "intake_record": "data/tcl-propagation-intake.json",
+  "receipt_record": "data/tcl-propagation-receipt.json",
+  "manual_task_required": false,
+  "route_status": "bounded_route_recorded_no_downstream_publication_claim",
+  "allowed_route": {
+    "route_type": "status_only_mirror_instruction",
+    "may_route_to_admissibility_wiki": true,
+    "may_route_to_stegguardian_wiki": true,
+    "requires_target_handoff_check": true,
+    "requires_target_receipt": true
+  },
+  "blocked_claims": [
+    "Publisher certifies T-CL",
+    "Publisher redefines T-CL semantics",
+    "Publisher claims downstream propagation complete before target receipts exist",
+    "Publisher claims admissibility-cost savings are measured",
+    "Publisher grants release authority"
+  ],
+  "next_targets": [
+    "admissibility-wiki",
+    "stegguardian-wiki"
+  ]
+}
