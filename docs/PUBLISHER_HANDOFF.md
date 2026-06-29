@@ -25,15 +25,26 @@ Publisher must not claim validated release status unless source validation evide
 ## Installed Files
 
 - docs/PUBLISHER_HANDOFF.md
+- docs/REPO_STANDARDS_PUBLICATION_PLAN.md
+- docs/REPO_STANDARDS_PUBLICATION_STATUS.md
+- docs/REPO_STANDARDS_PUBLICATION_CHECK.md
+- docs/STANDARDS_PUBLICATION_TASK.md
+
+## Current State
+
+Publisher standards publication surface is installed as display-only guidance.
 
 ## Remaining Work
 
-- Add repo-standards publication plan.
-- Add publication checker.
-- Add publication status report.
-- Add a task declaration without adding workflow sprawl.
-- Preserve downstream pending targets: admissibility-wiki and stegguardian-wiki.
+- Add executable checker when connector permits script write.
+- Continue downstream targets:
+  - admissibility-wiki
+  - stegguardian-wiki
 
 ## Completion Target
 
-Goal activation is reached when Publisher has a standards publication plan, checker, status report, and updated handoff.
+Goal activation is reached. Publisher has a standards publication plan, check surface, status report, task declaration, and updated handoff.
+
+## Next Integration Goal Candidate
+
+Install repo-standards admissibility reference in admissibility-wiki, preserving source authority and release-candidate validation boundary.
