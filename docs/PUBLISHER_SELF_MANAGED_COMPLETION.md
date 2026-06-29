@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document records the Publisher repository state after the closure-evidence production path became self-managed by repository-resident workflows, validators, handoffs, runtime pending-status updates, issue tracking, and closure receipt logic.
+This document records the Publisher repository state after the closure-evidence production path became self-managed by repository-resident workflows, validators, handoffs, runtime pending-status updates, issue tracking, source-geometry citation posture, and closure receipt logic.
 
 It does not claim live activation. It records that the repository can continue without prior chat context or manual evidence entry.
 
@@ -17,6 +17,7 @@ site_repository: StegVerse-Labs/Site
 source_path: papers
 target_path: papers
 open_alignment_issue: #1 Track final Publisher closure checker alignment
+source_geometry_note: docs/SOURCE_GEOMETRY_PROVENANCE.md
 ```
 
 ## Built Closure Path
@@ -36,6 +37,16 @@ Publisher closure updater updates tracker and activation status only from closur
 Issue #1 tracks final checker-alignment hardening without acting as activation evidence.
 ```
 
+## Built Source-Geometry Citation Path
+
+```text
+Admissibility Wiki remains source authority for SG-001 provenance.
+Publisher records only citation and publication posture.
+Publisher local note: docs/SOURCE_GEOMETRY_PROVENANCE.md
+Publisher mirror handoff references the source-geometry note.
+No Publisher page or paper should treat the provenance note as proof authority.
+```
+
 ## Required Files
 
 ```text
@@ -48,6 +59,7 @@ docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
 docs/PUBLISHER_SELF_MANAGED_COMPLETION.md
 docs/PUBLISHER_VALIDATION_REMAINDER.md
+docs/SOURCE_GEOMETRY_PROVENANCE.md
 docs/verification-run-receipt.template.json
 docs/verification-tracker.md
 docs/activation-status.md
@@ -72,6 +84,7 @@ The validation remainder document is not activation evidence.
 The pending probe is not an activation receipt.
 Publisher verification receipts are not activation receipts.
 The pending closure status is not an activation receipt.
+The source-geometry provenance note is not custody authority, proof authority, priority authority, or derivation authority.
 Activation is not complete until docs/mirror-activation-closures/publisher-site-mirror-closure-<timestamp>.json exists and tracker/status are updated from that closure evidence.
 ```
 
@@ -83,12 +96,19 @@ actual_fresh_site_evidence_artifact: required
 automated_closure_receipt_commit: required
 ```
 
+## Remaining Optional Integration Dependency
+
+```text
+sg_001_binary_image_custody_packet: optional; should be added to StegVerse-Labs/admissibility-wiki first if binary image preservation is required.
+publisher_paper_citation_update: optional; should occur only when a paper or manifest entry discusses source-geometry chronology.
+```
+
 ## Done Definition
 
 The Publisher repository build for this goal is self-managed when:
 
 ```text
-All required workflows, handoffs, validators, receipt writers, pending-status writers, issue trackers, and closure updater files exist.
+All required workflows, handoffs, validators, receipt writers, pending-status writers, issue trackers, source-geometry citation posture, and closure updater files exist.
 The activation runner can validate the closure evidence production boundary.
 The release gate preserves the receipt/pending-status non-activation boundary.
 The primary handoff checker validates the validation remainder and Issue #1 tracking reference.
@@ -102,5 +122,5 @@ Live activation remains pending until the external artifact pair exists and the 
 
 ```text
 thread_archive_ready: true
-reason: The repository contains the handoffs, validators, workflows, pending-status runtime update, receipt boundary, closure evidence production packet, validation remainder, Issue #1 tracker, and activation closure updater needed to continue without this chat.
+reason: The repository contains the handoffs, validators, workflows, pending-status runtime update, receipt boundary, closure evidence production packet, source-geometry citation posture, validation remainder, Issue #1 tracker, and activation closure updater needed to continue without this chat.
 ```
