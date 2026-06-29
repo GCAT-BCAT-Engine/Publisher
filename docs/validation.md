@@ -4,7 +4,7 @@
 
 Publisher case records that use machine-readable JSON should validate before they are treated as ready for republication.
 
-Publisher-to-Site activation also requires release-gate validation so documentation, workflow hooks, dispatch behavior, activation status, generated-paper workflow paths, verification receipt structure, handoff state, closure evidence production, pending closure status, close-workflow self-managed completion checks, and self-managed completion status do not drift from the operational boundary.
+Publisher-to-Site activation also requires release-gate validation so documentation, workflow hooks, dispatch behavior, activation status, generated-paper workflow paths, verification receipt structure, handoff state, source-geometry citation posture, closure evidence production, pending closure status, close-workflow self-managed completion checks, and self-managed completion status do not drift from the operational boundary.
 
 ## Files
 
@@ -35,6 +35,7 @@ docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
 docs/PUBLISHER_SELF_MANAGED_COMPLETION.md
+docs/SOURCE_GEOMETRY_PROVENANCE.md
 github/workflows/generate-papers.yml
 github/workflows/validate-emergency-ai-cases.yml
 github/workflows/dispatch-site-mirror.yml
@@ -94,6 +95,37 @@ python tools/check_publisher_closure_evidence_production.py
 python tools/check_publisher_self_managed_completion.py
 ```
 
+## Source Geometry Validation
+
+Publisher validates SG-001 only as a citation and publication boundary.
+
+The source authority remains:
+
+```text
+StegVerse-Labs/admissibility-wiki
+```
+
+The governed source page remains:
+
+```text
+docs/formalisms/original-drawing-reference.md
+```
+
+Publisher validation checks that:
+
+```text
+docs/SOURCE_GEOMETRY_PROVENANCE.md exists
+Publisher records Source Geometry ID: SG-001
+Publisher records Creator: Rigel Randolph
+Publisher records the artifact classification as pre_BCAT_GCAT_recoverability_geometry
+Publisher records its own role as citation_and_publication_surface_only
+Publisher handoff preserves citation-only posture
+Publisher self-managed completion preserves non-authority posture
+Publisher release gate includes source-geometry citation verification
+```
+
+This validation does not prove provenance, derivation, priority, formal correctness, or admissibility. It only prevents Publisher from silently strengthening a citation into source authority.
+
 ## Closure Workflow Validation
 
 The close activation workflow also validates the repo-resident continuation state before attempting closure:
@@ -106,7 +138,7 @@ python tools/check_publisher_self_managed_completion.py
 python tools/close_site_mirror_activation.py
 ```
 
-The self-managed completion check is intentionally run before `tools/close_site_mirror_activation.py` so scheduled or event-driven closure attempts cannot bypass pending-status, handoff, workflow, and non-activation boundaries.
+The self-managed completion check is intentionally run before `tools/close_site_mirror_activation.py` so scheduled or event-driven closure attempts cannot bypass pending-status, handoff, workflow, source-geometry citation, and non-activation boundaries.
 
 ## Done State
 
@@ -130,7 +162,7 @@ valid: publisher closure evidence production
 valid: publisher self-managed completion
 ```
 
-Self-managed completion means the repository contains the handoffs, workflows, validators, receipt boundary, pending-status runtime update, and closure updater needed to continue without prior chat context. It does not mean live activation has occurred.
+Self-managed completion means the repository contains the handoffs, workflows, validators, receipt boundary, source-geometry citation posture, pending-status runtime update, and closure updater needed to continue without prior chat context. It does not mean live activation has occurred.
 
 Example case validation output:
 
@@ -153,6 +185,7 @@ an ambiguous date placeholder is reintroduced
 a scaffold output path is missing or inconsistent
 Site mirror dispatch configuration drifts
 release-gate documentation drifts
+source-geometry citation posture drifts
 verification tracker drifts
 iPhone dry-run instructions drift
 verification receipt template drifts
