@@ -1,0 +1,21 @@
+{
+  "source_repo": "StegGhost/entity-sandbox-runner",
+  "release_goal": "admissibility_plane_activation_candidate",
+  "publisher_status": "installed_verification_surface",
+  "release_activation_state": "pending_external_evidence",
+  "publisher_role": "publication_verification_surface_only",
+  "source_inputs": [
+    "release/entity_sandbox_runner_admissibility_plane_release_packet.json",
+    "release/entity_sandbox_runner_downstream_tasks.md",
+    "brain_reports/admissibility_plane_verification.json",
+    "brain_reports/release_integration_verification.json",
+    "transition_receipts/",
+    "logs/transition_receipts.jsonl"
+  ],
+  "publisher_non_claims": [
+    "Publisher does not certify runtime admissibility.",
+    "Publisher does not issue commit-time permission.",
+    "Publisher does not replace source repository transition receipts.",
+    "Publisher does not become manifest schema, transition table, CGE, or sandbox repair authority."
+  ]
+}
