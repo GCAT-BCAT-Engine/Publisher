@@ -16,7 +16,9 @@ on:
       - 'tools/check_mirror_ecosystem_management_handoff.py'
       - 'tools/check_publisher_closure_evidence_production.py'
       - 'tools/check_publisher_self_managed_completion.py'
+      - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
       - 'tools/check_publisher_activation.py'
+      - 'docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md'
       - 'docs/site-paper-display-policy.md'
       - 'docs/site-mirror-dispatch-protocol.md'
       - 'docs/release-gate-checklist.md'
@@ -52,7 +54,9 @@ on:
       - 'tools/check_mirror_ecosystem_management_handoff.py'
       - 'tools/check_publisher_closure_evidence_production.py'
       - 'tools/check_publisher_self_managed_completion.py'
+      - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
       - 'tools/check_publisher_activation.py'
+      - 'docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md'
       - 'docs/site-paper-display-policy.md'
       - 'docs/site-mirror-dispatch-protocol.md'
       - 'docs/release-gate-checklist.md'
@@ -90,5 +94,5 @@ jobs:
       - name: Install validator
         run: python -m pip install --upgrade jsonschema
 
-      - name: Run Publisher activation validation
+      - name: Run Publisher validation
         run: python tools/check_publisher_activation.py
