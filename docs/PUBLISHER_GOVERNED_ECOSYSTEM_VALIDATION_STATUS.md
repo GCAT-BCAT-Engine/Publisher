@@ -10,7 +10,8 @@ This document records the validation state for Publisher governed ecosystem awar
 PUBLISHER_GOVERNED_ECOSYSTEM_VALIDATION_STATUS_PRESENT
 VALIDATION_CHECKERS_INSTALLED
 DEDICATED_VALIDATION_WORKFLOW_PRESENT
-WORKFLOW_RUN_PENDING
+WORKFLOW_EVIDENCE_RECORDED
+DOWNSTREAM_PROPAGATION_FORMALLY_DEFERRED
 ```
 
 ## Validated surfaces
@@ -20,6 +21,7 @@ docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md
 docs/STEGGUARDIAN_PROPAGATION_STATUS.md
 docs/PUBLISHER_GOVERNED_ECOSYSTEM_SYNC_STATUS.md
 docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE_REQUEST.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE.md
 docs/validation.md
 ```
 
@@ -41,13 +43,20 @@ github/workflows/validate-emergency-ai-cases.yml
 github/workflows/validate-governed-ecosystem-awareness.yml
 ```
 
+## Workflow evidence
+
+```text
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE.md
+```
+
 ## Boundary
 
-This status records validation readiness only. It does not claim that a workflow run has passed until workflow evidence exists.
+This status records successful workflow evidence for Publisher governed ecosystem awareness only.
+
+It does not claim production authority, release authorization, operational standing, live connector installation, canonical STRP admission, public URL verification, or downstream propagation.
 
 ## Remaining evidence
 
 ```text
-Publisher validation workflow run evidence
-Downstream destination identification for stegguardian-wiki
+Downstream destination identification for stegguardian-wiki remains formally deferred.
 ```
