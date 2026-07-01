@@ -22,6 +22,7 @@ COMMANDS = [
     [sys.executable, "tools/check_publisher_self_managed_completion.py"],
     [sys.executable, "tools/check_governed_ecosystem_site_mirror_awareness.py"],
     [sys.executable, "tools/check_stegguardian_propagation_status.py"],
+    [sys.executable, "tools/check_publisher_governed_ecosystem_sync_status.py"],
 ]
 
 
