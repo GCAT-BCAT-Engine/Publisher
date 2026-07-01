@@ -4,7 +4,7 @@
 
 Publisher case records that use machine-readable JSON should validate before they are treated as ready for republication.
 
-Publisher-to-Site activation also requires release-gate validation so documentation, workflow hooks, dispatch behavior, activation status, generated-paper workflow paths, verification receipt structure, handoff state, source-geometry citation posture, closure evidence production, pending closure status, close-workflow self-managed completion checks, and self-managed completion status do not drift from the operational boundary.
+Publisher-to-Site activation also requires release-gate validation so documentation, workflow hooks, dispatch behavior, activation status, generated-paper workflow paths, verification receipt structure, handoff state, source-geometry citation posture, governed ecosystem Site mirror awareness, downstream propagation status, closure evidence production, pending closure status, close-workflow self-managed completion checks, and self-managed completion status do not drift from the operational boundary.
 
 ## Files
 
@@ -22,6 +22,8 @@ tools/check_publisher_mirror_handoff.py
 tools/check_mirror_ecosystem_management_handoff.py
 tools/check_publisher_closure_evidence_production.py
 tools/check_publisher_self_managed_completion.py
+tools/check_governed_ecosystem_site_mirror_awareness.py
+tools/check_stegguardian_propagation_status.py
 tools/check_publisher_activation.py
 tools/create_emergency_ai_case_scaffold.py
 docs/site-mirror-dispatch-protocol.md
@@ -36,6 +38,8 @@ docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
 docs/PUBLISHER_SELF_MANAGED_COMPLETION.md
 docs/SOURCE_GEOMETRY_PROVENANCE.md
+docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md
+docs/STEGGUARDIAN_PROPAGATION_STATUS.md
 github/workflows/generate-papers.yml
 github/workflows/validate-emergency-ai-cases.yml
 github/workflows/dispatch-site-mirror.yml
@@ -93,7 +97,48 @@ python tools/check_publisher_mirror_handoff.py
 python tools/check_mirror_ecosystem_management_handoff.py
 python tools/check_publisher_closure_evidence_production.py
 python tools/check_publisher_self_managed_completion.py
+python tools/check_governed_ecosystem_site_mirror_awareness.py
+python tools/check_stegguardian_propagation_status.py
 ```
+
+## Governed Ecosystem Site Mirror Awareness Validation
+
+Publisher validates governed ecosystem Site mirror awareness only as a publication-awareness boundary.
+
+The source authority remains:
+
+```text
+StegVerse-Labs/admissibility-wiki
+```
+
+The Site mirror remains:
+
+```text
+StegVerse-Labs/Site/governed-ecosystem.html
+```
+
+Publisher validation checks that:
+
+```text
+docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md exists
+Publisher records publication_awareness_only
+Publisher records StegVerse-Labs/admissibility-wiki as source authority
+Publisher does not claim production authority, operational standing, or canonical STRP admission
+```
+
+## Downstream Propagation Validation
+
+Publisher records stegguardian propagation as pending when no accessible destination repository is identified.
+
+Validation checks that:
+
+```text
+docs/STEGGUARDIAN_PROPAGATION_STATUS.md exists
+STEGGUARDIAN_PROPAGATION_PENDING_DESTINATION_NOT_FOUND is recorded
+record_pending_downstream_propagation_only is recorded
+```
+
+This prevents Publisher from inventing a downstream repository, handoff, or activation state.
 
 ## Source Geometry Validation
 
@@ -145,7 +190,7 @@ The self-managed completion check is intentionally run before `tools/close_site_
 Validation is passing when the full activation runner prints:
 
 ```text
-valid: Publisher activation checks
+valid: Publisher checks
 ```
 
 The underlying checks should also print:
@@ -160,6 +205,8 @@ valid: publisher mirror handoff
 valid: mirror ecosystem management handoff
 valid: publisher closure evidence production
 valid: publisher self-managed completion
+PUBLISHER GOVERNED ECOSYSTEM SITE MIRROR AWARENESS: PASS
+STEGGUARDIAN PROPAGATION STATUS: PASS - destination pending
 ```
 
 Self-managed completion means the repository contains the handoffs, workflows, validators, receipt boundary, source-geometry citation posture, pending-status runtime update, and closure updater needed to continue without prior chat context. It does not mean live activation has occurred.
@@ -186,6 +233,8 @@ a scaffold output path is missing or inconsistent
 Site mirror dispatch configuration drifts
 release-gate documentation drifts
 source-geometry citation posture drifts
+governed ecosystem Site mirror awareness drifts
+stegguardian pending propagation status drifts
 verification tracker drifts
 iPhone dry-run instructions drift
 verification receipt template drifts
@@ -198,5 +247,3 @@ Publisher pending closure status drifts
 close-workflow self-managed completion check drifts
 Publisher self-managed completion drifts
 ```
-
-The validators print the relevant path or consistency error before exiting with status code `1`.
