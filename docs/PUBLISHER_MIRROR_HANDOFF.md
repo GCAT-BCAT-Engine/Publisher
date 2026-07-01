@@ -13,7 +13,7 @@ Target repository: StegVerse-Labs/Site
 Source authority: StegVerse-Labs/admissibility-wiki
 Site mirror: governed-ecosystem.html
 State: publication_awareness_only
-Validation state: awareness_checker_wired
+Validation state: awareness_and_downstream_pending_status_wired
 ```
 
 ## Governed Ecosystem Site Mirror Awareness
@@ -23,15 +23,22 @@ docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md
 tools/check_governed_ecosystem_site_mirror_awareness.py
 ```
 
-Publisher may cite or route awareness to the Site display mirror and Admissibility Wiki source pages when publication or paper-display context requires it.
+## Downstream propagation status
 
-Publisher does not become the source authority for governed ecosystem transition framing.
+```text
+docs/STEGGUARDIAN_PROPAGATION_STATUS.md
+tools/check_stegguardian_propagation_status.py
+```
+
+No accessible `stegguardian-wiki` destination was found during this build step, so Publisher records downstream propagation as pending rather than inventing a destination.
 
 ## Built Files
 
 ```text
 docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md
+docs/STEGGUARDIAN_PROPAGATION_STATUS.md
 tools/check_governed_ecosystem_site_mirror_awareness.py
+tools/check_stegguardian_propagation_status.py
 tools/check_publisher_activation.py
 github/workflows/validate-emergency-ai-cases.yml
 docs/PUBLISHER_MIRROR_HANDOFF.md
@@ -43,12 +50,15 @@ Note: `github/workflows/...` paths are displayed without the leading dot. Actual
 
 ```text
 python tools/check_governed_ecosystem_site_mirror_awareness.py
+python tools/check_stegguardian_propagation_status.py
 python tools/check_publisher_activation.py
 ```
 
 ## Boundary
 
 This awareness record does not claim production authority, release authorization, operational standing, live connector installation, canonical STRP admission, or public URL verification.
+
+Publisher does not invent missing downstream repositories.
 
 ## Remaining targets
 
@@ -58,7 +68,7 @@ GCAT-BCAT-Engine/Publisher:
   - retain publication-awareness-only boundary
 
 stegguardian-wiki:
-  - downstream summary after Publisher awareness is stable
+  - identify accessible destination before propagation
 ```
 
 ## Handoff instruction
