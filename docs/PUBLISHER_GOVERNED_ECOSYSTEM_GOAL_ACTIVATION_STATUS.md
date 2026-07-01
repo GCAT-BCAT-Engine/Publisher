@@ -1,0 +1,49 @@
+# Publisher Governed Ecosystem Goal Activation Status
+
+## Purpose
+
+This document records the goal-activation status for Publisher governed ecosystem awareness.
+
+## Current status
+
+```text
+PUBLISHER_GOVERNED_ECOSYSTEM_GOAL_ACTIVATION_STATUS_PRESENT
+GOAL_ACTIVATION_PENDING_WORKFLOW_EVIDENCE
+DOWNSTREAM_PROPAGATION_FORMALLY_DEFERRED
+RELEASE_HOLD_PRESENT
+```
+
+## Activation-ready surfaces
+
+```text
+docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md
+docs/STEGGUARDIAN_PROPAGATION_STATUS.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_SYNC_STATUS.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_VALIDATION_STATUS.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE_REQUEST.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_STATUS.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_RUNBOOK.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE_TEMPLATE.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_RELEASE_HOLD.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_DOWNSTREAM_DEFERRAL.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_ACTIVATION_BLOCKERS.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_NEXT_ACTION.md
+```
+
+## Remaining activation requirement
+
+```text
+Run validate-governed-ecosystem-awareness.yml and record successful workflow evidence.
+```
+
+## Downstream status
+
+```text
+StegGuardian propagation is formally deferred until an accessible destination repository is identified.
+```
+
+## Boundary
+
+Publisher governed ecosystem awareness is prepared for validation but is not goal-activated until workflow evidence exists.
+
+This status does not claim production authority, release authorization, operational standing, live connector installation, canonical STRP admission, public URL verification, or downstream propagation.
