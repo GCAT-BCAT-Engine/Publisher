@@ -23,17 +23,15 @@ COMMANDS = [
     [sys.executable, "tools/check_governed_ecosystem_site_mirror_awareness.py"],
     [sys.executable, "tools/check_stegguardian_propagation_status.py"],
     [sys.executable, "tools/check_publisher_governed_ecosystem_sync_status.py"],
+    [sys.executable, "tools/check_publisher_governed_ecosystem_validation_status.py"],
 ]
 
 
 def main() -> int:
     for command in COMMANDS:
-        print(f"running: {' '.join(command)}")
         completed = subprocess.run(command, cwd=REPO_ROOT)
         if completed.returncode != 0:
-            print(f"validation failed: {' '.join(command)}")
             return completed.returncode
-
     print("valid: Publisher checks")
     return 0
 
