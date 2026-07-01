@@ -13,9 +13,10 @@ Target repository: StegVerse-Labs/Site
 Source authority: StegVerse-Labs/admissibility-wiki
 Site mirror: governed-ecosystem.html
 State: publication_awareness_only
-Validation state: goal_activation_pending_workflow_evidence
+Validation state: workflow_evidence_recorded
+Goal state: complete
 Downstream state: formally_deferred_until_destination_identified
-Release hold: present
+Release hold: updated_with_evidence
 ```
 
 ## Built Files
@@ -29,6 +30,7 @@ docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE_REQUEST.md
 docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_STATUS.md
 docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_RUNBOOK.md
 docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE_TEMPLATE.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE.md
 docs/PUBLISHER_GOVERNED_ECOSYSTEM_RELEASE_HOLD.md
 docs/PUBLISHER_GOVERNED_ECOSYSTEM_DOWNSTREAM_DEFERRAL.md
 docs/PUBLISHER_GOVERNED_ECOSYSTEM_ACTIVATION_BLOCKERS.md
@@ -59,11 +61,11 @@ python tools/check_publisher_governed_ecosystem_workflow_request.py
 python tools/check_publisher_activation.py
 ```
 
-## Next action
+## Completed evidence
 
 ```text
-Run github/workflows/validate-governed-ecosystem-awareness.yml
-Record workflow evidence using docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE_TEMPLATE.md
+Validate Governed Ecosystem Awareness workflow run #5 succeeded.
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE.md records the evidence.
 ```
 
 ## Boundary
@@ -75,10 +77,6 @@ This handoff does not claim production authority, release authorization, operati
 ## Remaining targets
 
 ```text
-GCAT-BCAT-Engine/Publisher:
-  - run dedicated governed ecosystem workflow
-  - record workflow evidence
-
 stegguardian-wiki:
   - destination formally deferred until accessible repository is identified
 ```
