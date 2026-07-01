@@ -6,12 +6,15 @@ DOC = ROOT / "docs" / "PUBLISHER_GOVERNED_ECOSYSTEM_VALIDATION_STATUS.md"
 REQUIRED = [
     "PUBLISHER_GOVERNED_ECOSYSTEM_VALIDATION_STATUS_PRESENT",
     "VALIDATION_CHECKERS_INSTALLED",
-    "WORKFLOW_PATHS_WATCHED",
+    "DEDICATED_VALIDATION_WORKFLOW_PRESENT",
     "WORKFLOW_RUN_PENDING",
     "tools/check_governed_ecosystem_site_mirror_awareness.py",
     "tools/check_stegguardian_propagation_status.py",
     "tools/check_publisher_governed_ecosystem_sync_status.py",
+    "tools/check_publisher_governed_ecosystem_validation_status.py",
+    "tools/check_publisher_governed_ecosystem_workflow_request.py",
     "github/workflows/validate-emergency-ai-cases.yml",
+    "github/workflows/validate-governed-ecosystem-awareness.yml",
 ]
 
 
