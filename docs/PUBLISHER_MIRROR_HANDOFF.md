@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This handoff lets a Publisher-side build session continue Publisher-to-Site mirror activation without needing prior chat context.
+This handoff lets a Publisher-side build session continue without needing prior chat context.
 
 ## Current Goal
 
@@ -12,7 +12,8 @@ Repository: GCAT-BCAT-Engine/Publisher
 Target repository: StegVerse-Labs/Site
 Source authority: StegVerse-Labs/admissibility-wiki
 Site mirror: governed-ecosystem.html
-Activation state: publication_awareness_only
+State: publication_awareness_only
+Validation state: awareness_checker_wired
 ```
 
 ## Governed Ecosystem Site Mirror Awareness
@@ -31,7 +32,18 @@ Publisher does not become the source authority for governed ecosystem transition
 ```text
 docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md
 tools/check_governed_ecosystem_site_mirror_awareness.py
+tools/check_publisher_activation.py
+github/workflows/validate-emergency-ai-cases.yml
 docs/PUBLISHER_MIRROR_HANDOFF.md
+```
+
+Note: `github/workflows/...` paths are displayed without the leading dot. Actual repository paths include the leading dot.
+
+## Validation
+
+```text
+python tools/check_governed_ecosystem_site_mirror_awareness.py
+python tools/check_publisher_activation.py
 ```
 
 ## Boundary
@@ -42,7 +54,7 @@ This awareness record does not claim production authority, release authorization
 
 ```text
 GCAT-BCAT-Engine/Publisher:
-  - wire awareness checker into appropriate validation path if needed
+  - run Publisher validation workflow
   - retain publication-awareness-only boundary
 
 stegguardian-wiki:
