@@ -9,7 +9,7 @@ This document records the validation state for Publisher governed ecosystem awar
 ```text
 PUBLISHER_GOVERNED_ECOSYSTEM_VALIDATION_STATUS_PRESENT
 VALIDATION_CHECKERS_INSTALLED
-WORKFLOW_PATHS_WATCHED
+DEDICATED_VALIDATION_WORKFLOW_PRESENT
 WORKFLOW_RUN_PENDING
 ```
 
@@ -19,6 +19,7 @@ WORKFLOW_RUN_PENDING
 docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md
 docs/STEGGUARDIAN_PROPAGATION_STATUS.md
 docs/PUBLISHER_GOVERNED_ECOSYSTEM_SYNC_STATUS.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE_REQUEST.md
 docs/validation.md
 ```
 
@@ -28,13 +29,16 @@ docs/validation.md
 tools/check_governed_ecosystem_site_mirror_awareness.py
 tools/check_stegguardian_propagation_status.py
 tools/check_publisher_governed_ecosystem_sync_status.py
+tools/check_publisher_governed_ecosystem_validation_status.py
+tools/check_publisher_governed_ecosystem_workflow_request.py
 tools/check_publisher_activation.py
 ```
 
-## Workflow surface
+## Workflow surfaces
 
 ```text
 github/workflows/validate-emergency-ai-cases.yml
+github/workflows/validate-governed-ecosystem-awareness.yml
 ```
 
 ## Boundary
