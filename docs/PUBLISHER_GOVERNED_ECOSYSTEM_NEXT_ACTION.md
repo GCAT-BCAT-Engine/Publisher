@@ -11,6 +11,7 @@ PUBLISHER_GOVERNED_ECOSYSTEM_NEXT_ACTION_PRESENT
 DEDICATED_WORKFLOW_PRESENT
 WORKFLOW_EVIDENCE_PENDING
 DOWNSTREAM_DESTINATION_PENDING
+RELEASE_HOLD_PRESENT
 ```
 
 ## Next action
@@ -25,6 +26,13 @@ Run validate-governed-ecosystem-awareness.yml
 Dedicated workflow run is green
 Run evidence is recorded
 Downstream destination is identified before propagation
+Release hold is cleared by recorded evidence
+```
+
+## Release hold
+
+```text
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_RELEASE_HOLD.md
 ```
 
 ## Boundary
