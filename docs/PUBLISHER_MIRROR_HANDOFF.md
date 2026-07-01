@@ -13,34 +13,36 @@ Target repository: StegVerse-Labs/Site
 Source authority: StegVerse-Labs/admissibility-wiki
 Site mirror: governed-ecosystem.html
 State: publication_awareness_only
-Validation state: awareness_and_downstream_pending_status_wired
+Validation state: goal_activation_pending_workflow_evidence
+Downstream state: formally_deferred_until_destination_identified
+Release hold: present
 ```
-
-## Governed Ecosystem Site Mirror Awareness
-
-```text
-docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md
-tools/check_governed_ecosystem_site_mirror_awareness.py
-```
-
-## Downstream propagation status
-
-```text
-docs/STEGGUARDIAN_PROPAGATION_STATUS.md
-tools/check_stegguardian_propagation_status.py
-```
-
-No accessible `stegguardian-wiki` destination was found during this build step, so Publisher records downstream propagation as pending rather than inventing a destination.
 
 ## Built Files
 
 ```text
 docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md
 docs/STEGGUARDIAN_PROPAGATION_STATUS.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_SYNC_STATUS.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_VALIDATION_STATUS.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE_REQUEST.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_STATUS.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_RUNBOOK.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE_TEMPLATE.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_RELEASE_HOLD.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_DOWNSTREAM_DEFERRAL.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_ACTIVATION_BLOCKERS.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_NEXT_ACTION.md
+docs/PUBLISHER_GOVERNED_ECOSYSTEM_GOAL_ACTIVATION_STATUS.md
+docs/validation.md
 tools/check_governed_ecosystem_site_mirror_awareness.py
 tools/check_stegguardian_propagation_status.py
+tools/check_publisher_governed_ecosystem_sync_status.py
+tools/check_publisher_governed_ecosystem_validation_status.py
+tools/check_publisher_governed_ecosystem_workflow_request.py
 tools/check_publisher_activation.py
 github/workflows/validate-emergency-ai-cases.yml
+github/workflows/validate-governed-ecosystem-awareness.yml
 docs/PUBLISHER_MIRROR_HANDOFF.md
 ```
 
@@ -51,24 +53,34 @@ Note: `github/workflows/...` paths are displayed without the leading dot. Actual
 ```text
 python tools/check_governed_ecosystem_site_mirror_awareness.py
 python tools/check_stegguardian_propagation_status.py
+python tools/check_publisher_governed_ecosystem_sync_status.py
+python tools/check_publisher_governed_ecosystem_validation_status.py
+python tools/check_publisher_governed_ecosystem_workflow_request.py
 python tools/check_publisher_activation.py
+```
+
+## Next action
+
+```text
+Run github/workflows/validate-governed-ecosystem-awareness.yml
+Record workflow evidence using docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE_TEMPLATE.md
 ```
 
 ## Boundary
 
-This awareness record does not claim production authority, release authorization, operational standing, live connector installation, canonical STRP admission, or public URL verification.
+Publisher records publication awareness only. Publisher does not become source authority for governed ecosystem framing.
 
-Publisher does not invent missing downstream repositories.
+This handoff does not claim production authority, release authorization, operational standing, live connector installation, canonical STRP admission, public URL verification, or downstream propagation.
 
 ## Remaining targets
 
 ```text
 GCAT-BCAT-Engine/Publisher:
-  - run Publisher validation workflow
-  - retain publication-awareness-only boundary
+  - run dedicated governed ecosystem workflow
+  - record workflow evidence
 
 stegguardian-wiki:
-  - identify accessible destination before propagation
+  - destination formally deferred until accessible repository is identified
 ```
 
 ## Handoff instruction
