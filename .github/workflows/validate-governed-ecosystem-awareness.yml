@@ -9,6 +9,8 @@ on:
       - 'docs/PUBLISHER_GOVERNED_ECOSYSTEM_SYNC_STATUS.md'
       - 'docs/PUBLISHER_GOVERNED_ECOSYSTEM_VALIDATION_STATUS.md'
       - 'docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE_REQUEST.md'
+      - 'docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_STATUS.md'
+      - 'docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_RUNBOOK.md'
       - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
       - 'tools/check_stegguardian_propagation_status.py'
       - 'tools/check_publisher_governed_ecosystem_sync_status.py'
