@@ -1,0 +1,41 @@
+name: Validate Governed Ecosystem Awareness
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md'
+      - 'docs/STEGGUARDIAN_PROPAGATION_STATUS.md'
+      - 'docs/PUBLISHER_GOVERNED_ECOSYSTEM_SYNC_STATUS.md'
+      - 'docs/PUBLISHER_GOVERNED_ECOSYSTEM_VALIDATION_STATUS.md'
+      - 'docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE_REQUEST.md'
+      - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
+      - 'tools/check_stegguardian_propagation_status.py'
+      - 'tools/check_publisher_governed_ecosystem_sync_status.py'
+      - 'tools/check_publisher_governed_ecosystem_validation_status.py'
+      - 'tools/check_publisher_governed_ecosystem_workflow_request.py'
+      - '.github/workflows/validate-governed-ecosystem-awareness.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check Site mirror awareness
+        run: python tools/check_governed_ecosystem_site_mirror_awareness.py
+
+      - name: Check downstream pending status
+        run: python tools/check_stegguardian_propagation_status.py
+
+      - name: Check sync status
+        run: python tools/check_publisher_governed_ecosystem_sync_status.py
+
+      - name: Check validation status
+        run: python tools/check_publisher_governed_ecosystem_validation_status.py
+
+      - name: Check workflow request
+        run: python tools/check_publisher_governed_ecosystem_workflow_request.py
