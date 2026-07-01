@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the complete Publisher local activation validation sequence."""
+"""Run Publisher validation checks."""
 
 from __future__ import annotations
 
@@ -20,6 +20,7 @@ COMMANDS = [
     [sys.executable, "tools/check_mirror_ecosystem_management_handoff.py"],
     [sys.executable, "tools/check_publisher_closure_evidence_production.py"],
     [sys.executable, "tools/check_publisher_self_managed_completion.py"],
+    [sys.executable, "tools/check_governed_ecosystem_site_mirror_awareness.py"],
 ]
 
 
@@ -28,10 +29,10 @@ def main() -> int:
         print(f"running: {' '.join(command)}")
         completed = subprocess.run(command, cwd=REPO_ROOT)
         if completed.returncode != 0:
-            print(f"activation validation failed: {' '.join(command)}")
+            print(f"validation failed: {' '.join(command)}")
             return completed.returncode
 
-    print("valid: Publisher activation checks")
+    print("valid: Publisher checks")
     return 0
 
 
