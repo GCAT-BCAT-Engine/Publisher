@@ -1,0 +1,18 @@
+{
+  "status_id": "repo-standards-import-awareness",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "status": "READY_FOR_UPSTREAM_GATE_EVENTS",
+  "sources": [
+    "StegVerse-Labs/repo-standards",
+    "StegVerse-Labs/admissibility-wiki",
+    "StegVerse-Labs/Site"
+  ],
+  "required_inputs": [
+    "repo-standards release/tag reference",
+    "admissibility-wiki validation receipt",
+    "Site upstream gate tracker",
+    "Site public mirror readiness state"
+  ],
+  "publisher_role": "publication_and_import_awareness_record",
+  "next_action": "WAIT_FOR_UPSTREAM_GATE_EVENTS"
+}
