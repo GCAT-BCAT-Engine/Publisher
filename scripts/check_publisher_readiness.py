@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 COMMANDS = [
     [sys.executable, "scripts/check_repo_standards_import_awareness.py"],
     [sys.executable, "scripts/check_publisher_workflow.py"],
+    [sys.executable, "scripts/check_publisher_repo_local_complete.py"],
 ]
 
 
