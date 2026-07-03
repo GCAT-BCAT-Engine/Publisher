@@ -1,0 +1,28 @@
+{
+  "status_id": "publisher-repo-local-complete",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "repo_local_build": "AUTOMATED_VALIDATION_READY",
+  "active_handoff": "PUBLISHER_MIRROR_HANDOFF.md",
+  "automation": [
+    ".github/workflows/publisher-check.yml",
+    ".github/workflows/publisher-readiness.yml"
+  ],
+  "validation_command": "python scripts/check_publisher_readiness.py",
+  "installed_surfaces": [
+    "docs/repo-standards-import-awareness.md",
+    "data/repo-standards-import-awareness.json",
+    "data/publisher-repo-local-complete.json",
+    "scripts/check_repo_standards_import_awareness.py",
+    "scripts/check_publisher_workflow.py",
+    "scripts/check_publisher_readiness.py",
+    ".github/workflows/publisher-check.yml",
+    ".github/workflows/publisher-readiness.yml"
+  ],
+  "remaining_external_gates": [
+    "repo-standards release tag",
+    "admissibility-wiki validation receipt",
+    "Site upstream gate completion"
+  ],
+  "next_action": "WAIT_FOR_UPSTREAM_GATE_EVENTS",
+  "archive_status": "READY_FOR_HANDOFF"
+}
