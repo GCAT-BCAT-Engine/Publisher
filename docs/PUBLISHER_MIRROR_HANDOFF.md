@@ -15,7 +15,7 @@ Site mirror: governed-ecosystem.html and ecosystem-chat.html display status
 State: publication_awareness_only
 Validation state: workflow_evidence_recorded_for_governed_ecosystem; local_status_checker_added_for_llm_free_tier
 Goal state: governed_ecosystem_complete; llm_free_tier_status_recorded
-Downstream state: formally_deferred_until_destination_identified
+Downstream state: Guardian destination resolved and propagation installed
 Release hold: updated_with_evidence
 ```
 
@@ -69,19 +69,29 @@ python tools/check_publisher_activation.py
 ```text
 Validate Governed Ecosystem Awareness workflow run #5 succeeded.
 docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE.md records the evidence.
+
+StegVerse-002/stegguardian-wiki is the resolved Guardian destination.
+The downstream LLM free-tier trust-chain propagation files are installed there:
+  - pages/llm-free-tier-trust-chain.md
+  - LLM_FREE_TIER_TRUST_CHAIN_STATUS.md
+  - scripts/check_llm_free_tier_trust_chain_page.py
 ```
 
 ## Boundary
 
 Publisher records publication awareness only. Publisher does not become source authority for governed ecosystem framing or the LLM free-tier trust chain.
 
-This handoff does not claim production authority, release authorization, operational standing, live connector installation, canonical STRP admission, public URL verification, or downstream propagation.
+This handoff does not claim production authority, release authorization, operational standing, live connector installation, canonical STRP admission, public URL verification, or downstream propagation authority.
 
 ## Remaining targets
 
 ```text
-stegguardian-wiki:
-  - destination formally deferred until accessible repository is identified
+StegVerse-002/stegguardian-wiki:
+  - optional README link if allowed
+  - workflow/tag verification remains outside this local propagation pass
+
+StegVerse-Labs/admissibility-wiki:
+  - allowed iOS workflow mirror delta remains pending
 ```
 
 ## Handoff instruction
