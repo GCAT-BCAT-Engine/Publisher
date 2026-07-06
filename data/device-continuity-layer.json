@@ -1,0 +1,13 @@
+{
+  "record_id": "publisher-device-continuity-layer-v0.1.0",
+  "source_repo": "StegVerse-Labs/device-continuity-layer",
+  "candidate_tag": "v0.1.0-offline-baseline",
+  "destinations": [
+    "StegVerse-Labs/StegTalk",
+    "StegVerse-Labs/StegMusic",
+    "StegVerse-Labs/Site"
+  ],
+  "status": "publication_record_prepared",
+  "summary": "Device Continuity Layer baseline prepared for ecosystem publication records.",
+  "non_authority_rule": "Publication record does not grant destination authority."
+}
