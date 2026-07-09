@@ -7,15 +7,15 @@ This handoff lets a Publisher-side build session continue without needing prior 
 ## Current Goal
 
 ```text
-Goal: governed ecosystem Site mirror awareness plus LLM free-tier trust chain status
+Goal: governed ecosystem Site mirror awareness plus LLM free-tier trust chain status plus media pipeline Site publication awareness
 Repository: GCAT-BCAT-Engine/Publisher
 Target repository: StegVerse-Labs/Site
 Source authority: StegVerse-Labs/admissibility-wiki
-Site mirror: governed-ecosystem.html and ecosystem-chat.html display status
+Site mirror: governed-ecosystem.html, ecosystem-chat.html display status, and docs/media/media-pipeline-overview.md mirror awareness
 State: publication_awareness_only
-Validation state: workflow_evidence_recorded_for_governed_ecosystem; local_status_checker_added_for_llm_free_tier
-Goal state: governed_ecosystem_complete; llm_free_tier_status_recorded
-Downstream state: Guardian destination resolved and propagation installed
+Validation state: workflow_evidence_recorded_for_governed_ecosystem; local_status_checker_added_for_llm_free_tier; media_pipeline_site_publication_awareness_checker_added
+Goal state: governed_ecosystem_complete; llm_free_tier_status_recorded; media_pipeline_site_awareness_recorded
+Downstream state: Guardian destination resolved and propagation installed; media pipeline downstream summaries pending for admissibility-wiki and stegguardian-wiki
 Release hold: updated_with_evidence
 ```
 
@@ -37,6 +37,7 @@ docs/PUBLISHER_GOVERNED_ECOSYSTEM_ACTIVATION_BLOCKERS.md
 docs/PUBLISHER_GOVERNED_ECOSYSTEM_NEXT_ACTION.md
 docs/PUBLISHER_GOVERNED_ECOSYSTEM_GOAL_ACTIVATION_STATUS.md
 docs/LLM_FREE_TIER_TRUST_CHAIN_STATUS.md
+docs/media-pipeline-site-publication-awareness.md
 docs/validation.md
 tools/check_governed_ecosystem_site_mirror_awareness.py
 tools/check_stegguardian_propagation_status.py
@@ -45,6 +46,7 @@ tools/check_publisher_governed_ecosystem_validation_status.py
 tools/check_publisher_governed_ecosystem_workflow_request.py
 tools/check_llm_free_tier_trust_chain_status.py
 tools/check_publisher_activation.py
+scripts/check_media_pipeline_site_publication_awareness.py
 github/workflows/validate-emergency-ai-cases.yml
 github/workflows/validate-governed-ecosystem-awareness.yml
 docs/PUBLISHER_MIRROR_HANDOFF.md
@@ -62,6 +64,7 @@ python tools/check_publisher_governed_ecosystem_validation_status.py
 python tools/check_publisher_governed_ecosystem_workflow_request.py
 python tools/check_llm_free_tier_trust_chain_status.py
 python tools/check_publisher_activation.py
+python scripts/check_media_pipeline_site_publication_awareness.py
 ```
 
 ## Completed evidence
@@ -75,13 +78,17 @@ The downstream LLM free-tier trust-chain propagation files are installed there:
   - pages/llm-free-tier-trust-chain.md
   - LLM_FREE_TIER_TRUST_CHAIN_STATUS.md
   - scripts/check_llm_free_tier_trust_chain_page.py
+
+Media pipeline Site publication awareness is recorded locally:
+  - docs/media-pipeline-site-publication-awareness.md
+  - scripts/check_media_pipeline_site_publication_awareness.py
 ```
 
 ## Boundary
 
-Publisher records publication awareness only. Publisher does not become source authority for governed ecosystem framing or the LLM free-tier trust chain.
+Publisher records publication awareness only. Publisher does not become source authority for governed ecosystem framing, the LLM free-tier trust chain, or the media pipeline.
 
-This handoff does not claim production authority, release authorization, operational standing, live connector installation, canonical STRP admission, public URL verification, or downstream propagation authority.
+This handoff does not claim production authority, release authorization, operational standing, live connector installation, canonical STRP admission, public URL verification, live media execution, public broadcast capability, provider execution, or downstream propagation authority.
 
 ## Remaining targets
 
@@ -89,9 +96,11 @@ This handoff does not claim production authority, release authorization, operati
 StegVerse-002/stegguardian-wiki:
   - optional README link if allowed
   - workflow/tag verification remains outside this local propagation pass
+  - media pipeline downstream summary remains pending
 
 StegVerse-Labs/admissibility-wiki:
   - allowed iOS workflow mirror delta remains pending
+  - media pipeline downstream summary remains pending
 ```
 
 ## Handoff instruction
