@@ -1,39 +1,26 @@
 #!/usr/bin/env python3
-"""Verify the Publisher mirror handoff document."""
+"""Verify the current Publisher mirror handoff source of truth."""
 
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-HANDOFF = ROOT / "docs" / "PUBLISHER_MIRROR_HANDOFF.md"
+HANDOFF = ROOT / "PUBLISHER_MIRROR_HANDOFF.md"
 
 REQUIRED_TERMS = [
     "# Publisher Mirror Handoff",
-    "Goal: Publisher closure evidence production",
-    "GCAT-BCAT-Engine/Publisher",
+    "This file is the current handoff and task source of truth",
+    "Standing-Proof-Engine v0.5.0 status",
     "StegVerse-Labs/Site",
-    "pending_fresh_ordered_artifacts",
-    "self_managed_handoff_completion",
-    "docs/PUBLISHER_SELF_MANAGED_COMPLETION.md",
-    "tools/check_publisher_self_managed_completion.py",
-    "repo_build_state: self_managed_completion_ready",
-    "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md",
-    "docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
-    "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
-    "docs/PUBLISHER_VALIDATION_REMAINDER.md",
-    "docs/SOURCE_GEOMETRY_PROVENANCE.md",
-    "Source authority: StegVerse-Labs/admissibility-wiki",
-    "Source authority page: docs/formalisms/original-drawing-reference.md",
-    "Source Geometry ID: SG-001",
-    "Creator: Rigel Randolph",
-    "Classification: pre-BCAT/GCAT precursor source geometry",
-    "Publisher role: citation and publication surface only",
-    "Publisher must not become the custody authority, proof authority, priority authority, or derivation authority for the source geometry.",
-    "The Source Geometry Provenance note is not custody authority or proof authority.",
-    "Issue #1 is not activation evidence.",
-    "Issue #1 records final closure-checker handoff-term alignment.",
-    "actual Publisher receipt artifact",
-    "actual Site evidence artifact",
-    "closure commit from the automated closure workflow",
+    "StegVerse-Labs/Standing-Proof-Engine",
+    "SPE_MIRROR_HANDOFF.md",
+    "docs/release_snapshot_v0_5_0.md",
+    "samples/destination_receipt_chain_001.json",
+    "master-records/core-lite",
+    "records/spe_destination_receipt_chain_001.json",
+    "data/spe-v0-5-0-status.json",
+    "StegVerse-Labs/admissibility-wiki",
+    "StegVerse-002/stegguardian-wiki",
+    "Wiki propagation verification",
 ]
 
 
@@ -48,7 +35,7 @@ def main() -> int:
         for term in missing:
             print(f"missing: {term}")
         return 1
-    print("valid: publisher mirror handoff")
+    print("valid: current root Publisher mirror handoff")
     return 0
 
 
