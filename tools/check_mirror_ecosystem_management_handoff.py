@@ -129,8 +129,9 @@ def require_file(path: Path) -> int | None:
 
 def require_terms(path: Path, terms: list[str]) -> int | None:
     text = read(path)
+    normalized_text = text.casefold()
     for term in terms:
-        if term not in text:
+        if term.casefold() not in normalized_text:
             return fail(f"missing {term!r} in {path}")
     return None
 
