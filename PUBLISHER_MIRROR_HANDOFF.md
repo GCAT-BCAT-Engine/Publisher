@@ -51,6 +51,28 @@ Before continuing any Publisher mirror task, check this file first and treat it 
 
 SPE v0.5.0 is a local SPE receipt-chain package with master-records emission recorded. Do not claim external production deployment beyond the recorded targets.
 
+## Latest workflow failure
+
+```text
+Branch: main
+Workflow: Close Site Mirror Activation
+Job: Close activation from Publisher and Site evidence artifacts
+Run: 29155463339
+Commit: 83c007cd66637634aa14fb01d2f082465b08a823
+Result: failed in 3 seconds
+Annotations: 2
+Failure class: unresolved early workflow or validation failure
+```
+
+The notification does not expose the failing step or annotation text. This workflow can close an activation state derived from Publisher and Site evidence, so no speculative repair, retry, Site mutation, release, deployment, tag, or cross-repository action is authorized from this evidence alone.
+
+Required evidence before repair:
+
+1. first failing step;
+2. both annotation messages;
+3. the exact Publisher and Site evidence paths evaluated;
+4. confirmation that the repair remains repository-local and does not alter activation authority.
+
 ## Next Integration Candidate
 
-Wiki propagation verification.
+Wiki propagation verification remains the next declared task. It must not be treated as complete until the existing Publisher artifact and both downstream wiki targets are verified without crossing repository authority boundaries.
