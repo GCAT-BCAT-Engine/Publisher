@@ -63,6 +63,10 @@ def build_receipt() -> dict:
 
     github_run_url = f"{server_url}/{repository}/actions/runs/{run_id}"
     site_dispatch_attempted = not dry_run and env_bool("SITE_DISPATCH_ATTEMPTED", default=False)
+    dispatch_request_accepted = (
+        site_dispatch_attempted
+        and env_bool("DISPATCH_REQUEST_ACCEPTED", default=False)
+    )
 
     return {
         "receipt_type": "publisher_to_site_verification_run",
@@ -95,6 +99,7 @@ def build_receipt() -> dict:
         },
         "dispatch_results": {
             "site_dispatch_attempted": site_dispatch_attempted,
+            "dispatch_request_accepted": dispatch_request_accepted,
             "site_dispatch_status": env(
                 "SITE_DISPATCH_STATUS",
                 "not_attempted_for_dry_run" if dry_run else "dispatch_step_completed",

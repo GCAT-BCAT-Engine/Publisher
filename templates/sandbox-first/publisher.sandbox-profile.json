@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "sandbox_validation_profile",
+  "profile_id": "publisher-governed-awareness",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "timeout_seconds": 300,
+  "exclude": [".git", "__pycache__", ".pytest_cache", "reports"],
+  "commands": [
+    {"id": "compile-python", "argv": ["python", "-m", "compileall", "tools", "scripts"], "expected_exit": 0},
+    {"id": "validate-governed-awareness", "argv": ["python", "tools/check_governed_ecosystem_site_mirror_awareness.py"], "expected_exit": 0},
+    {"id": "validate-publisher-activation", "argv": ["python", "tools/check_publisher_activation.py"], "expected_exit": 0},
+    {"id": "validate-st017-adoption", "argv": ["python", "tools/check_st017_sandbox_adoption.py", "--structural-only"], "expected_exit": 0}
+  ]
+}

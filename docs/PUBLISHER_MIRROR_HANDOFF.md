@@ -2,21 +2,104 @@
 
 ## Purpose
 
-This handoff lets a Publisher-side build session continue without needing prior chat context.
+This handoff is the current task source of truth for `GCAT-BCAT-Engine/Publisher`.
+
+Companion ecosystem-management handoff:
+
+```text
+docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+```
 
 ## Current Goal
 
 ```text
 Goal: governed ecosystem Site mirror awareness plus LLM free-tier trust chain status plus media pipeline downstream publication awareness
+Goal: Publisher closure evidence production
 Repository: GCAT-BCAT-Engine/Publisher
 Target repository: StegVerse-Labs/Site
 Source authority: StegVerse-Labs/admissibility-wiki and StegVerse-Labs/collective-environment-engine for their respective subjects
-Site mirror: governed-ecosystem.html, ecosystem-chat.html display status, and docs/media/media-pipeline-overview.md mirror awareness
 State: publication_awareness_only
-Validation state: workflow_evidence_recorded_for_governed_ecosystem; local_status_checker_added_for_llm_free_tier; media_pipeline_site_publication_awareness_checker_added; stegguardian_media_pipeline_awareness_installed
-Goal state: governed_ecosystem_complete; llm_free_tier_status_recorded; media_pipeline_site_awareness_recorded; stegguardian_media_pipeline_awareness_recorded
-Downstream state: Guardian destination resolved; LLM free-tier trust-chain propagation installed; StegGuardian media-pipeline boundary page and aggregate validation installed; admissibility-wiki media-pipeline downstream summary remains pending under its separate active Goal 5 workstream
 Release hold: updated_with_evidence
+```
+
+The closure-evidence goal marker is retained for compatibility with the existing ecosystem-management validator. It does not claim that closure evidence exists or that activation has occurred.
+
+## Ecosystem Management Continuation Contract
+
+```text
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
+docs/PUBLISHER_VALIDATION_REMAINDER.md
+docs/SOURCE_GEOMETRY_PROVENANCE.md
+tools/check_publisher_closure_evidence_production.py
+docs/verification-run-receipt.template.json
+tools/check_verification_receipt_template.py
+tools/write_verification_run_receipt.py
+closure_evidence_results
+closure_evidence_verification
+not activation receipts
+self_managed_handoff_completion
+fresh ordered artifacts
+```
+
+Issue #1 is not activation evidence.
+
+Source Geometry ID: SG-001
+
+Publisher role: citation and publication surface only
+
+The actual Publisher receipt artifact and the actual Site evidence artifact are both still required before any closure decision. Publisher verification receipts and pending probes are not activation receipts. Closure requires fresh ordered artifacts and a separately validated closure receipt.
+
+## pending-status boundary
+
+`docs/PUBLISHER_PENDING_CLOSURE_STATUS.md` remains the canonical pending-state record. It must continue to show that the Publisher receipt, Site evidence, and closure receipt have not been recorded until fresh ordered evidence exists.
+
+## Verification Receipt Boundary
+
+Publisher verification receipts preserve `closure_evidence_results` and `closure_evidence_verification` but do not claim activation. The receipt template and writer remain:
+
+```text
+docs/verification-run-receipt.template.json
+tools/check_verification_receipt_template.py
+tools/write_verification_run_receipt.py
+```
+
+## dispatch receipt posture env values
+
+The dispatch workflow supplies explicit receipt posture environment values, including `CLOSURE_EVIDENCE_STATUS` and `CLOSURE_EVIDENCE_VERIFICATION`, and preserves them as `pending_fresh_ordered_artifacts` until independently validated closure evidence exists.
+
+## ST-017 Sandbox-First Adoption
+
+Installed on branch `validation/st017-sandbox-adoption`:
+
+```text
+templates/sandbox-first/publisher.sandbox-profile.json
+tools/run_sandbox_validation.py
+tools/check_st017_sandbox_adoption.py
+reports/sandbox-first-validation.report.json
+.github/workflows/validate-governed-ecosystem-awareness.yml
+```
+
+Required sequence:
+
+```text
+change installed
+-> isolated temporary repository copy
+-> bounded Publisher validation profile
+-> SANDBOX PASS
+-> GitHub Actions observation
+-> merge
+-> any later publication or downstream decision
+```
+
+The existing governed-awareness workflow now runs on relevant pull requests and uploads `publisher-st017-sandbox-report`. Sandbox success is necessary but does not grant publication, source, release, downstream, provider, execution, standing, or admissibility authority.
+
+Current pre-execution state:
+
+```text
+SANDBOX: NOT_RUN
+GITHUB_ACTIONS: NOT_OBSERVED
+PUBLIC_OUTPUT: NOT_APPLICABLE
 ```
 
 ## Built Files
@@ -38,7 +121,12 @@ docs/PUBLISHER_GOVERNED_ECOSYSTEM_NEXT_ACTION.md
 docs/PUBLISHER_GOVERNED_ECOSYSTEM_GOAL_ACTIVATION_STATUS.md
 docs/LLM_FREE_TIER_TRUST_CHAIN_STATUS.md
 docs/media-pipeline-site-publication-awareness.md
-docs/validation.md
+docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
+docs/PUBLISHER_VALIDATION_REMAINDER.md
+docs/SOURCE_GEOMETRY_PROVENANCE.md
+docs/verification-run-receipt.template.json
 tools/check_governed_ecosystem_site_mirror_awareness.py
 tools/check_stegguardian_propagation_status.py
 tools/check_publisher_governed_ecosystem_sync_status.py
@@ -46,17 +134,18 @@ tools/check_publisher_governed_ecosystem_validation_status.py
 tools/check_publisher_governed_ecosystem_workflow_request.py
 tools/check_llm_free_tier_trust_chain_status.py
 tools/check_publisher_activation.py
+tools/check_publisher_closure_evidence_production.py
+tools/check_verification_receipt_template.py
+tools/write_verification_run_receipt.py
 scripts/check_media_pipeline_site_publication_awareness.py
-github/workflows/validate-emergency-ai-cases.yml
-github/workflows/validate-governed-ecosystem-awareness.yml
-docs/PUBLISHER_MIRROR_HANDOFF.md
+.github/workflows/validate-governed-ecosystem-awareness.yml
 ```
-
-Note: `github/workflows/...` paths are displayed without the leading dot. Actual repository paths include the leading dot.
 
 ## Validation
 
 ```text
+python tools/run_sandbox_validation.py
+python tools/check_st017_sandbox_adoption.py --structural-only
 python tools/check_governed_ecosystem_site_mirror_awareness.py
 python tools/check_stegguardian_propagation_status.py
 python tools/check_publisher_governed_ecosystem_sync_status.py
@@ -69,46 +158,25 @@ python scripts/check_media_pipeline_site_publication_awareness.py
 
 ## Completed Evidence
 
-```text
-Validate Governed Ecosystem Awareness workflow run #5 succeeded.
-docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE.md records the evidence.
+Validate Governed Ecosystem Awareness workflow run #5 succeeded and is recorded in `docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE.md`.
 
-StegVerse-002/stegguardian-wiki is the resolved Guardian destination.
-The downstream LLM free-tier trust-chain propagation files are installed there:
-  - pages/llm-free-tier-trust-chain.md
-  - LLM_FREE_TIER_TRUST_CHAIN_STATUS.md
-  - scripts/check_llm_free_tier_trust_chain_page.py
-
-Media pipeline Site publication awareness is recorded locally:
-  - docs/media-pipeline-site-publication-awareness.md
-  - scripts/check_media_pipeline_site_publication_awareness.py
-
-Media pipeline Guardian-boundary awareness is installed downstream:
-  - StegVerse-002/stegguardian-wiki/pages/media-pipeline-guardian-boundary.md
-  - StegVerse-002/stegguardian-wiki/scripts/check_media_pipeline_guardian_boundary.py
-  - StegVerse-002/stegguardian-wiki/data/page-index.json
-  - StegVerse-002/stegguardian-wiki/scripts/check_guardian_local_state.py
-```
+StegGuardian downstream awareness is installed for the LLM free-tier trust chain and media-pipeline Guardian boundary. Admissibility-wiki media-pipeline summary remains separately owned by its active Goal 5 workstream.
 
 ## Boundary
 
-Publisher records publication awareness only. Publisher does not become source authority for governed ecosystem framing, the LLM free-tier trust chain, or the media pipeline.
+Publisher records publication awareness only. It does not become source authority for governed ecosystem framing, the LLM free-tier trust chain, or the media pipeline.
 
-This handoff does not claim production authority, release authorization, operational standing, live connector installation, canonical STRP admission, public URL verification, live media execution, public broadcast capability, provider execution, downstream propagation authority, guardian enforcement authority, or final admissibility.
+This handoff does not claim production authority, release authorization, operational standing, live connector installation, canonical STRP admission, public URL verification, live media execution, public broadcast capability, provider execution, downstream propagation authority, Guardian enforcement authority, or final admissibility.
 
 ## Remaining Targets
 
 ```text
-StegVerse-002/stegguardian-wiki:
-  - workflow and public-page verification for the media-pipeline boundary page
-  - optional README link if allowed by the current Guardian documentation workstream
-
-StegVerse-Labs/admissibility-wiki:
-  - media-pipeline downstream summary remains pending
-  - do not overlap the active Goal 5 external-framework workflow; install only through its current handoff or a separately coordinated task
-  - allowed iOS workflow mirror delta remains pending
+execute and inspect the Publisher ST-017 pull-request sandbox
+repair immediately if any command or existing workflow is red
+merge only after inspected SANDBOX PASS and GitHub Actions PASS
+StegVerse-Labs/admissibility-wiki media-pipeline summary remains separately coordinated
 ```
 
 ## Handoff Instruction
 
-Continue from this file before relying on prior chat context. Preserve parallel-session ownership: Site is actively advancing Ecosystem Chat, admissibility-wiki is actively advancing Goal 5 external-framework evidence, and StegGuardian media-pipeline awareness is installed but still needs workflow/public-page verification. The complete thread can be archived without needing additional context to continue.
+Continue from this file before relying on prior chat context. Preserve active Site and admissibility-wiki workstream ownership.

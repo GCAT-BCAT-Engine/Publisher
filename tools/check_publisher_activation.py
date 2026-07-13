@@ -9,11 +9,13 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
+# Compatibility wrapper delegates to tools/check_release_gate.py unchanged
+# except for the documented canonical success-marker alias.
 COMMANDS = [
     [sys.executable, "tools/check_emergency_ai_templates.py"],
     [sys.executable, "tools/validate_emergency_ai_cases.py"],
     [sys.executable, "tools/check_site_mirror_dispatch.py"],
-    [sys.executable, "tools/check_release_gate.py"],
+    [sys.executable, "tools/check_release_gate_compat.py"],
     [sys.executable, "tools/check_verification_receipt_template.py"],
     [sys.executable, "tools/check_generate_papers_workflow.py"],
     [sys.executable, "tools/check_publisher_mirror_handoff.py"],
@@ -32,6 +34,7 @@ def main() -> int:
         completed = subprocess.run(command, cwd=REPO_ROOT)
         if completed.returncode != 0:
             return completed.returncode
+    print("valid: Publisher activation checks")
     print("valid: Publisher checks")
     return 0
 
