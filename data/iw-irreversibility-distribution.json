@@ -1,0 +1,34 @@
+{
+  "schema": "gcat_bcat.publisher.governed-distribution-input.v1",
+  "input_id": "iw-irreversibility-runtime-admissibility",
+  "source": {
+    "repository": "Admissible-Existence/IW",
+    "commit_sha": "87fd24ea829b413373ea42381dd0b08d45b79239",
+    "canonical_markdown": "docs/irreversibility.md",
+    "publication_pdf": "docs/irreversibility.pdf"
+  },
+  "distribution": {
+    "title": "Irreversibility, Negative Inference Windows, and Runtime Admissibility",
+    "artifact_class": "formalism_publication",
+    "required_destination_receipt": true,
+    "fail_closed_on_missing_source_evidence": true,
+    "fail_closed_on_source_mismatch": true,
+    "carry_fields": [
+      "source.repository",
+      "source.commit_sha",
+      "source.canonical_markdown",
+      "source.publication_pdf",
+      "destination.repository",
+      "destination.commit_sha",
+      "destination.receipt"
+    ]
+  },
+  "claim_boundary": [
+    "Distribution does not create execution authority.",
+    "The IW source remains canonical.",
+    "Irreversibility is goal-relative and evaluated under declared evidence, latency, models, and uncertainty.",
+    "Destination completion requires destination commit and file evidence."
+  ],
+  "authority": false,
+  "state": "registered"
+}
