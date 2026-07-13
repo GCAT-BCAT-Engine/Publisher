@@ -1,0 +1,30 @@
+{
+  "schema": "admissible_existence.iw.destination-completion.v1",
+  "source": {
+    "repository": "Admissible-Existence/IW",
+    "commit_sha": "87fd24ea829b413373ea42381dd0b08d45b79239",
+    "canonical_markdown": "docs/irreversibility.md",
+    "publication_pdf": "docs/irreversibility.pdf"
+  },
+  "target": {
+    "repository": "GCAT-BCAT-Engine/Publisher",
+    "role": "distribution",
+    "commit_sha": "ac6f47e375bc1e193fb575391fb575d239444a0d"
+  },
+  "application": {
+    "files": [
+      {
+        "path": "data/iw-irreversibility-distribution.json",
+        "sha256": "ff08a3b7aeda94e8cd64b47e32e3ec6c6fa79cbfc5afdc66493189631aebe1a7"
+      }
+    ],
+    "required_updates_satisfied": true,
+    "claim_boundary_preserved": true
+  },
+  "authority": false,
+  "completion_state": "complete",
+  "evidence": [
+    "destination commit ac6f47e375bc1e193fb575391fb575d239444a0d",
+    "registered governed distribution input with source mismatch and missing-evidence fail-closed rules"
+  ]
+}
