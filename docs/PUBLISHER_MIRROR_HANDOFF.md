@@ -24,6 +24,24 @@ Release hold: updated_with_evidence
 
 The closure-evidence goal marker is retained for compatibility with the existing ecosystem-management validator. It does not claim that closure evidence exists or that activation has occurred.
 
+## Ecosystem Management Continuation Contract
+
+```text
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
+tools/check_publisher_closure_evidence_production.py
+docs/verification-run-receipt.template.json
+tools/check_verification_receipt_template.py
+tools/write_verification_run_receipt.py
+closure_evidence_results
+closure_evidence_verification
+not activation receipts
+self_managed_handoff_completion
+fresh ordered artifacts
+```
+
+Publisher verification receipts and pending probes are not activation receipts. Closure requires fresh ordered artifacts and a separately validated closure receipt.
+
 ## ST-017 Sandbox-First Adoption
 
 Installed on branch `validation/st017-sandbox-adoption`:
@@ -78,6 +96,9 @@ docs/PUBLISHER_GOVERNED_ECOSYSTEM_GOAL_ACTIVATION_STATUS.md
 docs/LLM_FREE_TIER_TRUST_CHAIN_STATUS.md
 docs/media-pipeline-site-publication-awareness.md
 docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
+docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
+docs/verification-run-receipt.template.json
 tools/check_governed_ecosystem_site_mirror_awareness.py
 tools/check_stegguardian_propagation_status.py
 tools/check_publisher_governed_ecosystem_sync_status.py
@@ -85,6 +106,9 @@ tools/check_publisher_governed_ecosystem_validation_status.py
 tools/check_publisher_governed_ecosystem_workflow_request.py
 tools/check_llm_free_tier_trust_chain_status.py
 tools/check_publisher_activation.py
+tools/check_publisher_closure_evidence_production.py
+tools/check_verification_receipt_template.py
+tools/write_verification_run_receipt.py
 scripts/check_media_pipeline_site_publication_awareness.py
 .github/workflows/validate-governed-ecosystem-awareness.yml
 ```
