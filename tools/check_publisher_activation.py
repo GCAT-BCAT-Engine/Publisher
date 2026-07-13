@@ -32,6 +32,8 @@ def main() -> int:
         completed = subprocess.run(command, cwd=REPO_ROOT)
         if completed.returncode != 0:
             return completed.returncode
+    # Preserve the legacy release-gate marker while retaining the concise marker.
+    print("valid: Publisher activation checks")
     print("valid: Publisher checks")
     return 0
 
