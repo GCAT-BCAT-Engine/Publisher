@@ -8,12 +8,15 @@ This handoff is the current task source of truth for `GCAT-BCAT-Engine/Publisher
 
 ```text
 Goal: governed ecosystem Site mirror awareness plus LLM free-tier trust chain status plus media pipeline downstream publication awareness
+Goal: Publisher closure evidence production
 Repository: GCAT-BCAT-Engine/Publisher
 Target repository: StegVerse-Labs/Site
 Source authority: StegVerse-Labs/admissibility-wiki and StegVerse-Labs/collective-environment-engine for their respective subjects
 State: publication_awareness_only
 Release hold: updated_with_evidence
 ```
+
+The closure-evidence goal marker is retained for compatibility with the existing ecosystem-management validator. It does not claim that closure evidence exists or that activation has occurred.
 
 ## ST-017 Sandbox-First Adoption
 
