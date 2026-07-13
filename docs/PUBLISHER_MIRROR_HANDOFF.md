@@ -4,6 +4,12 @@
 
 This handoff is the current task source of truth for `GCAT-BCAT-Engine/Publisher`.
 
+Companion ecosystem-management handoff:
+
+```text
+docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+```
+
 ## Current Goal
 
 ```text
@@ -71,6 +77,7 @@ docs/PUBLISHER_GOVERNED_ECOSYSTEM_NEXT_ACTION.md
 docs/PUBLISHER_GOVERNED_ECOSYSTEM_GOAL_ACTIVATION_STATUS.md
 docs/LLM_FREE_TIER_TRUST_CHAIN_STATUS.md
 docs/media-pipeline-site-publication-awareness.md
+docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 tools/check_governed_ecosystem_site_mirror_awareness.py
 tools/check_stegguardian_propagation_status.py
 tools/check_publisher_governed_ecosystem_sync_status.py
