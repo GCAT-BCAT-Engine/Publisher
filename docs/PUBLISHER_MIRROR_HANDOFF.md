@@ -42,6 +42,24 @@ fresh ordered artifacts
 
 Publisher verification receipts and pending probes are not activation receipts. Closure requires fresh ordered artifacts and a separately validated closure receipt.
 
+## pending-status boundary
+
+`docs/PUBLISHER_PENDING_CLOSURE_STATUS.md` remains the canonical pending-state record. It must continue to show that the Publisher receipt, Site evidence, and closure receipt have not been recorded until fresh ordered evidence exists.
+
+## Verification Receipt Boundary
+
+Publisher verification receipts preserve `closure_evidence_results` and `closure_evidence_verification` but do not claim activation. The receipt template and writer remain:
+
+```text
+docs/verification-run-receipt.template.json
+tools/check_verification_receipt_template.py
+tools/write_verification_run_receipt.py
+```
+
+## dispatch receipt posture env values
+
+The dispatch workflow supplies explicit receipt posture environment values, including `CLOSURE_EVIDENCE_STATUS` and `CLOSURE_EVIDENCE_VERIFICATION`, and preserves them as `pending_fresh_ordered_artifacts` until independently validated closure evidence exists.
+
 ## ST-017 Sandbox-First Adoption
 
 Installed on branch `validation/st017-sandbox-adoption`:
