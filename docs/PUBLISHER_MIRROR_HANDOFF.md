@@ -29,6 +29,8 @@ The closure-evidence goal marker is retained for compatibility with the existing
 ```text
 docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
+docs/PUBLISHER_VALIDATION_REMAINDER.md
+docs/SOURCE_GEOMETRY_PROVENANCE.md
 tools/check_publisher_closure_evidence_production.py
 docs/verification-run-receipt.template.json
 tools/check_verification_receipt_template.py
@@ -40,7 +42,13 @@ self_managed_handoff_completion
 fresh ordered artifacts
 ```
 
-Publisher verification receipts and pending probes are not activation receipts. Closure requires fresh ordered artifacts and a separately validated closure receipt.
+Issue #1 is not activation evidence.
+
+Source Geometry ID: SG-001
+
+Publisher role: citation and publication surface only
+
+The actual Publisher receipt artifact and the actual Site evidence artifact are both still required before any closure decision. Publisher verification receipts and pending probes are not activation receipts. Closure requires fresh ordered artifacts and a separately validated closure receipt.
 
 ## pending-status boundary
 
@@ -116,6 +124,8 @@ docs/media-pipeline-site-publication-awareness.md
 docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
 docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
+docs/PUBLISHER_VALIDATION_REMAINDER.md
+docs/SOURCE_GEOMETRY_PROVENANCE.md
 docs/verification-run-receipt.template.json
 tools/check_governed_ecosystem_site_mirror_awareness.py
 tools/check_stegguardian_propagation_status.py
