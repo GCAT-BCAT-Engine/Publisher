@@ -60,14 +60,14 @@
         "alpha": 0.4,
         "beta": 0.3,
         "gamma": 0.3,
-        "pressure_growth": 0.075,
+        "pressure_growth": 0.1,
         "governance_adaptation": 0.12,
         "constraint_adaptation": 0.48,
         "continuity_adaptation": 0.08,
         "governance_decay": 0.018,
         "constraint_decay": 0.003,
         "continuity_decay": 0.024,
-        "control_limit": 0.07,
+        "control_limit": 0.05,
         "intervention_delay": 2.0,
         "target_omega": 0.75
       }
