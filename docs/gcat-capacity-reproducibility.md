@@ -2,7 +2,7 @@
 
 ## Scope
 
-This document describes the repository-local synthetic simulation and sensitivity workflow for:
+This document describes the repository-local synthetic simulation, sensitivity, and figure workflow for:
 
 > GCAT: A Capacity-Based Stability Condition for Governance in Autonomous Systems
 
@@ -68,6 +68,49 @@ Validate:
 python tools/check_gcat_capacity_sensitivity.py
 ```
 
+## Scenario Time-Series Figures
+
+Run:
+
+```bash
+python tools/gcat_capacity_timeseries.py
+```
+
+Default input:
+
+- `data/gcat_capacity_scenarios.json`
+
+Default outputs:
+
+- `generated/gcat-capacity-timeseries/balanced_adaptation.svg`
+- `generated/gcat-capacity-timeseries/delayed_intervention.svg`
+- `generated/gcat-capacity-timeseries/constraint_heavy_fragility.svg`
+- `generated/gcat-capacity-timeseries/bounded_recovery_failure.svg`
+- `generated/gcat-capacity-timeseries/manifest.json`
+
+Each scenario figure contains two panels:
+
+1. execution pressure and effective governance capacity over time;
+2. governance load ratio `Omega` with an explicit `Omega = 1` frontier.
+
+Validate:
+
+```bash
+python tools/check_gcat_capacity_timeseries.py
+```
+
+The figure validator checks scenario coverage, manifest parity, SHA-256 digests, frontier and legend labels, synthetic and uncalibrated warnings, and selected scenario boundary behavior.
+
+## Complete Local Validation Sequence
+
+```bash
+python tools/check_gcat_capacity_simulation.py
+python tools/check_gcat_capacity_sensitivity.py
+python tools/check_gcat_capacity_timeseries.py
+```
+
+A successful run of one validator does not imply success of the others. Preserve exact evidence for each command.
+
 ## Production Functions Compared
 
 ### Cobb-Douglas baseline
@@ -94,9 +137,9 @@ This Leontief-style comparator sets capacity by the weakest normalized input. It
 
 The constant-elasticity-of-substitution model provides an intermediate family between substitution and complementarity. The declared specification currently uses `rho = -0.5`.
 
-## Publication Figure
+## Publication Figures
 
-`gcat_regime_map.svg` is a vector figure generated directly by the standard library tool. It includes:
+`gcat_regime_map.svg` is a vector figure generated directly by the sensitivity tool. It includes:
 
 - governable and overload regions;
 - the `Omega = 1` frontier;
@@ -104,7 +147,9 @@ The constant-elasticity-of-substitution model provides an intermediate family be
 - an explicit synthetic and uncalibrated provenance statement;
 - a warning that overload is not automatic proof of drift.
 
-The SVG is suitable for direct browser viewing and conversion by a publication toolchain. Any converted PDF or raster output must preserve the provenance statement.
+The four scenario SVGs are generated directly from the committed simulation functions. Each figure records the peak load and first overload time in its visible footer and binds the output to a manifest digest.
+
+The SVG files are suitable for direct browser viewing and conversion by a publication toolchain. Any converted PDF or raster output must preserve the provenance statement and claim boundary.
 
 ## Reproducibility and Provenance
 
@@ -122,7 +167,7 @@ A valid execution receipt must preserve:
 
 ## Validation Boundary
 
-The committed validators inspect mathematical identities, positivity, declared scenario behavior, file generation, alternative-model coverage, provenance markers, and digest presence. They do not provide:
+The committed validators inspect mathematical identities, positivity, declared scenario behavior, file generation, alternative-model coverage, provenance markers, vector-figure structure, and digest presence. They do not provide:
 
 - independent mathematical peer review;
 - empirical calibration;
