@@ -6,6 +6,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import math
+import sys
 import tempfile
 from pathlib import Path
 from typing import Dict, List, Mapping
@@ -20,6 +21,7 @@ def load_module():
     if spec is None or spec.loader is None:
         raise RuntimeError("unable to load simulation module")
     module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
     spec.loader.exec_module(module)
     return module
 
@@ -100,7 +102,6 @@ def main() -> int:
         failures,
     )
 
-    # Verify intervention latency is actually encoded in generated records.
     delayed_records = records_by_id["delayed_intervention"]
     require(
         all(record["intervention"] == 0.0 for record in delayed_records if record["time"] < 8.0),
