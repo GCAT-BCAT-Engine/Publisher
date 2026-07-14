@@ -16,28 +16,12 @@ Working title:
 
 ## Durable Decisions
 
-1. Effective governance capacity is modeled as
-
-   `G_eff = K g^alpha c^beta t^gamma`.
-
-2. The governance load ratio is
-
-   `Omega = a / G_eff`.
-
-3. `Omega <= 1` identifies the candidate governable region; `Omega > 1` identifies an overload regime. The threshold alone is not a proof that drift must occur without additional system dynamics and assumptions.
-
-4. The same boundary is interpreted through:
-   - control barrier functions and forward invariance;
-   - viability theory and recoverability;
-   - a Cobb-Douglas-type institutional production frontier.
-
-5. The federal IT case is an observational structural illustration only. It is not evidence of malicious activity, causation, or a calibrated numerical value of `Omega`.
-
-6. The paper must distinguish:
-   - admissibility from stability;
-   - an admissible state from a viable/recoverable state;
-   - strong constraints from effective governance capacity;
-   - simulated results from empirical measurements.
+1. Effective governance capacity is modeled as `G_eff = K g^alpha c^beta t^gamma`.
+2. The governance load ratio is `Omega = a / G_eff`.
+3. `Omega <= 1` identifies the candidate governable region; `Omega > 1` identifies an overload regime. The threshold alone is not proof that drift must occur.
+4. The same boundary is interpreted through control barrier functions, viability theory, and a Cobb-Douglas-type institutional production frontier.
+5. The federal IT case is an observational structural illustration only. It is not evidence of malicious activity, causation, or a calibrated numerical `Omega`.
+6. The paper must distinguish admissibility from stability, admissible state from viable state, strong constraints from effective governance capacity, and synthetic output from empirical measurement.
 
 ## Artifacts
 
@@ -50,45 +34,42 @@ Working title:
 - `data/gcat_capacity_sensitivity.json`
 - `tools/gcat_capacity_sensitivity.py`
 - `tools/check_gcat_capacity_sensitivity.py`
+- `governance/receipts/gcat-capacity-sensitivity-validation-v1.json`
+- `tools/gcat_capacity_timeseries.py`
+- `tools/check_gcat_capacity_timeseries.py`
+- `governance/receipts/gcat-capacity-timeseries-validation-v1.json`
 - `docs/gcat-capacity-reproducibility.md`
-- future generated CSV, JSON, manifest, and SVG outputs
+- future generated CSV, JSON, manifests, and SVG outputs
 - future LaTeX/PDF publication artifacts derived from the reviewed source
 
 ## Completed in Current Workstream
 
 1. Added explicit proportional state dynamics in log-state coordinates.
-2. Added bounded, delayed intervention assumptions.
-3. Replaced threshold-only theorem language with a conditional forward-invariance proposition in the paper source.
-4. Added four declared numerical scenarios:
-   - balanced adaptation;
-   - delayed intervention;
-   - constraint-heavy fragility;
-   - bounded recovery failure.
+2. Added bounded and delayed intervention assumptions.
+3. Added a conditional forward-invariance proposition with a bounded claim.
+4. Added four declared numerical scenarios: balanced adaptation, delayed intervention, constraint-heavy fragility, and bounded recovery failure.
 5. Added fixed-step RK4 simulation code with no third-party dependencies.
 6. Added CSV, summary JSON, SHA-256 digest, and manifest generation.
-7. Added a repository-local validator for positivity, margin identity, scenario behavior, delay enforcement, generated outputs, and synthetic/calibration markers.
-8. Added a governance-pressure regime sweep and elasticity sweep.
-9. Added alternative production-function comparisons:
-   - Cobb-Douglas;
-   - normalized weighted geometric;
-   - weighted additive;
-   - bottleneck minimum;
-   - CES.
-10. Added a dependency-free SVG regime-map generator with an explicit `Omega = 1` boundary and synthetic-data warning.
-11. Added a sensitivity validator covering grid dimensions, identities, classification, model coverage, publication labels, file generation, and digests.
-12. Added a reproducibility guide covering commands, outputs, assumptions, and receipt requirements.
+7. Added a simulation validator for positivity, margin identity, scenario behavior, delay enforcement, generated outputs, and provenance markers.
+8. Added governance-pressure and elasticity sweeps.
+9. Added Cobb-Douglas, weighted-geometric, weighted-additive, bottleneck-minimum, and CES comparisons.
+10. Added a dependency-free SVG regime map with an explicit `Omega = 1` boundary.
+11. Added a sensitivity validator covering grid dimensions, identities, classifications, model coverage, labels, file generation, and digests.
+12. Added one dependency-free two-panel SVG generator per scenario.
+13. Added a time-series figure validator covering scenario completeness, SVG structure, visible claim boundaries, legends, frontier labels, digests, and selected boundary behavior.
+14. Integrated numerical methods, scenario design results, sensitivity methodology, alternative functional forms, figure generation, and validation limits into the paper source.
+15. Expanded the reproducibility guide to include all three generation and validation workflows.
 
 ## Remaining Work
 
-1. Execute both committed validators in an authorized repository runtime and preserve their exact outputs as validation evidence.
-2. Generate and review the committed synthetic CSV, JSON, manifests, and SVG figure.
-3. Add a time-series publication figure derived from committed scenario outputs.
-4. Expand related work using primary sources.
-5. Validate the observational case-study wording and remove or qualify unsupported statements.
-6. Integrate the sensitivity methodology and results into the paper source.
-7. Produce reviewed LaTeX and PDF outputs.
-8. Update the GCAT-BCAT paper index.
-9. Obtain independent mathematical review of the proposition, dynamics, and production-function assumptions.
+1. Execute all three committed validators in an authorized repository runtime and preserve exact outputs as validation evidence.
+2. Generate and review committed synthetic CSV, JSON, manifests, regime-map SVG, and four time-series SVG files.
+3. Expand related work using primary sources.
+4. Validate or further qualify the observational case-study wording.
+5. Produce reviewed LaTeX and PDF outputs.
+6. Update the GCAT-BCAT paper index.
+7. Obtain independent mathematical review of the proposition, dynamics, and production-function assumptions.
+8. Determine whether a repository-local workflow should execute these validators without crossing existing Publisher authority boundaries.
 
 ## Validation Requirements
 
@@ -98,7 +79,7 @@ The workstream is not publication-ready until:
 - all simulations reproduce from committed source and parameters;
 - generated figures identify synthetic data explicitly;
 - citations are complete and primary-source grounded;
-- case-study statements are either sourced, qualified as first-person observation, or removed;
+- case-study statements are sourced, qualified as first-person observation, or removed;
 - repository checks pass without modifying cross-repository authority.
 
 ## Ownership
@@ -109,4 +90,4 @@ Publisher mirror, Site activation, wiki propagation, release, and deployment own
 
 ## Permitted Continuation Scope
 
-A successor may edit the paper source, model specification, local simulations, tests, figures, bibliography, and validation records. A successor may not claim external deployment, calibrated empirical prediction, theorem completion, or downstream propagation without corresponding durable evidence.
+A successor may edit paper sources, model specifications, repository-local simulations, tests, figures, bibliography, and validation records. A successor may not claim external deployment, calibrated empirical prediction, theorem completion, or downstream propagation without corresponding durable evidence.
