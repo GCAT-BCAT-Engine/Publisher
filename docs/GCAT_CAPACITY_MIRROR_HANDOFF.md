@@ -43,19 +43,37 @@ Working title:
 
 - `papers/GCAT-BCAT/P14_GCAT_Capacity_Stability_v1.md`
 - `models/gcat_capacity_model.json`
-- future reproducible simulation implementation and generated figures
+- `tools/gcat_capacity_simulation.py`
+- `tools/check_gcat_capacity_simulation.py`
+- `data/gcat_capacity_scenarios.json`
+- `governance/receipts/gcat-capacity-simulation-validation-v1.json`
+- future generated figures and committed simulation outputs
 - future LaTeX/PDF publication artifacts derived from the reviewed source
+
+## Completed in Current Workstream
+
+1. Added explicit proportional state dynamics in log-state coordinates.
+2. Added bounded, delayed intervention assumptions.
+3. Replaced threshold-only theorem language with a conditional forward-invariance proposition in the paper source.
+4. Added four declared numerical scenarios:
+   - balanced adaptation;
+   - delayed intervention;
+   - constraint-heavy fragility;
+   - bounded recovery failure.
+5. Added fixed-step RK4 simulation code with no third-party dependencies.
+6. Added CSV, summary JSON, SHA-256 digest, and manifest generation.
+7. Added a repository-local validator for positivity, margin identity, scenario behavior, delay enforcement, generated outputs, and synthetic/calibration markers.
 
 ## Remaining Work
 
-1. Add explicit state dynamics and bounded intervention assumptions.
-2. Replace threshold-only theorem language with a valid conditional forward-invariance proposition.
-3. Add numerical scenarios with positivity-preserving dynamics.
-4. Add parameter sweeps, sensitivity analysis, and reproducibility metadata.
-5. Expand related work using primary sources.
-6. Validate the observational case-study wording and remove unsupported scale claims.
-7. Produce reviewed LaTeX and PDF outputs.
-8. Record validation receipts and update the paper index.
+1. Execute the committed validator in an authorized repository runtime and preserve its output as validation evidence.
+2. Add parameter sweeps, sensitivity analysis, and alternative production functions.
+3. Generate publication figures from committed synthetic outputs.
+4. Expand related work using primary sources.
+5. Validate the observational case-study wording and remove or qualify unsupported statements.
+6. Produce reviewed LaTeX and PDF outputs.
+7. Update the GCAT-BCAT paper index.
+8. Obtain independent mathematical review of the proposition and dynamics.
 
 ## Validation Requirements
 
@@ -70,7 +88,7 @@ The workstream is not publication-ready until:
 
 ## Ownership
 
-Current build ownership: `agent/gcat-capacity-paper` draft branch.
+Current build ownership: `agent/gcat-capacity-paper` draft branch and Publisher Issue #6.
 
 Publisher mirror, Site activation, wiki propagation, release, and deployment ownership remain governed by `PUBLISHER_MIRROR_HANDOFF.md` and are outside this workstream.
 
