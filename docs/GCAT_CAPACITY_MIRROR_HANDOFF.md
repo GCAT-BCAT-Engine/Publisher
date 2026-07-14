@@ -47,7 +47,11 @@ Working title:
 - `tools/check_gcat_capacity_simulation.py`
 - `data/gcat_capacity_scenarios.json`
 - `governance/receipts/gcat-capacity-simulation-validation-v1.json`
-- future generated figures and committed simulation outputs
+- `data/gcat_capacity_sensitivity.json`
+- `tools/gcat_capacity_sensitivity.py`
+- `tools/check_gcat_capacity_sensitivity.py`
+- `docs/gcat-capacity-reproducibility.md`
+- future generated CSV, JSON, manifest, and SVG outputs
 - future LaTeX/PDF publication artifacts derived from the reviewed source
 
 ## Completed in Current Workstream
@@ -63,17 +67,28 @@ Working title:
 5. Added fixed-step RK4 simulation code with no third-party dependencies.
 6. Added CSV, summary JSON, SHA-256 digest, and manifest generation.
 7. Added a repository-local validator for positivity, margin identity, scenario behavior, delay enforcement, generated outputs, and synthetic/calibration markers.
+8. Added a governance-pressure regime sweep and elasticity sweep.
+9. Added alternative production-function comparisons:
+   - Cobb-Douglas;
+   - normalized weighted geometric;
+   - weighted additive;
+   - bottleneck minimum;
+   - CES.
+10. Added a dependency-free SVG regime-map generator with an explicit `Omega = 1` boundary and synthetic-data warning.
+11. Added a sensitivity validator covering grid dimensions, identities, classification, model coverage, publication labels, file generation, and digests.
+12. Added a reproducibility guide covering commands, outputs, assumptions, and receipt requirements.
 
 ## Remaining Work
 
-1. Execute the committed validator in an authorized repository runtime and preserve its output as validation evidence.
-2. Add parameter sweeps, sensitivity analysis, and alternative production functions.
-3. Generate publication figures from committed synthetic outputs.
+1. Execute both committed validators in an authorized repository runtime and preserve their exact outputs as validation evidence.
+2. Generate and review the committed synthetic CSV, JSON, manifests, and SVG figure.
+3. Add a time-series publication figure derived from committed scenario outputs.
 4. Expand related work using primary sources.
 5. Validate the observational case-study wording and remove or qualify unsupported statements.
-6. Produce reviewed LaTeX and PDF outputs.
-7. Update the GCAT-BCAT paper index.
-8. Obtain independent mathematical review of the proposition and dynamics.
+6. Integrate the sensitivity methodology and results into the paper source.
+7. Produce reviewed LaTeX and PDF outputs.
+8. Update the GCAT-BCAT paper index.
+9. Obtain independent mathematical review of the proposition, dynamics, and production-function assumptions.
 
 ## Validation Requirements
 
