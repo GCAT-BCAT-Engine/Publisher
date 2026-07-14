@@ -22,10 +22,16 @@ Working title:
 4. The same boundary is interpreted through control barrier functions, viability theory, and a Cobb-Douglas-type institutional production frontier.
 5. The federal IT case is an observational structural illustration only. It is not evidence of malicious activity, causation, or a calibrated numerical `Omega`.
 6. The paper must distinguish admissibility from stability, admissible state from viable state, strong constraints from effective governance capacity, and synthetic output from empirical measurement.
+7. Related work must distinguish established adjacent theory from GCAT-specific modeling claims. No cited source independently validates GCAT.
 
 ## Artifacts
 
 - `papers/GCAT-BCAT/P14_GCAT_Capacity_Stability_v1.md`
+- `papers/GCAT-BCAT/sections/P14_related_work_v1.md`
+- `papers/GCAT-BCAT/references/gcat_capacity_primary_sources.bib`
+- `papers/GCAT-BCAT/README.md`
+- `docs/gcat-capacity-source-review.md`
+- `tools/check_gcat_capacity_bibliography.py`
 - `models/gcat_capacity_model.json`
 - `tools/gcat_capacity_simulation.py`
 - `tools/check_gcat_capacity_simulation.py`
@@ -59,17 +65,23 @@ Working title:
 13. Added a time-series figure validator covering scenario completeness, SVG structure, visible claim boundaries, legends, frontier labels, digests, and selected boundary behavior.
 14. Integrated numerical methods, scenario design results, sensitivity methodology, alternative functional forms, figure generation, and validation limits into the paper source.
 15. Expanded the reproducibility guide to include all three generation and validation workflows.
+16. Added a primary-source BibTeX bibliography covering CBFs, robust invariance, viability theory, Cobb-Douglas and CES production functions, bounded rationality, organizational failure, and systems safety.
+17. Added a source-to-claim matrix defining permitted uses and prohibited inferences for every bibliography entry.
+18. Added a citation-ready related-work section with explicit GCAT claim boundaries.
+19. Added a bibliography validator for required entries, citation-key parity, source-review coverage, and claim-boundary language.
+20. Updated the GCAT-BCAT paper index to include P14 and its supporting source files.
 
 ## Remaining Work
 
-1. Execute all three committed validators in an authorized repository runtime and preserve exact outputs as validation evidence.
+1. Execute all four committed validators in an authorized repository runtime and preserve exact outputs as validation evidence.
 2. Generate and review committed synthetic CSV, JSON, manifests, regime-map SVG, and four time-series SVG files.
-3. Expand related work using primary sources.
-4. Validate or further qualify the observational case-study wording.
-5. Produce reviewed LaTeX and PDF outputs.
-6. Update the GCAT-BCAT paper index.
+3. Verify every BibTeX field against publisher or DOI records in the final publication environment.
+4. Integrate `sections/P14_related_work_v1.md` into the final Markdown and LaTeX assembly.
+5. Validate or further qualify the observational case-study wording.
+6. Produce reviewed LaTeX and PDF outputs.
 7. Obtain independent mathematical review of the proposition, dynamics, and production-function assumptions.
 8. Determine whether a repository-local workflow should execute these validators without crossing existing Publisher authority boundaries.
+9. Add primary queueing or recovery-saturation literature only if those mechanisms remain explicit in the final causal argument.
 
 ## Validation Requirements
 
@@ -78,7 +90,7 @@ The workstream is not publication-ready until:
 - equations and propositions receive mathematical review;
 - all simulations reproduce from committed source and parameters;
 - generated figures identify synthetic data explicitly;
-- citations are complete and primary-source grounded;
+- bibliography metadata is publisher-verified and citations are complete;
 - case-study statements are sourced, qualified as first-person observation, or removed;
 - repository checks pass without modifying cross-repository authority.
 
@@ -90,4 +102,4 @@ Publisher mirror, Site activation, wiki propagation, release, and deployment own
 
 ## Permitted Continuation Scope
 
-A successor may edit paper sources, model specifications, repository-local simulations, tests, figures, bibliography, and validation records. A successor may not claim external deployment, calibrated empirical prediction, theorem completion, or downstream propagation without corresponding durable evidence.
+A successor may edit paper sources, model specifications, repository-local simulations, tests, figures, bibliography, and validation records. A successor may not claim external deployment, calibrated empirical prediction, theorem completion, publication readiness, or downstream propagation without corresponding durable evidence.
