@@ -1,78 +1,129 @@
 # Publisher Mirror Handoff
 
-## Status
+## Source of truth
 
 This file is the current handoff and task source of truth for `GCAT-BCAT-Engine/Publisher`.
 
-## Current Priority
-
-Standing-Proof-Engine v0.5.0 status has been received from Site and recorded for wiki propagation.
-
-## Source Artifacts
-
-Primary source: `StegVerse-Labs/Site`
-
-- `SITE_MIRROR_HANDOFF.md`
-- `data/spe-v0-5-0-status.json`
-
-Original source: `StegVerse-Labs/Standing-Proof-Engine`
-
-- `SPE_MIRROR_HANDOFF.md`
-- `docs/release_snapshot_v0_5_0.md`
-- `samples/destination_receipt_chain_001.json`
-
-Master-records source: `master-records/core-lite`
-
-- `records/spe_destination_receipt_chain_001.json`
-
-## Publisher Install Complete
-
-Destination: `GCAT-BCAT-Engine/Publisher`
-
-- `data/spe-v0-5-0-status.json`
-
-## Downstream Propagation Targets
-
-Destination: `StegVerse-Labs/admissibility-wiki`
-
-- `ADMISSIBILITY_MIRROR_HANDOFF.md`
-- `pages/spe-v0-5-0-standing-boundary.md`
-
-Destination: `StegVerse-002/stegguardian-wiki`
-
-- `STEGGUARDIAN_WIKI_MIRROR_HANDOFF.md`
-- `pages/spe-v0-5-0-guardian-boundary.md`
-
-## Build Rule
-
-Before continuing any Publisher mirror task, check this file first and treat it as the current handoff and task source of truth.
-
-## Boundary
-
-SPE v0.5.0 is a local SPE receipt-chain package with master-records emission recorded. Do not claim external production deployment beyond the recorded targets.
-
-## Latest workflow failure
+## Current priority
 
 ```text
-Branch: main
-Workflow: Close Site Mirror Activation
-Job: Close activation from Publisher and Site evidence artifacts
-Run: 29155463339
-Commit: 83c007cd66637634aa14fb01d2f082465b08a823
-Result: failed in 3 seconds
-Annotations: 2
-Failure class: unresolved early workflow or validation failure
+Goal: automatically ingest verified Ecosystem Chat activation evidence from StegVerse-Labs/Site and prepare bounded downstream publication status
+Result: AUTOMATED_SITE_ACTIVATION_IMPORT_INSTALLED_SOURCE_ACTIVATION_PENDING
+Manual user action required: false
 ```
 
-The notification does not expose the failing step or annotation text. This workflow can close an activation state derived from Publisher and Site evidence, so no speculative repair, retry, Site mutation, release, deployment, tag, or cross-repository action is authorized from this evidence alone.
+## Source chain
 
-Required evidence before repair:
+```text
+StegVerse-org/LLM-adapter retained VERIFIED activation receipt
+-> StegVerse-Labs/Site activation-state validation
+-> StegVerse-Labs/Site/data/ecosystem-chat-activation-state.json
+-> StegVerse-Labs/Site/data/ecosystem-chat-activation-propagation.json
+-> GCAT-BCAT-Engine/Publisher automated importer
+-> GCAT-BCAT-Engine/Publisher/data/ecosystem-chat-activation-status.json
+```
 
-1. first failing step;
-2. both annotation messages;
-3. the exact Publisher and Site evidence paths evaluated;
-4. confirmation that the repair remains repository-local and does not alter activation authority.
+## Installed consumer
 
-## Next Integration Candidate
+```text
+scripts/import_ecosystem_chat_activation.py
+.github/workflows/import-ecosystem-chat-activation.yml
+```
 
-Wiki propagation verification remains the next declared task. It must not be treated as complete until the existing Publisher artifact and both downstream wiki targets are verified without crossing repository authority boundaries.
+The workflow runs hourly and on dispatch. It fetches the public Site state and propagation
+packet, validates both canonical hashes, validates the packet-to-state hash binding,
+requires Publisher to be an explicit destination, and commits only changed projection
+state.
+
+## Acceptance requirements
+
+Publisher records `VERIFIED_ACTIVATION_IMPORTED` only when:
+
+```text
+Site state record type is correct
+Site state_sha256 matches canonical state content
+Site state = ACTIVATION_COMPLETE
+all Site activation gates = true
+propagation packet schema is correct
+packet_sha256 matches canonical packet content
+packet source_state_sha256 matches Site state_sha256
+packet state = READY_FOR_DOWNSTREAM_INGESTION
+Publisher destination exists
+Publisher ingestion_ready = true
+manual_user_action_required = false
+all propagation authority-boundary flags = false
+```
+
+Missing or incomplete Site state remains `PENDING_SITE_ACTIVATION`. Invalid hashes,
+bindings, destinations, or authority fields become `REJECTED_SITE_ACTIVATION` and fail
+closed.
+
+## Output
+
+```text
+data/ecosystem-chat-activation-status.json
+```
+
+The output is projection-only and always preserves:
+
+```text
+publication_authorized = false
+release_authorized = false
+custody_recorded = false
+execution_authorized = false
+manual_user_action_required = false
+```
+
+## Existing Standing-Proof Engine propagation
+
+The earlier SPE v0.5.0 status remains recorded and is not superseded by this activation
+consumer. Its downstream wiki boundaries remain valid independently.
+
+## Downstream targets
+
+```text
+StegVerse-Labs/admissibility-wiki
+StegVerse-Labs/stegguardian-wiki
+StegVerse-Labs/Sit
+```
+
+Publisher may project verified activation status to these destinations only after the
+Publisher output becomes `VERIFIED_ACTIVATION_IMPORTED`. Import is not publication
+authority and does not authorize release or tagging.
+
+## Current blocker
+
+```text
+StegVerse-Labs/Site has not yet published ACTIVATION_COMPLETE with a hash-bound
+READY_FOR_DOWNSTREAM_INGESTION packet.
+```
+
+The Site scheduled workflow owns that state transition after the adapter retains a
+VERIFIED live receipt.
+
+## Next task
+
+```text
+1. Let the hourly Publisher importer observe Site activation automatically.
+2. Repair only an exact hash, binding, schema, destination, or authority-boundary rejection.
+3. After VERIFIED_ACTIVATION_IMPORTED, generate downstream wiki and Sit projection records.
+4. Verify destination ingestion without converting projection into publication authority.
+5. Tag or release only after repository validation and all required downstream evidence are complete.
+```
+
+## Authority boundary
+
+```text
+Site activation state != Publisher authority.
+Propagation packet != publication authority.
+Publisher import != release authority.
+Publisher projection != custody.
+Reconstruction PASS != execution authority.
+No release tag is authorized by this handoff.
+```
+
+## Archive readiness
+
+This handoff, the Site handoffs, Publisher importer, workflow, projection record, and
+repository history preserve all continuation state. Earlier conversation context is not
+required.
