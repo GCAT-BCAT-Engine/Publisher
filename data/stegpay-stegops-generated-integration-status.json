@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "publisher_integration_awareness_status",
+  "integration_id": "stegpay-stegops-generated-signed-dispatch-v1",
+  "status": "VERIFIED_TEST_INTEGRATION",
+  "source_repositories": [
+    "StegVerse-Labs/StegPay",
+    "StegVerse-Labs/StegOps-Orchestrator"
+  ],
+  "event_identity": {
+    "event_id": "09373107-5e4b-483e-85de-9e26c126fc0c",
+    "provider_id": "pi_test_123",
+    "issuer": "stegpay-test-filesystem-relay-001",
+    "key_id": "stegpay-test-filesystem-relay-v1",
+    "event_hash_sha256": "817c1ee39d84693c8a89519e3e6afa87426715ffe80e7ad25d4ab1e9e4acfb06",
+    "envelope_hash_sha256": "b5ceb4ebfe57e87a6ca541c3a45a21ed883e60f6f590f9204f025417e53bda8d",
+    "transport_hash_sha256": "22913d3f6e34995b3dffb92e039983b748bdd855b48abc1c9da718f09aa4394e"
+  },
+  "consumer_result": {
+    "state": "deliverables_ready",
+    "verified_reasons": [
+      "signed_envelope_verified",
+      "stegpay_verified_event"
+    ],
+    "matching_ledger_records": 1,
+    "producer_consumer_receipt_agreement": true,
+    "transport_is_authority": false
+  },
+  "evidence_paths": {
+    "producer_completion": "StegVerse-Labs/StegPay/docs/STEGPAY_STEGOPS_INTEGRATION_COMPLETION.md",
+    "consumer_completion": "StegVerse-Labs/StegOps-Orchestrator/docs/STEGPAY_GENERATED_INTEGRATION_COMPLETION.md",
+    "consumer_managed_report": "StegVerse-Labs/StegOps-Orchestrator/docs/_automation/generated-stegpay-consumption/latest/"
+  },
+  "downstream_awareness": {
+    "StegVerse-Labs/Site": "QUEUED_HANDOFF_AUTHORITY_REQUIRED",
+    "StegVerse-Labs/admissibility-wiki": "QUEUED_HANDOFF_AUTHORITY_REQUIRED",
+    "StegVerse-002/stegguardian-wiki": "QUEUED_HANDOFF_AUTHORITY_REQUIRED"
+  },
+  "production_posture": {
+    "authorized": false,
+    "reason": "Production issuer authorization, key custody, rotation, revocation, and live transport credentials remain separately governed and unresolved."
+  },
+  "authority_boundary": {
+    "payment_is_evidence": true,
+    "transport_is_authority": false,
+    "creates_entitlement": false,
+    "creates_execution_authority": false,
+    "creates_release_authority": false
+  }
+}
