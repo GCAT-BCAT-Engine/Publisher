@@ -1,0 +1,50 @@
+name: Import Ecosystem Chat Activation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publisher-ecosystem-chat-activation-import
+  cancel-in-progress: false
+
+jobs:
+  import-activation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Publisher
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Import Site activation state
+        run: python scripts/import_ecosystem_chat_activation.py
+
+      - name: Commit changed projection state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ecosystem-chat-activation-status.json
+          if git diff --cached --quiet; then
+            echo "No Publisher activation projection change."
+            exit 0
+          fi
+          git commit -m "chore: update Ecosystem Chat activation projection"
+          git pull --rebase
+          git push
+
+      - name: Upload activation projection
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: publisher-ecosystem-chat-activation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/ecosystem-chat-activation-status.json
+          if-no-files-found: error
+          retention-days: 30
