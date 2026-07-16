@@ -11,7 +11,7 @@ target_path: papers
 site_state: repository_managed_continuation_complete
 last_attempt: 10
 last_reason: missing artifact prefix: GCAT-BCAT-Engine/Publisher/publisher-site-verification-receipt; missing artifact prefix: StegVerse-Labs/Site/site-mirror-evidence
-last_observed_utc: 2026-07-16T09:04:16.306722+00:00
+last_observed_utc: 2026-07-16T14:42:15.503867+00:00
 ```
 
 ## Required artifact pair
