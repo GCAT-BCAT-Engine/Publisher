@@ -1,0 +1,49 @@
+name: Continuity Recall Admission Validation
+
+on:
+  pull_request:
+    paths:
+      - "publisher/continuity_recall_admission.py"
+      - "fixtures/continuity-recall/**"
+      - "tests/test_continuity_recall_admission.py"
+      - "docs/VAULT_PUBLISHER_INTEGRATION.md"
+      - "docs/PUBLISHER_CONTINUITY_RECALL_MIRROR_HANDOFF.md"
+      - ".github/workflows/continuity-recall-admission.yml"
+  push:
+    branches: ["main"]
+    paths:
+      - "publisher/continuity_recall_admission.py"
+      - "fixtures/continuity-recall/**"
+      - "tests/test_continuity_recall_admission.py"
+      - "docs/VAULT_PUBLISHER_INTEGRATION.md"
+      - "docs/PUBLISHER_CONTINUITY_RECALL_MIRROR_HANDOFF.md"
+      - ".github/workflows/continuity-recall-admission.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile admission surface
+        run: python -m py_compile publisher/continuity_recall_admission.py tests/test_continuity_recall_admission.py
+      - name: Run admission tests
+        run: python -m unittest tests.test_continuity_recall_admission -v
+      - name: Demonstrate admitted receipt
+        run: |
+          python publisher/continuity_recall_admission.py \
+            fixtures/continuity-recall/admitted.json \
+            --receipt-out /tmp/admitted-receipt.json
+          test -s /tmp/admitted-receipt.json
+      - name: Demonstrate deterministic rejection
+        run: |
+          if python publisher/continuity_recall_admission.py fixtures/continuity-recall/rejected-exact-without-payload.json; then
+            echo "Expected invalid export to be rejected" >&2
+            exit 1
+          fi

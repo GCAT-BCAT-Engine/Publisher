@@ -1,0 +1,35 @@
+{
+  "schema_version": "0.2.0",
+  "export_id": "export-demo-reject-001",
+  "source": {
+    "repository": "StegVerse-Labs/continuity-vault-kit",
+    "release": "v0.1.8",
+    "verification_root": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "event_ids": ["event-integrity-only"]
+  },
+  "authorization": {
+    "authority_source": "direct_instruction",
+    "status": "active",
+    "scope": ["05_Projects/KnowledgeVault"],
+    "purpose": "publisher integration validation",
+    "destination": "GCAT-BCAT-Engine/Publisher",
+    "receipt_id": "vault-export-receipt-002",
+    "revocable": true,
+    "revoked": false
+  },
+  "evidence": [
+    {
+      "subject_id": "missing-original",
+      "path": "05_Projects/KnowledgeVault/missing.json",
+      "retention_class": "integrity_only",
+      "fidelity": "exact",
+      "superseded": false,
+      "payload_available": false,
+      "content_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "artifact_refs": [],
+      "derived_index": false,
+      "restricted": false,
+      "contains_credentials": false
+    }
+  ]
+}
