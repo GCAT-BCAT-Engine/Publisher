@@ -4,12 +4,12 @@
   "execution_authorized": false,
   "manual_user_action_required": false,
   "publication_authorized": false,
-  "reason": "source_http_status_404",
+  "reason": "site_activation_not_complete",
   "release_authorized": false,
   "schema": "stegverse.publisher.ecosystem_chat_activation_status.v1",
-  "source_packet_sha256": null,
+  "source_packet_sha256": "808a9f3bf0907925a068cf7ebe63f36e7c3b348378e7dbde2e07119f36a70ee5",
   "source_repository": "StegVerse-Labs/Site",
-  "source_state_sha256": null,
+  "source_state_sha256": "f66bedbcab47665b911ef70f87896d4270f867fa7ea9ae20378ebd7f4739d4b1",
   "status": "PENDING_SITE_ACTIVATION",
-  "status_sha256": "1dbd68a85c33433f9bf817cfb04645285ff68e779f5700013bd137b07292304f"
+  "status_sha256": "1511688f595c8597ad0cb2fc9883d0369bb29d3ce90b19970855cc8821870834"
 }
