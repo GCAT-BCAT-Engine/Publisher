@@ -3,7 +3,9 @@
 **Repository:** `GCAT-BCAT-Engine/Publisher`  
 **Source:** `StegVerse-Labs/continuity-vault-kit`  
 **Source release:** `v0.1.8`  
-**Status:** Active bounded integration review  
+**Status:** Active executable integration validation  
+**Pull request:** `#10 Govern Continuity Vault recall exports into Publisher`  
+**Branch:** `agent/continuity-recall-integration-v0-1`  
 **Last updated:** 2026-07-17
 
 ## Purpose
@@ -16,7 +18,7 @@ This file is the repository-local continuation source of truth for the Publisher
 
 ## Publisher boundary
 
-Publisher may ingest only explicitly authorized, opt-in continuity exports. It must not:
+Publisher may admit only explicitly authorized, opt-in continuity exports. It must not:
 
 - treat a derived recall index as canonical source;
 - present semantic reconstruction, inference, integrity-only evidence, or unavailable payloads as exact content;
@@ -25,23 +27,44 @@ Publisher may ingest only explicitly authorized, opt-in continuity exports. It m
 - use continuity events to broaden publishing, licensing, or revenue-sharing authority;
 - remove provenance, retention-class, fidelity, or supersession metadata.
 
-## Required integration work
+## Implemented integration artifacts
 
-1. Replace the speculative weekly endpoint language in `docs/VAULT_PUBLISHER_INTEGRATION.md` with a governed export contract.
-2. Require explicit export authorization and a source receipt for each batch.
-3. Preserve event identifiers, source release, verification root, retention class, fidelity, supersession state, and payload-availability status.
-4. Reject batches that claim exact fidelity without an available exact payload.
-5. Reject broken or unverifiable source chains.
-6. Keep `03_Records/`, `_Policy/`, restricted content, credentials, and unrelated private material excluded.
-7. Do not claim that revenue-sharing or live ingestion is implemented unless executable code, tests, receipts, and release evidence prove it.
+- `docs/VAULT_PUBLISHER_INTEGRATION.md` — governed export and admission contract;
+- `publisher/continuity_recall_admission.py` — dependency-light validator and receipt generator;
+- `fixtures/continuity-recall/admitted.json` — valid bounded export;
+- `fixtures/continuity-recall/rejected-exact-without-payload.json` — deterministic fidelity rejection;
+- `tests/test_continuity_recall_admission.py` — authority, destination, path, fidelity, and canonical-source tests;
+- `.github/workflows/continuity-recall-admission.yml` — compile, unit-test, admitted-receipt, and rejection validation.
+
+## Admission invariants
+
+1. Source repository, release, event identifiers, and verification root are required.
+2. Authorization must be active, unrevoked, scoped, purpose-bound, destination-bound, and receipt-backed.
+3. Exact fidelity requires an available exact payload.
+4. Integrity-only and unavailable evidence cannot claim an available payload.
+5. Derived indexes cannot be admitted as canonical source.
+6. Supersession state and content hashes are required.
+7. `03_Records/`, `_Policy/`, restricted data, and credentials are rejected.
+8. Admission produces an attributable ADMITTED or REJECTED receipt with deterministic reasons and a receipt hash.
+9. Admission does not create licensing, publishing, revenue-sharing, or payout authority.
+10. No live recurring ingestion is claimed by this bounded implementation.
+
+## Remaining work
+
+1. Observe `Continuity Recall Admission Validation` on the exact current PR head.
+2. Correct any validator, fixture, test, or workflow mismatch.
+3. Update PR #10 from draft only after the exact head is green and mergeable.
+4. Merge only the validated head.
+5. Record durable integration or release evidence after merge.
+6. Review the next adjacent Publisher goal without converting unimplemented commercial behavior into a production claim.
 
 ## Acceptance condition
 
-The Publisher integration is complete only when the contract is documented, validated by executable tests or a repository-native validator, merged from a green head, and reflected in durable release or integration evidence.
+The Publisher integration is complete only when the contract and executable admission boundary are green on the exact head, merged, and reflected in durable integration evidence. Live ingestion, licensing, scoring, or payout remains a separate future capability unless independently implemented and proven.
 
 ## Archive rule
 
-Do not declare this integration complete or archive its owning session while any accepted implementation, validation, release, or required propagation obligation remains unresolved.
+Do not declare this integration complete or archive its owning session while any accepted implementation, validation, merge, evidence, or required propagation obligation remains unresolved.
 
 ---
 
