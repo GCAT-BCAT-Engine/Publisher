@@ -23,8 +23,16 @@ def main() -> int:
 
     if "READY_FOR_UPSTREAM_GATE_EVENTS" not in doc:
         raise SystemExit("REPO STANDARDS IMPORT AWARENESS: FAIL - doc status missing")
-    if "Standing-Proof-Engine v0.5.0" not in handoff:
-        raise SystemExit("REPO STANDARDS IMPORT AWARENESS: FAIL - active handoff not preserved")
+
+    # The active handoff may evolve to a newer repository goal, but it must
+    # preserve the earlier Standing-Proof Engine boundary rather than delete it.
+    spe_markers = ("Standing-Proof-Engine v0.5.0", "Standing-Proof Engine", "SPE v0.5.0")
+    if not any(marker in handoff for marker in spe_markers):
+        raise SystemExit("REPO STANDARDS IMPORT AWARENESS: FAIL - Standing-Proof Engine continuity not preserved")
+
+    if "This file is the current handoff and task source of truth" not in handoff:
+        raise SystemExit("REPO STANDARDS IMPORT AWARENESS: FAIL - active handoff source-of-truth declaration missing")
+
     expected = {
         "status_id": "repo-standards-import-awareness",
         "repository": "GCAT-BCAT-Engine/Publisher",
