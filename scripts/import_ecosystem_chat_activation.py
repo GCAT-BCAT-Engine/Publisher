@@ -36,7 +36,7 @@ def canonical_hash(payload: dict[str, Any], hash_field: str) -> str:
 
 
 def fetch_json(url: str) -> dict[str, Any]:
-    outbound = request.Request(url, headers={"Accept": "application/json", "User-Agent": "StegVerse-Publisher-Activation-Importer/1.0"})
+    outbound = request.Request(url, headers={"Accept": "application/json", "User-Agent": "StegVerse-Publisher-Activation-Importer/1.1"})
     with request.urlopen(outbound, timeout=TIMEOUT) as response:
         value = json.loads(response.read().decode("utf-8"))
     if not isinstance(value, dict):
@@ -84,7 +84,7 @@ def validate(state: dict[str, Any], packet: dict[str, Any]) -> tuple[bool, list[
 
 
 def write(status: str, reason: str, state: dict[str, Any] | None = None, packet: dict[str, Any] | None = None) -> None:
-    payload = {
+    payload: dict[str, Any] = {
         "schema": "stegverse.publisher.ecosystem_chat_activation_status.v1",
         "status": status,
         "reason": reason,
@@ -98,6 +98,7 @@ def write(status: str, reason: str, state: dict[str, Any] | None = None, packet:
         "execution_authorized": False,
         "manual_user_action_required": False,
     }
+    payload["status_sha256"] = canonical_hash(payload, "status_sha256")
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
