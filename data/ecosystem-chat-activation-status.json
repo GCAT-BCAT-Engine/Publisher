@@ -10,5 +10,6 @@
   "source_packet_sha256": null,
   "source_repository": "StegVerse-Labs/Site",
   "source_state_sha256": null,
-  "status": "PENDING_SITE_ACTIVATION"
+  "status": "PENDING_SITE_ACTIVATION",
+  "status_sha256": "1dbd68a85c33433f9bf817cfb04645285ff68e779f5700013bd137b07292304f"
 }
