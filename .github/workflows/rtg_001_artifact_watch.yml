@@ -16,6 +16,9 @@ jobs:
       - name: Checkout Publisher
         uses: actions/checkout@v4
 
+      - name: Validate retained adjacent-construction packet
+        run: python scripts/consume_authoritative_adjacent_packet.py
+
       - name: Poll workflows repo for RTG-001 artifact status
         env:
           GH_TOKEN: ${{ github.token }}
@@ -118,10 +121,10 @@ jobs:
               f.write("\n".join(md) + "\n")
           PY
 
-      - name: Commit watch status if changed
+      - name: Commit watch status and autonomy receipt if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add status/rtg/rtg_001_artifact_watch_status.json docs/rtg/RTG_001_ARTIFACT_WATCH_STATUS.md
-          git diff --cached --quiet || git commit -m "Update RTG-001 artifact watch status"
+          git add status/rtg/rtg_001_artifact_watch_status.json docs/rtg/RTG_001_ARTIFACT_WATCH_STATUS.md data/autonomy/adjacent-construction-receipt.json data/autonomy/adjacent-construction-status.json
+          git diff --cached --quiet || git commit -m "Update RTG-001 status and Publisher autonomy receipt"
           git push
