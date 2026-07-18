@@ -93,6 +93,38 @@ The previous references to `StegVerse-Labs/stegguardian-wiki` and `StegVerse-Lab
 
 The earlier SPE v0.5.0 status remains recorded and is not superseded by this activation consumer. Its downstream wiki boundaries remain valid independently.
 
+## Autonomous adjacent-construction ownership
+
+Publisher now owns the no-manual-action bootstrap for the StegPay/StegOps two-generation construction goal.
+
+Installed files:
+
+```text
+scripts/autonomous_adjacent_construction_bootstrap.py
+.github/workflows/autonomous-adjacent-construction-bootstrap.yml
+```
+
+Repository-owned behavior:
+
+1. fetch and validate the authoritative StegOps construction plan;
+2. require this handoff marker before accepting Publisher as target one;
+3. generate and self-validate the Publisher packet and Publisher-owned completion receipt;
+4. preserve all publication, release, custody, deployment, payment, entitlement, and execution authority flags as false;
+5. install only the bounded Site intake paths declared by the plan;
+6. dispatch Site only after Publisher receipt validation;
+7. require Site to persist its own receipt;
+8. allow StegOps to pull both receipts and close only on `TWO-GENERATION AUTONOMY: COMPLETE`.
+
+The workflow uses an already-governed Publisher credential path and requires no new user-created secret, manual file copy, workflow dispatch, or confirmation.
+
+Current result:
+
+```text
+AUTONOMOUS_BOOTSTRAP_INSTALLED_SCHEDULED_EXECUTION_PENDING
+manual_user_action_required = false
+transport_is_authority = false
+```
+
 ## Current blocker
 
 ```text
@@ -101,14 +133,17 @@ StegVerse-Labs/Site has not yet published ACTIVATION_COMPLETE with a hash-bound 
 
 The Site scheduled workflow owns that transition after the adapter, deployment platform, and Master-Records custody service publish the required machine evidence.
 
+For the separate two-generation construction goal, the next evidence is Publisher's target-owned adjacent-construction receipt followed by Site's independently persisted receipt.
+
 ## Next task
 
 ```text
 1. Allow the hourly Publisher importer to observe Site activation automatically.
-2. Preserve exact hash, binding, schema, destination, and authority-boundary rejection evidence.
-3. Allow existing downstream wiki workflows to ingest Publisher status automatically.
-4. Do not convert projection into publication authority, release authority, custody, or execution authority.
-5. Tag or release only after repository validation and all required downstream evidence are complete.
+2. Allow the scheduled autonomous adjacent-construction bootstrap to persist Publisher's receipt and dispatch Site.
+3. Preserve exact hash, binding, schema, destination, sequence, and authority-boundary rejection evidence.
+4. Allow existing downstream wiki workflows to ingest Publisher status automatically.
+5. Do not convert projection or transport into publication, release, custody, deployment, payment, entitlement, or execution authority.
+6. Tag or release only after repository validation and all required downstream evidence are complete.
 ```
 
 ## Authority boundary
@@ -118,6 +153,8 @@ Site activation state != Publisher authority.
 Propagation packet != publication authority.
 Publisher import != release authority.
 Publisher projection != custody.
+Adjacent-construction transport != target acceptance.
+Publisher receipt != Site receipt.
 Wiki projection != admissibility determination or Guardian enforcement authority.
 Reconstruction PASS != execution authority.
 No release tag is authorized by this handoff.
@@ -125,4 +162,4 @@ No release tag is authorized by this handoff.
 
 ## Archive readiness
 
-This handoff, the Site handoffs, Publisher importer, downstream consumer handoffs, workflows, projection records, and repository history preserve all continuation state. Earlier conversation context is not required and no manual user task remains.
+This handoff, the Site handoffs, Publisher importer, autonomous adjacent-construction bootstrap, downstream consumer handoffs, workflows, projection records, issues, and repository history preserve all continuation state. Earlier conversation context is not required and no manual user task remains. The active two-generation goal remains open until both target-owned receipts validate.
