@@ -7,7 +7,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "scripts/autonomous_adjacent_construction_bootstrap.py"
+      - "scripts/consume_authoritative_adjacent_packet.py"
       - "PUBLISHER_MIRROR_HANDOFF.md"
       - ".github/workflows/autonomous-adjacent-construction-bootstrap.yml"
 
@@ -28,8 +28,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run Publisher-owned autonomous bootstrap
-        run: python scripts/autonomous_adjacent_construction_bootstrap.py
+      - name: Independently validate authoritative StegOps packet
+        run: python scripts/consume_authoritative_adjacent_packet.py
       - name: Persist Publisher-owned receipt
         run: |
           if git diff --quiet -- data/autonomy; then
