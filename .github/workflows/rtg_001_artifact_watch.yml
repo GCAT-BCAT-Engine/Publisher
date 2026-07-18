@@ -4,6 +4,13 @@ on:
   schedule:
     - cron: "*/30 * * * *"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/consume_authoritative_adjacent_packet.py"
+      - "data/autonomy/authoritative-publisher-packet.json"
+      - "PUBLISHER_MIRROR_HANDOFF.md"
+      - ".github/workflows/rtg_001_artifact_watch.yml"
 
 permissions:
   contents: write
