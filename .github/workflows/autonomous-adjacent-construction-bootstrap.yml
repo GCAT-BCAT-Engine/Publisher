@@ -1,0 +1,47 @@
+name: Autonomous Adjacent Construction Bootstrap
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/autonomous_adjacent_construction_bootstrap.py"
+      - "PUBLISHER_MIRROR_HANDOFF.md"
+      - ".github/workflows/autonomous-adjacent-construction-bootstrap.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: autonomous-adjacent-construction-bootstrap
+  cancel-in-progress: false
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    env:
+      AUTONOMY_TRANSPORT_TOKEN: ${{ secrets.SITE_MIRROR_DISPATCH_TOKEN || secrets.STEGVERSE_REPO_SYNC_TOKEN || secrets.PUBLISHER_REPO_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run Publisher-owned autonomous bootstrap
+        run: python scripts/autonomous_adjacent_construction_bootstrap.py
+      - name: Persist Publisher-owned receipt
+        run: |
+          if git diff --quiet -- data/autonomy; then
+            exit 0
+          fi
+          git config user.name "stegverse-automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/autonomy
+          git commit -m "chore: persist Publisher adjacent construction receipt [adjacent-target-output]"
+          git push
+      - uses: actions/upload-artifact@v4
+        with:
+          name: publisher-adjacent-construction-bootstrap
+          path: data/autonomy/
+          if-no-files-found: error
