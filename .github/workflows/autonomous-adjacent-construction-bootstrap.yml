@@ -7,7 +7,8 @@ on:
   push:
     branches: [main]
     paths:
-      - "scripts/consume_authoritative_adjacent_packet.py"
+      - "scripts/persist_authoritative_publisher_receipt.py"
+      - "data/autonomy/authoritative-publisher-packet.json"
       - "PUBLISHER_MIRROR_HANDOFF.md"
       - ".github/workflows/autonomous-adjacent-construction-bootstrap.yml"
 
@@ -21,15 +22,13 @@ concurrency:
 jobs:
   bootstrap:
     runs-on: ubuntu-latest
-    env:
-      AUTONOMY_TRANSPORT_TOKEN: ${{ secrets.SITE_MIRROR_DISPATCH_TOKEN || secrets.STEGVERSE_REPO_SYNC_TOKEN || secrets.PUBLISHER_REPO_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Independently validate authoritative StegOps packet
-        run: python scripts/consume_authoritative_adjacent_packet.py
+      - name: Independently validate retained authoritative packet
+        run: python scripts/persist_authoritative_publisher_receipt.py
       - name: Persist Publisher-owned receipt
         run: |
           if git diff --quiet -- data/autonomy; then
