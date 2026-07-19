@@ -11,6 +11,7 @@ on:
       - 'tools/run_sandbox_validation.py'
       - 'tools/check_st017_sandbox_adoption.py'
       - 'tools/acquire_site_ecosystem_chat_propagation.py'
+      - 'tools/check_site_ecosystem_chat_propagation.py'
       - '.github/workflows/validate-governed-ecosystem-awareness.yml'
       - 'docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md'
       - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
@@ -25,10 +26,12 @@ on:
       - 'docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_STATUS.md'
       - 'docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_RUNBOOK.md'
       - 'docs/PUBLISHER_MIRROR_HANDOFF.md'
+      - 'data/ecosystem-chat-site-propagation-status.json'
       - 'templates/sandbox-first/**'
       - 'tools/run_sandbox_validation.py'
       - 'tools/check_st017_sandbox_adoption.py'
       - 'tools/acquire_site_ecosystem_chat_propagation.py'
+      - 'tools/check_site_ecosystem_chat_propagation.py'
       - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
       - 'tools/check_stegguardian_propagation_status.py'
       - 'tools/check_publisher_governed_ecosystem_sync_status.py'
@@ -70,22 +73,7 @@ jobs:
       - name: Acquire Site Ecosystem Chat propagation status
         run: python tools/acquire_site_ecosystem_chat_propagation.py
       - name: Validate acquired propagation boundary
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          p = json.loads(Path('data/ecosystem-chat-site-propagation-status.json').read_text())
-          assert p['repository'] == 'GCAT-BCAT-Engine/Publisher'
-          assert p['source_repository'] == 'StegVerse-Labs/Site'
-          assert p['source_hash_valid'] is True
-          assert p['destination_declared'] is True
-          assert p['state'] in {'PENDING_SITE_ACTIVATION', 'VERIFIED_INGESTION_READY'}
-          assert p['manual_user_action_required'] is False
-          assert all(value is False for value in p['authority'].values())
-          if p['state'] == 'PENDING_SITE_ACTIVATION':
-              assert p['blockers']
-          print('Publisher Site propagation boundary valid')
-          PY
+        run: python tools/check_site_ecosystem_chat_propagation.py
       - name: Check Site mirror awareness
         run: python tools/check_governed_ecosystem_site_mirror_awareness.py
       - name: Check downstream pending status
