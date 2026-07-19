@@ -2,12 +2,15 @@ name: Validate Governed Ecosystem Awareness
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '47 * * * *'
   pull_request:
     paths:
       - 'docs/PUBLISHER_MIRROR_HANDOFF.md'
       - 'templates/sandbox-first/**'
       - 'tools/run_sandbox_validation.py'
       - 'tools/check_st017_sandbox_adoption.py'
+      - 'tools/acquire_site_ecosystem_chat_propagation.py'
       - '.github/workflows/validate-governed-ecosystem-awareness.yml'
       - 'docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md'
       - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
@@ -25,6 +28,7 @@ on:
       - 'templates/sandbox-first/**'
       - 'tools/run_sandbox_validation.py'
       - 'tools/check_st017_sandbox_adoption.py'
+      - 'tools/acquire_site_ecosystem_chat_propagation.py'
       - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
       - 'tools/check_stegguardian_propagation_status.py'
       - 'tools/check_publisher_governed_ecosystem_sync_status.py'
@@ -57,10 +61,31 @@ jobs:
     needs: sandbox
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Acquire Site Ecosystem Chat propagation status
+        run: python tools/acquire_site_ecosystem_chat_propagation.py
+      - name: Validate acquired propagation boundary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = json.loads(Path('data/ecosystem-chat-site-propagation-status.json').read_text())
+          assert p['repository'] == 'GCAT-BCAT-Engine/Publisher'
+          assert p['source_repository'] == 'StegVerse-Labs/Site'
+          assert p['source_hash_valid'] is True
+          assert p['destination_declared'] is True
+          assert p['state'] in {'PENDING_SITE_ACTIVATION', 'VERIFIED_INGESTION_READY'}
+          assert p['manual_user_action_required'] is False
+          assert all(value is False for value in p['authority'].values())
+          if p['state'] == 'PENDING_SITE_ACTIVATION':
+              assert p['blockers']
+          print('Publisher Site propagation boundary valid')
+          PY
       - name: Check Site mirror awareness
         run: python tools/check_governed_ecosystem_site_mirror_awareness.py
       - name: Check downstream pending status
@@ -73,3 +98,16 @@ jobs:
         run: python tools/check_publisher_governed_ecosystem_workflow_request.py
       - name: Check Publisher activation boundary
         run: python tools/check_publisher_activation.py
+      - name: Persist Site propagation awareness status
+        if: github.event_name != 'pull_request'
+        run: |
+          if git diff --quiet -- data/ecosystem-chat-site-propagation-status.json; then
+            echo 'No propagation awareness change.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ecosystem-chat-site-propagation-status.json
+          git commit -m 'chore: persist Site propagation awareness'
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push
