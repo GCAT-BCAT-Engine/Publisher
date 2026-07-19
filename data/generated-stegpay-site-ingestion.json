@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "artifact_type": "publisher_generated_stegpay_site_ingestion",
+  "state": "INGESTED_TEST_EVIDENCE",
+  "source_repository": "StegVerse-Labs/Site",
+  "source_status_path": "data/autonomy/generated-stegpay-integration-status.json",
+  "source_validation_path": "data/autonomy/generated-stegpay-integration-validation.json",
+  "source_canonical_sha256": "3b932c2f456d4dc7a8e5d98a7cd0199b5346649586de6da532b20aa042a79994",
+  "event": {
+    "event_id": "09373107-5e4b-483e-85de-9e26c126fc0c",
+    "provider_id": "pi_test_123",
+    "consumer_state": "deliverables_ready",
+    "producer_consumer_agreement": true,
+    "matching_ledger_entries": 1,
+    "test_only": true,
+    "transport_is_authority": false
+  },
+  "source_validation": {
+    "state": "VALID",
+    "downstream_ingestion_ready": true,
+    "failures": []
+  },
+  "publisher_interpretation": {
+    "evidence_ingested": true,
+    "publication_performed": false,
+    "production_payment_claimed": false,
+    "admissibility_claimed": false
+  },
+  "authority": {
+    "production_payment_authority": false,
+    "deployment_authority": false,
+    "release_authority": false,
+    "publication_authority": false,
+    "admissibility_authority": false
+  },
+  "next_destinations": [
+    "StegVerse-Labs/admissibility-wiki",
+    "StegVerse-002/stegguardian-wiki"
+  ],
+  "manual_user_action_required": false
+}
