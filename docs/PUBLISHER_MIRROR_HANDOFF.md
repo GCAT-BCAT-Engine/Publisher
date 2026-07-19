@@ -102,6 +102,32 @@ GITHUB_ACTIONS: NOT_OBSERVED
 PUBLIC_OUTPUT: NOT_APPLICABLE
 ```
 
+## Site Ecosystem Chat propagation consumer
+
+Publisher now owns an autonomous, fail-closed awareness consumer for Site's canonical propagation packet:
+
+```text
+tools/acquire_site_ecosystem_chat_propagation.py
+tools/check_site_ecosystem_chat_propagation.py
+data/ecosystem-chat-site-propagation-status.json
+.github/workflows/validate-governed-ecosystem-awareness.yml
+```
+
+The scheduled workflow acquires:
+
+```text
+https://raw.githubusercontent.com/StegVerse-Labs/Site/main/data/ecosystem-chat-activation-propagation.json
+```
+
+The consumer requires Publisher to be an explicitly declared destination, validates the packet's canonical hash when supplied, rejects any true authority flag, preserves an exact blocker while Site remains pending, and writes a durable repository-local status. It may produce only:
+
+```text
+PENDING_SITE_ACTIVATION
+VERIFIED_INGESTION_READY
+```
+
+`VERIFIED_INGESTION_READY` is permitted only when Site publishes `READY_FOR_DOWNSTREAM_INGESTION`. It is ingestion awareness, not activation, publication, release, execution, custody, or admissibility authority. No manual user action is required.
+
 ## Built Files
 
 ```text
@@ -127,6 +153,8 @@ docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
 docs/PUBLISHER_VALIDATION_REMAINDER.md
 docs/SOURCE_GEOMETRY_PROVENANCE.md
 docs/verification-run-receipt.template.json
+tools/acquire_site_ecosystem_chat_propagation.py
+tools/check_site_ecosystem_chat_propagation.py
 tools/check_governed_ecosystem_site_mirror_awareness.py
 tools/check_stegguardian_propagation_status.py
 tools/check_publisher_governed_ecosystem_sync_status.py
@@ -146,6 +174,8 @@ scripts/check_media_pipeline_site_publication_awareness.py
 ```text
 python tools/run_sandbox_validation.py
 python tools/check_st017_sandbox_adoption.py --structural-only
+python tools/acquire_site_ecosystem_chat_propagation.py
+python tools/check_site_ecosystem_chat_propagation.py
 python tools/check_governed_ecosystem_site_mirror_awareness.py
 python tools/check_stegguardian_propagation_status.py
 python tools/check_publisher_governed_ecosystem_sync_status.py
@@ -162,19 +192,34 @@ Validate Governed Ecosystem Awareness workflow run #5 succeeded and is recorded 
 
 StegGuardian downstream awareness is installed for the LLM free-tier trust chain and media-pipeline Guardian boundary. Admissibility-wiki media-pipeline summary remains separately owned by its active Goal 5 workstream.
 
+The Site propagation acquisition script, dedicated validator, scheduled workflow integration, persistence path, and fail-closed authority boundary are installed. The first scheduled repository-local propagation status remains to be observed.
+
 ## Boundary
 
-Publisher records publication awareness only. It does not become source authority for governed ecosystem framing, the LLM free-tier trust chain, or the media pipeline.
+Publisher records publication awareness only. It does not become source authority for governed ecosystem framing, the LLM free-tier trust chain, the media pipeline, or Ecosystem Chat activation.
 
 This handoff does not claim production authority, release authorization, operational standing, live connector installation, canonical STRP admission, public URL verification, live media execution, public broadcast capability, provider execution, downstream propagation authority, Guardian enforcement authority, or final admissibility.
 
 ## Remaining Targets
 
 ```text
+observe and validate the first persisted data/ecosystem-chat-site-propagation-status.json
+retain PENDING_SITE_ACTIVATION until Site publishes READY_FOR_DOWNSTREAM_INGESTION
 execute and inspect the Publisher ST-017 pull-request sandbox
 repair immediately if any command or existing workflow is red
 merge only after inspected SANDBOX PASS and GitHub Actions PASS
 StegVerse-Labs/admissibility-wiki media-pipeline summary remains separately coordinated
+```
+
+## Exact current external blocker
+
+```text
+Source repository: StegVerse-Labs/Site
+Upstream owner: StegVerse-org/LLM-adapter
+Blocker: live_activation_observation_not_yet_recorded
+Required upstream artifact: receipts/ecosystem-chat-live-activation.verified.json
+Publisher action after Site readiness: automatic acquisition, validation, and durable awareness-state persistence
+Manual user action required: false
 ```
 
 ## Handoff Instruction
