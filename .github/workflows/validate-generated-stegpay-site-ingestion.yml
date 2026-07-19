@@ -1,0 +1,41 @@
+name: Validate Generated StegPay Site Ingestion
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - data/generated-stegpay-site-ingestion.json
+      - tools/check_generated_stegpay_site_ingestion.py
+      - .github/workflows/validate-generated-stegpay-site-ingestion.yml
+  pull_request:
+    paths:
+      - data/generated-stegpay-site-ingestion.json
+      - tools/check_generated_stegpay_site_ingestion.py
+      - .github/workflows/validate-generated-stegpay-site-ingestion.yml
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-generated-stegpay-site-ingestion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out Publisher
+        uses: actions/checkout@v4
+
+      - name: Validate bounded ingestion evidence
+        run: python tools/check_generated_stegpay_site_ingestion.py
+
+      - name: Summarize non-authorizing ingestion
+        run: |
+          echo "## Generated StegPay Site ingestion" >> "$GITHUB_STEP_SUMMARY"
+          echo "State: INGESTED_TEST_EVIDENCE" >> "$GITHUB_STEP_SUMMARY"
+          echo "Production payment authority: false" >> "$GITHUB_STEP_SUMMARY"
+          echo "Publication authority: false" >> "$GITHUB_STEP_SUMMARY"
+          echo "Release authority: false" >> "$GITHUB_STEP_SUMMARY"
+          echo "Manual user action required: false" >> "$GITHUB_STEP_SUMMARY"
