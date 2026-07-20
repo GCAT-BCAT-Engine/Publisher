@@ -1,10 +1,8 @@
 {
   "artifact_type": "stegverse_adjacent_construction_receipt",
-  "completed_utc": "2026-07-20T11:13:51Z",
+  "completed_utc": "2026-07-20T12:15:15Z",
   "construction_profile": "bounded-receipt-intake-v1",
   "custody_recorded": false,
-  "deployment_authorized": false,
-  "entitlement_authorized": false,
   "execution_authorized": false,
   "goal_id": "stegpay-stegops-two-generation-autonomy",
   "manual_user_action_required": false,
@@ -13,7 +11,6 @@
     "StegVerse-Labs/StegPay",
     "StegVerse-Labs/StegOps-Orchestrator"
   ],
-  "payment_authorized": false,
   "plan_hash_sha256": "bde58a715d87a31844b3b4f7a2f16aba746dcfc24fd175ac007e6ca2400262ee",
   "publication_authorized": false,
   "release_authorized": false,
@@ -21,5 +18,5 @@
   "target_goal": "Install and validate a machine-readable intake for autonomous adjacent-construction packets and persist a receipt without granting publication or execution authority.",
   "target_repository": "GCAT-BCAT-Engine/Publisher",
   "transport_is_authority": false,
-  "validation": "PUBLISHER_WORKFLOW_VALIDATED_AUTHORITATIVE_PACKET"
+  "validation": "RETAINED_AUTHORITATIVE_PACKET_INDEPENDENTLY_VALIDATED"
 }
