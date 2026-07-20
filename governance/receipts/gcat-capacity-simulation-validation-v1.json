@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "receipt_id": "gcat-capacity-simulation-validation-v1",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "branch": "agent/gcat-capacity-paper",
+  "status": "implementation-complete-runtime-validation-pending",
+  "artifacts": [
+    "tools/gcat_capacity_simulation.py",
+    "tools/check_gcat_capacity_simulation.py",
+    "data/gcat_capacity_scenarios.json"
+  ],
+  "implemented_checks": [
+    "strictly positive finite state variables",
+    "monotonically increasing simulation time",
+    "margin identity h = -ln(Omega)",
+    "declared intervention delay",
+    "balanced scenario has lower peak load than delayed scenario",
+    "constraint-heavy fragility crosses modeled overload boundary",
+    "bounded recovery failure crosses modeled overload boundary",
+    "generated CSV and summary artifacts exist",
+    "generated outputs are marked synthetic and uncalibrated"
+  ],
+  "numerical_design_review": {
+    "method": "independent equation-parity calculation",
+    "result": "scenario ordering and declared overload crossings confirmed after constraint-heavy parameter correction",
+    "observed_summaries": {
+      "balanced_adaptation": {
+        "maximum_omega_approx": 0.829104,
+        "first_overload_time": null
+      },
+      "delayed_intervention": {
+        "maximum_omega_approx": 0.93719,
+        "first_overload_time": null
+      },
+      "constraint_heavy_fragility": {
+        "maximum_omega_approx": 7.750136,
+        "first_overload_time_approx": 4.9
+      },
+      "bounded_recovery_failure": {
+        "maximum_omega_approx": 27.988966,
+        "first_overload_time_approx": 1.0
+      }
+    }
+  },
+  "runtime_validation": {
+    "command": "python tools/check_gcat_capacity_simulation.py",
+    "executed_against_committed_checkout": false,
+    "result": "pending",
+    "reason": "The current connector session could commit and inspect repository content but did not provide an executable repository checkout."
+  },
+  "claim_boundary": [
+    "This receipt does not claim repository CI success.",
+    "This receipt does not claim mathematical peer review.",
+    "All scenario results are synthetic and uncalibrated.",
+    "Omega > 1 is a modeled overload classification, not automatic proof of drift."
+  ],
+  "next_required_event": "Execute the committed validator in an authorized repository runtime and preserve its exact stdout, exit code, commit SHA, and environment metadata."
+}
