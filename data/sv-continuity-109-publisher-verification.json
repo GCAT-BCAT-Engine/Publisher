@@ -1,0 +1,29 @@
+{
+  "receipt_id": "sv-continuity-109-publisher-verification-001",
+  "protocol_id": "SV-CONTINUITY-109",
+  "destination": "GCAT-BCAT-Engine/Publisher",
+  "source_merges": {
+    "continuity": "d3c24a774b1638fed26990ebf916babfeb2fc699",
+    "stegcore": "8378cbbc6f9d80ee94c69af312835d118ac46bfa"
+  },
+  "checks": {
+    "authoritative_vs_effective_database_distinguished": true,
+    "unknown_retention_preserved": true,
+    "external_ai_returns_non_authoritative": true,
+    "publication_projection_grants_no_authority": true,
+    "site_downstream_ingestion_packet_verified": false
+  },
+  "decision": "BLOCK",
+  "reasons": [
+    "Publisher projection boundary is verified.",
+    "Site has not supplied a verified downstream-ingestion packet."
+  ],
+  "authority": {
+    "publication": false,
+    "release": false,
+    "execution": false,
+    "custody": false,
+    "admissibility": false,
+    "receipt_minting": false
+  }
+}
