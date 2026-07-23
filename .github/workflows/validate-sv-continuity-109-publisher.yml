@@ -1,0 +1,40 @@
+name: Validate SV-CONTINUITY-109 Publisher Receipt
+
+on:
+  pull_request:
+    paths:
+      - "data/sv-continuity-109-publisher-verification.json"
+      - "tools/check_sv_continuity_109_publisher_receipt.py"
+      - ".github/workflows/validate-sv-continuity-109-publisher.yml"
+  push:
+    paths:
+      - "data/sv-continuity-109-publisher-verification.json"
+      - "tools/check_sv_continuity_109_publisher_receipt.py"
+      - ".github/workflows/validate-sv-continuity-109-publisher.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python tools/check_sv_continuity_109_publisher_receipt.py data/sv-continuity-109-publisher-verification.json
+      - name: Prove premature PASS fails closed
+        run: |
+          python - <<'PY'
+          import json
+          p='data/sv-continuity-109-publisher-verification.json'
+          r=json.load(open(p))
+          r['decision']='PASS'
+          json.dump(r,open('/tmp/premature-pass.json','w'),indent=2)
+          PY
+          if python tools/check_sv_continuity_109_publisher_receipt.py /tmp/premature-pass.json; then
+            echo "Premature PASS was incorrectly accepted" >&2
+            exit 1
+          fi
