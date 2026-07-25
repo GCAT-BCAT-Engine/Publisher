@@ -1,15 +1,18 @@
 {
   "activation_complete": false,
   "custody_recorded": false,
+  "custody_repository": "master-records/orchestration",
   "execution_authorized": false,
   "manual_user_action_required": false,
   "publication_authorized": false,
-  "reason": "site_activation_not_complete",
+  "reason": "source_http_status_404",
   "release_authorized": false,
-  "schema": "stegverse.publisher.ecosystem_chat_activation_status.v1",
-  "source_packet_sha256": "808a9f3bf0907925a068cf7ebe63f36e7c3b348378e7dbde2e07119f36a70ee5",
+  "schema": "stegverse.publisher.ecosystem_chat_activation_status.v2",
+  "source_packet_sha256": null,
   "source_repository": "StegVerse-Labs/Site",
-  "source_state_sha256": "f66bedbcab47665b911ef70f87896d4270f867fa7ea9ae20378ebd7f4739d4b1",
+  "source_state_sha256": null,
   "status": "PENDING_SITE_ACTIVATION",
-  "status_sha256": "1511688f595c8597ad0cb2fc9883d0369bb29d3ce90b19970855cc8821870834"
+  "status_sha256": "495aae9a3d7e0342d8319583c5b1a7559cfe2c6f2baa3f39efa6edae9c099d4b",
+  "terminal_custody_sha256": null,
+  "terminal_custody_verified": false
 }
