@@ -1,0 +1,56 @@
+name: Validate Publication Authority Boundary
+
+on:
+  push:
+    branches:
+      - goal/visibility-authority-publication
+      - main
+    paths:
+      - 'tools/check_publication_authority_envelope.py'
+      - 'tests/test_publication_authority_envelope.py'
+      - 'schemas/publication_authority_envelope.schema.json'
+      - 'data/publication-authority-review-example.json'
+      - '.github/workflows/validate-publication-authority-boundary.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/check_publication_authority_envelope.py'
+      - 'tests/test_publication_authority_envelope.py'
+      - 'schemas/publication_authority_envelope.schema.json'
+      - 'data/publication-authority-review-example.json'
+      - '.github/workflows/validate-publication-authority-boundary.yml'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9', '3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install schema validator
+        run: python -m pip install jsonschema
+      - name: Compile validator
+        run: python -m compileall -q tools/check_publication_authority_envelope.py
+      - name: Run repository tests
+        run: python -m unittest tests.test_publication_authority_envelope -v
+      - name: Validate JSON schema
+        run: |
+          python - <<'PY'
+          import json
+          from jsonschema import Draft202012Validator
+          with open('schemas/publication_authority_envelope.schema.json', encoding='utf-8') as handle:
+              schema = json.load(handle)
+          Draft202012Validator.check_schema(schema)
+          with open('data/publication-authority-review-example.json', encoding='utf-8') as handle:
+              example = json.load(handle)
+          Draft202012Validator(schema).validate(example)
+          print('publication authority schema: PASS')
+          PY
+      - name: Validate example envelope
+        run: python tools/check_publication_authority_envelope.py data/publication-authority-review-example.json
