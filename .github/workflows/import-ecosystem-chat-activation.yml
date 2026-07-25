@@ -2,15 +2,21 @@ name: Import Ecosystem Chat Activation
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '41 * * * *'
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/import_ecosystem_chat_activation.py'
+      - 'scripts/check_publisher_activation_orchestration_contract.py'
+      - '.github/workflows/import-ecosystem-chat-activation.yml'
+      - 'PUBLISHER_MIRROR_HANDOFF.md'
 
 permissions:
   contents: write
 
 concurrency:
   group: publisher-ecosystem-chat-activation-import
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   import-activation:
@@ -18,16 +24,22 @@ jobs:
     steps:
       - name: Checkout Publisher
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Import Site activation state
+      - name: Validate Publisher activation orchestration contract
+        run: python scripts/check_publisher_activation_orchestration_contract.py
+
+      - name: Import Site activation and terminal custody evidence
         run: python scripts/import_ecosystem_chat_activation.py
 
       - name: Commit changed projection state
+        if: github.event_name == 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -36,9 +48,13 @@ jobs:
             echo "No Publisher activation projection change."
             exit 0
           fi
-          git commit -m "chore: update Ecosystem Chat activation projection"
+          git commit -m "chore: update Ecosystem Chat activation projection [skip ci]"
           git pull --rebase
           git push
+
+      - name: Preserve manual dispatch as validation-only
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "Manual dispatch validates and emits an artifact only; it cannot persist projection state."
 
       - name: Upload activation projection
         if: always()
