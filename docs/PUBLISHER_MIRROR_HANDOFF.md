@@ -10,19 +10,68 @@ Companion ecosystem-management handoff:
 docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 ```
 
+## Mandatory orchestration entry
+
+Every arriving session or automation must read this handoff and `data/publisher-orchestration-state.json` before opening a branch, issue, pull request, publication sequence, or downstream propagation task.
+
+The incoming request is a candidate workload. It is not automatic publication or execution authority.
+
+Required sequence:
+
+```text
+1. Read docs/PUBLISHER_MIRROR_HANDOFF.md.
+2. Read docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md.
+3. Read data/publisher-orchestration-state.json.
+4. Preserve existing workload ownership.
+5. Execute only an admitted PARALLEL_SAFE task while upstream HIL evidence remains incomplete.
+6. Update the handoff and orchestration state before closing work.
+```
+
 ## Current Goal
 
 ```text
 Goal: governed ecosystem Site mirror awareness plus LLM free-tier trust chain status plus media pipeline downstream publication awareness
 Goal: Publisher closure evidence production
+Goal: receive and validate the first complete HIL activation propagation packet after Site readiness
 Repository: GCAT-BCAT-Engine/Publisher
 Target repository: StegVerse-Labs/Site
 Source authority: StegVerse-Labs/admissibility-wiki and StegVerse-Labs/collective-environment-engine for their respective subjects
 State: publication_awareness_only
 Release hold: updated_with_evidence
+Manual user action required: false
 ```
 
 The closure-evidence goal marker is retained for compatibility with the existing ecosystem-management validator. It does not claim that closure evidence exists or that activation has occurred.
+
+## Current live task sequence
+
+```text
+current work task sequence 0001
+state: BLOCKED_BUT_OBSERVED
+health: HEALTHY_DECLARED_DEPENDENCY_BLOCK
+heartbeat model: transition-driven and health-relative
+active parallel-safe owner: PR #5 GCAT capacity paper workstream
+queued dependency-blocked owner: HIL Site propagation consumer
+exclusive barrier: end of current work task sequence 0001, no tasks running
+```
+
+Publisher may continue documentation, validation, and publication-awareness work that does not claim or consume absent HIL activation evidence. It must not synthesize readiness, custody, reconstruction, activation, publication, or downstream-ingestion success.
+
+## HIL propagation succession
+
+```text
+StegVerse-Labs/Site HIL upload completion
+-> StegVerse-org/LLM-adapter authorized real-provider execution
+-> master-records/orchestration custody and reconstruction
+-> StegVerse-Labs/Site immutable zero-blocker activation receipt
+-> Site READY_FOR_DOWNSTREAM_INGESTION
+-> GCAT-BCAT-Engine/Publisher automatic acquisition and validation
+-> durable Publisher awareness state
+-> StegVerse-Labs/admissibility-wiki projection
+-> StegVerse-002/stegguardian-wiki projection
+```
+
+Publisher is not the source authority for any upstream transition. It accepts only the Site packet after the upstream chain is complete and independently validates the packet before recording awareness.
 
 ## Ecosystem Management Continuation Contract
 
@@ -104,7 +153,7 @@ PUBLIC_OUTPUT: NOT_APPLICABLE
 
 ## Site Ecosystem Chat propagation consumer
 
-Publisher now owns an autonomous, fail-closed awareness consumer for Site's canonical propagation packet:
+Publisher owns an autonomous, fail-closed awareness consumer for Site's canonical propagation packet:
 
 ```text
 tools/acquire_site_ecosystem_chat_propagation.py
@@ -127,6 +176,17 @@ VERIFIED_INGESTION_READY
 ```
 
 `VERIFIED_INGESTION_READY` is permitted only when Site publishes `READY_FOR_DOWNSTREAM_INGESTION`. It is ingestion awareness, not activation, publication, release, execution, custody, or admissibility authority. No manual user action is required.
+
+## Active workload ownership
+
+```text
+PR #5: GCAT capacity-based stability paper workstream; PARALLEL_SAFE; draft; does not own HIL propagation
+Site propagation consumer: existing tools and workflow; DEPENDENCY_BLOCKED on Site readiness
+HIL activation evidence owner: StegVerse-org/LLM-adapter issue #18 upstream, then master-records/orchestration issue #2, then StegVerse-Labs/Site
+Publisher closure evidence: existing Publisher closure contract; remains pending fresh ordered artifacts
+```
+
+No new Publisher branch may claim HIL propagation, closure evidence, or the GCAT capacity-paper scope while an existing owner remains active unless that owner is completed, explicitly superseded, or declared stale by the repository orchestration state.
 
 ## Built Files
 
@@ -200,6 +260,15 @@ Publisher records publication awareness only. It does not become source authorit
 
 This handoff does not claim production authority, release authorization, operational standing, live connector installation, canonical STRP admission, public URL verification, live media execution, public broadcast capability, provider execution, downstream propagation authority, Guardian enforcement authority, or final admissibility.
 
+```text
+heartbeat != publication
+awareness != activation
+ingestion readiness != publication authority
+Site packet != custody
+Publisher validation != admissibility
+closure evidence != release authority
+```
+
 ## Remaining Targets
 
 ```text
@@ -209,13 +278,15 @@ execute and inspect the Publisher ST-017 pull-request sandbox
 repair immediately if any command or existing workflow is red
 merge only after inspected SANDBOX PASS and GitHub Actions PASS
 StegVerse-Labs/admissibility-wiki media-pipeline summary remains separately coordinated
+install equivalent heartbeat/orchestration state in admissibility-wiki and stegguardian-wiki
 ```
 
 ## Exact current external blocker
 
 ```text
 Source repository: StegVerse-Labs/Site
-Upstream owner: StegVerse-org/LLM-adapter
+Upstream owner: StegVerse-org/LLM-adapter issue #18
+Custody owner: master-records/orchestration issue #2
 Blocker: live_activation_observation_not_yet_recorded
 Required upstream artifact: receipts/ecosystem-chat-live-activation.verified.json
 Publisher action after Site readiness: automatic acquisition, validation, and durable awareness-state persistence
@@ -224,4 +295,4 @@ Manual user action required: false
 
 ## Handoff Instruction
 
-Continue from this file before relying on prior chat context. Preserve active Site and admissibility-wiki workstream ownership.
+Continue from this file and `data/publisher-orchestration-state.json` before relying on prior chat context. Preserve active Site, LLM-adapter, Master-Records, admissibility-wiki, StegGuardian, and PR #5 workstream ownership.
