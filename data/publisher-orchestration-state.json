@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "state_type": "publisher_orchestration_state",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "handoff": "docs/PUBLISHER_MIRROR_HANDOFF.md",
+  "status": "ACTIVE_WITH_DECLARED_DEPENDENCY_BLOCK",
+  "task_sequence": 1,
+  "task_sequence_label": "current work task sequence 0001",
+  "work_state": "BLOCKED_BUT_OBSERVED",
+  "system_health": "HEALTHY_DECLARED_DEPENDENCY_BLOCK",
+  "heartbeat_mode": "TRANSITION_DRIVEN_HEALTH_RELATIVE",
+  "time_role": "WATCHDOG_ONLY",
+  "repository_heartbeat": 1,
+  "ecosystem_heartbeat_projection": 1,
+  "active_tasks": [
+    {
+      "task_id": "PUBLISHER-0001-GCAT-CAPACITY",
+      "workload": "GCAT capacity-based stability paper workstream",
+      "execution_class": "PARALLEL_SAFE",
+      "owner": "pull/5",
+      "state": "DRAFT_ACTIVE"
+    }
+  ],
+  "blocked_tasks": [
+    {
+      "task_id": "PUBLISHER-0001-HIL-PROPAGATION",
+      "workload": "Acquire and validate Site HIL activation propagation packet",
+      "execution_class": "DEPENDENCY_BLOCKED",
+      "owner": "existing-site-propagation-consumer",
+      "blocked_by": [
+        "StegVerse-org/LLM-adapter issue #18",
+        "master-records/orchestration issue #2",
+        "StegVerse-Labs/Site READY_FOR_DOWNSTREAM_INGESTION"
+      ],
+      "state": "PENDING_SITE_ACTIVATION"
+    },
+    {
+      "task_id": "PUBLISHER-0001-CLOSURE",
+      "workload": "Produce fresh ordered Publisher and Site closure evidence",
+      "execution_class": "DEPENDENCY_BLOCKED",
+      "owner": "existing-publisher-closure-contract",
+      "state": "PENDING_FRESH_ORDERED_ARTIFACTS"
+    }
+  ],
+  "policy": {
+    "handoff_is_source_of_truth": true,
+    "incoming_request_is_candidate_workload": true,
+    "one_active_owner_per_goal": true,
+    "duplicate_workloads_fail_closed": true,
+    "publication_requires_validated_upstream_evidence": true,
+    "awareness_is_not_activation": true,
+    "workflow_artifact_is_not_custody": true,
+    "heartbeat_is_not_publication": true,
+    "time_is_watchdog_only": true,
+    "manual_user_action_required": false
+  },
+  "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
+  "last_transition": {
+    "event_type": "PUBLISHER_HANDOFF_BOUND_TO_HIL_PROPAGATION_SEQUENCE",
+    "progress_effect": true,
+    "authority_effect": false
+  },
+  "authority": {
+    "activation": false,
+    "publication": false,
+    "release": false,
+    "execution": false,
+    "custody": false,
+    "admissibility": false
+  }
+}
