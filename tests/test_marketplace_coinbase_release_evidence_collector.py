@@ -104,7 +104,7 @@ def write_bound_evidence(tmp_path, monkeypatch):
         "receipt_type": "paper_release_readiness",
         "paper_runtime": "IMPLEMENTED",
         "ci_tests": "PASS",
-        "cross_repository_evidence_digest": cross["manifest_digest"],
+        "cross_repository_manifest_digest": cross["manifest_digest"],
         "release_decision": "PAPER_RELEASE_BLOCKED_PENDING_CROSS_REPOSITORY_EVIDENCE",
         "live_authority": "NOT_GRANTED",
     }
