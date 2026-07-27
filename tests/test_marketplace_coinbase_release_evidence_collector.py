@@ -13,9 +13,12 @@ def write_bound_evidence(tmp_path, monkeypatch):
     evidence_dir = tmp_path / "evidence"
     crypto_dir = evidence_dir / "crypto_bot"
     marketplace_dir = evidence_dir / "marketplace"
+    publication_dir = tmp_path / "publications"
     crypto_dir.mkdir(parents=True)
     marketplace_dir.mkdir(parents=True)
+    publication_dir.mkdir(parents=True)
     monkeypatch.setattr(collector, "EVIDENCE_DIR", evidence_dir)
+    monkeypatch.setattr(collector, "PUBLICATION_DIR", publication_dir)
 
     packet = signed({
         "packet_version": "marketplace-coinbase-settlement-export-v1",
@@ -55,37 +58,54 @@ def write_bound_evidence(tmp_path, monkeypatch):
         "transport_is_authority": False,
         "live_authority_granted": False,
     }, "transport_digest")
-
-    bindings = {
+    projection = signed({
+        "projection_version": "marketplace-coinbase-publication-v1",
         "intent_id": packet["intent_id"],
         "packet_digest": packet["packet_digest"],
-        "marketplace_transport_digest": market_transport["transport_digest"],
         "marketplace_ack_digest": ack["ack_digest"],
-        "publisher_transport_digest": publisher_transport["transport_digest"],
-        "publisher_projection_digest": "sha256:projection",
-        "publication_receipt_digest": "sha256:receipt",
-    }
+        "paper_evidence_verified": True,
+        "publication_authorized": False,
+        "release_authorized": False,
+        "live_authority_granted": False,
+    }, "projection_digest")
+    receipt = signed({
+        "receipt_version": "marketplace-coinbase-publication-receipt-v1",
+        "intent_id": packet["intent_id"],
+        "packet_digest": packet["packet_digest"],
+        "marketplace_ack_digest": ack["ack_digest"],
+        "transport_digest": publisher_transport["transport_digest"],
+        "result": "ACCEPTED",
+        "projection_digest": projection["projection_digest"],
+        "publication_authorized": False,
+        "release_authorized": False,
+        "live_authority_granted": False,
+        "findings": [],
+    }, "receipt_digest")
+
     cross_body = {
         "manifest_version": "marketplace-coinbase-cross-repository-evidence-v1",
-        "result": "PASS",
+        "result": "PENDING_OR_FAIL",
         "artifact_directory": "release_evidence/cross_repository",
-        "artifacts_present": [
-            "marketplace_acknowledgement",
-            "marketplace_transport",
-            "publication_receipt",
-            "publisher_projection",
-            "publisher_transport",
-            "settlement_packet",
-        ],
-        "evidence_bindings": bindings,
-        "findings": [],
+        "artifacts_present": [],
+        "evidence_bindings": {
+            "intent_id": None,
+            "packet_digest": None,
+            "marketplace_transport_digest": None,
+            "marketplace_ack_digest": None,
+            "publisher_transport_digest": None,
+            "publisher_projection_digest": None,
+            "publication_receipt_digest": None,
+        },
+        "findings": ["missing observed downstream evidence"],
         "live_authority_granted": False,
     }
     cross = {**cross_body, "manifest_digest": collector.digest(cross_body)}
     readiness_body = {
         "receipt_type": "paper_release_readiness",
+        "paper_runtime": "IMPLEMENTED",
+        "ci_tests": "PASS",
         "cross_repository_evidence_digest": cross["manifest_digest"],
-        "release_decision": "PAPER_RELEASE_READY",
+        "release_decision": "PAPER_RELEASE_BLOCKED_PENDING_CROSS_REPOSITORY_EVIDENCE",
         "live_authority": "NOT_GRANTED",
     }
     readiness = {**readiness_body, "receipt_digest": collector.digest(readiness_body)}
@@ -96,6 +116,13 @@ def write_bound_evidence(tmp_path, monkeypatch):
     (marketplace_dir / "intent.transport.json").write_text(json.dumps(market_transport))
     (marketplace_dir / "intent.ack.json").write_text(json.dumps(ack))
     (marketplace_dir / "intent.publisher.transport.json").write_text(json.dumps(publisher_transport))
+    publication = {
+        "result": "ACCEPTED",
+        "findings": [],
+        "projection": projection,
+        "publication_receipt": receipt,
+    }
+    (publication_dir / "intent-collector-001.publication.json").write_text(json.dumps(publication))
     return ack, marketplace_dir
 
 
@@ -122,10 +149,13 @@ def test_status_digest_is_bound(tmp_path, monkeypatch):
     assert status["manual_user_action_required"] is False
 
 
-def test_marketplace_artifact_matches_manifest_bindings(tmp_path, monkeypatch):
+def test_publisher_reconstructs_chain_before_crypto_finalization(tmp_path, monkeypatch):
     write_bound_evidence(tmp_path, monkeypatch)
-    assert collector.validate_crypto_evidence() == []
-    assert collector.validate_marketplace_evidence() == []
+    assert collector.validate_crypto_repository_readiness() == []
+    failures, bindings = collector.reconstruct_ecosystem_evidence()
+    assert failures == []
+    assert bindings["intent_id"] == "intent-collector-001"
+    assert bindings["publication_receipt_digest"].startswith("sha256:")
 
 
 def test_marketplace_ack_tampering_is_rejected(tmp_path, monkeypatch):
@@ -133,7 +163,7 @@ def test_marketplace_ack_tampering_is_rejected(tmp_path, monkeypatch):
     ack["result"] = "REJECTED"
     ack["ack_digest"] = collector.digest(collector.without(ack, "ack_digest"))
     (marketplace_dir / "intent.ack.json").write_text(json.dumps(ack))
-    failures = collector.validate_marketplace_evidence()
-    assert "marketplace_ack_binding_mismatch" in failures
+    failures, _ = collector.reconstruct_ecosystem_evidence()
     assert "transport_ack_binding_mismatch" in failures
+    assert "publisher_projection_ack_mismatch" in failures
     assert "marketplace_ack_not_accepted_and_indexed" in failures
