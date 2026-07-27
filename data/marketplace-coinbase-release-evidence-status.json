@@ -1,0 +1,15 @@
+{
+  "execution_authorized": false,
+  "failures": [],
+  "generated_at": "2026-07-27T23:34:56.587613Z",
+  "live_authority_granted": false,
+  "manual_user_action_required": false,
+  "paper_release_verified": false,
+  "publication_authorized": false,
+  "reason": "MARKETPLACE_COINBASE_EVIDENCE_TOKEN_not_available",
+  "release_authorized": false,
+  "schema": "stegverse.publisher.marketplace_coinbase_release_evidence.v1",
+  "sources": {},
+  "status": "PENDING_CREDENTIAL",
+  "status_digest": "sha256:52b69d453ab0a289ba82e605531840a0c45fd565afabb27a1b34245711293734"
+}
