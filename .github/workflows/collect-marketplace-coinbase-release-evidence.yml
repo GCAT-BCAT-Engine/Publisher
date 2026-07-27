@@ -39,36 +39,50 @@ jobs:
       - name: Verify collector boundaries
         run: pytest -q tests/test_marketplace_coinbase_release_evidence_collector.py
 
-      - name: Collect private-repository evidence
+      - name: Collect and verify private-repository evidence
+        id: collect
         env:
           MARKETPLACE_COINBASE_EVIDENCE_TOKEN: ${{ secrets.MARKETPLACE_COINBASE_EVIDENCE_TOKEN }}
-        run: python scripts/collect_marketplace_coinbase_release_evidence.py
+        run: |
+          set +e
+          python scripts/collect_marketplace_coinbase_release_evidence.py
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
 
-      - name: Commit changed evidence status
+      - name: Remove private source artifacts from workspace
+        if: always()
+        run: rm -rf data/marketplace-coinbase-release-evidence/
+
+      - name: Commit changed evidence status only
         if: github.event_name != 'workflow_dispatch'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/marketplace-coinbase-release-evidence-status.json data/marketplace-coinbase-release-evidence/
+          git add data/marketplace-coinbase-release-evidence-status.json
           if git diff --cached --quiet; then
-            echo "No Marketplace Coinbase evidence change."
+            echo "No Marketplace Coinbase evidence-status change."
             exit 0
           fi
-          git commit -m "chore: update Marketplace Coinbase release evidence [skip ci]"
+          git commit -m "chore: update Marketplace Coinbase release evidence status [skip ci]"
           git pull --rebase
           git push
 
       - name: Preserve manual dispatch as validation-only
         if: github.event_name == 'workflow_dispatch'
-        run: echo "Manual dispatch validates and uploads evidence but does not persist repository state."
+        run: echo "Manual dispatch validates and uploads only the bounded status record; it does not persist repository state."
 
-      - name: Upload collected evidence
+      - name: Upload bounded evidence status
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: marketplace-coinbase-release-evidence-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            data/marketplace-coinbase-release-evidence-status.json
-            data/marketplace-coinbase-release-evidence/
-          if-no-files-found: warn
+          name: marketplace-coinbase-release-evidence-status-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/marketplace-coinbase-release-evidence-status.json
+          if-no-files-found: error
           retention-days: 30
+
+      - name: Fail after preserving rejected evidence
+        if: steps.collect.outputs.exit_code != '0'
+        run: |
+          echo "Marketplace Coinbase evidence verification was rejected; bounded status was preserved."
+          exit 1
