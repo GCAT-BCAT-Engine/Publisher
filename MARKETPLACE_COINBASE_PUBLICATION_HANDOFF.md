@@ -4,7 +4,7 @@
 Consume only verified Marketplace–Coinbase paper settlement evidence after Marketplace has independently accepted and acknowledged the settlement packet, issued the chained Publisher transport receipt, and the complete private-repository evidence chain has been collected and verified.
 
 ## Current State
-The packet-plus-acknowledgement gate, durable publication ledger, repository-owned import runner, transport-chain verifier, publication receipt generator, cross-repository artifact collector, tests, and workflows are installed.
+The packet-plus-acknowledgement gate, durable publication ledger, repository-owned import runner, transport-chain verifier, publication receipt generator, cross-repository artifact collector, exact-binding verifier, tests, and workflows are installed.
 
 ## Required Inputs
 1. A settlement export packet with version `marketplace-coinbase-settlement-export-v1`.
@@ -14,7 +14,8 @@ The packet-plus-acknowledgement gate, durable publication ledger, repository-own
 5. Marketplace result `ACCEPTED` or `DUPLICATE` with `marketplace_indexed=true`.
 6. Transport source Marketplace, destination Publisher, sequence 2, and previous digest bound to the sequence-1 transport recorded in the acknowledgement.
 7. A crypto-bot release-readiness receipt bound to a passing cross-repository evidence manifest.
-8. Explicit false authority flags throughout.
+8. Exact manifest bindings for intent ID, packet digest, both transport digests, Marketplace acknowledgement digest, Publisher projection digest, and publication-receipt digest.
+9. Explicit false authority flags throughout.
 
 ## Automated Import
 `scripts/import_marketplace_coinbase_settlements.py` consumes artifact triplets from `incoming/marketplace-coinbase/`. `.github/workflows/import-marketplace-coinbase-settlements.yml` runs on relevant pushes or manual dispatch, executes the failure-case test suite, imports verified triplets, and commits only changed bounded projections and receipts.
@@ -26,10 +27,20 @@ The collector records one explicit state:
 
 - `PENDING_CREDENTIAL`: the governed private-repository read credential is unavailable;
 - `PENDING_SOURCE`: an upstream artifact cannot yet be collected;
-- `REJECTED`: artifacts exist but fail digest, binding, or decision checks;
-- `VERIFIED`: the hash-bound paper release and cross-repository manifest verify.
+- `REJECTED`: artifacts exist but fail digest, identity, sequence, authority-boundary, or decision checks;
+- `VERIFIED`: the crypto-bot readiness receipt, cross-repository manifest, Marketplace packet, Marketplace acknowledgement, and both transport receipts verify against the exact manifest bindings.
 
 An absent credential never becomes a false failure or false success. Manual dispatch remains validation-only and cannot persist release state.
+
+## Private Evidence Custody Boundary
+Private crypto-bot and Marketplace artifacts are temporary verification inputs only. The Publisher workflow:
+
+1. downloads them into the ephemeral Actions workspace;
+2. verifies their digests and exact manifest bindings;
+3. deletes the extracted private artifacts before persistence or upload;
+4. commits and uploads only `data/marketplace-coinbase-release-evidence-status.json`.
+
+The bounded status may retain source repository, artifact ID, workflow run ID, timestamps, manifest digest, receipt digest, and findings. It must never publish or commit the private artifact contents. A rejected result is preserved before the workflow fails so negative evidence is not lost.
 
 ## Results
 - `ACCEPTED`: packet, acknowledgement, and transport chain verify; a bounded projection and publication receipt are stored.
@@ -58,11 +69,11 @@ live_authority_granted = false
 - `tests/test_marketplace_coinbase_import_runner.py`
 - `tests/test_marketplace_coinbase_release_evidence_collector.py`
 - `docs/MARKETPLACE_COINBASE_SETTLEMENT_PUBLICATION.md`
-- issue `GCAT-BCAT-Engine/Publisher#16`
+- issues `GCAT-BCAT-Engine/Publisher#16` and `#19`
 
 ## Remaining Work
 1. Allow the hourly collector to observe the named private-repository artifacts through the governed evidence token.
-2. Preserve a `VERIFIED` evidence status with exact artifact IDs, workflow run IDs, receipt digest, and manifest digest.
+2. Preserve a `VERIFIED` evidence status with exact artifact IDs, workflow run IDs, receipt digest, manifest digest, and manifest evidence bindings.
 3. Observe accepted, duplicate, missing-acknowledgement, transport-mismatch, digest-mismatch, conflict, and false-live-claim evidence in repository workflows.
 4. Publish only after the separate publication-authority process grants authority; transport and verification remain non-authoritative.
 
@@ -70,6 +81,7 @@ live_authority_granted = false
 Publisher settlement import - 100% implemented
 Publisher publication gate - 100% implemented
 Cross-repository evidence collection - 100% implemented
+Private evidence custody boundary - 100% implemented
 Remaining - observed artifact collection and verified workflow evidence only
 
 ## Archive Readiness
