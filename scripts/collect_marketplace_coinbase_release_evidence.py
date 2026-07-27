@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Collect and verify Marketplace–Coinbase paper evidence across private repositories.
+"""Collect and verify Marketplace–Coinbase paper evidence across repositories.
 
 This collector is evidence-only. It never grants publication, release, execution,
 custody, payment, withdrawal, or live financial authority.
@@ -20,6 +20,7 @@ from urllib import error, request
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "data" / "marketplace-coinbase-release-evidence-status.json"
 EVIDENCE_DIR = ROOT / "data" / "marketplace-coinbase-release-evidence"
+PUBLICATION_DIR = ROOT / "data" / "marketplace-coinbase-publications"
 TOKEN = os.getenv("MARKETPLACE_COINBASE_EVIDENCE_TOKEN", "")
 API = "https://api.github.com"
 
@@ -55,7 +56,7 @@ def api_json(path: str) -> dict[str, Any]:
         headers={
             "Accept": "application/vnd.github+json",
             "Authorization": f"Bearer {TOKEN}",
-            "User-Agent": "StegVerse-Marketplace-Coinbase-Evidence-Collector/1.1",
+            "User-Agent": "StegVerse-Marketplace-Coinbase-Evidence-Collector/1.2",
             "X-GitHub-Api-Version": "2022-11-28",
         },
     )
@@ -72,7 +73,7 @@ def download(url: str) -> bytes:
         headers={
             "Accept": "application/vnd.github+json",
             "Authorization": f"Bearer {TOKEN}",
-            "User-Agent": "StegVerse-Marketplace-Coinbase-Evidence-Collector/1.1",
+            "User-Agent": "StegVerse-Marketplace-Coinbase-Evidence-Collector/1.2",
             "X-GitHub-Api-Version": "2022-11-28",
         },
     )
@@ -139,7 +140,8 @@ def load_crypto_evidence() -> tuple[dict[str, Any] | None, dict[str, Any] | None
     )
 
 
-def validate_crypto_evidence() -> list[str]:
+def validate_crypto_repository_readiness() -> list[str]:
+    """Validate repository CI evidence without requiring ecosystem-final readiness."""
     failures: list[str] = []
     readiness, cross = load_crypto_evidence()
     if readiness is None or cross is None:
@@ -152,23 +154,19 @@ def validate_crypto_evidence() -> list[str]:
         failures.append("cross_repository_manifest_digest_mismatch")
     if readiness.get("cross_repository_evidence_digest") != cross.get("manifest_digest"):
         failures.append("readiness_cross_repository_binding_mismatch")
-    if cross.get("result") != "PASS":
-        failures.append("cross_repository_manifest_not_pass")
-    bindings = cross.get("evidence_bindings")
-    if not isinstance(bindings, dict) or any(not bindings.get(field) for field in (
-        "intent_id",
-        "packet_digest",
-        "marketplace_transport_digest",
-        "marketplace_ack_digest",
-        "publisher_transport_digest",
-        "publisher_projection_digest",
-        "publication_receipt_digest",
-    )):
-        failures.append("cross_repository_manifest_bindings_missing")
-    if readiness.get("release_decision") != "PAPER_RELEASE_READY":
-        failures.append("paper_release_not_ready")
+    if readiness.get("ci_tests") != "PASS":
+        failures.append("crypto_bot_ci_tests_not_pass")
+    if readiness.get("paper_runtime") != "IMPLEMENTED":
+        failures.append("crypto_bot_paper_runtime_not_implemented")
+    if readiness.get("release_decision") not in {
+        "PAPER_RELEASE_BLOCKED_PENDING_CROSS_REPOSITORY_EVIDENCE",
+        "PAPER_RELEASE_READY",
+    }:
+        failures.append("unsupported_repository_readiness_decision")
     if readiness.get("live_authority") != "NOT_GRANTED":
         failures.append("live_authority_boundary_invalid")
+    if cross.get("live_authority_granted") is not False:
+        failures.append("cross_repository_live_authority_boundary_invalid")
     return failures
 
 
@@ -185,12 +183,20 @@ def marketplace_json_objects() -> list[dict[str, Any]]:
     return values
 
 
-def validate_marketplace_evidence() -> list[str]:
+def publisher_publication_objects() -> list[dict[str, Any]]:
+    values: list[dict[str, Any]] = []
+    for path in sorted(PUBLICATION_DIR.glob("*.publication.json")):
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if isinstance(value, dict):
+            values.append(value)
+    return values
+
+
+def reconstruct_ecosystem_evidence() -> tuple[list[str], dict[str, Any]]:
     failures: list[str] = []
-    _, cross = load_crypto_evidence()
-    if cross is None:
-        return ["cross_repository_manifest_missing_for_marketplace_comparison"]
-    bindings = cross.get("evidence_bindings") or {}
     values = marketplace_json_objects()
     packet = next((item for item in values if item.get("packet_version") == "marketplace-coinbase-settlement-export-v1"), None)
     ack = next((item for item in values if item.get("ack_version") == "marketplace-coinbase-settlement-ack-v1"), None)
@@ -203,27 +209,65 @@ def validate_marketplace_evidence() -> list[str]:
         ("publisher_transport", publisher_transport),
     ) if value is None]
     if missing:
-        return [f"marketplace_artifact_missing:{name}" for name in missing]
+        return [f"marketplace_artifact_missing:{name}" for name in missing], {}
     assert packet is not None and ack is not None and market_transport is not None and publisher_transport is not None
+
+    publication = next(
+        (
+            item for item in publisher_publication_objects()
+            if (item.get("projection") or {}).get("intent_id") == packet.get("intent_id")
+            and item.get("result") in {"ACCEPTED", "DUPLICATE"}
+        ),
+        None,
+    )
+    if publication is None:
+        return ["publisher_publication_evidence_missing"], {}
+    projection = publication.get("projection") or {}
+    receipt = publication.get("publication_receipt") or {}
 
     for value, field, label in (
         (packet, "packet_digest", "settlement_packet"),
         (ack, "ack_digest", "marketplace_acknowledgement"),
         (market_transport, "transport_digest", "marketplace_transport"),
         (publisher_transport, "transport_digest", "publisher_transport"),
+        (projection, "projection_digest", "publisher_projection"),
+        (receipt, "receipt_digest", "publication_receipt"),
     ):
         if value.get(field) != digest(without(value, field)):
             failures.append(f"{label}_digest_mismatch")
 
+    intent_id = packet.get("intent_id")
+    packet_digest = packet.get("packet_digest")
+    ack_digest = ack.get("ack_digest")
+    market_transport_digest = market_transport.get("transport_digest")
+    publisher_transport_digest = publisher_transport.get("transport_digest")
+    projection_digest = projection.get("projection_digest")
+    bindings = {
+        "intent_id": intent_id,
+        "packet_digest": packet_digest,
+        "marketplace_transport_digest": market_transport_digest,
+        "marketplace_ack_digest": ack_digest,
+        "publisher_transport_digest": publisher_transport_digest,
+        "publisher_projection_digest": projection_digest,
+        "publication_receipt_digest": receipt.get("receipt_digest"),
+    }
+
     comparisons = (
-        (packet.get("intent_id"), bindings.get("intent_id"), "marketplace_intent_binding_mismatch"),
-        (packet.get("packet_digest"), bindings.get("packet_digest"), "marketplace_packet_binding_mismatch"),
-        (market_transport.get("transport_digest"), bindings.get("marketplace_transport_digest"), "marketplace_sequence_1_binding_mismatch"),
-        (ack.get("ack_digest"), bindings.get("marketplace_ack_digest"), "marketplace_ack_binding_mismatch"),
-        (publisher_transport.get("transport_digest"), bindings.get("publisher_transport_digest"), "marketplace_sequence_2_binding_mismatch"),
-        (ack.get("transport_digest"), market_transport.get("transport_digest"), "ack_sequence_1_binding_mismatch"),
-        (publisher_transport.get("previous_transport_digest"), market_transport.get("transport_digest"), "transport_chain_binding_mismatch"),
-        (publisher_transport.get("marketplace_ack_digest"), ack.get("ack_digest"), "transport_ack_binding_mismatch"),
+        (market_transport.get("intent_id"), intent_id, "marketplace_transport_intent_mismatch"),
+        (market_transport.get("packet_digest"), packet_digest, "marketplace_transport_packet_mismatch"),
+        (ack.get("intent_id"), intent_id, "marketplace_ack_intent_mismatch"),
+        (ack.get("packet_digest"), packet_digest, "marketplace_ack_packet_mismatch"),
+        (ack.get("transport_digest"), market_transport_digest, "ack_sequence_1_binding_mismatch"),
+        (publisher_transport.get("intent_id"), intent_id, "publisher_transport_intent_mismatch"),
+        (publisher_transport.get("packet_digest"), packet_digest, "publisher_transport_packet_mismatch"),
+        (publisher_transport.get("previous_transport_digest"), market_transport_digest, "transport_chain_binding_mismatch"),
+        (publisher_transport.get("marketplace_ack_digest"), ack_digest, "transport_ack_binding_mismatch"),
+        (projection.get("intent_id"), intent_id, "publisher_projection_intent_mismatch"),
+        (projection.get("packet_digest"), packet_digest, "publisher_projection_packet_mismatch"),
+        (projection.get("marketplace_ack_digest"), ack_digest, "publisher_projection_ack_mismatch"),
+        (receipt.get("intent_id"), intent_id, "publication_receipt_intent_mismatch"),
+        (receipt.get("projection_digest"), projection_digest, "publication_receipt_projection_mismatch"),
+        (receipt.get("transport_digest"), publisher_transport_digest, "publication_receipt_transport_mismatch"),
     )
     for actual, expected, message in comparisons:
         if actual != expected:
@@ -231,27 +275,52 @@ def validate_marketplace_evidence() -> list[str]:
 
     if ack.get("result") not in {"ACCEPTED", "DUPLICATE"} or ack.get("marketplace_indexed") is not True:
         failures.append("marketplace_ack_not_accepted_and_indexed")
+    if projection.get("paper_evidence_verified") is not True:
+        failures.append("publisher_projection_not_verified")
+    if receipt.get("result") not in {"ACCEPTED", "DUPLICATE"}:
+        failures.append("publication_receipt_not_accepted")
+
     for name, value in (
         ("settlement_packet", packet),
         ("marketplace_acknowledgement", ack),
         ("marketplace_transport", market_transport),
         ("publisher_transport", publisher_transport),
+        ("publisher_projection", projection),
+        ("publication_receipt", receipt),
     ):
         if value.get("live_authority_granted") is not False:
             failures.append(f"{name}_live_authority_boundary_invalid")
     if market_transport.get("transport_is_authority") is not False or publisher_transport.get("transport_is_authority") is not False:
         failures.append("transport_authority_boundary_invalid")
-    return failures
+    for field in ("publication_authorized", "release_authorized"):
+        if projection.get(field) is not False or receipt.get(field) is not False:
+            failures.append(f"publisher_{field}_boundary_invalid")
+
+    _, cross = load_crypto_evidence()
+    if cross is not None and cross.get("result") == "PASS":
+        if cross.get("evidence_bindings") != bindings:
+            failures.append("crypto_manifest_ecosystem_binding_mismatch")
+    return failures, bindings
 
 
-def write(status: str, reason: str, sources: dict[str, Any] | None = None, failures: list[str] | None = None) -> None:
+def write(
+    status: str,
+    reason: str,
+    sources: dict[str, Any] | None = None,
+    failures: list[str] | None = None,
+    bindings: dict[str, Any] | None = None,
+) -> None:
+    readiness, cross = load_crypto_evidence()
     body = {
-        "schema": "stegverse.publisher.marketplace_coinbase_release_evidence.v1",
+        "schema": "stegverse.publisher.marketplace_coinbase_release_evidence.v2",
         "status": status,
         "reason": reason,
         "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "sources": sources or {},
         "failures": sorted(failures or []),
+        "evidence_bindings": bindings or {},
+        "crypto_repository_readiness_receipt_digest": (readiness or {}).get("receipt_digest"),
+        "crypto_repository_manifest_digest": (cross or {}).get("manifest_digest"),
         "paper_release_verified": status == "VERIFIED",
         "publication_authorized": False,
         "release_authorized": False,
@@ -277,15 +346,17 @@ def main() -> int:
         return 0
     source_failures = [f"{key}:{value['state']}" for key, value in sources.items() if value.get("state") != "PASS"]
     validation_failures: list[str] = []
+    bindings: dict[str, Any] = {}
     if not source_failures:
-        validation_failures.extend(validate_crypto_evidence())
+        validation_failures.extend(validate_crypto_repository_readiness())
         if not validation_failures:
-            validation_failures.extend(validate_marketplace_evidence())
+            ecosystem_failures, bindings = reconstruct_ecosystem_evidence()
+            validation_failures.extend(ecosystem_failures)
     failures = source_failures + validation_failures
     if failures:
-        write("REJECTED", "cross_repository_release_evidence_not_verified", sources, failures)
+        write("REJECTED", "cross_repository_release_evidence_not_verified", sources, failures, bindings)
         return 1
-    write("VERIFIED", "hash_bound_cross_repository_paper_release_evidence_verified", sources)
+    write("VERIFIED", "publisher_reconstructed_hash_bound_paper_release_evidence", sources, bindings=bindings)
     print("MARKETPLACE_COINBASE_RELEASE_EVIDENCE_VERIFIED")
     return 0
 
