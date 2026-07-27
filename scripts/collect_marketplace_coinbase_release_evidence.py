@@ -56,7 +56,7 @@ def api_json(path: str) -> dict[str, Any]:
         headers={
             "Accept": "application/vnd.github+json",
             "Authorization": f"Bearer {TOKEN}",
-            "User-Agent": "StegVerse-Marketplace-Coinbase-Evidence-Collector/1.2",
+            "User-Agent": "StegVerse-Marketplace-Coinbase-Evidence-Collector/1.3",
             "X-GitHub-Api-Version": "2022-11-28",
         },
     )
@@ -73,7 +73,7 @@ def download(url: str) -> bytes:
         headers={
             "Accept": "application/vnd.github+json",
             "Authorization": f"Bearer {TOKEN}",
-            "User-Agent": "StegVerse-Marketplace-Coinbase-Evidence-Collector/1.2",
+            "User-Agent": "StegVerse-Marketplace-Coinbase-Evidence-Collector/1.3",
             "X-GitHub-Api-Version": "2022-11-28",
         },
     )
@@ -116,12 +116,14 @@ def extract_artifact(source_key: str, source: dict[str, Any]) -> dict[str, Any]:
             target.write_bytes(bundle.read(member))
             extracted.append(relative.as_posix())
     missing = [name for name in source["required"] if find_named(destination, name) is None]
+    workflow_run = artifact.get("workflow_run") or {}
     return {
         "state": "PASS" if not missing else "INVALID",
         "repository": source["repo"],
         "artifact": source["artifact"],
         "artifact_id": artifact.get("id"),
-        "workflow_run_id": artifact.get("workflow_run", {}).get("id"),
+        "workflow_run_id": workflow_run.get("id"),
+        "head_sha": workflow_run.get("head_sha"),
         "created_at": artifact.get("created_at"),
         "files": sorted(extracted),
         "missing_required_files": missing,
@@ -152,7 +154,7 @@ def validate_crypto_repository_readiness() -> list[str]:
         failures.append("readiness_receipt_digest_mismatch")
     if cross.get("manifest_digest") != digest(cross_body):
         failures.append("cross_repository_manifest_digest_mismatch")
-    if readiness.get("cross_repository_evidence_digest") != cross.get("manifest_digest"):
+    if readiness.get("cross_repository_manifest_digest") != cross.get("manifest_digest"):
         failures.append("readiness_cross_repository_binding_mismatch")
     if readiness.get("ci_tests") != "PASS":
         failures.append("crypto_bot_ci_tests_not_pass")
