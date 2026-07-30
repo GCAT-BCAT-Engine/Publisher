@@ -4,7 +4,7 @@
   "evidence_bindings": {},
   "execution_authorized": false,
   "failures": [],
-  "generated_at": "2026-07-30T18:44:12.577456Z",
+  "generated_at": "2026-07-30T20:34:24.747828Z",
   "live_authority_granted": false,
   "manual_user_action_required": false,
   "paper_release_verified": false,
@@ -14,5 +14,5 @@
   "schema": "stegverse.publisher.marketplace_coinbase_release_evidence.v2",
   "sources": {},
   "status": "PENDING_CREDENTIAL",
-  "status_digest": "sha256:db624f23b259f363c442b4477550e13edb438b96acf5a9b22cbb6c71096311cf"
+  "status_digest": "sha256:ba548d1eabea83ce684045916f8343d738291429073ed9f1c8c11c2d118ef0e6"
 }
