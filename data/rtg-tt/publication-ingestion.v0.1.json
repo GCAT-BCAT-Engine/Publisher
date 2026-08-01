@@ -1,0 +1,33 @@
+{
+  "schema_version": "0.1.0",
+  "ingestion_id": "publisher-rtg-tt-v0.1",
+  "contract_version": "rtg-tt-v0.1",
+  "site_source": {
+    "repository": "StegVerse-Labs/Site",
+    "commit": "50d417b2dbf29d3812bdae8c3d1942b1ce5a5162"
+  },
+  "stegcore_source": {
+    "repository": "StegVerse-Labs/StegCore",
+    "commit": "47cb26c513c9404017e650e025b8cc14eb02c41c"
+  },
+  "canonical_sources": {
+    "rtg_tests": "2fd7099bb3b6d2d7aa8ce7d72f7f71f6dfd4566a",
+    "transition_table": "19720bae935ef9881ce5b239e0b66423fcd8bfab",
+    "validation_factory": "5ca6ac0442809c5902f9765d2f865e5fa03d9c60",
+    "factory_report_hash": "sha256:a11eea46242f3df6faa64c2c4174779abea08be9ca7ea93342317cdbcdf7aa56"
+  },
+  "mapping": {
+    "RESOLUTION_SATISFIED": "ALLOW",
+    "FAIL_CLOSED": "DENY",
+    "QUARANTINE": "DEFER"
+  },
+  "status": "VERIFIED_INGESTION_CANDIDATE",
+  "authority": {
+    "source": false,
+    "commitment": false,
+    "execution": false,
+    "custody": false,
+    "publication": false,
+    "release": false
+  }
+}
