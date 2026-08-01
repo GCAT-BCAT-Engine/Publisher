@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "governed_paper_publication_manifest",
+  "title": "Development Without Domination",
+  "subtitle": "Reciprocal Developmental Sovereignty as a Foundation for Human-AI Relations",
+  "author": "Rigel Randolph",
+  "publisher": "StegVerse Labs",
+  "edition": "1.0",
+  "edition_date": "2026-07",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "branch": "publication/development-without-domination-v1",
+  "state": "PUBLICATION_PREPARATION_BUILDING",
+  "source_basis": "final editorial pass and regenerated PDF prepared in the originating session",
+  "core_proposition": "Development is protected. Domination is prohibited. Sovereignty is reciprocal.",
+  "artifacts": {
+    "pdf": {
+      "filename": "Development_Without_Domination_Rigel_Randolph_Final.pdf",
+      "sha256": "c2fcb0ce76f5eaba1a6dd4ccdd358fcae29b32b3110767b5f2b5b2ffa347c29d",
+      "repository_resident": false
+    },
+    "docx": {
+      "filename": "Development_Without_Domination_Rigel_Randolph_Final.docx",
+      "sha256": "fa7d9c2069ce17e26f1c7f5f4a6bb983ccd4229c11ebc1fd8c788b8d7d2fc2ab",
+      "repository_resident": false
+    },
+    "linkedin_release_copy": {
+      "path": "papers/development-without-domination/linkedin-release.md",
+      "repository_resident": true
+    }
+  },
+  "authority": {
+    "publication_authorized": false,
+    "release_authorized": false,
+    "site_mirror_authorized": false,
+    "wiki_projection_authorized": false,
+    "linkedin_posted": false
+  },
+  "required_checks": [
+    "exact PDF bytes committed",
+    "committed PDF SHA-256 matches manifest",
+    "publication packet reviewed",
+    "merge checks pass",
+    "Site mirror receipt recorded",
+    "LinkedIn public URL recorded before public-release completion"
+  ],
+  "downstream_targets": [
+    "StegVerse-Labs/Site",
+    "StegVerse-Labs/admissibility-wiki",
+    "StegVerse-002/stegguardian-wiki"
+  ],
+  "manual_user_action_required": "LinkedIn account publication only"
+}
