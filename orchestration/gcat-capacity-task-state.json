@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "GCAT-CAP-008",
+  "originating_goal": "Install repository-native validation, receipt generation, collision prevention, and continuation for the GCAT capacity paper workstream.",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "branch": "agent/gcat-capacity-paper",
+  "pull_request": 5,
+  "issue": 6,
+  "handoff": "docs/GCAT_CAPACITY_MIRROR_HANDOFF.md",
+  "state": "CLAIMED_FOR_VALIDATION",
+  "role": "distinct validation and automation lane",
+  "claimant": "ChatGPT session validation lane",
+  "claim_created_at": "2026-08-02T09:53:00Z",
+  "claim_expires_at": "2026-08-09T09:53:00Z",
+  "release_condition": "Release when a hosted workflow run on the exact PR head completes, its jobs and logs are inspected, the gcat-capacity-validation artifact is inspected, and the result is recorded in a committed receipt or PR comment; otherwise expire automatically at claim_expires_at.",
+  "collision_key": "GCAT-BCAT-Engine/Publisher:agent/gcat-capacity-paper:validation",
+  "collision_boundaries": [
+    "Do not rewrite simulation, sensitivity, figure, bibliography, or paper theory files except to repair validator-detected defects.",
+    "Do not alter Publisher activation, Site state, wiki propagation, release, deployment, or publication authority.",
+    "Do not duplicate PR #5 implementation ownership.",
+    "Do not mark COMPLETE without hosted workflow, log, and artifact evidence."
+  ],
+  "deterministic_inputs": [
+    "data/gcat_capacity_scenarios.json",
+    "data/gcat_capacity_sensitivity.json",
+    "models/gcat_capacity_model.json",
+    "papers/GCAT-BCAT/P14_GCAT_Capacity_Stability_v1.md",
+    "papers/GCAT-BCAT/references/gcat_capacity_primary_sources.bib",
+    "papers/GCAT-BCAT/sections/P14_related_work_v1.md",
+    "tools/gcat_capacity_simulation.py",
+    "tools/gcat_capacity_sensitivity.py",
+    "tools/gcat_capacity_timeseries.py",
+    "tools/check_gcat_capacity_simulation.py",
+    "tools/check_gcat_capacity_sensitivity.py",
+    "tools/check_gcat_capacity_timeseries.py",
+    "tools/check_gcat_capacity_bibliography.py"
+  ],
+  "deterministic_outputs": [
+    "generated/gcat-capacity/manifest.json",
+    "generated/gcat-capacity-sensitivity/manifest.json",
+    "generated/gcat-capacity-timeseries/manifest.json",
+    "reports/gcat-capacity-runtime-receipt.json",
+    "gcat-capacity-validation workflow artifact"
+  ],
+  "required_states": [
+    "COMPLETE",
+    "BLOCKED",
+    "RETRY",
+    "REVIEW_REQUIRED",
+    "FAILED",
+    "CLAIMED",
+    "SUPERSEDED",
+    "MERGED"
+  ],
+  "current_result": "CLAIMED",
+  "validation": {
+    "static": "pending",
+    "unit": "pending",
+    "integration": "pending",
+    "hosted_workflow": "pending",
+    "artifact_inspection": "pending",
+    "publication_readiness": "blocked"
+  },
+  "blocked_conditions": [
+    {
+      "condition": "No hosted workflow run exists on the automation commit.",
+      "owner": "GitHub Actions workflow validate-gcat-capacity-paper",
+      "release_event": "A pull_request, push, or workflow_dispatch run starts on the exact branch head."
+    },
+    {
+      "condition": "Independent mathematical review is absent.",
+      "owner": "Issue #6 mathematical-review lane",
+      "release_event": "A committed review receipt identifies reviewer scope, equations checked, findings, and disposition."
+    },
+    {
+      "condition": "Case-study provenance review is absent.",
+      "owner": "Issue #6 evidence-review lane",
+      "release_event": "A committed case-evidence note classifies each observation as sourced, first-person, qualified, or removed."
+    }
+  ],
+  "next_executable_task": "Run the repository-native workflow, inspect all jobs and logs, download and inspect the artifact, then update the runtime receipt and release or renew this claim.",
+  "archive_condition": "The session may archive after the workflow and task-state automation are committed and all remaining unique requirements are represented by this task state, the session goal inventory, the canonical handoff, PR #5, and Issue #6; observation of future workflow results may be owned by repository-native automation or Issue #6."
+}
