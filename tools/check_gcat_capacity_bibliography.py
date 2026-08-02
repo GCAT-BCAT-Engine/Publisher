@@ -27,10 +27,10 @@ REQUIRED_KEYS = {
 }
 
 REQUIRED_BOUNDARY_PHRASES = {
-    "does not validate GCAT empirically",
-    "does not compute the GCAT viability kernel",
-    "must not be used to equate the GCAT observational case with Challenger",
-    "Bibliographic metadata must be checked against publisher or DOI records before release",
+    "does not validate gcat empirically",
+    "does not compute the gcat viability kernel",
+    "must not be used to equate the gcat observational case with challenger",
+    "bibliographic metadata must be checked against publisher or doi records before release",
 }
 
 
@@ -44,6 +44,13 @@ def bib_keys(text: str) -> Set[str]:
 
 def citation_keys(text: str) -> Set[str]:
     return set(re.findall(r"@([A-Za-z0-9_:-]+)", text))
+
+
+def normalized_prose(text: str) -> str:
+    """Normalize Markdown presentation without weakening phrase semantics."""
+    text = re.sub(r"[`*_>#|]", " ", text)
+    text = re.sub(r"\s+", " ", text)
+    return text.strip().lower()
 
 
 def main() -> int:
@@ -61,6 +68,7 @@ def main() -> int:
     bib_text = BIB.read_text(encoding="utf-8")
     related_text = RELATED.read_text(encoding="utf-8")
     review_text = REVIEW.read_text(encoding="utf-8")
+    review_normalized = normalized_prose(review_text)
 
     keys = bib_keys(bib_text)
     cited = citation_keys(related_text)
@@ -86,18 +94,19 @@ def main() -> int:
             fail(f"source-review matrix missing key: {key}", failures)
 
     for phrase in REQUIRED_BOUNDARY_PHRASES:
-        if phrase not in review_text:
+        if phrase not in review_normalized:
             fail(f"source-review boundary missing: {phrase}", failures)
 
-    for marker in ("Control barrier functions", "Viability", "Production functions", "organizational failure"):
-        if marker.lower() not in related_text.lower():
+    related_normalized = normalized_prose(related_text)
+    for marker in ("control barrier functions", "viability", "production functions", "organizational failure"):
+        if marker not in related_normalized:
             fail(f"related-work topic missing: {marker}", failures)
 
-    if "GCAT does not claim a new general barrier theorem" not in related_text:
+    if "gcat does not claim a new general barrier theorem" not in related_normalized:
         fail("barrier-theory claim boundary missing", failures)
-    if "do not compute a viability kernel" not in related_text:
+    if "do not compute a viability kernel" not in related_normalized:
         fail("viability claim boundary missing", failures)
-    if "not evidence for the paper's federal IT observation" not in related_text:
+    if "not evidence for the paper's federal it observation" not in related_normalized:
         fail("organizational-case claim boundary missing", failures)
 
     if failures:
