@@ -12,7 +12,8 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 # Full repository activation checks. These intentionally include dynamic handoff
 # and release-readiness assertions and may fail while unrelated workstreams are
-# incomplete.
+# incomplete. The compatibility wrapper delegates to tools/check_release_gate.py
+# through tools/check_release_gate_compat.py.
 COMMANDS = [
     [sys.executable, "tools/check_emergency_ai_templates.py"],
     [sys.executable, "tools/validate_emergency_ai_cases.py"],
