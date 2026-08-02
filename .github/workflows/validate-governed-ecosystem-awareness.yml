@@ -7,11 +7,13 @@ on:
   pull_request:
     paths:
       - 'docs/PUBLISHER_MIRROR_HANDOFF.md'
+      - 'papers/development-without-domination/**'
       - 'templates/sandbox-first/**'
       - 'tools/run_sandbox_validation.py'
       - 'tools/check_st017_sandbox_adoption.py'
       - 'tools/acquire_site_ecosystem_chat_propagation.py'
       - 'tools/check_site_ecosystem_chat_propagation.py'
+      - 'tools/check_development_without_domination_publication.py'
       - '.github/workflows/validate-governed-ecosystem-awareness.yml'
       - 'docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md'
       - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
@@ -27,11 +29,13 @@ on:
       - 'docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_RUNBOOK.md'
       - 'docs/PUBLISHER_MIRROR_HANDOFF.md'
       - 'data/ecosystem-chat-site-propagation-status.json'
+      - 'papers/development-without-domination/**'
       - 'templates/sandbox-first/**'
       - 'tools/run_sandbox_validation.py'
       - 'tools/check_st017_sandbox_adoption.py'
       - 'tools/acquire_site_ecosystem_chat_propagation.py'
       - 'tools/check_site_ecosystem_chat_propagation.py'
+      - 'tools/check_development_without_domination_publication.py'
       - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
       - 'tools/check_stegguardian_propagation_status.py'
       - 'tools/check_publisher_governed_ecosystem_sync_status.py'
@@ -86,16 +90,21 @@ jobs:
         run: python tools/check_publisher_governed_ecosystem_workflow_request.py
       - name: Check Publisher activation boundary
         run: python tools/check_publisher_activation.py
-      - name: Persist Site propagation awareness status
+      - name: Check Development Without Domination publication state
+        run: python tools/check_development_without_domination_publication.py
+      - name: Persist repository-owned awareness and publication state
         if: github.event_name != 'pull_request'
         run: |
-          if git diff --quiet -- data/ecosystem-chat-site-propagation-status.json; then
-            echo 'No propagation awareness change.'
+          if git diff --quiet -- data/ecosystem-chat-site-propagation-status.json papers/development-without-domination/publication-status.json papers/development-without-domination/publication-receipt.json; then
+            echo 'No durable state change.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/ecosystem-chat-site-propagation-status.json
-          git commit -m 'chore: persist Site propagation awareness'
+          git add data/ecosystem-chat-site-propagation-status.json papers/development-without-domination/publication-status.json
+          if [ -f papers/development-without-domination/publication-receipt.json ]; then
+            git add papers/development-without-domination/publication-receipt.json
+          fi
+          git commit -m 'chore: persist governed Publisher state'
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push
