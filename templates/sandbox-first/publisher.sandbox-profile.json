@@ -4,7 +4,7 @@
   "profile_id": "publisher-governed-awareness",
   "repository": "GCAT-BCAT-Engine/Publisher",
   "timeout_seconds": 300,
-  "exclude": [".git", "__pycache__", ".pytest_cache", "reports"],
+  "exclude": [".git", "__pycache__", ".pytest_cache"],
   "commands": [
     {"id": "compile-python", "argv": ["python", "-m", "compileall", "tools", "scripts"], "expected_exit": 0},
     {"id": "validate-governed-awareness", "argv": ["python", "tools/check_governed_ecosystem_site_mirror_awareness.py"], "expected_exit": 0},
