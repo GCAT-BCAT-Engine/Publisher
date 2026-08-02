@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = ROOT / "templates/sandbox-first/publisher.sandbox-profile.json"
 RUNNER = ROOT / "tools/run_sandbox_validation.py"
+REPORT_VALIDATOR = ROOT / "tools/check_st017_sandbox_report.py"
 WORKFLOW = ROOT / ".github/workflows/validate-governed-ecosystem-awareness.yml"
 HANDOFF = ROOT / "docs/PUBLISHER_MIRROR_HANDOFF.md"
 
@@ -17,7 +18,7 @@ def main() -> int:
     parser.add_argument("--structural-only", action="store_true")
     parser.parse_args()
     errors = []
-    for path in [PROFILE, RUNNER, WORKFLOW, HANDOFF]:
+    for path in [PROFILE, RUNNER, REPORT_VALIDATOR, WORKFLOW, HANDOFF]:
         if not path.exists():
             errors.append(f"missing:{path.relative_to(ROOT)}")
     if PROFILE.exists():
@@ -30,9 +31,21 @@ def main() -> int:
                 errors.append(f"profile_missing:{required}")
     if WORKFLOW.exists():
         text = WORKFLOW.read_text(encoding="utf-8")
-        for marker in ["pull_request:", "python tools/run_sandbox_validation.py", "publisher-st017-sandbox-report", "reports/sandbox-first-validation.report.json"]:
+        for marker in [
+            "pull_request:",
+            "python tools/run_sandbox_validation.py",
+            "python tools/check_st017_sandbox_report.py",
+            "publisher-st017-sandbox-report",
+            "reports/sandbox-first-validation.report.json",
+            "reports/st017-task-state.json",
+        ]:
             if marker not in text:
                 errors.append(f"workflow_missing:{marker}")
+    if REPORT_VALIDATOR.exists():
+        validator_text = REPORT_VALIDATOR.read_text(encoding="utf-8")
+        for marker in ["COMPLETE", "FAILED", "duplicate_execution_key", "next_executable_task"]:
+            if marker not in validator_text:
+                errors.append(f"report_validator_missing:{marker}")
     if HANDOFF.exists() and "ST-017 Sandbox-First Adoption" not in HANDOFF.read_text(encoding="utf-8"):
         errors.append("handoff_missing_st017")
     if errors:
