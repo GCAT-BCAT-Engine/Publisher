@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "goal_id": "PUBLISHER-0001-DWD-PUBLICATION",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "branch": "publication/development-without-domination-v1",
+  "state": "BLOCKED",
+  "reason": "EXACT_ARTIFACTS_NOT_REPOSITORY_RESIDENT",
+  "artifact_checks": {
+    "pdf": {
+      "path": "papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.pdf",
+      "expected_sha256": "c2fcb0ce76f5eaba1a6dd4ccdd358fcae29b32b3110767b5f2b5b2ffa347c29d",
+      "expected_bytes": 149969,
+      "present": false,
+      "verified": false
+    },
+    "docx": {
+      "path": "papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.docx",
+      "expected_sha256": "fa7d9c2069ce17e26f1c7f5f4a6bb983ccd4229c11ebc1fd8c788b8d7d2fc2ab",
+      "present": false,
+      "verified": false
+    }
+  },
+  "site_propagation": {
+    "receipt_path": "papers/development-without-domination/site-mirror-receipt.json",
+    "state": "BLOCKED",
+    "release_condition": "StegVerse-Labs/Site commits a receipt with exact PDF hash and directly verified deployed route."
+  },
+  "authority": {
+    "publication": false,
+    "release": false,
+    "site_mirror": false,
+    "wiki_projection": false,
+    "admissibility": false
+  },
+  "next_executable_task": {
+    "repository": "GCAT-BCAT-Engine/Publisher",
+    "path": "tools/check_development_without_domination_publication.py",
+    "action": "Run the fail-closed publication validator and persist its exact result."
+  },
+  "external_tasks": []
+}
