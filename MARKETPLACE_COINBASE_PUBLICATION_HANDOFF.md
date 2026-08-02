@@ -1,114 +1,124 @@
-# Marketplace–Coinbase Publication Handoff
+# Marketplace–Coinbase Publication Mirror Handoff
 
-## Goal
-Consume only verified Marketplace–Coinbase paper settlement evidence after Marketplace has independently accepted and acknowledged the settlement packet, issued the chained Publisher transport receipt, and Publisher has reconstructed the complete evidence chain without requiring crypto-bot's final release decision first.
+## Active goal and goal ID
 
-## Current State
-The packet-plus-acknowledgement gate, durable publication ledger, repository-owned import runner, transport-chain verifier, publication receipt generator, cross-repository artifact collector, ecosystem reconstruction verifier, tests, private-evidence custody controls, and workflows are installed.
+- Goal ID: `MARKETPLACE-COINBASE-PAPER-ACCESSIBILITY-001`
+- Goal: reconstruct the governed paper settlement chain, publish only a bounded verification status, propagate paper accessibility to Site, and permit crypto-bot finalization without granting live authority.
+- Repository: `GCAT-BCAT-Engine/Publisher`
+- Branch: `main`
+- Owner issue: `GCAT-BCAT-Engine/Publisher#19`
 
-## Two-Stage Release Protocol
-The previous dependency was circular and is superseded.
+## Authoritative files
 
-### Stage 1 — Repository Readiness
-Crypto-bot CI may emit:
+- `data/marketplace-coinbase-connected-relay.json`
+- `scripts/verify_marketplace_coinbase_connected_relay.py`
+- `tests/test_marketplace_coinbase_connected_relay.py`
+- `data/marketplace-coinbase-publications/intent-marketplace-release-73a0543ddb27.publication.json`
+- `data/marketplace-coinbase-release-evidence-status.json`
+- `.github/workflows/collect-marketplace-coinbase-release-evidence.yml`
+- `scripts/collect_marketplace_coinbase_release_evidence.py`
 
-- `PAPER_RELEASE_BLOCKED_PENDING_CROSS_REPOSITORY_EVIDENCE`; and
-- a digest-valid repository-readiness receipt proving its own tests and paper runtime passed.
-
-Publisher accepts this as repository readiness only. It does not require `PAPER_RELEASE_READY` at this stage.
-
-### Stage 2 — Ecosystem Verification
-Publisher combines:
-
-1. the crypto-bot repository-readiness artifact;
-2. the Marketplace settlement packet;
-3. sequence-1 crypto-bot-to-Marketplace transport;
-4. the Marketplace acknowledgement;
-5. sequence-2 Marketplace-to-Publisher transport;
-6. Publisher's own stored projection; and
-7. Publisher's publication receipt.
-
-Publisher independently verifies every digest, identity, sequence, binding, result, and authority boundary. A `VERIFIED` status then becomes the public ecosystem-verification input for crypto-bot's finalizer. Crypto-bot alone emits the final paper-release receipt after confirming the Publisher status references the exact crypto commit and repository-readiness receipt.
-
-## Required Inputs
-1. A settlement export packet with version `marketplace-coinbase-settlement-export-v1`.
-2. A Marketplace acknowledgement with version `marketplace-coinbase-settlement-ack-v1`.
-3. A Marketplace-to-Publisher transport receipt with version `marketplace-coinbase-transport-v1`.
-4. Exact packet-digest and intent-ID binding across all artifacts.
-5. Marketplace result `ACCEPTED` or `DUPLICATE` with `marketplace_indexed=true`.
-6. Transport source Marketplace, destination Publisher, sequence 2, and previous digest bound to sequence 1.
-7. A digest-valid crypto-bot repository-readiness receipt with `ci_tests=PASS`, `paper_runtime=IMPLEMENTED`, and `live_authority=NOT_GRANTED`.
-8. Publisher projection and publication receipt bound to the same intent, packet, acknowledgement, and sequence-2 transport.
-9. Explicit false authority flags throughout.
-
-## Automated Import
-`scripts/import_marketplace_coinbase_settlements.py` consumes artifact triplets from `incoming/marketplace-coinbase/`. `.github/workflows/import-marketplace-coinbase-settlements.yml` runs on relevant pushes or manual dispatch, executes the failure-case test suite, imports verified triplets, and commits only changed bounded projections and receipts.
-
-## Cross-Repository Evidence Collection
-`scripts/collect_marketplace_coinbase_release_evidence.py` collects the latest non-expired named artifacts from private crypto-bot and Marketplace repositories through the established repository-scoped artifact-token pattern. `.github/workflows/collect-marketplace-coinbase-release-evidence.yml` runs hourly, on dispatch, and on collector changes.
-
-The collector records one explicit state:
-
-- `PENDING_CREDENTIAL`: the governed private-repository read credential is unavailable;
-- `PENDING_SOURCE`: an upstream artifact cannot yet be collected;
-- `REJECTED`: artifacts exist but fail digest, identity, sequence, authority-boundary, or decision checks;
-- `VERIFIED`: Publisher reconstructed and verified the complete paper evidence chain.
-
-The `VERIFIED` status includes exact evidence bindings and the crypto-bot artifact's commit SHA, artifact ID, workflow run ID, readiness receipt digest, and manifest digest. An absent credential never becomes a false failure or false success. Manual dispatch remains validation-only and cannot persist release state.
-
-## Private Evidence Custody Boundary
-Private crypto-bot and Marketplace artifacts are temporary verification inputs only. The Publisher workflow:
-
-1. downloads them into the ephemeral Actions workspace;
-2. verifies their digests and exact chain bindings;
-3. deletes the extracted private artifacts before persistence or upload;
-4. commits and uploads only `data/marketplace-coinbase-release-evidence-status.json`.
-
-The bounded status may retain source repository, artifact ID, workflow run ID, source commit, timestamps, manifest digest, readiness receipt digest, evidence bindings, and findings. It must never publish or commit the private artifact contents. A rejected result is preserved before the workflow fails so negative evidence is not lost.
-
-## Results
-- `ACCEPTED`: packet, acknowledgement, and transport chain verify; a bounded projection and publication receipt are stored.
-- `DUPLICATE`: identical accepted evidence was already stored.
-- `REJECTED`: missing acknowledgement or transport, invalid digest, mismatched binding, broken sequence chain, conflict, unsupported decision, or false authority claim.
-
-## Projection Boundary
-Every stored projection, publication receipt, and evidence status preserves:
+## Current state
 
 ```text
-publication_authorized = false
-release_authorized = false
-execution_authorized = false
-live_authority_granted = false
+PUBLISHER_CONNECTED_RELAY_RECONSTRUCTION_VERIFIED_AND_WORKFLOW_PERSISTED
 ```
 
-`paper_evidence_verified` becomes true only after all evidence gates pass. Verification does not authorize publication, release, custody, deployment, payment, entitlement, Coinbase execution, or live financial activity.
+Publisher has reconstructed the exact paper chain and persisted a bounded `VERIFIED` status. Raw private Marketplace evidence was inspected through the connected GitHub control plane and was not committed to Publisher. Publisher persists only source identities, file and receipt digests, evidence bindings, the bounded publication projection, and the bounded verification status.
 
-## Installed Files
-- `marketplace_coinbase_publication.py`
-- `scripts/import_marketplace_coinbase_settlements.py`
-- `scripts/collect_marketplace_coinbase_release_evidence.py`
-- `.github/workflows/import-marketplace-coinbase-settlements.yml`
-- `.github/workflows/collect-marketplace-coinbase-release-evidence.yml`
-- `tests/test_marketplace_coinbase_publication.py`
-- `tests/test_marketplace_coinbase_import_runner.py`
-- `tests/test_marketplace_coinbase_release_evidence_collector.py`
-- `docs/MARKETPLACE_COINBASE_SETTLEMENT_PUBLICATION.md`
-- issues `GCAT-BCAT-Engine/Publisher#16` and `#19`
+## Completed work and evidence
 
-## Remaining Work
-1. Allow the hourly collector to observe the named private-repository artifacts through the governed evidence token.
-2. Preserve a `VERIFIED` evidence status with exact artifact IDs, workflow run IDs, source commit, readiness receipt digest, manifest digest, and evidence bindings.
-3. Allow crypto-bot's public-status finalizer to consume that exact Publisher status and emit the final paper-release receipt.
-4. Observe accepted, duplicate, missing-acknowledgement, transport-mismatch, digest-mismatch, conflict, and false-live-claim evidence in repository workflows.
-5. Publish only after the separate publication-authority process grants authority; transport and verification remain non-authoritative.
+### Upstream identities
 
-## Progress Snapshot
-Publisher settlement import - 100% implemented
-Publisher publication gate - 100% implemented
-Cross-repository evidence reconstruction - 100% implemented
-Private evidence custody boundary - 100% implemented
-Two-stage release deadlock removal - 100% implemented
-Remaining - observed artifact collection, Publisher `VERIFIED`, and crypto-bot final receipt only
+- crypto-bot source commit: `73a0543ddb27a88fd4913e7dcfa2127132299baa`
+- first-accessibility workflow run: `30681165495`
+- first-accessibility artifact: `first-accessibility-mark-30681165495-1`
+- artifact ID: `8812256538`
+- artifact digest: `sha256:fa051f49f259c54f491dc1395568447393e6ea83dbd9c8535e3cbdfe03e2ada7`
+- observed receipt digest: `sha256:5f6cc484c74f5795973cd2e6c52cc349e1cc464064841a29c3d28ed863e98758`
+- Marketplace collection-status commit: `7bad3827613cfc3e882fb3b121567bfa689c581c`
+- Marketplace relay receipt digest: `sha256:07aedebdf3bcb32407adec99d5d160ce5be315709d958beb75b0a73fabe5caf2`
 
-## Archive Readiness
-This file and the installed executable gates preserve all continuation context required for this workstream.
+### Exact chain bindings
+
+- intent: `intent-marketplace-release-73a0543ddb27`
+- packet: `sha256:ae990ce837cac3077a80c966b4e2d960f4158065dcec9c7fdc4da8b8f26ea89b`
+- sequence 1: `sha256:f6f41875a5e066fc348cac68691c1d4fb77f3559282eb4ede26a398c87ee7e64`
+- acknowledgement: `sha256:c76c0decad6b82f9356a58598ef5e217f92802dc657e9f5ed95cae9b8f77f0a3`
+- sequence 2: `sha256:805000ab776b00863f5962514bcb8f843ccaa27ab9e0ac7821b92499b2e347f1`
+- Publisher projection: `sha256:4ab30925412757058f3f752fad1d7e452e95dcddf3d2e272ecd9605cee97e8d9`
+- publication receipt: `sha256:0dc495cf5f7de0b4610d5b4fc7732f3ddb888543fbe6c9a55ef07ad7f175d240`
+
+### Repository mutations
+
+- bounded projection: commit `25b9e66014ec02f4c7173a8bd93d9fe5eeaa347f`
+- bounded connected relay: commit `c6a7f3591efe5d915de0ab65d8fc724d2ed8ed23`
+- connected relay verifier: commit `43ad9acebf8d9e99aadd0b548ea2ef03ac1dd312`
+- connected relay tests: commit `cfc412d9da6f0851f15e258c2cf2fc936c00968d`
+- workflow activation: commit `21d9ad2333c4a5b76a319d2adef2625cb5801616`
+- machine-persisted `VERIFIED` status: commit `913a89d0ec867c3c9b570ec8352be554790a45f0`
+
+### Current bounded status
+
+- status: `VERIFIED`
+- paper release verified: `true`
+- status digest: `sha256:36a2f6da4b5af18375fd798ef954ec703ea719beefbab2d5949954b79ca1e477`
+- publication authority: `false`
+- release authority: `false`
+- execution authority: `false`
+- live authority: `false`
+
+## Automation
+
+The workflow `.github/workflows/collect-marketplace-coinbase-release-evidence.yml` now:
+
+1. runs deterministic collector and connected-relay tests;
+2. verifies a digest-bound connected relay first;
+3. uses the credentialed private-artifact collector only when the relay is absent;
+4. removes temporary private evidence before persistence;
+5. commits only the bounded status;
+6. uploads the bounded status artifact;
+7. fails after preserving rejected evidence.
+
+The machine-owned status commit `913a89d0ec867c3c9b570ec8352be554790a45f0` proves the activated workflow persisted `VERIFIED`. The workflow run ID, job logs, and uploaded bounded-status artifact ID have not yet been directly recorded in this handoff.
+
+## Cross-repository propagation
+
+- Source: `GCAT-BCAT-Engine/Publisher/data/marketplace-coinbase-release-evidence-status.json`
+- Consumer: `StegVerse-Labs/Site/scripts/import_marketplace_coinbase_accessibility.py`
+- Site result: `PAPER_ACCESSIBLE`
+- Site machine persistence commit: `99eeb59f757e4bdbaf020817b6ece5267349e93b`
+- Crypto finalizer: `StegVerse-Labs/crypto-bot/scripts/build_final_paper_release_receipt.py`
+
+## Incomplete work
+
+1. Record Publisher workflow run, job, logs, and bounded-status artifact identity when observable.
+   - Owner: `GCAT-BCAT-Engine/Publisher#19`
+   - Workflow: `.github/workflows/collect-marketplace-coinbase-release-evidence.yml`
+   - Release condition: inspectable successful run and retained status artifact.
+2. Complete crypto-bot final receipt and exact tag.
+   - Owner: `StegVerse-Labs/crypto-bot#6`
+   - Workflow: `.github/workflows/finalize-paper-release.yml`
+   - Required outputs: `FINAL_PAPER_RELEASE_RECEIPT.json`, `FINAL_PAPER_RELEASE_TAG_AUTHORIZATION.json`, and tag `marketplace-coinbase-paper-v1.0.0` at commit `73a0543ddb27a88fd4913e7dcfa2127132299baa`.
+
+## Validation commands
+
+```bash
+pytest -q tests/test_marketplace_coinbase_release_evidence_collector.py tests/test_marketplace_coinbase_connected_relay.py
+python scripts/verify_marketplace_coinbase_connected_relay.py
+```
+
+## Authority boundary
+
+Publisher verification, connected transport, Site projection, final receipt generation, and repository tagging do not grant publication, release, execution, custody, withdrawal, funded-order, or live Coinbase authority.
+
+## Archive conditions
+
+This workstream is not archive-complete until the exact crypto-bot final receipt, `ALLOW_TAG`, exact tag target, issue closure evidence, and hosted validation identities are preserved. No unspecified external tasks exist.
+
+## Progress
+
+- developed files: 7/7 = 100%
+- validation: deterministic relay validation PASS; hosted persistence observed; workflow run metadata pending
+- integration: Publisher-to-Site complete
+- goal activation: 85%
