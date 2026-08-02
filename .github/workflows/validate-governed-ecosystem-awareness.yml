@@ -10,12 +10,13 @@ on:
       - 'templates/sandbox-first/**'
       - 'tools/run_sandbox_validation.py'
       - 'tools/check_st017_sandbox_adoption.py'
+      - 'tools/check_st017_sandbox_report.py'
+      - 'tools/check_publisher_st017_activation.py'
       - 'tools/acquire_site_ecosystem_chat_propagation.py'
       - 'tools/check_site_ecosystem_chat_propagation.py'
       - '.github/workflows/validate-governed-ecosystem-awareness.yml'
       - 'docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md'
       - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
-      - 'tools/check_publisher_activation.py'
   push:
     paths:
       - 'docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md'
@@ -30,6 +31,8 @@ on:
       - 'templates/sandbox-first/**'
       - 'tools/run_sandbox_validation.py'
       - 'tools/check_st017_sandbox_adoption.py'
+      - 'tools/check_st017_sandbox_report.py'
+      - 'tools/check_publisher_st017_activation.py'
       - 'tools/acquire_site_ecosystem_chat_propagation.py'
       - 'tools/check_site_ecosystem_chat_propagation.py'
       - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
@@ -37,7 +40,6 @@ on:
       - 'tools/check_publisher_governed_ecosystem_sync_status.py'
       - 'tools/check_publisher_governed_ecosystem_validation_status.py'
       - 'tools/check_publisher_governed_ecosystem_workflow_request.py'
-      - 'tools/check_publisher_activation.py'
       - '.github/workflows/validate-governed-ecosystem-awareness.yml'
 
 jobs:
@@ -50,13 +52,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Execute Publisher sandbox
+        continue-on-error: true
         run: python tools/run_sandbox_validation.py
-      - name: Upload Publisher sandbox report
+      - name: Validate ST-017 report and persist task state
+        if: always()
+        run: |
+          python tools/check_st017_sandbox_report.py \
+            --report reports/sandbox-first-validation.report.json \
+            --state-output reports/st017-task-state.json
+      - name: Upload Publisher sandbox evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: publisher-st017-sandbox-report
-          path: reports/sandbox-first-validation.report.json
+          path: |
+            reports/sandbox-first-validation.report.json
+            reports/st017-task-state.json
           if-no-files-found: error
           retention-days: 30
 
@@ -84,8 +95,8 @@ jobs:
         run: python tools/check_publisher_governed_ecosystem_validation_status.py
       - name: Check workflow request
         run: python tools/check_publisher_governed_ecosystem_workflow_request.py
-      - name: Check Publisher activation boundary
-        run: python tools/check_publisher_activation.py
+      - name: Check bounded ST-017 activation boundary
+        run: python tools/check_publisher_st017_activation.py
       - name: Persist Site propagation awareness status
         if: github.event_name != 'pull_request'
         run: |
