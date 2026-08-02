@@ -1,0 +1,33 @@
+{
+  "findings": [],
+  "projection": {
+    "execution_status": "EXECUTED",
+    "findings": [],
+    "intent_id": "intent-marketplace-release-73a0543ddb27",
+    "live_authority_granted": false,
+    "marketplace_ack_digest": "sha256:c76c0decad6b82f9356a58598ef5e217f92802dc657e9f5ed95cae9b8f77f0a3",
+    "marketplace_status": "PENDING_REVIEW",
+    "packet_digest": "sha256:ae990ce837cac3077a80c966b4e2d960f4158065dcec9c7fdc4da8b8f26ea89b",
+    "paper_evidence_verified": true,
+    "projection_digest": "sha256:4ab30925412757058f3f752fad1d7e452e95dcddf3d2e272ecd9605cee97e8d9",
+    "projection_version": "marketplace-coinbase-publication-v1",
+    "publication_authorized": false,
+    "recorded_at": "2026-08-02T08:08:15.017554Z",
+    "release_authorized": false
+  },
+  "publication_receipt": {
+    "findings": [],
+    "intent_id": "intent-marketplace-release-73a0543ddb27",
+    "live_authority_granted": false,
+    "marketplace_ack_digest": "sha256:c76c0decad6b82f9356a58598ef5e217f92802dc657e9f5ed95cae9b8f77f0a3",
+    "packet_digest": "sha256:ae990ce837cac3077a80c966b4e2d960f4158065dcec9c7fdc4da8b8f26ea89b",
+    "projection_digest": "sha256:4ab30925412757058f3f752fad1d7e452e95dcddf3d2e272ecd9605cee97e8d9",
+    "publication_authorized": false,
+    "receipt_digest": "sha256:0dc495cf5f7de0b4610d5b4fc7732f3ddb888543fbe6c9a55ef07ad7f175d240",
+    "receipt_version": "marketplace-coinbase-publication-receipt-v1",
+    "release_authorized": false,
+    "result": "ACCEPTED",
+    "transport_digest": "sha256:805000ab776b00863f5962514bcb8f843ccaa27ab9e0ac7821b92499b2e347f1"
+  },
+  "result": "ACCEPTED"
+}
