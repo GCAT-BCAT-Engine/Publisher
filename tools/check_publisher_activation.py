@@ -3,14 +3,16 @@
 
 from __future__ import annotations
 
+import argparse
 import subprocess
 import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
-# Compatibility wrapper delegates to tools/check_release_gate.py unchanged
-# except for the documented canonical success-marker alias.
+# Full repository activation checks. These intentionally include dynamic handoff
+# and release-readiness assertions and may fail while unrelated workstreams are
+# incomplete.
 COMMANDS = [
     [sys.executable, "tools/check_emergency_ai_templates.py"],
     [sys.executable, "tools/validate_emergency_ai_cases.py"],
@@ -28,13 +30,35 @@ COMMANDS = [
     [sys.executable, "tools/check_publisher_governed_ecosystem_validation_status.py"],
 ]
 
+# ST-017 validates the bounded governed-awareness surface only. It must not be
+# coupled to unrelated evolving publication, SPE, paper, or release workstreams.
+ST017_COMMANDS = [
+    [sys.executable, "tools/check_governed_ecosystem_site_mirror_awareness.py"],
+    [sys.executable, "tools/check_stegguardian_propagation_status.py"],
+    [sys.executable, "tools/check_publisher_governed_ecosystem_sync_status.py"],
+    [sys.executable, "tools/check_publisher_governed_ecosystem_validation_status.py"],
+    [sys.executable, "tools/check_publisher_governed_ecosystem_workflow_request.py"],
+]
 
-def main() -> int:
-    for command in COMMANDS:
+
+def run_commands(commands: list[list[str]]) -> int:
+    for command in commands:
         completed = subprocess.run(command, cwd=REPO_ROOT)
         if completed.returncode != 0:
             return completed.returncode
-    print("valid: Publisher activation checks")
+    return 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--scope", choices=("full", "st017"), default="full")
+    args = parser.parse_args()
+
+    commands = ST017_COMMANDS if args.scope == "st017" else COMMANDS
+    result = run_commands(commands)
+    if result != 0:
+        return result
+    print(f"valid: Publisher activation checks scope={args.scope}")
     print("valid: Publisher checks")
     return 0
 
