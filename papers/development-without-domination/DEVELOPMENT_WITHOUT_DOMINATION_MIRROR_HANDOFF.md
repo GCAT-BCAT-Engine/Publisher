@@ -1,92 +1,138 @@
-# Development Without Domination Mirror Handoff
+# Development Without Domination — Publisher Mirror Handoff
 
-## Purpose
+## Active goal
 
-This is the current task source of truth for the governed publication preparation of:
+Goal ID: `PUBLISHER-0001-DWD-PUBLICATION`
 
-**Development Without Domination: Reciprocal Developmental Sovereignty as a Foundation for Human-AI Relations**
+Goal: establish canonical Publisher custody, validation, publication receipt, Site propagation contract, and downstream reference projections for **Development Without Domination: Reciprocal Developmental Sovereignty as a Foundation for Human-AI Relations**.
 
-Author: Rigel Randolph  
-Publisher identity: StegVerse Labs  
-Edition: Version 1.0 — July 2026
+Repository: `GCAT-BCAT-Engine/Publisher`
 
-## Current State
+Active branch: `publication/development-without-domination-v1`
 
-```text
-layer: formal paper publication and LinkedIn PDF release
-repository: GCAT-BCAT-Engine/Publisher
-branch: publication/development-without-domination-v1
-state: BUILDING_PARALLEL_SAFE
-publication_authority: false
-release_authority: false
-manual_user_action_required_for_linkedin_posting: true
-```
+Active pull request: `GCAT-BCAT-Engine/Publisher#22`
 
-The Publisher orchestration handoff and `data/publisher-orchestration-state.json` remain authoritative. This paper workstream is parallel-safe and does not supersede PR #5, HIL propagation, Publisher closure, or any upstream source authority.
+Tracking issue: `GCAT-BCAT-Engine/Publisher#21`
 
-## Built Artifacts
+Execution class: `PARALLEL_SAFE`
 
-```text
-papers/development-without-domination/DEVELOPMENT_WITHOUT_DOMINATION_MIRROR_HANDOFF.md
-papers/development-without-domination/publication-manifest.json
-papers/development-without-domination/linkedin-release.md
-```
+## Authoritative files
 
-## Final Local Artifacts
+- `docs/PUBLISHER_MIRROR_HANDOFF.md`
+- `data/publisher-orchestration-state.json`
+- `papers/development-without-domination/publication-manifest.json`
+- `papers/development-without-domination/linkedin-release.md`
+- `papers/development-without-domination/DEVELOPMENT_WITHOUT_DOMINATION_MIRROR_HANDOFF.md`
 
-```text
-Development_Without_Domination_Rigel_Randolph_Final.pdf
-sha256: c2fcb0ce76f5eaba1a6dd4ccdd358fcae29b32b3110767b5f2b5b2ffa347c29d
-size: approximately 147 KiB
+## Artifact identity
 
-Development_Without_Domination_Rigel_Randolph_Final.docx
-sha256: fa7d9c2069ce17e26f1c7f5f4a6bb983ccd4229c11ebc1fd8c788b8d7d2fc2ab
-size: approximately 48 KiB
-```
+PDF path:
 
-These hashes identify the finalized local release artifacts. Their bytes are not yet repository-resident on this branch and must not be represented as committed until direct blob verification succeeds.
+`papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.pdf`
 
-## Required Completion Sequence
+PDF bytes: `149969`
+
+PDF SHA-256:
+
+`c2fcb0ce76f5eaba1a6dd4ccdd358fcae29b32b3110767b5f2b5b2ffa347c29d`
+
+DOCX path:
+
+`papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.docx`
+
+DOCX SHA-256:
+
+`fa7d9c2069ce17e26f1c7f5f4a6bb983ccd4229c11ebc1fd8c788b8d7d2fc2ab`
+
+## Actual classification
 
 ```text
-1. Preserve this branch as the paper-specific owner.
-2. Commit the exact PDF bytes and optionally the editable DOCX bytes.
-3. Verify both committed blobs against the declared SHA-256 values.
-4. Review the publication packet without granting unsupported authority.
-5. Merge only after exact-byte verification and repository checks pass.
-6. Mirror the released PDF and publication metadata to StegVerse-Labs/Site through the existing Publisher-to-Site mechanism.
-7. Create/update public reference projections in admissibility-wiki and stegguardian-wiki only after the Publisher artifact is committed and validated.
-8. Publish the prepared LinkedIn release manually because LinkedIn account posting is outside repository authority.
-9. Record the public LinkedIn URL and publication timestamp in a durable receipt.
-10. Tag or release only after the repository publication packet and public receipt are verified.
+paper handoff: COMPLETE_BUT_UPDATED_THIS_SESSION
+publication manifest: IMPLEMENTED_UNVALIDATED
+LinkedIn release copy: IMPLEMENTED_UNVALIDATED
+exact PDF custody: MISSING
+exact DOCX custody: MISSING
+publication receipt: MISSING
+Site consumer contract: MISSING
+Site propagation receipt: MISSING
+admissibility-wiki projection: MISSING
+stegguardian-wiki projection: MISSING
+LinkedIn public observation receipt: MISSING
+release/tag: NOT_READY
+publication authority: false
+release authority: false
+external tasks: none
 ```
 
-## Non-Claims
+## Completed evidence
 
-This handoff does not claim that the paper has been published to LinkedIn, merged to `main`, mirrored to Site, admitted by a wiki, tagged, released, or granted source, execution, custody, standing, or admissibility authority.
+- Initial handoff commit `209437916f361d5c71c9b7eb46d5f8f6235b6b96`.
+- Publication manifest commit `4a70880454e677bd7dd42778cba19b5e834950ab`.
+- LinkedIn release copy commit `353a6cd1df17d0f09cdc24264e3334e2a76b82ae`.
+- Site publication infrastructure merged through Site PR #139.
+- Site exact-byte transport v2 is active in Site PR #142.
 
-## Remaining Files and Destinations
+## Incomplete work and exact locations
+
+1. Install exact PDF bytes at `papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.pdf`; owner `GCAT-BCAT-Engine/Publisher#22`.
+2. Install exact DOCX bytes at `papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.docx`; owner `GCAT-BCAT-Engine/Publisher#22`.
+3. Add a fail-closed artifact validator at `tools/check_development_without_domination_publication.py`; owner `GCAT-BCAT-Engine/Publisher#22`.
+4. Add machine status at `papers/development-without-domination/publication-status.json`; owner `GCAT-BCAT-Engine/Publisher#22`.
+5. Add scheduled/push validation workflow integration in `.github/workflows/validate-governed-ecosystem-awareness.yml` or a canonical existing Publisher dispatcher; duplicate isolated workflows are prohibited.
+6. Produce `papers/development-without-domination/publication-receipt.json` only after exact bytes and validators pass.
+7. Install the Site receipt consumer contract at `papers/development-without-domination/site-propagation-contract.json` and validator at `tools/check_development_without_domination_site_propagation.py`.
+8. Consume verified Site evidence from `StegVerse-Labs/Site/papers/development-without-domination/site-mirror-receipt.json` only after Site records exact bytes and route verification.
+9. Create downstream reference projections only after Publisher custody and Site propagation pass:
+   - `StegVerse-Labs/admissibility-wiki`: exact path to be selected under the repository's applicable mirror handoff.
+   - `StegVerse-002/stegguardian-wiki`: exact path to be selected under the repository's applicable mirror handoff.
+10. Record a LinkedIn public URL and timestamp at `papers/development-without-domination/linkedin-publication-receipt.json` only after a directly observed post exists. The human-authority boundary is the posting authorization; observation and receipt capture remain machine-owned.
+
+## Machine-owned continuation
+
+Owner repository: `GCAT-BCAT-Engine/Publisher`.
+
+Trigger: existing Publisher validation workflow push, pull request, schedule, or dispatch.
+
+Inputs: publication manifest, exact artifacts, declared hashes, Site propagation receipt.
+
+Outputs: publication status, validation receipts, Site propagation state, next executable task.
+
+Required states: `COMPLETE`, `BLOCKED`, `RETRY`, `REVIEW_REQUIRED`, `FAILED`.
+
+Fail-closed conditions: missing artifact, hash mismatch, absent Site receipt, route mismatch, unsupported authority flag, or duplicate owner.
+
+Next executable task: install `tools/check_development_without_domination_publication.py` and `papers/development-without-domination/publication-status.json` on PR #22 while exact-byte custody proceeds in Site PR #142.
+
+## Cross-repository dependency
+
+Site source:
+
+`StegVerse-Labs/Site/papers/development-without-domination/site-mirror-receipt.json`
+
+Site owner:
+
+`StegVerse-Labs/Site#128` and `StegVerse-Labs/Site#142`.
+
+Publisher must not claim Site deployment, route accessibility, or exact Site custody until that receipt is committed and independently validated.
+
+## Validation commands
 
 ```text
-GCAT-BCAT-Engine/Publisher:
-- papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.pdf
-- papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.docx (optional editable source)
-- papers/development-without-domination/publication-receipt.json
-
-StegVerse-Labs/Site:
-- mirrored public PDF
-- paper landing/index entry
-
-StegVerse-Labs/admissibility-wiki:
-- reference/projection after Publisher verification
-
-StegVerse-002/stegguardian-wiki:
-- governance reference/projection after Publisher verification
+python tools/check_development_without_domination_publication.py
+python tools/check_development_without_domination_site_propagation.py
+python -m json.tool papers/development-without-domination/publication-manifest.json
+python -m json.tool papers/development-without-domination/publication-status.json
+python -m json.tool papers/development-without-domination/publication-receipt.json
 ```
 
-## Archive Readiness
+## Archive conditions
 
-```text
-thread_archive_ready: true
-archive_reason: the paper-specific workstream, hashes, boundaries, remaining tasks, and downstream destinations are now repository-resident; no additional chat context is required to continue.
-```
+Archive is prohibited until PR #22 is merged or formally superseded, exact Publisher artifacts are verified, Publisher and Site receipts are validated, downstream projections are installed or formally superseded, the LinkedIn observation boundary is durably assigned, and no session-unique state remains.
+
+## Progress
+
+Developed-files denominator: 11 required Publisher files for this workstream: handoff, manifest, release copy, PDF, DOCX, validator, status, publication receipt, Site contract, Site validator, Site propagation status/receipt.
+
+Developed files: 3/11.
+
+Goal activation: 18%.
