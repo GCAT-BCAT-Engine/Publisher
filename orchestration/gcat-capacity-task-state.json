@@ -7,18 +7,19 @@
   "pull_request": 5,
   "issue": 6,
   "handoff": "docs/GCAT_CAPACITY_MIRROR_HANDOFF.md",
-  "state": "CLAIMED_FOR_VALIDATION",
-  "role": "distinct validation and automation lane",
-  "claimant": "ChatGPT session validation lane",
+  "state": "MACHINE_OWNED",
+  "role": "repository-native validation and evidence generation",
+  "claimant": "GitHub Actions: Validate GCAT Capacity Paper",
   "claim_created_at": "2026-08-02T09:53:00Z",
+  "claim_released_at": "2026-08-02T09:58:01Z",
   "claim_expires_at": "2026-08-09T09:53:00Z",
-  "release_condition": "Release when a hosted workflow run on the exact PR head completes, its jobs and logs are inspected, the gcat-capacity-validation artifact is inspected, and the result is recorded in a committed receipt or PR comment; otherwise expire automatically at claim_expires_at.",
+  "release_condition": "Session validation claim released after hosted run 30742794894 completed successfully, job logs were inspected, artifact 8831855719 was downloaded and inspected, and governance/receipts/gcat-capacity-hosted-validation-2026-08-02.json was committed.",
   "collision_key": "GCAT-BCAT-Engine/Publisher:agent/gcat-capacity-paper:validation",
   "collision_boundaries": [
     "Do not rewrite simulation, sensitivity, figure, bibliography, or paper theory files except to repair validator-detected defects.",
     "Do not alter Publisher activation, Site state, wiki propagation, release, deployment, or publication authority.",
     "Do not duplicate PR #5 implementation ownership.",
-    "Do not mark COMPLETE without hosted workflow, log, and artifact evidence."
+    "Do not mark publication-ready without mathematical, source, case, and publication-build evidence."
   ],
   "deterministic_inputs": [
     "data/gcat_capacity_scenarios.json",
@@ -27,13 +28,8 @@
     "papers/GCAT-BCAT/P14_GCAT_Capacity_Stability_v1.md",
     "papers/GCAT-BCAT/references/gcat_capacity_primary_sources.bib",
     "papers/GCAT-BCAT/sections/P14_related_work_v1.md",
-    "tools/gcat_capacity_simulation.py",
-    "tools/gcat_capacity_sensitivity.py",
-    "tools/gcat_capacity_timeseries.py",
-    "tools/check_gcat_capacity_simulation.py",
-    "tools/check_gcat_capacity_sensitivity.py",
-    "tools/check_gcat_capacity_timeseries.py",
-    "tools/check_gcat_capacity_bibliography.py"
+    "papers/GCAT-BCAT/sections/P14_case_study_v1.md",
+    "docs/gcat-capacity-case-evidence-note.md"
   ],
   "deterministic_outputs": [
     "generated/gcat-capacity/manifest.json",
@@ -42,42 +38,40 @@
     "reports/gcat-capacity-runtime-receipt.json",
     "gcat-capacity-validation workflow artifact"
   ],
-  "required_states": [
-    "COMPLETE",
-    "BLOCKED",
-    "RETRY",
-    "REVIEW_REQUIRED",
-    "FAILED",
-    "CLAIMED",
-    "SUPERSEDED",
-    "MERGED"
-  ],
-  "current_result": "CLAIMED",
+  "required_states": ["COMPLETE", "BLOCKED", "RETRY", "REVIEW_REQUIRED", "FAILED", "CLAIMED", "SUPERSEDED", "MERGED"],
+  "current_result": "REVIEW_REQUIRED",
   "validation": {
-    "static": "pending",
-    "unit": "pending",
-    "integration": "pending",
-    "hosted_workflow": "pending",
-    "artifact_inspection": "pending",
+    "static": "passed",
+    "unit": "passed",
+    "integration": "passed",
+    "hosted_workflow": "passed",
+    "artifact_inspection": "passed",
     "publication_readiness": "blocked"
+  },
+  "evidence": {
+    "workflow_run_id": 30742794894,
+    "job_id": 91483095215,
+    "artifact_id": 8831855719,
+    "artifact_sha256": "1426cf1aaa0821a5ec1e3b7bef7cba35552f8fca976268100422edea8b25307c",
+    "receipt": "governance/receipts/gcat-capacity-hosted-validation-2026-08-02.json"
   },
   "blocked_conditions": [
     {
-      "condition": "No hosted workflow run exists on the automation commit.",
-      "owner": "GitHub Actions workflow validate-gcat-capacity-paper",
-      "release_event": "A pull_request, push, or workflow_dispatch run starts on the exact branch head."
-    },
-    {
       "condition": "Independent mathematical review is absent.",
       "owner": "Issue #6 mathematical-review lane",
-      "release_event": "A committed review receipt identifies reviewer scope, equations checked, findings, and disposition."
+      "release_event": "A committed review receipt identifies scope, equations checked, findings, and disposition."
     },
     {
-      "condition": "Case-study provenance review is absent.",
-      "owner": "Issue #6 evidence-review lane",
-      "release_event": "A committed case-evidence note classifies each observation as sourced, first-person, qualified, or removed."
+      "condition": "Final source metadata verification is absent.",
+      "owner": "Issue #6 source-review lane",
+      "release_event": "A committed source-review receipt confirms publisher or DOI metadata."
+    },
+    {
+      "condition": "Reviewed LaTeX and PDF artifacts are absent.",
+      "owner": "Issue #6 publication-build lane",
+      "release_event": "Reviewed LaTeX source and generated PDF are committed with build and inspection receipts."
     }
   ],
-  "next_executable_task": "Run the repository-native workflow, inspect all jobs and logs, download and inspect the artifact, then update the runtime receipt and release or renew this claim.",
-  "archive_condition": "The session may archive after the workflow and task-state automation are committed and all remaining unique requirements are represented by this task state, the session goal inventory, the canonical handoff, PR #5, and Issue #6; observation of future workflow results may be owned by repository-native automation or Issue #6."
+  "next_executable_task": "Issue #6 publication-build lane creates reviewed LaTeX only after mathematical and source review dispositions are recorded.",
+  "archive_condition": "Satisfied for this session: all session-specific requirements, evidence, ownership, blockers, and continuation instructions are durably recorded in the inventory, handoff, PR #5, Issue #6, workflow, and receipts."
 }
