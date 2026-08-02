@@ -9,7 +9,11 @@ on:
       - main
     paths:
       - 'scripts/collect_marketplace_coinbase_release_evidence.py'
+      - 'scripts/verify_marketplace_coinbase_connected_relay.py'
       - 'tests/test_marketplace_coinbase_release_evidence_collector.py'
+      - 'tests/test_marketplace_coinbase_connected_relay.py'
+      - 'data/marketplace-coinbase-connected-relay.json'
+      - 'data/marketplace-coinbase-publications/**'
       - '.github/workflows/collect-marketplace-coinbase-release-evidence.yml'
 
 permissions:
@@ -37,10 +41,28 @@ jobs:
         run: pip install pytest
 
       - name: Verify collector boundaries
-        run: pytest -q tests/test_marketplace_coinbase_release_evidence_collector.py
+        run: |
+          pytest -q \
+            tests/test_marketplace_coinbase_release_evidence_collector.py \
+            tests/test_marketplace_coinbase_connected_relay.py
+
+      - name: Verify connected GitHub relay
+        id: relay
+        run: |
+          set +e
+          python scripts/verify_marketplace_coinbase_connected_relay.py
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" -eq 0 ]; then
+            echo "verified=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "verified=false" >> "$GITHUB_OUTPUT"
+          fi
+          exit 0
 
       - name: Collect and verify private-repository evidence
         id: collect
+        if: steps.relay.outputs.exit_code == '3'
         env:
           MARKETPLACE_COINBASE_EVIDENCE_TOKEN: ${{ secrets.MARKETPLACE_COINBASE_EVIDENCE_TOKEN }}
         run: |
@@ -82,7 +104,7 @@ jobs:
           retention-days: 30
 
       - name: Fail after preserving rejected evidence
-        if: steps.collect.outputs.exit_code != '0'
+        if: steps.relay.outputs.exit_code == '1' || steps.collect.outputs.exit_code == '1'
         run: |
           echo "Marketplace Coinbase evidence verification was rejected; bounded status was preserved."
           exit 1
