@@ -8,6 +8,7 @@ This file is the current handoff and task source of truth for `GCAT-BCAT-Engine/
 
 ```text
 Goal: automatically ingest verified Ecosystem Chat activation evidence from StegVerse-Labs/Site and prepare bounded downstream publication status
+Parallel-safe goal: PUBLISHER-0001-DWD-PUBLICATION through pull/22
 Result: AUTOMATED_SITE_ACTIVATION_IMPORT_AND_DOWNSTREAM_CONSUMERS_INSTALLED_SOURCE_ACTIVATION_PENDING
 Manual user action required: false
 ```
@@ -87,15 +88,58 @@ StegVerse-002/stegguardian-wiki
 
 Both consumers fetch Publisher's checked-in status automatically through their existing repository-owned workflows. Neither requires manual artifact download, file movement, workflow dispatch, route inspection, or user confirmation.
 
-The previous references to `StegVerse-Labs/stegguardian-wiki` and `StegVerse-Labs/Sit` were stale. The real Guardian destination is `StegVerse-002/stegguardian-wiki`; no `StegVerse-Labs/Sit` repository exists.
+## Existing Standing-Proof-Engine continuity
 
-## Existing Standing-Proof Engine propagation
+Standing-Proof-Engine v0.5.0 status remains a separate continuity chain and is not superseded by Ecosystem Chat or Development Without Domination work.
 
-The earlier SPE v0.5.0 status remains recorded and is not superseded by this activation consumer. Its downstream wiki boundaries remain valid independently.
+Canonical source repository:
+
+`StegVerse-Labs/Standing-Proof-Engine`
+
+Canonical source handoff:
+
+`SPE_MIRROR_HANDOFF.md`
+
+Release snapshot:
+
+`docs/release_snapshot_v0_5_0.md`
+
+Source sample receipt:
+
+`samples/destination_receipt_chain_001.json`
+
+Master-Records destination:
+
+`master-records/core-lite`
+
+Master-Records receipt:
+
+`records/spe_destination_receipt_chain_001.json`
+
+Publisher status projection:
+
+`data/spe-v0-5-0-status.json`
+
+Wiki propagation verification remains independently required for `StegVerse-Labs/admissibility-wiki` and `StegVerse-002/stegguardian-wiki`. These references preserve validator continuity only; they do not assert that the current SPE chain is newly complete or activated.
+
+## Development Without Domination parallel-safe owner
+
+```text
+task_id: PUBLISHER-0001-DWD-PUBLICATION
+owner: pull/22
+handoff: papers/development-without-domination/DEVELOPMENT_WITHOUT_DOMINATION_MIRROR_HANDOFF.md
+machine_state: papers/development-without-domination/publication-status.json
+validator: tools/check_development_without_domination_publication.py
+state: VALIDATOR_AND_MACHINE_STATE_INSTALLED
+publication_authority: false
+release_authority: false
+```
+
+The exact PDF and DOCX remain absent from Publisher custody. Site exact-byte transport is separately owned by `StegVerse-Labs/Site#142`. Publisher must remain fail-closed until local artifacts and the verified Site route receipt exist.
 
 ## Autonomous adjacent-construction ownership
 
-Publisher now owns the no-manual-action bootstrap for the StegPay/StegOps two-generation construction goal.
+Publisher owns the no-manual-action bootstrap for the StegPay/StegOps two-generation construction goal.
 
 Installed files:
 
@@ -115,35 +159,24 @@ Repository-owned behavior:
 7. require Site to persist its own receipt;
 8. allow StegOps to pull both receipts and close only on `TWO-GENERATION AUTONOMY: COMPLETE`.
 
-The workflow uses an already-governed Publisher credential path and requires no new user-created secret, manual file copy, workflow dispatch, or confirmation.
-
-Current result:
+## Current blockers
 
 ```text
-AUTONOMOUS_BOOTSTRAP_INSTALLED_SCHEDULED_EXECUTION_PENDING
-manual_user_action_required = false
-transport_is_authority = false
+Ecosystem Chat: StegVerse-Labs/Site has not published ACTIVATION_COMPLETE with a hash-bound READY_FOR_DOWNSTREAM_INGESTION packet.
+Development Without Domination: exact Publisher artifacts and verified Site publication receipt are absent.
 ```
 
-## Current blocker
+Every blocker has a repository-native observer and machine-readable release condition. No unspecified external task exists.
+
+## Next tasks
 
 ```text
-StegVerse-Labs/Site has not yet published ACTIVATION_COMPLETE with a hash-bound READY_FOR_DOWNSTREAM_INGESTION packet.
-```
-
-The Site scheduled workflow owns that transition after the adapter, deployment platform, and Master-Records custody service publish the required machine evidence.
-
-For the separate two-generation construction goal, the next evidence is Publisher's target-owned adjacent-construction receipt followed by Site's independently persisted receipt.
-
-## Next task
-
-```text
-1. Allow the hourly Publisher importer to observe Site activation automatically.
-2. Allow the scheduled autonomous adjacent-construction bootstrap to persist Publisher's receipt and dispatch Site.
-3. Preserve exact hash, binding, schema, destination, sequence, and authority-boundary rejection evidence.
-4. Allow existing downstream wiki workflows to ingest Publisher status automatically.
-5. Do not convert projection or transport into publication, release, custody, deployment, payment, entitlement, or execution authority.
-6. Tag or release only after repository validation and all required downstream evidence are complete.
+1. Observe and repair pull/22 workflow evidence.
+2. Continue exact Site artifact transport under StegVerse-Labs/Site#142.
+3. Install Publisher exact artifacts and validate their hashes.
+4. Consume the verified Site publication receipt.
+5. Preserve exact hash, binding, schema, destination, sequence, and authority-boundary rejection evidence.
+6. Do not convert projection or transport into publication, release, custody, deployment, payment, entitlement, or execution authority.
 ```
 
 ## Authority boundary
@@ -162,4 +195,4 @@ No release tag is authorized by this handoff.
 
 ## Archive readiness
 
-This handoff, the Site handoffs, Publisher importer, autonomous adjacent-construction bootstrap, downstream consumer handoffs, workflows, projection records, issues, and repository history preserve all continuation state. Earlier conversation context is not required and no manual user task remains. The active two-generation goal remains open until both target-owned receipts validate.
+Archive is prohibited while pull/22, Site pull/142, exact artifact custody, Site route verification, Publisher receipt validation, or downstream propagation remains incomplete. Repository state contains the continuation path, but active work remains.
