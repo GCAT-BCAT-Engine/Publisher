@@ -7,9 +7,11 @@ on:
       - 'data/gcat_capacity_*.json'
       - 'models/gcat_capacity_model.json'
       - 'orchestration/gcat-capacity-*.json'
+      - 'docs/gcat-capacity-case-evidence-note.md'
       - 'papers/GCAT-BCAT/P14_GCAT_Capacity_Stability_v1.md'
       - 'papers/GCAT-BCAT/references/gcat_capacity_primary_sources.bib'
       - 'papers/GCAT-BCAT/sections/P14_related_work_v1.md'
+      - 'papers/GCAT-BCAT/sections/P14_case_study_v1.md'
       - 'tools/gcat_capacity_*.py'
       - 'tools/check_gcat_capacity_*.py'
       - 'tools/write_gcat_capacity_runtime_receipt.py'
@@ -21,6 +23,7 @@ on:
       - 'data/gcat_capacity_*.json'
       - 'models/gcat_capacity_model.json'
       - 'orchestration/gcat-capacity-*.json'
+      - 'docs/gcat-capacity-case-evidence-note.md'
       - 'papers/GCAT-BCAT/**'
       - 'tools/gcat_capacity_*.py'
       - 'tools/check_gcat_capacity_*.py'
@@ -72,6 +75,9 @@ jobs:
       - name: Validate bibliography and claim boundaries
         run: python tools/check_gcat_capacity_bibliography.py
 
+      - name: Validate case-study provenance and claim boundaries
+        run: python tools/check_gcat_capacity_case_evidence.py
+
       - name: Write successful runtime receipt
         if: success()
         run: >-
@@ -82,6 +88,7 @@ jobs:
           --validator "python tools/check_gcat_capacity_sensitivity.py"
           --validator "python tools/check_gcat_capacity_timeseries.py"
           --validator "python tools/check_gcat_capacity_bibliography.py"
+          --validator "python tools/check_gcat_capacity_case_evidence.py"
 
       - name: Write failed runtime receipt
         if: failure()
@@ -104,3 +111,5 @@ jobs:
             reports/gcat-capacity-runtime-receipt.json
             orchestration/gcat-capacity-session-goal-inventory.json
             orchestration/gcat-capacity-task-state.json
+            docs/gcat-capacity-case-evidence-note.md
+            papers/GCAT-BCAT/sections/P14_case_study_v1.md
