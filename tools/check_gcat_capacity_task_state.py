@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Validate GCAT session inventory and validation claim state."""
+"""Validate GCAT session inventory and validation task state."""
 
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
 from typing import List
 
@@ -42,7 +42,7 @@ def main() -> int:
     require(inventory.get("schema_version") == "1.0.0", "inventory schema_version mismatch", failures)
     require(task.get("schema_version") == "1.0.0", "task-state schema_version mismatch", failures)
     require(task.get("task_id") == "GCAT-CAP-008", "task_id mismatch", failures)
-    require(task.get("state") == "CLAIMED_FOR_VALIDATION", "validation lane claim missing", failures)
+    require(task.get("state") in {"CLAIMED_FOR_VALIDATION", "MACHINE_OWNED", "COMPLETE"}, "invalid validation ownership state", failures)
     require(task.get("current_result") in ALLOWED_RESULTS, "invalid current_result", failures)
     require(set(task.get("required_states", [])) == ALLOWED_RESULTS, "required state vocabulary mismatch", failures)
     require(task.get("collision_key"), "collision_key missing", failures)
@@ -55,6 +55,12 @@ def main() -> int:
     require(created.tzinfo is not None and expires.tzinfo is not None, "claim timestamps must be timezone-aware", failures)
     require(expires > created, "claim expiration must follow creation", failures)
     require((expires - created).days <= 14, "claim duration exceeds 14 days", failures)
+
+    if task.get("state") == "MACHINE_OWNED":
+        require(task.get("claim_released_at"), "machine-owned state requires claim_released_at", failures)
+        require(task.get("evidence", {}).get("workflow_run_id"), "machine-owned state requires workflow evidence", failures)
+        require(task.get("validation", {}).get("hosted_workflow") == "passed", "machine-owned state requires passed hosted workflow", failures)
+        require(task.get("validation", {}).get("artifact_inspection") == "passed", "machine-owned state requires inspected artifact", failures)
 
     goals = inventory.get("goals", [])
     require(len(goals) == 8, "inventory must contain exactly eight canonical tasks", failures)
@@ -81,8 +87,8 @@ def main() -> int:
 
     print("GCAT task-state validation: PASS")
     print(f"- goals={len(goals)}")
-    print(f"- claim={task['state']}")
-    print(f"- expires={task['claim_expires_at']}")
+    print(f"- owner_state={task['state']}")
+    print(f"- result={task['current_result']}")
     return 0
 
 
