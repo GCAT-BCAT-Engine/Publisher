@@ -1,7 +1,8 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "state_type": "publisher_orchestration_state",
   "repository": "GCAT-BCAT-Engine/Publisher",
+  "branch": "main",
   "handoff": "docs/PUBLISHER_MIRROR_HANDOFF.md",
   "status": "ACTIVE_WITH_DECLARED_DEPENDENCY_BLOCK",
   "task_sequence": 1,
@@ -10,15 +11,80 @@
   "system_health": "HEALTHY_DECLARED_DEPENDENCY_BLOCK",
   "heartbeat_mode": "TRANSITION_DRIVEN_HEALTH_RELATIVE",
   "time_role": "WATCHDOG_ONLY",
-  "repository_heartbeat": 1,
-  "ecosystem_heartbeat_projection": 1,
+  "repository_heartbeat": 2,
+  "ecosystem_heartbeat_projection": 2,
+  "canonical_goal_id": "PUBLISHER-ST017-SITE-PROPAGATION-001",
+  "canonical_continuation": {
+    "handoff": "docs/PUBLISHER_MIRROR_HANDOFF.md",
+    "workflow": ".github/workflows/validate-governed-ecosystem-awareness.yml",
+    "task_state": "reports/st017-task-state.json",
+    "site_status": "data/ecosystem-chat-site-propagation-status.json",
+    "receipt": "docs/receipts/st017-evidence-integrity-2026-08-02.md"
+  },
+  "claims": [
+    {
+      "task_id": "PUBLISHER-ST017-IMPLEMENTATION",
+      "originating_goal": "Repair and activate Publisher ST-017 governed-awareness validation",
+      "role": "IMPLEMENTATION",
+      "claimant": "PR #24 repair/st017-evidence-integrity",
+      "claim_state": "COMPLETE",
+      "created_at": "2026-08-02T07:52:29Z",
+      "released_at": "2026-08-02T08:00:00Z",
+      "release_evidence": "merge b036613ab7b78ddeead745a10cc87afd63febc74",
+      "collision_boundary": [
+        "templates/sandbox-first/publisher.sandbox-profile.json",
+        "tools/check_st017_sandbox_report.py",
+        "tools/check_publisher_st017_activation.py",
+        ".github/workflows/validate-governed-ecosystem-awareness.yml"
+      ]
+    },
+    {
+      "task_id": "PUBLISHER-ST017-VALIDATION",
+      "originating_goal": "Validate ST-017 operation with workflow jobs, logs, and artifact",
+      "role": "VALIDATION",
+      "claimant": "GitHub Actions run 219",
+      "claim_state": "COMPLETE",
+      "created_at": "2026-08-02T07:58:31Z",
+      "released_at": "2026-08-02T07:58:44Z",
+      "release_evidence": "run 30738849526 artifact 8830569156 digest sha256:5cb502751522fd02b2635055c198714ef59387c76e86e8f2bff5b23e90459207"
+    },
+    {
+      "task_id": "PUBLISHER-SITE-PROPAGATION-OBSERVER",
+      "originating_goal": "Observe Site readiness and consume the first valid propagation packet",
+      "role": "OBSERVATION_AND_INTEGRATION",
+      "claimant": ".github/workflows/validate-governed-ecosystem-awareness.yml",
+      "claim_state": "MACHINE_OWNED",
+      "created_at": "2026-08-02T08:00:00Z",
+      "claim_expiration": "release when Publisher is declared as a Site destination and source state is READY_FOR_DOWNSTREAM_INGESTION",
+      "expected_evidence": "data/ecosystem-chat-site-propagation-status.json state VERIFIED_INGESTION_READY",
+      "next_task_after_release": "inspect downstream contracts for admissibility-wiki and stegguardian-wiki"
+    }
+  ],
   "active_tasks": [
     {
       "task_id": "PUBLISHER-0001-GCAT-CAPACITY",
       "workload": "GCAT capacity-based stability paper workstream",
       "execution_class": "PARALLEL_SAFE",
       "owner": "pull/5",
+      "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
       "state": "DRAFT_ACTIVE"
+    }
+  ],
+  "completed_tasks": [
+    {
+      "task_id": "PUBLISHER-ST017-IMPLEMENTATION",
+      "state": "COMPLETE",
+      "evidence": "b036613ab7b78ddeead745a10cc87afd63febc74"
+    },
+    {
+      "task_id": "PUBLISHER-ST017-VALIDATION",
+      "state": "COMPLETE",
+      "evidence": "workflow run 30738849526; jobs 91472470327 and 91472488246; artifact 8830569156"
+    },
+    {
+      "task_id": "PUBLISHER-ST017-HANDOFF-TRANSFER",
+      "state": "COMPLETE",
+      "evidence": "0a72ca1249e3e4367306234eedbe05443ac06821"
     }
   ],
   "blocked_tasks": [
@@ -26,27 +92,53 @@
       "task_id": "PUBLISHER-0001-HIL-PROPAGATION",
       "workload": "Acquire and validate Site HIL activation propagation packet",
       "execution_class": "DEPENDENCY_BLOCKED",
-      "owner": "existing-site-propagation-consumer",
+      "owner": ".github/workflows/validate-governed-ecosystem-awareness.yml",
+      "claim_state": "MACHINE_OWNED",
       "blocked_by": [
         "StegVerse-org/LLM-adapter issue #18",
         "master-records/orchestration issue #2",
-        "StegVerse-Labs/Site READY_FOR_DOWNSTREAM_INGESTION"
+        "StegVerse-Labs/Site READY_FOR_DOWNSTREAM_INGESTION",
+        "StegVerse-Labs/Site must declare GCAT-BCAT-Engine/Publisher as a destination"
       ],
-      "state": "PENDING_SITE_ACTIVATION"
+      "state": "PENDING_SITE_ACTIVATION",
+      "release_condition": "Site packet declares GCAT-BCAT-Engine/Publisher and reports READY_FOR_DOWNSTREAM_INGESTION",
+      "next_executable_action": "scheduled workflow rechecks source packet and persists status"
     },
     {
       "task_id": "PUBLISHER-0001-CLOSURE",
       "workload": "Produce fresh ordered Publisher and Site closure evidence",
       "execution_class": "DEPENDENCY_BLOCKED",
-      "owner": "existing-publisher-closure-contract",
-      "state": "PENDING_FRESH_ORDERED_ARTIFACTS"
+      "owner": "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md",
+      "claim_state": "BLOCKED",
+      "state": "PENDING_FRESH_ORDERED_ARTIFACTS",
+      "release_condition": "fresh ordered Publisher receipt, Site evidence, and validated closure receipt exist"
     }
   ],
+  "session_consolidation": {
+    "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+    "originating_session_goals": [
+      "repair Headless Cmd Tester failure in StegGhost/entity-sandbox-runner",
+      "repair Publisher Validate Governed Ecosystem Awareness ST-017 failure",
+      "preserve ST-017 report evidence and task-state automation",
+      "activate autonomous Site propagation observation",
+      "update authoritative Publisher handoff and durable receipts"
+    ],
+    "transferred_to": [
+      "StegGhost/entity-sandbox-runner/docs/receipts/headless-cmd-tester-547-repair.md",
+      "GCAT-BCAT-Engine/Publisher/docs/PUBLISHER_MIRROR_HANDOFF.md",
+      "GCAT-BCAT-Engine/Publisher/data/publisher-orchestration-state.json",
+      "GCAT-BCAT-Engine/Publisher/docs/receipts/st017-evidence-integrity-2026-08-02.md",
+      "GCAT-BCAT-Engine/Publisher/.github/workflows/validate-governed-ecosystem-awareness.yml"
+    ],
+    "unique_session_work_remaining": false,
+    "archival_dependency": "none; unresolved propagation is machine-owned and fully described in canonical records"
+  },
   "policy": {
     "handoff_is_source_of_truth": true,
     "incoming_request_is_candidate_workload": true,
     "one_active_owner_per_goal": true,
     "duplicate_workloads_fail_closed": true,
+    "claims_must_expire_or_release": true,
     "publication_requires_validated_upstream_evidence": true,
     "awareness_is_not_activation": true,
     "workflow_artifact_is_not_custody": true,
@@ -54,9 +146,9 @@
     "time_is_watchdog_only": true,
     "manual_user_action_required": false
   },
-  "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
+  "idle_terminal_statement": "end of current work task sequence 0001, no unique session-owned tasks running",
   "last_transition": {
-    "event_type": "PUBLISHER_HANDOFF_BOUND_TO_HIL_PROPAGATION_SEQUENCE",
+    "event_type": "SESSION_GOALS_MERGED_INTO_CANONICAL_PUBLISHER_ORCHESTRATION",
     "progress_effect": true,
     "authority_effect": false
   },
