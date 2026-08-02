@@ -30,8 +30,9 @@ def main() -> None:
 
     state = str(source.get("state", "UNKNOWN"))
     destinations = source.get("destinations", source.get("canonical_destinations", []))
-    if EXPECTED_DESTINATION not in destinations:
-        raise SystemExit("DENY: Publisher is not a declared propagation destination")
+    if not isinstance(destinations, list):
+        raise SystemExit("DENY: Site propagation destinations must be a list")
+    destination_declared = EXPECTED_DESTINATION in destinations
 
     declared_hash = source.get("canonical_sha256") or source.get("canonical_hash")
     computed_hash = canonical_hash(source)
@@ -40,17 +41,23 @@ def main() -> None:
         raise SystemExit("DENY: Site propagation canonical hash mismatch")
 
     authority = source.get("authority", {})
+    if not isinstance(authority, dict):
+        raise SystemExit("DENY: Site propagation authority must be an object")
     forbidden_true = [key for key, value in authority.items() if value is True]
     if forbidden_true:
         raise SystemExit(f"DENY: authority escalation in Site propagation: {forbidden_true}")
 
-    ready = state == "READY_FOR_DOWNSTREAM_INGESTION"
+    ready = state == "READY_FOR_DOWNSTREAM_INGESTION" and destination_declared
     blockers = source.get("blockers", [])
-    if not ready and not blockers:
+    if not isinstance(blockers, list):
+        blockers = ["site_blockers_not_a_list"]
+    if not destination_declared:
+        blockers = ["publisher_destination_not_declared_by_site"]
+    elif not ready and not blockers:
         blockers = ["site_activation_not_ready_for_downstream_ingestion"]
 
     payload = {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "repository": EXPECTED_DESTINATION,
         "source_repository": "StegVerse-Labs/Site",
         "source_url": SOURCE,
@@ -58,9 +65,17 @@ def main() -> None:
         "source_state": state,
         "source_canonical_sha256": computed_hash,
         "source_hash_valid": hash_valid,
-        "destination_declared": True,
+        "destination_declared": destination_declared,
         "state": "VERIFIED_INGESTION_READY" if ready else "PENDING_SITE_ACTIVATION",
         "blockers": [] if ready else blockers,
+        "next_executable_task": (
+            "validate-and-persist-ingestion-awareness"
+            if ready
+            else "recheck-site-propagation-destination-and-readiness"
+        ),
+        "release_condition": (
+            "Site packet declares GCAT-BCAT-Engine/Publisher and state READY_FOR_DOWNSTREAM_INGESTION"
+        ),
         "manual_user_action_required": False,
         "authority": {
             "publication_authority": False,
@@ -72,7 +87,12 @@ def main() -> None:
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    print(json.dumps({"state": payload["state"], "source_state": state}))
+    print(json.dumps({
+        "state": payload["state"],
+        "source_state": state,
+        "destination_declared": destination_declared,
+        "blockers": payload["blockers"],
+    }, sort_keys=True))
 
 
 if __name__ == "__main__":
