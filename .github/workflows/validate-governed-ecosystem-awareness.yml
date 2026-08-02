@@ -11,12 +11,12 @@ on:
       - 'tools/run_sandbox_validation.py'
       - 'tools/check_st017_sandbox_adoption.py'
       - 'tools/check_st017_sandbox_report.py'
+      - 'tools/check_publisher_st017_activation.py'
       - 'tools/acquire_site_ecosystem_chat_propagation.py'
       - 'tools/check_site_ecosystem_chat_propagation.py'
       - '.github/workflows/validate-governed-ecosystem-awareness.yml'
       - 'docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md'
       - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
-      - 'tools/check_publisher_activation.py'
   push:
     paths:
       - 'docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md'
@@ -32,6 +32,7 @@ on:
       - 'tools/run_sandbox_validation.py'
       - 'tools/check_st017_sandbox_adoption.py'
       - 'tools/check_st017_sandbox_report.py'
+      - 'tools/check_publisher_st017_activation.py'
       - 'tools/acquire_site_ecosystem_chat_propagation.py'
       - 'tools/check_site_ecosystem_chat_propagation.py'
       - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
@@ -39,7 +40,6 @@ on:
       - 'tools/check_publisher_governed_ecosystem_sync_status.py'
       - 'tools/check_publisher_governed_ecosystem_validation_status.py'
       - 'tools/check_publisher_governed_ecosystem_workflow_request.py'
-      - 'tools/check_publisher_activation.py'
       - '.github/workflows/validate-governed-ecosystem-awareness.yml'
 
 jobs:
@@ -95,8 +95,8 @@ jobs:
         run: python tools/check_publisher_governed_ecosystem_validation_status.py
       - name: Check workflow request
         run: python tools/check_publisher_governed_ecosystem_workflow_request.py
-      - name: Check Publisher activation boundary
-        run: python tools/check_publisher_activation.py --scope st017
+      - name: Check bounded ST-017 activation boundary
+        run: python tools/check_publisher_st017_activation.py
       - name: Persist Site propagation awareness status
         if: github.event_name != 'pull_request'
         run: |
