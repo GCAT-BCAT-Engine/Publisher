@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "artifact_type": "publisher_generated_stegpay_projection",
+  "source_repository": "StegVerse-Labs/Site",
+  "source_receipt_hash_sha256": "45e8e8849f6d0967de66da6bc45f874c33fcea703a80ba165f45ffa6fecd81d1",
+  "propagation_hash_sha256": "aecfd09a016e1daaa32b66f0e7aa2bc2681edc70be14f25637fa95df2a1468e3",
+  "event_id": "09373107-5e4b-483e-85de-9e26c126fc0c",
+  "provider_id": "pi_test_123",
+  "state": "VERIFIED_TEST_EVIDENCE_IMPORTED",
+  "test_only": true,
+  "publication_authorized": false,
+  "release_authorized": false,
+  "custody_recorded": false,
+  "execution_authorized": false,
+  "payment_is_entitlement": false,
+  "transport_is_authority": false,
+  "downstream": [
+    {
+      "repository": "StegVerse-Labs/admissibility-wiki",
+      "state": "READY_FOR_BOUNDED_IMPORT"
+    },
+    {
+      "repository": "StegVerse-002/stegguardian-wiki",
+      "state": "READY_FOR_BOUNDARY_IMPORT"
+    }
+  ],
+  "next_executable_task": "DOWNSTREAM_WIKI_IMPORT_GENERATED_STEGPAY_PROJECTION"
+}
