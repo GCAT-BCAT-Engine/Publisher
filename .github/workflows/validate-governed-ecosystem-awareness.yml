@@ -10,6 +10,7 @@ on:
       - 'templates/sandbox-first/**'
       - 'tools/run_sandbox_validation.py'
       - 'tools/check_st017_sandbox_adoption.py'
+      - 'tools/check_st017_sandbox_report.py'
       - 'tools/acquire_site_ecosystem_chat_propagation.py'
       - 'tools/check_site_ecosystem_chat_propagation.py'
       - '.github/workflows/validate-governed-ecosystem-awareness.yml'
@@ -30,6 +31,7 @@ on:
       - 'templates/sandbox-first/**'
       - 'tools/run_sandbox_validation.py'
       - 'tools/check_st017_sandbox_adoption.py'
+      - 'tools/check_st017_sandbox_report.py'
       - 'tools/acquire_site_ecosystem_chat_propagation.py'
       - 'tools/check_site_ecosystem_chat_propagation.py'
       - 'tools/check_governed_ecosystem_site_mirror_awareness.py'
@@ -50,13 +52,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Execute Publisher sandbox
+        continue-on-error: true
         run: python tools/run_sandbox_validation.py
-      - name: Upload Publisher sandbox report
+      - name: Validate ST-017 report and persist task state
+        if: always()
+        run: |
+          python tools/check_st017_sandbox_report.py \
+            --report reports/sandbox-first-validation.report.json \
+            --state-output reports/st017-task-state.json
+      - name: Upload Publisher sandbox evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: publisher-st017-sandbox-report
-          path: reports/sandbox-first-validation.report.json
+          path: |
+            reports/sandbox-first-validation.report.json
+            reports/st017-task-state.json
           if-no-files-found: error
           retention-days: 30
 
