@@ -17,6 +17,7 @@ FORBIDDEN_AUTHORITIES = {
     "admissibility_authority",
     "execution_authority",
 }
+DESTINATION_BLOCKER = "publisher_destination_not_declared_by_site"
 
 
 def fail(message: str) -> None:
@@ -33,8 +34,6 @@ def main() -> None:
         fail("source repository mismatch")
     if payload.get("source_hash_valid") is not True:
         fail("source hash is not valid")
-    if payload.get("destination_declared") is not True:
-        fail("Publisher is not declared as a destination")
     if payload.get("manual_user_action_required") is not False:
         fail("manual user action boundary violated")
 
@@ -51,6 +50,23 @@ def main() -> None:
     if state == "VERIFIED_INGESTION_READY" and payload.get("source_state") != "READY_FOR_DOWNSTREAM_INGESTION":
         fail("ready ingestion is not backed by Site ready state")
 
+    destination_declared = payload.get("destination_declared")
+    if destination_declared is True:
+        if DESTINATION_BLOCKER in blockers:
+            fail("declared destination retains undeclared-destination blocker")
+    elif destination_declared is False:
+        if state != "PENDING_SITE_ACTIVATION":
+            fail("undeclared destination cannot be ingestion ready")
+        if DESTINATION_BLOCKER not in blockers:
+            fail("undeclared destination lacks exact blocker")
+    else:
+        fail("destination_declared must be boolean")
+
+    if not isinstance(payload.get("next_executable_task"), str):
+        fail("next executable task missing")
+    if not isinstance(payload.get("release_condition"), str):
+        fail("release condition missing")
+
     authority = payload.get("authority")
     if not isinstance(authority, dict):
         fail("authority boundary missing")
@@ -58,7 +74,13 @@ def main() -> None:
     if true_forbidden:
         fail(f"authority flags must remain false: {true_forbidden}")
 
-    print(json.dumps({"state": state, "blockers": blockers}, sort_keys=True))
+    print(json.dumps({
+        "state": state,
+        "destination_declared": destination_declared,
+        "blockers": blockers,
+        "next_executable_task": payload["next_executable_task"],
+        "release_condition": payload["release_condition"],
+    }, sort_keys=True))
 
 
 if __name__ == "__main__":
