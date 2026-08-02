@@ -1,105 +1,203 @@
 # GCAT Capacity Paper Mirror Handoff
 
-## Status
+## Canonical Status
 
-This file is the current handoff and task source of truth for the GCAT capacity-based stability paper workstream in `GCAT-BCAT-Engine/Publisher`.
+This file is the canonical handoff and task source of truth for the GCAT capacity-paper workstream in `GCAT-BCAT-Engine/Publisher`.
 
-This workstream is repository-local and must not alter Publisher activation authority, Site state, wiki propagation state, release status, or the priority declared in `PUBLISHER_MIRROR_HANDOFF.md`.
+Active goal ID: `GCAT-CAPACITY-PAPER-V1`
 
-## Purpose
+Originating session goal: develop, validate, and durably transfer a publication-grade capacity-based GCAT paper with reproducible simulations, sensitivity analysis, figures, bounded case-study evidence, and repository-native continuation.
 
-Develop a publication-grade paper that formalizes governance failure as a capacity mismatch between institutional stabilization and autonomous execution pressure.
+Repository: `GCAT-BCAT-Engine/Publisher`
 
-Working title:
+Branch: `agent/gcat-capacity-paper`
 
-> GCAT: A Capacity-Based Stability Condition for Governance in Autonomous Systems
+Pull request: `#5`
 
-## Durable Decisions
+Issue: `#6`
 
-1. Effective governance capacity is modeled as `G_eff = K g^alpha c^beta t^gamma`.
-2. The governance load ratio is `Omega = a / G_eff`.
-3. `Omega <= 1` identifies the candidate governable region; `Omega > 1` identifies an overload regime. The threshold alone is not proof that drift must occur.
-4. The same boundary is interpreted through control barrier functions, viability theory, and a Cobb-Douglas-type institutional production frontier.
-5. The federal IT case is an observational structural illustration only. It is not evidence of malicious activity, causation, or a calibrated numerical `Omega`.
-6. The paper must distinguish admissibility from stability, admissible state from viable state, strong constraints from effective governance capacity, and synthetic output from empirical measurement.
-7. Related work must distinguish established adjacent theory from GCAT-specific modeling claims. No cited source independently validates GCAT.
+## Authority Boundary
 
-## Artifacts
+This workstream is repository-local. It does not alter Publisher activation authority, Site state, wiki propagation, release status, deployment state, or the priority declared in `PUBLISHER_MIRROR_HANDOFF.md`.
+
+`Omega > 1` denotes modeled overload only. It is not automatic proof of drift, wrongdoing, causation, or irreversibility.
+
+## Canonical Owners and Claims
+
+Implementation owner: PR #5.
+
+Validation owner: `.github/workflows/validate-gcat-capacity-paper.yml`.
+
+Review-required continuation owner: Issue #6.
+
+Session validation claim:
+
+- created: `2026-08-02T09:53:00Z`;
+- released: `2026-08-02T09:58:01Z`;
+- release evidence: hosted run `30742794894`, job `91483095215`, artifact `8831855719`, and `governance/receipts/gcat-capacity-hosted-validation-2026-08-02.json`;
+- current state: `MACHINE_OWNED`.
+
+Collision key: `GCAT-BCAT-Engine/Publisher:agent/gcat-capacity-paper:validation`.
+
+## Authoritative Files
 
 - `papers/GCAT-BCAT/P14_GCAT_Capacity_Stability_v1.md`
 - `papers/GCAT-BCAT/sections/P14_related_work_v1.md`
+- `papers/GCAT-BCAT/sections/P14_case_study_v1.md`
 - `papers/GCAT-BCAT/references/gcat_capacity_primary_sources.bib`
-- `papers/GCAT-BCAT/README.md`
-- `docs/gcat-capacity-source-review.md`
-- `tools/check_gcat_capacity_bibliography.py`
 - `models/gcat_capacity_model.json`
-- `tools/gcat_capacity_simulation.py`
-- `tools/check_gcat_capacity_simulation.py`
 - `data/gcat_capacity_scenarios.json`
-- `governance/receipts/gcat-capacity-simulation-validation-v1.json`
 - `data/gcat_capacity_sensitivity.json`
+- `tools/gcat_capacity_simulation.py`
 - `tools/gcat_capacity_sensitivity.py`
-- `tools/check_gcat_capacity_sensitivity.py`
-- `governance/receipts/gcat-capacity-sensitivity-validation-v1.json`
 - `tools/gcat_capacity_timeseries.py`
+- `tools/check_gcat_capacity_simulation.py`
+- `tools/check_gcat_capacity_sensitivity.py`
 - `tools/check_gcat_capacity_timeseries.py`
-- `governance/receipts/gcat-capacity-timeseries-validation-v1.json`
+- `tools/check_gcat_capacity_bibliography.py`
+- `tools/check_gcat_capacity_case_evidence.py`
+- `tools/check_gcat_capacity_task_state.py`
+- `tools/write_gcat_capacity_runtime_receipt.py`
+- `.github/workflows/validate-gcat-capacity-paper.yml`
 - `docs/gcat-capacity-reproducibility.md`
-- future generated CSV, JSON, manifests, and SVG outputs
-- future LaTeX/PDF publication artifacts derived from the reviewed source
+- `docs/gcat-capacity-source-review.md`
+- `docs/gcat-capacity-case-evidence-note.md`
+- `orchestration/gcat-capacity-session-goal-inventory.json`
+- `orchestration/gcat-capacity-task-state.json`
 
-## Completed in Current Workstream
+## Hosted Validation Evidence
 
-1. Added explicit proportional state dynamics in log-state coordinates.
-2. Added bounded and delayed intervention assumptions.
-3. Added a conditional forward-invariance proposition with a bounded claim.
-4. Added four declared numerical scenarios: balanced adaptation, delayed intervention, constraint-heavy fragility, and bounded recovery failure.
-5. Added fixed-step RK4 simulation code with no third-party dependencies.
-6. Added CSV, summary JSON, SHA-256 digest, and manifest generation.
-7. Added a simulation validator for positivity, margin identity, scenario behavior, delay enforcement, generated outputs, and provenance markers.
-8. Added governance-pressure and elasticity sweeps.
-9. Added Cobb-Douglas, weighted-geometric, weighted-additive, bottleneck-minimum, and CES comparisons.
-10. Added a dependency-free SVG regime map with an explicit `Omega = 1` boundary.
-11. Added a sensitivity validator covering grid dimensions, identities, classifications, model coverage, labels, file generation, and digests.
-12. Added one dependency-free two-panel SVG generator per scenario.
-13. Added a time-series figure validator covering scenario completeness, SVG structure, visible claim boundaries, legends, frontier labels, digests, and selected boundary behavior.
-14. Integrated numerical methods, scenario design results, sensitivity methodology, alternative functional forms, figure generation, and validation limits into the paper source.
-15. Expanded the reproducibility guide to include all three generation and validation workflows.
-16. Added a primary-source BibTeX bibliography covering CBFs, robust invariance, viability theory, Cobb-Douglas and CES production functions, bounded rationality, organizational failure, and systems safety.
-17. Added a source-to-claim matrix defining permitted uses and prohibited inferences for every bibliography entry.
-18. Added a citation-ready related-work section with explicit GCAT claim boundaries.
-19. Added a bibliography validator for required entries, citation-key parity, source-review coverage, and claim-boundary language.
-20. Updated the GCAT-BCAT paper index to include P14 and its supporting source files.
+Workflow run `30742794894` completed successfully on PR merge SHA `0e036d9fffa3b5364f324cbcd5fe0cebc8d18623`, derived from branch head `f28dc041eb2b95dcdb308a3a6526cca9590be168`.
 
-## Remaining Work
+Validated steps:
 
-1. Execute all four committed validators in an authorized repository runtime and preserve exact outputs as validation evidence.
-2. Generate and review committed synthetic CSV, JSON, manifests, regime-map SVG, and four time-series SVG files.
-3. Verify every BibTeX field against publisher or DOI records in the final publication environment.
-4. Integrate `sections/P14_related_work_v1.md` into the final Markdown and LaTeX assembly.
-5. Validate or further qualify the observational case-study wording.
-6. Produce reviewed LaTeX and PDF outputs.
-7. Obtain independent mathematical review of the proposition, dynamics, and production-function assumptions.
-8. Determine whether a repository-local workflow should execute these validators without crossing existing Publisher authority boundaries.
-9. Add primary queueing or recovery-saturation literature only if those mechanisms remain explicit in the final causal argument.
+- task inventory and claim state: PASS;
+- scenario generation and validation: PASS;
+- sensitivity generation and validation: PASS;
+- time-series figure generation and validation: PASS;
+- bibliography and claim-boundary validation: PASS;
+- runtime receipt generation: PASS;
+- artifact upload: PASS.
 
-## Validation Requirements
+Artifact:
 
-The workstream is not publication-ready until:
+- name: `gcat-capacity-validation`;
+- ID: `8831855719`;
+- files: `23`;
+- size: `337293` bytes;
+- ZIP SHA-256: `1426cf1aaa0821a5ec1e3b7bef7cba35552f8fca976268100422edea8b25307c`;
+- inspected: yes;
+- expiry: `2026-09-01T09:58:00Z`.
 
-- equations and propositions receive mathematical review;
-- all simulations reproduce from committed source and parameters;
-- generated figures identify synthetic data explicitly;
-- bibliography metadata is publisher-verified and citations are complete;
-- case-study statements are sourced, qualified as first-person observation, or removed;
-- repository checks pass without modifying cross-repository authority.
+Manifest SHA-256 values:
 
-## Ownership
+- simulation: `1dfde29327a2fe616ba0e5a18489406ddc70b002cea2a9deb8e5e972c542b2f8`;
+- sensitivity: `4d7be7ec6770c21c1ff92a0e928cd167150c4ea073cf0e9675fbc418fbb9443f`;
+- time-series: `60ededa33dd92bf5f1fb43f491066f46e84e00c8d9248808f77547ca90ae1448`.
 
-Current build ownership: `agent/gcat-capacity-paper` draft branch and Publisher Issue #6.
+## Completed Work
 
-Publisher mirror, Site activation, wiki propagation, release, and deployment ownership remain governed by `PUBLISHER_MIRROR_HANDOFF.md` and are outside this workstream.
+1. Formal capacity model, load ratio, barrier margin, conditional forward-invariance proposition, and bounded claim language.
+2. Four positivity-preserving RK4 scenarios with deterministic CSV, JSON, manifests, and digests.
+3. Governance-pressure and elasticity sweeps.
+4. Cobb-Douglas, weighted-geometric, weighted-additive, bottleneck-minimum, and CES comparisons.
+5. Regime-map SVG and four scenario time-series SVGs with visible synthetic and uncalibrated labels.
+6. Primary-source bibliography, source-to-claim matrix, related-work section, and bibliography validator.
+7. Qualified case-study provenance note, exclusion rules, replacement case section, and case-evidence validator.
+8. Session goal inventory, expiring validation claim, collision boundaries, machine-owned workflow, runtime receipt writer, hosted receipt, and durable continuation state.
+9. Temporary V7/V8/chat-generated PDF scaffolds explicitly superseded by repository-native P14 sources.
+10. Venue and submission-readiness claims explicitly deferred until remaining review and publication gates complete.
 
-## Permitted Continuation Scope
+## Incomplete Work
 
-A successor may edit paper sources, model specifications, repository-local simulations, tests, figures, bibliography, and validation records. A successor may not claim external deployment, calibrated empirical prediction, theorem completion, publication readiness, or downstream propagation without corresponding durable evidence.
+### `GCAT-CAP-001` — Mathematical review
+
+Owner: Issue #6 mathematical-review lane.
+
+Location: future committed review receipt under `governance/receipts/`.
+
+Release condition: reviewer scope, equations checked, findings, and disposition are committed.
+
+### `GCAT-CAP-005` — Bibliography metadata verification
+
+Owner: Issue #6 source-review lane.
+
+Location: `papers/GCAT-BCAT/references/gcat_capacity_primary_sources.bib` and future source-review receipt.
+
+Release condition: publisher or DOI metadata is verified and recorded.
+
+### `GCAT-CAP-007` — Reviewed LaTeX and PDF
+
+Owner: Issue #6 publication-build lane.
+
+Required locations:
+
+- `papers/GCAT-BCAT/P14_GCAT_Capacity_Stability_v1.tex`;
+- generated PDF path declared by the publication build;
+- build, page-count, visual-inspection, and hash receipts.
+
+Release condition: reviewed LaTeX and PDF are committed, generated from canonical sources, and inspected.
+
+### Integration and Merge
+
+Owner: PR #5.
+
+Release condition: current exact-head workflows pass, PR is reviewable and mergeable, required review dispositions are present, and merge authority is exercised.
+
+## Machine-Owned Continuation
+
+Trigger: pull request, branch push, or workflow dispatch matching GCAT paths.
+
+Workflow: `.github/workflows/validate-gcat-capacity-paper.yml`.
+
+Deterministic outputs:
+
+- `generated/gcat-capacity/`;
+- `generated/gcat-capacity-sensitivity/`;
+- `generated/gcat-capacity-timeseries/`;
+- `reports/gcat-capacity-runtime-receipt.json`;
+- `gcat-capacity-validation` workflow artifact.
+
+Failure behavior: fail closed, write a FAILED receipt, preserve generated evidence, upload the artifact, and leave publication readiness blocked.
+
+## Cross-Repository Dependencies
+
+None are authorized for this draft workstream. Publisher activation, Site propagation, admissibility-wiki, stegguardian-wiki, master-records custody, release, and deployment remain governed by their own handoffs and are not implied by PR #5.
+
+## Session Consolidation
+
+MERGED INTO: `GCAT-BCAT-Engine/Publisher` → `docs/GCAT_CAPACITY_MIRROR_HANDOFF.md`, PR #5, Issue #6, `orchestration/gcat-capacity-session-goal-inventory.json`, and `.github/workflows/validate-gcat-capacity-paper.yml`.
+
+Transferred:
+
+- all model decisions;
+- theorem corrections;
+- scenario definitions;
+- simulation and sensitivity requirements;
+- figure requirements;
+- case-study qualifications and exclusions;
+- bibliography governance;
+- publication-readiness boundaries;
+- validation evidence;
+- ownership, blockers, and exact release conditions;
+- supersession of temporary chat artifacts.
+
+No remaining task requires access to the originating conversation.
+
+## Percentages and Denominators
+
+Required canonical deliverables: 24 files or control surfaces.
+
+Developed files: 23/24 = 96%.
+
+Validation gates: 6/9 = 67% — hosted code generation and validators pass; mathematical review, publisher metadata verification, and final PDF inspection remain.
+
+Integration gates: 1/3 = 33% — draft PR exists; review disposition and merge remain.
+
+Goal activation: 6/8 = 75% — formalism, simulation, sensitivity, figures, bibliography structure, and case provenance are active; reviewed publication artifact and merge are incomplete.
+
+Session consolidation: 11/11 = 100%.
+
+## Archive Condition
+
+Satisfied for the originating conversation. All unique information, work history, evidence, ownership, blockers, and continuation instructions are durably preserved. Remaining tasks are owned by Issue #6, PR #5, and repository-native automation.
