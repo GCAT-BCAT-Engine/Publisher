@@ -1,238 +1,135 @@
 # Publisher Mirror Handoff
 
-## Purpose
+## Authority and scope
 
-This handoff is the current task source of truth for `GCAT-BCAT-Engine/Publisher`.
+This file is the current task source of truth for `GCAT-BCAT-Engine/Publisher` on `main`.
 
-Companion ecosystem-management handoff:
+Read in this order before mutation:
 
-```text
-docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
-```
+1. `docs/PUBLISHER_MIRROR_HANDOFF.md`
+2. `docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md`
+3. `data/publisher-orchestration-state.json`
+4. `docs/receipts/st017-evidence-integrity-2026-08-02.md`
+5. `docs/PUBLISHER_PENDING_CLOSURE_STATUS.md`
 
-## Mandatory orchestration entry
+Incoming requests are candidate work, not publication or execution authority.
 
-Every arriving session or automation must read this handoff and `data/publisher-orchestration-state.json` before opening a branch, issue, pull request, publication sequence, or downstream propagation task.
-
-The incoming request is a candidate workload. It is not automatic publication or execution authority.
-
-Required sequence:
+## Active goal
 
 ```text
-1. Read docs/PUBLISHER_MIRROR_HANDOFF.md.
-2. Read docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md.
-3. Read data/publisher-orchestration-state.json.
-4. Preserve existing workload ownership.
-5. Execute only an admitted PARALLEL_SAFE task while upstream HIL evidence remains incomplete.
-6. Update the handoff and orchestration state before closing work.
-```
-
-## Current Goal
-
-```text
-Goal: governed ecosystem Site mirror awareness plus LLM free-tier trust chain status plus media pipeline downstream publication awareness
-Goal: Publisher closure evidence production
-Goal: receive and validate the first complete HIL activation propagation packet after Site readiness
-Repository: GCAT-BCAT-Engine/Publisher
-Target repository: StegVerse-Labs/Site
-Source authority: StegVerse-Labs/admissibility-wiki and StegVerse-Labs/collective-environment-engine for their respective subjects
-State: publication_awareness_only
-Release hold: updated_with_evidence
-Manual user action required: false
-```
-
-The closure-evidence goal marker is retained for compatibility with the existing ecosystem-management validator. It does not claim that closure evidence exists or that activation has occurred.
-
-## Current live task sequence
-
-```text
-current work task sequence 0001
+goal_id: PUBLISHER-ST017-SITE-PROPAGATION-001
+goal: maintain a validated, repository-native ST-017 governed-awareness lane and consume the first valid Site propagation packet after Site readiness
+repository: GCAT-BCAT-Engine/Publisher
+branch: main
 state: BLOCKED_BUT_OBSERVED
-health: HEALTHY_DECLARED_DEPENDENCY_BLOCK
-heartbeat model: transition-driven and health-relative
-active parallel-safe owner: PR #5 GCAT capacity paper workstream
-queued dependency-blocked owner: HIL Site propagation consumer
-exclusive barrier: end of current work task sequence 0001, no tasks running
+publication_posture: publication_awareness_only
+manual_user_action_required: false
 ```
 
-Publisher may continue documentation, validation, and publication-awareness work that does not claim or consume absent HIL activation evidence. It must not synthesize readiness, custody, reconstruction, activation, publication, or downstream-ingestion success.
+## Current execution inventory
 
-## HIL propagation succession
+### Complete and validated
+
+- ST-017 isolated sandbox runner: `tools/run_sandbox_validation.py`
+- ST-017 profile: `templates/sandbox-first/publisher.sandbox-profile.json`
+- deterministic report validator and task-state writer: `tools/check_st017_sandbox_report.py`
+- bounded activation validator: `tools/check_publisher_st017_activation.py`
+- structural adoption validator: `tools/check_st017_sandbox_adoption.py`
+- Site propagation acquisition: `tools/acquire_site_ecosystem_chat_propagation.py`
+- Site propagation validator: `tools/check_site_ecosystem_chat_propagation.py`
+- recurring workflow owner: `.github/workflows/validate-governed-ecosystem-awareness.yml`
+- durable implementation receipt: `docs/receipts/st017-evidence-integrity-2026-08-02.md`
+
+Evidence:
 
 ```text
-StegVerse-Labs/Site HIL upload completion
--> StegVerse-org/LLM-adapter authorized real-provider execution
--> master-records/orchestration custody and reconstruction
--> StegVerse-Labs/Site immutable zero-blocker activation receipt
--> Site READY_FOR_DOWNSTREAM_INGESTION
--> GCAT-BCAT-Engine/Publisher automatic acquisition and validation
+pull_request: #24
+merge_commit: b036613ab7b78ddeead745a10cc87afd63febc74
+receipt_commit: e17987801e8dadc3bc52cf25ecab52680ac69ff9
+validated_pr_head: aa459fe46e8a6d3b21bd565370aae0b042ae6063
+workflow: Validate Governed Ecosystem Awareness
+workflow_run_number: 219
+workflow_run_id: 30738849526
+sandbox_job: 91472470327 PASS
+validate_job: 91472488246 PASS
+artifact_id: 8830569156
+artifact_digest: sha256:5cb502751522fd02b2635055c198714ef59387c76e86e8f2bff5b23e90459207
+sandbox_state: COMPLETE
+sandbox_commands: 4/4 PASS
+```
+
+The workflow also observed and preserved the current Site dependency boundary without granting authority.
+
+### Implemented and active, dependency-blocked
+
+Publisher's Site consumer currently records:
+
+```text
+state: PENDING_SITE_ACTIVATION
+blocker: publisher_destination_not_declared_by_site
+source: StegVerse-Labs/Site/data/ecosystem-chat-activation-propagation.json
+release_condition: Site declares GCAT-BCAT-Engine/Publisher as a destination and reports READY_FOR_DOWNSTREAM_INGESTION
+next_executable_task: recheck-site-propagation-destination-and-readiness
+owner: GCAT-BCAT-Engine/Publisher/.github/workflows/validate-governed-ecosystem-awareness.yml
+trigger: hourly schedule, workflow dispatch, relevant pull request, or relevant push
+```
+
+The observer must persist `PENDING_SITE_ACTIVATION` until the release condition is directly observed. Missing destination declaration or readiness is not success.
+
+### Separate active ownership
+
+- PR #5, branch `agent/gcat-capacity-paper`: GCAT capacity-based stability paper; parallel-safe and not owner of Site propagation.
+- Publisher closure evidence remains pending under `docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md` and `docs/PUBLISHER_PENDING_CLOSURE_STATUS.md`.
+- Upstream HIL succession remains owned by `StegVerse-org/LLM-adapter`, `master-records/orchestration`, then `StegVerse-Labs/Site`.
+
+## Automation contract
+
+Owner repository: `GCAT-BCAT-Engine/Publisher`
+
+Workflow: `.github/workflows/validate-governed-ecosystem-awareness.yml`
+
+Deterministic outputs:
+
+- `reports/sandbox-first-validation.report.json`
+- `reports/st017-task-state.json`
+- `data/ecosystem-chat-site-propagation-status.json`
+- uploaded artifact `publisher-st017-sandbox-report`
+
+Required machine states:
+
+```text
+COMPLETE
+BLOCKED
+RETRY
+REVIEW_REQUIRED
+FAILED
+```
+
+Current task-state semantics:
+
+- ST-017 sandbox validation: `COMPLETE`
+- Site propagation activation: `BLOCKED`
+- release condition: exact Site destination declaration plus `READY_FOR_DOWNSTREAM_INGESTION`
+- duplicate prevention: deterministic report hash / execution key
+- authority posture: publication, release, activation, execution, custody, and admissibility authority remain false
+
+## Cross-repository succession
+
+```text
+StegVerse-Labs/Site valid propagation packet
+-> GCAT-BCAT-Engine/Publisher acquisition and validation
 -> durable Publisher awareness state
--> StegVerse-Labs/admissibility-wiki projection
--> StegVerse-002/stegguardian-wiki projection
+-> evaluate existing propagation contracts for StegVerse-Labs/admissibility-wiki
+-> evaluate existing propagation contracts for StegVerse-002/stegguardian-wiki
 ```
 
-Publisher is not the source authority for any upstream transition. It accepts only the Site packet after the upstream chain is complete and independently validates the packet before recording awareness.
+Publisher does not duplicate Site, LLM-adapter, Master-Records, admissibility-wiki, or StegGuardian canonical authority.
 
-## Ecosystem Management Continuation Contract
-
-```text
-docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
-docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
-docs/PUBLISHER_VALIDATION_REMAINDER.md
-docs/SOURCE_GEOMETRY_PROVENANCE.md
-tools/check_publisher_closure_evidence_production.py
-docs/verification-run-receipt.template.json
-tools/check_verification_receipt_template.py
-tools/write_verification_run_receipt.py
-closure_evidence_results
-closure_evidence_verification
-not activation receipts
-self_managed_handoff_completion
-fresh ordered artifacts
-```
-
-Issue #1 is not activation evidence.
-
-Source Geometry ID: SG-001
-
-Publisher role: citation and publication surface only
-
-The actual Publisher receipt artifact and the actual Site evidence artifact are both still required before any closure decision. Publisher verification receipts and pending probes are not activation receipts. Closure requires fresh ordered artifacts and a separately validated closure receipt.
-
-## pending-status boundary
-
-`docs/PUBLISHER_PENDING_CLOSURE_STATUS.md` remains the canonical pending-state record. It must continue to show that the Publisher receipt, Site evidence, and closure receipt have not been recorded until fresh ordered evidence exists.
-
-## Verification Receipt Boundary
-
-Publisher verification receipts preserve `closure_evidence_results` and `closure_evidence_verification` but do not claim activation. The receipt template and writer remain:
-
-```text
-docs/verification-run-receipt.template.json
-tools/check_verification_receipt_template.py
-tools/write_verification_run_receipt.py
-```
-
-## dispatch receipt posture env values
-
-The dispatch workflow supplies explicit receipt posture environment values, including `CLOSURE_EVIDENCE_STATUS` and `CLOSURE_EVIDENCE_VERIFICATION`, and preserves them as `pending_fresh_ordered_artifacts` until independently validated closure evidence exists.
-
-## ST-017 Sandbox-First Adoption
-
-Installed on branch `validation/st017-sandbox-adoption`:
-
-```text
-templates/sandbox-first/publisher.sandbox-profile.json
-tools/run_sandbox_validation.py
-tools/check_st017_sandbox_adoption.py
-reports/sandbox-first-validation.report.json
-.github/workflows/validate-governed-ecosystem-awareness.yml
-```
-
-Required sequence:
-
-```text
-change installed
--> isolated temporary repository copy
--> bounded Publisher validation profile
--> SANDBOX PASS
--> GitHub Actions observation
--> merge
--> any later publication or downstream decision
-```
-
-The existing governed-awareness workflow now runs on relevant pull requests and uploads `publisher-st017-sandbox-report`. Sandbox success is necessary but does not grant publication, source, release, downstream, provider, execution, standing, or admissibility authority.
-
-Current pre-execution state:
-
-```text
-SANDBOX: NOT_RUN
-GITHUB_ACTIONS: NOT_OBSERVED
-PUBLIC_OUTPUT: NOT_APPLICABLE
-```
-
-## Site Ecosystem Chat propagation consumer
-
-Publisher owns an autonomous, fail-closed awareness consumer for Site's canonical propagation packet:
-
-```text
-tools/acquire_site_ecosystem_chat_propagation.py
-tools/check_site_ecosystem_chat_propagation.py
-data/ecosystem-chat-site-propagation-status.json
-.github/workflows/validate-governed-ecosystem-awareness.yml
-```
-
-The scheduled workflow acquires:
-
-```text
-https://raw.githubusercontent.com/StegVerse-Labs/Site/main/data/ecosystem-chat-activation-propagation.json
-```
-
-The consumer requires Publisher to be an explicitly declared destination, validates the packet's canonical hash when supplied, rejects any true authority flag, preserves an exact blocker while Site remains pending, and writes a durable repository-local status. It may produce only:
-
-```text
-PENDING_SITE_ACTIVATION
-VERIFIED_INGESTION_READY
-```
-
-`VERIFIED_INGESTION_READY` is permitted only when Site publishes `READY_FOR_DOWNSTREAM_INGESTION`. It is ingestion awareness, not activation, publication, release, execution, custody, or admissibility authority. No manual user action is required.
-
-## Active workload ownership
-
-```text
-PR #5: GCAT capacity-based stability paper workstream; PARALLEL_SAFE; draft; does not own HIL propagation
-Site propagation consumer: existing tools and workflow; DEPENDENCY_BLOCKED on Site readiness
-HIL activation evidence owner: StegVerse-org/LLM-adapter issue #18 upstream, then master-records/orchestration issue #2, then StegVerse-Labs/Site
-Publisher closure evidence: existing Publisher closure contract; remains pending fresh ordered artifacts
-```
-
-No new Publisher branch may claim HIL propagation, closure evidence, or the GCAT capacity-paper scope while an existing owner remains active unless that owner is completed, explicitly superseded, or declared stale by the repository orchestration state.
-
-## Built Files
-
-```text
-docs/GOVERNED_ECOSYSTEM_SITE_MIRROR_AWARENESS.md
-docs/STEGGUARDIAN_PROPAGATION_STATUS.md
-docs/PUBLISHER_GOVERNED_ECOSYSTEM_SYNC_STATUS.md
-docs/PUBLISHER_GOVERNED_ECOSYSTEM_VALIDATION_STATUS.md
-docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE_REQUEST.md
-docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_STATUS.md
-docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_RUNBOOK.md
-docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE_TEMPLATE.md
-docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE.md
-docs/PUBLISHER_GOVERNED_ECOSYSTEM_RELEASE_HOLD.md
-docs/PUBLISHER_GOVERNED_ECOSYSTEM_DOWNSTREAM_DEFERRAL.md
-docs/PUBLISHER_GOVERNED_ECOSYSTEM_ACTIVATION_BLOCKERS.md
-docs/PUBLISHER_GOVERNED_ECOSYSTEM_NEXT_ACTION.md
-docs/PUBLISHER_GOVERNED_ECOSYSTEM_GOAL_ACTIVATION_STATUS.md
-docs/LLM_FREE_TIER_TRUST_CHAIN_STATUS.md
-docs/media-pipeline-site-publication-awareness.md
-docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
-docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md
-docs/PUBLISHER_PENDING_CLOSURE_STATUS.md
-docs/PUBLISHER_VALIDATION_REMAINDER.md
-docs/SOURCE_GEOMETRY_PROVENANCE.md
-docs/verification-run-receipt.template.json
-tools/acquire_site_ecosystem_chat_propagation.py
-tools/check_site_ecosystem_chat_propagation.py
-tools/check_governed_ecosystem_site_mirror_awareness.py
-tools/check_stegguardian_propagation_status.py
-tools/check_publisher_governed_ecosystem_sync_status.py
-tools/check_publisher_governed_ecosystem_validation_status.py
-tools/check_publisher_governed_ecosystem_workflow_request.py
-tools/check_llm_free_tier_trust_chain_status.py
-tools/check_publisher_activation.py
-tools/check_publisher_closure_evidence_production.py
-tools/check_verification_receipt_template.py
-tools/write_verification_run_receipt.py
-scripts/check_media_pipeline_site_publication_awareness.py
-.github/workflows/validate-governed-ecosystem-awareness.yml
-```
-
-## Validation
+## Validation commands
 
 ```text
 python tools/run_sandbox_validation.py
+python tools/check_st017_sandbox_report.py --report reports/sandbox-first-validation.report.json --state-output reports/st017-task-state.json
 python tools/check_st017_sandbox_adoption.py --structural-only
 python tools/acquire_site_ecosystem_chat_propagation.py
 python tools/check_site_ecosystem_chat_propagation.py
@@ -241,58 +138,38 @@ python tools/check_stegguardian_propagation_status.py
 python tools/check_publisher_governed_ecosystem_sync_status.py
 python tools/check_publisher_governed_ecosystem_validation_status.py
 python tools/check_publisher_governed_ecosystem_workflow_request.py
-python tools/check_llm_free_tier_trust_chain_status.py
-python tools/check_publisher_activation.py
-python scripts/check_media_pipeline_site_publication_awareness.py
+python tools/check_publisher_st017_activation.py
 ```
 
-## Completed Evidence
+## Exact remaining tasks
 
-Validate Governed Ecosystem Awareness workflow run #5 succeeded and is recorded in `docs/PUBLISHER_GOVERNED_ECOSYSTEM_WORKFLOW_EVIDENCE.md`.
+1. Inspect the workflow triggered by this handoff update on `main`, including jobs, logs, and artifact; persist a main-branch verification receipt under `docs/receipts/`.
+2. Continue the installed hourly Site observer until the release condition is met.
+3. When Site becomes ready, verify `data/ecosystem-chat-site-propagation-status.json` records `VERIFIED_INGESTION_READY` and has no blockers.
+4. Then inspect and execute the existing downstream propagation contracts for `StegVerse-Labs/admissibility-wiki` and `StegVerse-002/stegguardian-wiki`; do not claim propagation before direct evidence.
+5. Preserve Publisher closure as pending until fresh ordered Publisher, Site, and closure artifacts exist.
 
-StegGuardian downstream awareness is installed for the LLM free-tier trust chain and media-pipeline Guardian boundary. Admissibility-wiki media-pipeline summary remains separately owned by its active Goal 5 workstream.
-
-The Site propagation acquisition script, dedicated validator, scheduled workflow integration, persistence path, and fail-closed authority boundary are installed. The first scheduled repository-local propagation status remains to be observed.
-
-## Boundary
-
-Publisher records publication awareness only. It does not become source authority for governed ecosystem framing, the LLM free-tier trust chain, the media pipeline, or Ecosystem Chat activation.
-
-This handoff does not claim production authority, release authorization, operational standing, live connector installation, canonical STRP admission, public URL verification, live media execution, public broadcast capability, provider execution, downstream propagation authority, Guardian enforcement authority, or final admissibility.
+## Completion accounting
 
 ```text
-heartbeat != publication
-awareness != activation
-ingestion readiness != publication authority
-Site packet != custody
-Publisher validation != admissibility
-closure evidence != release authority
+task_completion: 11/13
+required_developed_files: 8
+developed_files: 8
+scaffolding_or_stubs: 0
+missing_required_files: 0
+validation_completion: 7/8
+goal_activation: 78%
 ```
 
-## Remaining Targets
+The denominator covers the sandbox profile, runner, report validator, bounded activation validator, adoption validator, Site acquisition, Site validator, workflow integration, PR validation, artifact inspection, merge receipt, main-branch validation, and final Site-ready consumption.
 
-```text
-observe and validate the first persisted data/ecosystem-chat-site-propagation-status.json
-retain PENDING_SITE_ACTIVATION until Site publishes READY_FOR_DOWNSTREAM_INGESTION
-execute and inspect the Publisher ST-017 pull-request sandbox
-repair immediately if any command or existing workflow is red
-merge only after inspected SANDBOX PASS and GitHub Actions PASS
-StegVerse-Labs/admissibility-wiki media-pipeline summary remains separately coordinated
-install equivalent heartbeat/orchestration state in admissibility-wiki and stegguardian-wiki
-```
+## Archive conditions
 
-## Exact current external blocker
+Do not archive while any of the following remains:
 
-```text
-Source repository: StegVerse-Labs/Site
-Upstream owner: StegVerse-org/LLM-adapter issue #18
-Custody owner: master-records/orchestration issue #2
-Blocker: live_activation_observation_not_yet_recorded
-Required upstream artifact: receipts/ecosystem-chat-live-activation.verified.json
-Publisher action after Site readiness: automatic acquisition, validation, and durable awareness-state persistence
-Manual user action required: false
-```
-
-## Handoff Instruction
-
-Continue from this file and `data/publisher-orchestration-state.json` before relying on prior chat context. Preserve active Site, LLM-adapter, Master-Records, admissibility-wiki, StegGuardian, and PR #5 workstream ownership.
+- the main-branch post-handoff workflow is uninspected;
+- Site does not declare Publisher;
+- Site is not `READY_FOR_DOWNSTREAM_INGESTION`;
+- Publisher has not persisted and validated the ready state;
+- required downstream propagation remains unverified;
+- closure evidence remains pending without its installed observer and release condition.
