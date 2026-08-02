@@ -96,7 +96,7 @@ jobs:
       - name: Check workflow request
         run: python tools/check_publisher_governed_ecosystem_workflow_request.py
       - name: Check Publisher activation boundary
-        run: python tools/check_publisher_activation.py
+        run: python tools/check_publisher_activation.py --scope st017
       - name: Persist Site propagation awareness status
         if: github.event_name != 'pull_request'
         run: |
