@@ -2,25 +2,12 @@
   "schema_version": "1.0",
   "case_id": "RTG-001",
   "watched_repo": "GCAT-BCAT-Engine/workflows",
-  "generated_unix": 1785740272.3997757,
-  "artifact_returned": true,
-  "matched_run": {
-    "id": 27597978374,
-    "name": "StegVerse External Full Process v2 - Erd\u0151s Class",
-    "status": "completed",
-    "conclusion": "success",
-    "html_url": "https://github.com/GCAT-BCAT-Engine/workflows/actions/runs/27597978374"
-  },
-  "artifacts": [
-    {
-      "id": 7658749562,
-      "name": "external-full-results",
-      "expired": false,
-      "size_in_bytes": 3813
-    }
-  ],
+  "generated_unix": 1785754137.6912081,
+  "artifact_returned": false,
+  "matched_run": null,
+  "artifacts": [],
   "claim_boundary": {
-    "artifact_returned": true,
+    "artifact_returned": false,
     "artifact_ingested": false,
     "rtg_state_updated": false,
     "autonomous_theorem_proving_claimed": false,
