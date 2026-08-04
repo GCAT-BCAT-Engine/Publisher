@@ -70,10 +70,17 @@
   "linkedin_pdf": {
     "path": "artifacts/five-lane-reconstructable-governance/StegVerse_Five_Lane_Cost_Results_LinkedIn.pdf",
     "validation_receipt_path": "artifacts/five-lane-reconstructable-governance/pdf-validation-receipt.json",
-    "sha256": "sha256:1db24dca6cc940b821d3ebb50128e9ce4adb16dba96e15bcb09c02436e6f2721",
+    "sha256": "sha256:e19bfb6f59d11d4abe21400846cdc050678a89eb1a0b07da745a22b7b33ea1f6",
     "bytes": 10911,
     "pages": 5,
-    "build_workflow": ".github/workflows/build-sv-cost-five-lane-linkedin-pdf.yml"
+    "build_workflow": ".github/workflows/build-sv-cost-five-lane-linkedin-pdf.yml",
+    "hosted_execution": {
+      "workflow_name": "Build SV-COST Five-Lane LinkedIn PDF",
+      "workflow_run_id": 30930126860,
+      "workflow_run_attempt": 1,
+      "workflow_job": "build-validate-commit",
+      "workflow_head_sha": "e2675a857affa47351ab9120a951f865a5d09394"
+    }
   },
   "linkedin_copy_path": "papers/five-lane-reconstructable-governance-linkedin-post.md"
 }
