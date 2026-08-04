@@ -139,7 +139,7 @@ def main() -> int:
     ]))
     story.extend([mt, Spacer(1, 12)])
     story.append(paragraph(
-        "All five lanes completed successfully, preserved task identity, produced the same normalized admissible outcome, and passed the publication gate.",
+        "All five lanes completed successfully, preserved task identity, produced the same normalized admissible outcome, and passed the publication gate. This does not establish universal provider economics, company-wide ROI, or fresh-inference equivalence.",
         styles["SVCallout"],
     ))
     story.append(paragraph("Headline result", styles["SVHeading"]))
@@ -350,6 +350,7 @@ def main() -> int:
     sha = hashlib.sha256(data).hexdigest()
     reader = PdfReader(str(PDF_PATH))
     extracted = "\n".join(page.extract_text() or "" for page in reader.pages)
+    normalized_extracted = " ".join(extracted.split())
     required_markers = [
         "FIVE-LANE COST RESULTS FOR RECONSTRUCTABLE GOVERNANCE",
         "OpenAI raw",
@@ -366,7 +367,7 @@ def main() -> int:
         "company-wide ROI",
         "fresh-inference equivalence",
     ]
-    checks = {marker: marker in extracted for marker in required_markers}
+    checks = {marker: marker in normalized_extracted for marker in required_markers}
     complete = all(checks.values()) and len(reader.pages) >= 4 and len(data) > 10000
     receipt = {
         "schema_version": "1.0.0",

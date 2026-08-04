@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "publication_id": "SV-COST-FIVE-LANE-PUBLICATION-001",
+  "generated_at": "2026-08-04T16:35:09Z",
+  "pdf_path": "artifacts/five-lane-reconstructable-governance/StegVerse_Five_Lane_Cost_Results_LinkedIn.pdf",
+  "sha256": "sha256:1db24dca6cc940b821d3ebb50128e9ce4adb16dba96e15bcb09c02436e6f2721",
+  "bytes": 10911,
+  "pages": 5,
+  "required_marker_checks": {
+    "FIVE-LANE COST RESULTS FOR RECONSTRUCTABLE GOVERNANCE": true,
+    "OpenAI raw": true,
+    "$0.006875": true,
+    "OpenAI governed": true,
+    "$0.006880": true,
+    "Anthropic raw": true,
+    "$0.010656": true,
+    "Anthropic governed": true,
+    "$0.007116": true,
+    "StegVerse-only": true,
+    "$0.000000002885": true,
+    "universal provider economics": true,
+    "company-wide ROI": true,
+    "fresh-inference equivalence": true
+  },
+  "all_required_markers_present": true,
+  "validation_state": "COMPLETE",
+  "claim_boundary": "One bounded deterministic reconstruction operation; no universal provider economics, invoice-reconciled provider charges, enterprise-wide savings, company ROI, or fresh-inference equivalence."
+}

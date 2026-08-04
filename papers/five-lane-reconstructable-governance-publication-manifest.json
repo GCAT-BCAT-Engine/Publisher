@@ -6,7 +6,7 @@
   "operation_class": "governed_state_reconstruction",
   "comparison_unit": "successful equivalent admissible outcome",
   "publication_status": "RESULTS_READY_FOR_BOUNDED_PUBLICATION",
-  "artifact_state": "BUILD_PENDING",
+  "artifact_state": "COMPLETE",
   "canonical_sources": {
     "result_repository": "GCAT-BCAT-Engine/workflows",
     "result_path": "experiments/sv-cost-program/five-lane-results/results/five_lane_results.json",
@@ -57,8 +57,8 @@
       "lane": "StegVerse-only deterministic reconstruction",
       "input_tokens": 0,
       "output_tokens": 0,
-      "latency_seconds": 0.000000461,
-      "cost_usd": 0.000000002885,
+      "latency_seconds": 4.61e-07,
+      "cost_usd": 2.885e-09,
       "status": "PASS"
     }
   ],
@@ -70,9 +70,9 @@
   "linkedin_pdf": {
     "path": "artifacts/five-lane-reconstructable-governance/StegVerse_Five_Lane_Cost_Results_LinkedIn.pdf",
     "validation_receipt_path": "artifacts/five-lane-reconstructable-governance/pdf-validation-receipt.json",
-    "sha256": null,
-    "bytes": null,
-    "pages": null,
+    "sha256": "sha256:1db24dca6cc940b821d3ebb50128e9ce4adb16dba96e15bcb09c02436e6f2721",
+    "bytes": 10911,
+    "pages": 5,
     "build_workflow": ".github/workflows/build-sv-cost-five-lane-linkedin-pdf.yml"
   },
   "linkedin_copy_path": "papers/five-lane-reconstructable-governance-linkedin-post.md"
