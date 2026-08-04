@@ -39,7 +39,6 @@ jobs:
           from pathlib import Path
           p = Path('tools/build_five_lane_linkedin_pdf.py')
           s = p.read_text(encoding='utf-8')
-          boundary = 'This does not establish universal provider economics, company-wide ROI, or fresh-inference equivalence.'
           callout = '"All five lanes completed successfully, preserved task identity, produced the same normalized admissible outcome, and passed the publication gate. This does not establish universal provider economics, company-wide ROI, or fresh-inference equivalence.",'
           if callout not in s:
               old = '"All five lanes completed successfully, preserved task identity, produced the same normalized admissible outcome, and passed the publication gate.",'
@@ -64,6 +63,33 @@ jobs:
       - name: Build and validate LinkedIn PDF
         run: python tools/build_five_lane_linkedin_pdf.py
 
+      - name: Bind receipt to hosted execution
+        env:
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+          HEAD_SHA: ${{ github.sha }}
+          JOB_NAME: build-validate-commit
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          rp=Path('artifacts/five-lane-reconstructable-governance/pdf-validation-receipt.json')
+          mp=Path('papers/five-lane-reconstructable-governance-publication-manifest.json')
+          r=json.loads(rp.read_text())
+          m=json.loads(mp.read_text())
+          binding={
+              'workflow_name':'Build SV-COST Five-Lane LinkedIn PDF',
+              'workflow_run_id':int(os.environ['RUN_ID']),
+              'workflow_run_attempt':int(os.environ['RUN_ATTEMPT']),
+              'workflow_job':os.environ['JOB_NAME'],
+              'workflow_head_sha':os.environ['HEAD_SHA'],
+          }
+          r['hosted_execution']=binding
+          m['linkedin_pdf']['hosted_execution']=binding
+          rp.write_text(json.dumps(r,indent=2)+'\n')
+          mp.write_text(json.dumps(m,indent=2)+'\n')
+          PY
+
       - name: Validate machine-readable outputs
         run: |
           python -m json.tool papers/five-lane-reconstructable-governance-publication-manifest.json >/dev/null
@@ -79,6 +105,7 @@ jobs:
           assert r['all_required_markers_present'] is True
           assert p.exists() and p.stat().st_size == r['bytes']
           assert r['pages'] >= 4
+          assert r['hosted_execution']['workflow_run_id'] == m['linkedin_pdf']['hosted_execution']['workflow_run_id']
           print('SV_COST_FIVE_LANE_PDF_VALIDATION_PASS')
           PY
 
@@ -102,7 +129,7 @@ jobs:
             artifacts/five-lane-reconstructable-governance/pdf-validation-receipt.json \
             papers/five-lane-reconstructable-governance-publication-manifest.json
           git diff --cached --quiet && exit 0
-          git commit -m 'Build validated five-lane LinkedIn PDF artifact'
+          git commit -m 'Bind validated five-lane PDF to hosted execution'
           for attempt in 1 2 3; do
             git fetch origin main
             git rebase origin/main && git push origin HEAD:main && exit 0
