@@ -33,20 +33,32 @@ jobs:
       - name: Install bounded PDF build dependencies
         run: python -m pip install --disable-pip-version-check reportlab==4.2.5 pypdf==5.1.0
 
-      - name: Persist explicit publication boundary in builder
+      - name: Persist explicit publication boundary and normalized validation
         run: |
           python - <<'PY'
           from pathlib import Path
           p = Path('tools/build_five_lane_linkedin_pdf.py')
           s = p.read_text(encoding='utf-8')
           boundary = 'This does not establish universal provider economics, company-wide ROI, or fresh-inference equivalence.'
-          if boundary not in s:
+          callout = '"All five lanes completed successfully, preserved task identity, produced the same normalized admissible outcome, and passed the publication gate. This does not establish universal provider economics, company-wide ROI, or fresh-inference equivalence.",'
+          if callout not in s:
               old = '"All five lanes completed successfully, preserved task identity, produced the same normalized admissible outcome, and passed the publication gate.",'
-              new = '"All five lanes completed successfully, preserved task identity, produced the same normalized admissible outcome, and passed the publication gate. This does not establish universal provider economics, company-wide ROI, or fresh-inference equivalence.",'
               if old not in s:
                   raise SystemExit('expected publication callout not found')
+              s = s.replace(old, callout, 1)
+          if 'normalized_extracted = " ".join(extracted.split())' not in s:
+              old = '    extracted = "\\n".join(page.extract_text() or "" for page in reader.pages)\n'
+              new = old + '    normalized_extracted = " ".join(extracted.split())\n'
+              if old not in s:
+                  raise SystemExit('expected extracted-text statement not found')
               s = s.replace(old, new, 1)
-              p.write_text(s, encoding='utf-8')
+          old_checks = '    checks = {marker: marker in extracted for marker in required_markers}\n'
+          new_checks = '    checks = {marker: marker in normalized_extracted for marker in required_markers}\n'
+          if old_checks in s:
+              s = s.replace(old_checks, new_checks, 1)
+          elif new_checks not in s:
+              raise SystemExit('expected marker-check statement not found')
+          p.write_text(s, encoding='utf-8')
           PY
 
       - name: Build and validate LinkedIn PDF
