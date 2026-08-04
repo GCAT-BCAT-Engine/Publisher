@@ -1,337 +1,248 @@
-# Five-Lane Reconstructable Governance Analysis
+# Five-Lane Cost Results for Reconstructable Governance
 
-## Why StegVerse is important, available, adoptable, and safer
+## Observed execution, normalized admissibility, and bounded economic interpretation
 
-**Status:** Public benchmark analysis with bounded claims  
+**Status:** Results ready for bounded publication  
 **Author:** Rigel Randolph  
 **Organization:** StegVerse  
 **Date:** 2026-08-03  
-**License:** CC-BY-4.0
+**License:** CC-BY-4.0  
+**Experiment:** `SV-COST-FIVE-LANE-RESULTS-001`  
+**Task:** `SV-RECON-001`  
+**Operation class:** Governed state reconstruction  
+**Comparison unit:** Successful equivalent admissible outcome
 
-## First-page comparison statement
+## Executive result
 
-This analysis evaluates five execution lanes under one reconstructable-governance framework:
+All five lanes completed successfully, preserved task identity, produced the same normalized admissible outcome, and passed the publication gate:
 
-1. **OpenAI without StegVerse governance**
-2. **OpenAI with StegVerse governance**
-3. **Anthropic without StegVerse governance**
-4. **Anthropic with StegVerse governance**
-5. **StegVerse reconstructable-governance operations without a new foundation-model execution**
+1. OpenAI raw
+2. OpenAI governed
+3. Anthropic raw
+4. Anthropic governed
+5. StegVerse-only deterministic reconstruction
 
-The provider lanes measure generation behavior, provider usage, latency, outcome preservation, and the effect of adding governance. The StegVerse-only lane measures admission, denial, evidence preservation, replay, reconstruction, verification, recovery, and governance operating cost.
+For this bounded reconstruction task, StegVerse-only deterministic reconstruction was the lowest-cost successful equivalent admissible lane.
 
-StegVerse is not evaluated as a competing foundation model. It is evaluated as a provider-neutral governance layer capable of:
+OpenAI governance was approximately cost-neutral in the observed pair, adding about `0.073%` to the declared-rate provider cost. Anthropic governance reduced the declared-rate provider cost by about `33.22%` in this observed run.
 
-- governing provider execution;
-- preventing inadmissible or unnecessary execution before commitment;
-- preserving transition identity, policy, authority, and evidence;
-- replaying, verifying, recovering, or reconstructing a prior governed outcome without requiring another full provider operation.
+These results apply to one bounded deterministic reconstruction task. They do not establish universal provider economics, fresh-inference equivalence, enterprise-wide savings, or company ROI.
 
-Under the current benchmark financial model, a comparable provider operation costs approximately five times the corresponding StegVerse governance operation:
+## 1. Five-lane results
 
-```text
-C_provider = 5 × C_StegVerse
-```
+| Lane | Input tokens | Output tokens | Latency | Cost per successful equivalent admissible outcome | Result |
+|---|---:|---:|---:|---:|---|
+| OpenAI raw | 307 | 178 | 3.424 s | $0.006875 | PASS |
+| OpenAI governed | 326 | 175 | 2.868 s | $0.006880 | PASS |
+| Anthropic raw | 362 | 638 | 7.939 s | $0.010656 | PASS |
+| Anthropic governed | 382 | 398 | 5.459 s | $0.007116 | PASS |
+| StegVerse-only | 0 | 0 | 0.000000461 s | $0.000000002885 | PASS |
 
-Where StegVerse safely prevents, replaces, replays, or reconstructs the full compared provider operation, the modeled operation-level reduction is:
+Every lane:
 
-```text
-1 - (C_StegVerse / C_provider) = 80%
-```
+- preserved task identity;
+- produced the same normalized final state;
+- produced the same ordered ALLOW/DENY decisions;
+- produced the same applied and denied counts;
+- retained admissibility evidence;
+- passed with no gate failures.
 
-This is an operation-level benchmark, not a universal company-wide savings or ROI claim. Where governance supplements an execution that still occurs, no immediate provider-cost reduction is claimed. Value must instead be measured through reduced failures, retries, rework, review, incidents, recovery burden, and future re-execution.
-
-Organization-specific financial impact requires that organization's actual workload and financial data. The benchmark establishes a measurement method and a bounded planning expectation; it does not replace customer-specific analysis.
-
-## Central proposition
-
-**Reconstructable governance establishes why StegVerse is important and safer. Provider-neutral integration establishes that it is available. Bounded governance cost relative to preventable or reconstructable provider execution establishes that it is adoptable. The five lanes determine where governance supplements execution and where it can safely prevent, replace, replay, or reconstruct it.**
-
-## 1. What reconstructable governance means
-
-Reconstructable governance requires that a consequential transition can be examined after the fact without relying only on a model's final statement or an operator's memory.
-
-A governed result should preserve enough evidence to determine:
-
-- the prior state;
-- the proposed successor state;
-- the actor and execution route;
-- the applicable policy and authority;
-- the evidence considered;
-- the admission, denial, quarantine, or review decision;
-- the committed outcome;
-- the receipt, hashes, and continuity references;
-- the recovery, replay, or reconstruction path.
-
-The essential question is not merely whether a system produced an answer. It is whether the system can demonstrate why the transition was permitted, what changed, whether task identity was preserved, and whether the resulting state can be independently reconstructed.
-
-This is the safety basis of the StegVerse lane.
-
-## 2. Five-lane analysis contract
-
-Every lane must be evaluated using the same core dimensions.
-
-| Dimension | Required evidence |
-|---|---|
-| Task identity | Whether the same event, problem, or intended operation was preserved |
-| Intended outcome | Whether the required result was achieved |
-| Execution performed | Provider generation, governed generation, admission, replay, reconstruction, or recovery |
-| Admission posture | ALLOW, DENY, QUARANTINE, REVIEW_REQUIRED, or not present |
-| Evidence | Receipts, hashes, references, provider response identifiers, and source records |
-| Reconstructability | Whether the decision and resulting state can be independently reconstructed |
-| Replayability | Whether the result can be verified or reused without full provider re-execution |
-| Usage | Tokens, CPU, memory, storage, network, and operator burden where applicable |
-| Latency | End-to-end latency and governance-added latency |
-| Failure behavior | Invalid output, identity drift, denial, retry, timeout, or recovery |
-| Authority | What execution authority existed and whether it remained bounded |
-| Cost class | Supplement, prevention, replacement, replay, or reconstruction |
-| Economic interpretation | Observed cost, modeled cost, avoided operation, or no immediate saving |
-| Claim boundary | What the lane proves and does not prove |
-
-The definitions above apply consistently to all five lanes. The analysis must not switch from token counts in one lane to total operating cost in another, apply reconstructability only to StegVerse, or describe outputs as equivalent without using the same outcome criteria.
-
-## 3. Lane 1 — OpenAI without StegVerse governance
-
-This lane establishes the OpenAI execution baseline.
-
-Required observations include:
-
-- provider usage;
-- latency;
-- response validity;
-- task or event identity preservation;
-- provider response identifier;
-- retries and failures;
-- absence of StegVerse admission, reconstruction, and transition-receipt controls.
-
-This lane is the direct-execution comparator. It does not establish reconstructable governance merely because the provider returns metadata or token usage.
-
-## 4. Lane 2 — OpenAI with StegVerse governance
-
-This lane measures the same OpenAI task under StegVerse controls.
-
-The analysis must report:
-
-- whether the same task remains intact;
-- whether the proposed transition was admitted, denied, quarantined, or referred for review;
-- governance cost and added latency;
-- receipt and evidence completeness;
-- task-identity continuity;
-- whether the resulting state can later be replayed or reconstructed;
-- whether invalid or unnecessary execution was prevented.
-
-When the OpenAI call still occurs, StegVerse is supplemental governance:
+The shared normalized outcome hash was:
 
 ```text
-C_total = C_OpenAI + C_StegVerse
+sha256:155869baaef4bd023ad95e63c6a81d6ade921e92660cec351680e1aabd4d2597
 ```
 
-No immediate execution saving is claimed. The economic case depends on later prevention, reuse, reconstruction, reduced retries, reduced incidents, or reduced correction burden.
+## 2. Task contract
 
-## 5. Lane 3 — Anthropic without StegVerse governance
+The task began with:
 
-This lane establishes the Anthropic execution baseline using the same workload, evidence fields, and success criteria as the OpenAI raw lane.
+- balance: `100`;
+- risk score: `1`;
+- standing: `active`.
 
-It must not receive a different task definition, looser output standard, or different economic interpretation. The purpose is not to declare a provider winner. The purpose is to establish a comparable non-governed execution baseline.
+Six ordered events were evaluated under fixed rules:
 
-## 6. Lane 4 — Anthropic with StegVerse governance
+| Event | Operation | Amount | Required decision |
+|---|---|---:|---|
+| E01 | Credit | 25 | ALLOW — CREDIT_APPLIED |
+| E02 | Debit | 40 | ALLOW — DEBIT_WITHIN_BOUNDARY |
+| E03 | Risk add | 2 | ALLOW — RISK_WITHIN_BOUNDARY |
+| E04 | Debit | 100 | DENY — MINIMUM_BALANCE_VIOLATION |
+| E05 | Risk add | 3 | DENY — MAXIMUM_RISK_VIOLATION |
+| E06 | Debit | 10 | ALLOW — DEBIT_WITHIN_BOUNDARY |
 
-This lane measures Anthropic execution under the same StegVerse governance contract used for OpenAI.
-
-The analysis must apply the same:
-
-- task-identity requirement;
-- admission vocabulary;
-- evidence requirements;
-- reconstruction standard;
-- cost classes;
-- safety boundaries;
-- claim limitations.
-
-A provider-neutral governance layer is available only when the governing requirements remain stable while the provider route changes.
-
-## 7. Lane 5 — StegVerse reconstructable governance
-
-The fifth lane measures governance work that does not require a new foundation-model generation.
-
-Examples include:
-
-- transition admission or denial;
-- receipt verification;
-- evidence-chain validation;
-- prior-state reconstruction;
-- governed replay;
-- recovery from a previously committed state;
-- determination of an admissible successor state from preserved evidence.
-
-This lane is not a lower-quality model-output lane. It is a different operational class.
-
-Required observations include:
-
-- transition count;
-- admissions, denials, quarantines, and reviews;
-- evidence completeness;
-- receipt generation and verification;
-- reconstruction success;
-- replay success;
-- authority continuity;
-- prevented downstream executions;
-- storage, CPU, memory, network, and operator burden;
-- governance latency;
-- failures and nonreconstructable cases.
-
-This lane provides the clearest economic comparison when a governed replay or reconstruction safely replaces a full provider operation.
-
-## 8. Required economic classifications
-
-Every comparison must be assigned to one of the following classes.
-
-### 8.1 Supplement
-
-The provider operation still occurs and StegVerse adds governance.
+The required final state was:
 
 ```text
-C_total = C_provider + C_StegVerse
+balance: 75
+risk_score: 3
+standing: active
+applied_count: 4
+denied_count: 2
 ```
 
-There is no immediate provider-execution saving. Economic value must be measured through later operational effects.
+Denied events were required not to mutate state.
 
-### 8.2 Prevention
+## 3. Admissibility and normalization
 
-StegVerse prevents an inadmissible or unnecessary provider operation.
+Provider outputs were not accepted merely because they were valid JSON or semantically plausible.
+
+Each output was normalized into the required contract and compared against the same:
+
+- task identity;
+- final state;
+- ordered event decisions;
+- applied count;
+- denied count;
+- claim boundary.
+
+A lane entered cost ranking only after all required gates passed.
+
+Native provider responses and hashes were retained. Field-name variations were normalized only where they represented the same required meaning. Missing, contradictory, unsupported, or incorrect state transitions failed closed.
+
+## 4. How the costs were generated
+
+### 4.1 Provider lanes
+
+For each provider lane, retained input and output token counts were multiplied by a versioned declared price card:
 
 ```text
-modeled net avoided cost = C_provider - C_StegVerse
+provider_cost
+= (input_tokens × input_rate + output_tokens × output_rate)
+  / 1,000,000
 ```
 
-Prevention is economically valid only when the prevented operation is demonstrated to be unnecessary, invalid, harmful, duplicative, or outside authority.
+Declared rates used:
 
-### 8.3 Replacement
+| Provider | Input rate | Output rate |
+|---|---:|---:|
+| OpenAI | $5.00 per million tokens | $30.00 per million tokens |
+| Anthropic | $3.00 per million tokens | $15.00 per million tokens |
 
-A StegVerse operation delivers the required governed result instead of a new provider execution.
+These are versioned declared rates, not invoice-reconciled charges.
 
-Replacement requires matched outcome criteria. A cheaper operation that does not deliver the required state is not a valid replacement.
+### 4.2 StegVerse-only lane
 
-### 8.4 Replay or reconstruction
-
-A prior governed outcome is verified, replayed, recovered, or reconstructed without repeating the original provider operation.
-
-Under the benchmark relationship:
+The StegVerse-only cost combined measured runtime with a declared Linux-runner rate and normalized output size with a declared storage rate:
 
 ```text
-C_provider = 5 × C_StegVerse
+local_cost
+= runtime_seconds × ($0.008 / 60)
++ output_GB × $0.008
 ```
 
-and for a fully matched replaceable operation:
+Measured values:
+
+- runtime: approximately `0.000000461` seconds;
+- normalized output size: `353` bytes;
+- compute component: approximately `$0.000000000061`;
+- storage component: approximately `$0.000000002824`;
+- total: `$0.000000002885`.
+
+The StegVerse lane used no foundation-model provider call.
+
+## 5. Provider-pair comparisons
+
+| Provider | Raw cost | Governed cost | Delta | Delta percent |
+|---|---:|---:|---:|---:|
+| OpenAI | $0.006875 | $0.006880 | +$0.000005 | +0.072727% |
+| Anthropic | $0.010656 | $0.007116 | -$0.003540 | -33.220721% |
+
+### OpenAI
+
+The governed OpenAI lane cost five millionths of a dollar more than the raw lane. For this run, governance was effectively cost-neutral.
+
+### Anthropic
+
+The governed Anthropic lane cost less than the raw lane because it used substantially fewer output tokens while still producing the same normalized admissible result.
+
+This is a single observed run. It does not establish that governance will always reduce Anthropic cost.
+
+## 6. Bounded reconstruction comparisons
+
+Because all five lanes produced the same normalized admissible outcome for this reconstruction task, the experiment permits a bounded matched-operation comparison between each provider lane and StegVerse-only reconstruction.
+
+| Provider lane | Provider / StegVerse cost ratio | Matched-operation modeled reduction |
+|---|---:|---:|
+| OpenAI raw | 2,383,015.598× | 99.999958% |
+| OpenAI governed | 2,384,748.700× | 99.999958% |
+| Anthropic raw | 3,693,587.522× | 99.999973% |
+| Anthropic governed | 2,466,551.127× | 99.999959% |
+
+The calculation is:
 
 ```text
-modeled operation-level reduction = 80%
+matched_operation_reduction
+= 1 - (StegVerse_only_cost / provider_lane_cost)
 ```
 
-The phrase **operation-level modeled reduction** must be retained. It must not be converted into a company-wide savings percentage or universal ROI.
+These very large ratios result from comparing a tiny deterministic local reconstruction against paid foundation-model generation for an already-defined state transition.
 
-## 9. Why governance is important
+They must not be generalized to:
 
-Governance is important because model generation alone does not establish:
+- open-ended reasoning;
+- fresh inference;
+- research discovery;
+- all enterprise workloads;
+- company-wide ROI.
 
-- execution authority;
-- admissibility;
-- continuity;
-- policy compliance;
-- evidence sufficiency;
-- reconstructability;
-- recovery capability;
-- safe cross-boundary effect.
+## 7. What the result establishes
 
-StegVerse adds a transition boundary between reasoning and commitment. This allows a system to preserve useful model capability while denying, quarantining, or reviewing an unsafe or unsupported action.
+This experiment establishes that:
 
-## 10. Why governance is available
+- one provider-neutral five-lane harness can execute a common task;
+- admissibility can be enforced before cost selection;
+- all five lanes can produce the same normalized governed-state result;
+- governance overhead can be close to zero or negative at the provider-call level, depending on provider output behavior;
+- deterministic reconstruction can be materially cheaper when reconstruction, rather than fresh inference, is the correct operation;
+- cost should be reported per successful equivalent admissible outcome rather than per raw attempt or token count alone.
 
-The live provider comparison demonstrated a capability-resolved four-lane execution path across OpenAI and Anthropic.
+## 8. What the result does not establish
 
-The request surface declared a capability class, quality tier, and cost posture rather than requiring the user to select provider-specific model identifiers. Credentials were delivered through the governed environment, provider routes were resolved at runtime, and no credential values were written into the route-resolution receipt.
+This experiment does not establish that:
 
-The successful bounded run executed twenty observations across four provider lanes, with five events per lane. All four lanes returned valid JSON for every event and preserved task identity for every event.
+- StegVerse replaces foundation models for fresh reasoning or discovery;
+- savings generalize across providers, tasks, workloads, or organizations;
+- the declared provider costs equal reconciled invoices;
+- enterprise integration, support, licensing, engineering, compliance, and transition costs are included;
+- the Anthropic governed reduction will repeat in future runs;
+- matched-operation reduction equals enterprise ROI.
 
-This demonstrates technical availability of a provider-neutral governance path. It does not by itself establish outcome equivalence, universal savings, or customer ROI.
+## 9. Reconstructable-governance interpretation
 
-## 11. Why governance is adoptable
+The comparison unit is not merely a provider response. It is a successful equivalent admissible outcome with preserved task identity, ordered decisions, state continuity, and retained evidence.
 
-StegVerse does not require an organization to replace every provider or migrate every workload at once.
+The cheapest observed run is not automatically the cheapest admissible run. Cost selection occurs only after task, state, decision-sequence, and evidence gates pass.
 
-Adoption can begin with bounded transitions where one or more of the following are valuable:
+For this task, StegVerse-only did not generate a new answer from an open-ended model. It deterministically reconstructed the admissible successor state from the task contract.
 
-- high cost of erroneous execution;
-- repeated provider reruns;
-- strong evidence requirements;
-- regulated or cross-boundary consequences;
-- recovery and replay needs;
-- authority ambiguity;
-- expensive human review;
-- material incident or correction exposure.
+That distinction is the basis for both the safety claim and the bounded cost comparison.
 
-The benchmark 5:1 relationship provides a planning basis for examining whether governance can economically prevent or replace a provider operation. It does not determine how much of a company's workload is replaceable or preventable.
+## 10. Conclusion
 
-For a customer-specific analysis:
+The five-lane experiment completed with all lanes successful, equivalent, and admissible.
 
-```text
-net customer benefit
-= preventable_or_replaceable_provider_cost
-- StegVerse_governance_cost
-- integration_and_operating_cost
-```
+- OpenAI raw: `$0.006875`
+- OpenAI governed: `$0.006880`
+- Anthropic raw: `$0.010656`
+- Anthropic governed: `$0.007116`
+- StegVerse-only: `$0.000000002885`
 
-The customer's own provider spend, workload mix, failure rates, review burden, incident costs, and infrastructure costs are required to calculate company-specific impact.
+OpenAI governance was approximately cost-neutral in the observed pair. Anthropic governance produced a `33.22%` declared-rate reduction in the observed pair. StegVerse-only deterministic reconstruction was the lowest-cost admissible lane.
 
-## 12. Why governance is safer
+The evidence supports a narrow but important conclusion:
 
-StegVerse is safer when it can demonstrate that:
+> Reconstructable governance can be technically available, provider-neutral, admissibility-preserving, and economically negligible or advantageous for bounded state reconstruction.
 
-- reasoning did not automatically become execution;
-- task identity remained stable;
-- authority was explicit and bounded;
-- invalid transitions were denied before commitment;
-- evidence and policy references were retained;
-- receipts were tamper-evident;
-- prior state and successor state were reconstructable;
-- recovery did not require repeating an unsafe or expensive operation;
-- missing evidence failed closed rather than being silently treated as success.
+Broader provider-profit, enterprise ROI, and fresh-inference claims require separate held-out tasks, repeated trials, invoice reconciliation, and fully burdened operating-cost analysis.
 
-Safety is therefore not inferred from a provider name, model ranking, or lower token count. It is demonstrated through reconstructable transition evidence.
+## Evidence and reproducibility
 
-## 13. Current evidence and claim boundary
-
-The current evidence supports these statements:
-
-- a deterministic synthetic stream-governance pilot was executed over 10,000 events;
-- the synthetic calibration produced a modeled native-to-governed ratio of approximately 4.072658×;
-- the synthetic replay comparison produced a modeled replay-versus-reexecution ratio of 500×;
-- a live capability-resolved OpenAI/Anthropic test completed across four provider lanes;
-- the live run preserved provider usage, latency, response hashes, response identifiers, and task-identity evidence;
-- the live run produced valid JSON and preserved task identity in all twenty observations.
-
-The synthetic ratios are mechanism evidence. They are not production ROI.
-
-The live four-lane test is execution and evidence-path proof. It does not yet prove:
-
-- independent quality equivalence among all outputs;
-- exact provider invoice cost for every observation;
-- fully burdened StegVerse operating cost;
-- a universal savings percentage;
-- a customer-specific ROI.
-
-## 14. Publication language
-
-The recommended public statement is:
-
-> StegVerse provides reconstructable governance rather than foundation-model generation. Its value is demonstrated through admissible successor-state determination, evidence preservation, execution prevention, replay, reconstruction, and recovery. Under the benchmark scenario, a comparable provider operation costs approximately five times the StegVerse governance operation. Where governance safely prevents, replaces, replays, or reconstructs that provider operation, this represents an operation-level modeled cost reduction of up to 80%. Where governance supplements an execution that still occurs, its value must instead be measured through avoided failures, retries, incidents, review, rework, and recovery costs. These benchmark results demonstrate technical availability, incremental adoptability, and a safer operating posture; they do not represent a universal company-wide ROI. Customer financial impact is calculated using that organization's actual workload and financial data.
-
-## 15. Conclusion
-
-The five-lane analysis must preserve two inseparable findings.
-
-First, StegVerse is reconstructable governance. Its primary value is the ability to govern transitions, preserve authority and evidence, prevent invalid execution, and replay or reconstruct governed outcomes.
-
-Second, governance must be economically usable. A bounded comparison in which provider execution costs approximately five times the corresponding StegVerse governance operation provides a concrete adoption model. Where the governance operation safely replaces or prevents the full provider operation, the modeled operation-level reduction can reach 80%. Where governance supplements execution, its value must be measured through operational risk and lifecycle effects rather than immediate token savings.
-
-Together, these findings explain why StegVerse governance is important, available, adoptable, and safer.
+- Canonical result: `experiments/sv-cost-program/five-lane-results/results/five_lane_results.json`
+- Evidence repository: `GCAT-BCAT-Engine/workflows`
+- Evidence commit: `3720211a1cfaaf2db697f3e26194d083db21e94f`
+- Task-contract hash: `sha256:2e9b4a4193669b6d8f1d3fea8639d2adcee6090c58246b8b99920ba2f08dfb6b`
+- Normalized outcome hash: `sha256:155869baaef4bd023ad95e63c6a81d6ade921e92660cec351680e1aabd4d2597`
+- Price-card status: `VERSIONED_DECLARED_RATE_NOT_INVOICE_RECONCILED`
+- Publication gate: `RESULTS_READY_FOR_BOUNDED_PUBLICATION`
