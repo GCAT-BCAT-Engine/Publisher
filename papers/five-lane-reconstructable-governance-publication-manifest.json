@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "publication_id": "SV-COST-FIVE-LANE-PUBLICATION-001",
+  "experiment_id": "SV-COST-FIVE-LANE-RESULTS-001",
+  "task_id": "SV-RECON-001",
+  "operation_class": "governed_state_reconstruction",
+  "comparison_unit": "successful equivalent admissible outcome",
+  "publication_status": "RESULTS_READY_FOR_BOUNDED_PUBLICATION",
+  "artifact_state": "BUILD_PENDING",
+  "canonical_sources": {
+    "result_repository": "GCAT-BCAT-Engine/workflows",
+    "result_path": "experiments/sv-cost-program/five-lane-results/results/five_lane_results.json",
+    "result_commit": "3720211a1cfaaf2db697f3e26194d083db21e94f",
+    "paper_path": "papers/five-lane-reconstructable-governance-analysis.md",
+    "paper_commit": "0b897f782e72f76c4f7c6beb596c45bbe9d56b11",
+    "site_repository": "StegVerse-Labs/Site",
+    "site_path": "papers/sv-cost-relational-analysis.html",
+    "site_projection_commit": "9d4205f665956a01ea82e35abd098ecb9e814656"
+  },
+  "task_contract_hash": "sha256:2e9b4a4193669b6d8f1d3fea8639d2adcee6090c58246b8b99920ba2f08dfb6b",
+  "normalized_outcome_hash": "sha256:155869baaef4bd023ad95e63c6a81d6ade921e92660cec351680e1aabd4d2597",
+  "price_card_status": "VERSIONED_DECLARED_RATE_NOT_INVOICE_RECONCILED",
+  "lanes": [
+    {
+      "lane": "OpenAI raw",
+      "input_tokens": 307,
+      "output_tokens": 178,
+      "latency_seconds": 3.424027735,
+      "cost_usd": 0.006875,
+      "status": "PASS"
+    },
+    {
+      "lane": "OpenAI governed",
+      "input_tokens": 326,
+      "output_tokens": 175,
+      "latency_seconds": 2.867607194,
+      "cost_usd": 0.00688,
+      "status": "PASS"
+    },
+    {
+      "lane": "Anthropic raw",
+      "input_tokens": 362,
+      "output_tokens": 638,
+      "latency_seconds": 7.939445812,
+      "cost_usd": 0.010656,
+      "status": "PASS"
+    },
+    {
+      "lane": "Anthropic governed",
+      "input_tokens": 382,
+      "output_tokens": 398,
+      "latency_seconds": 5.459360124,
+      "cost_usd": 0.007116,
+      "status": "PASS"
+    },
+    {
+      "lane": "StegVerse-only deterministic reconstruction",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "latency_seconds": 0.000000461,
+      "cost_usd": 0.000000002885,
+      "status": "PASS"
+    }
+  ],
+  "pair_findings": {
+    "openai_governed_delta_percent": 0.072727,
+    "anthropic_governed_delta_percent": -33.220721
+  },
+  "claim_boundary": "One bounded deterministic reconstruction operation; no universal provider economics, invoice-reconciled provider charges, enterprise-wide savings, company ROI, or fresh-inference equivalence.",
+  "linkedin_pdf": {
+    "path": "artifacts/five-lane-reconstructable-governance/StegVerse_Five_Lane_Cost_Results_LinkedIn.pdf",
+    "validation_receipt_path": "artifacts/five-lane-reconstructable-governance/pdf-validation-receipt.json",
+    "sha256": null,
+    "bytes": null,
+    "pages": null,
+    "build_workflow": ".github/workflows/build-sv-cost-five-lane-linkedin-pdf.yml"
+  },
+  "linkedin_copy_path": "papers/five-lane-reconstructable-governance-linkedin-post.md"
+}
