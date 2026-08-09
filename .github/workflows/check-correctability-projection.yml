@@ -1,0 +1,25 @@
+name: Check Correctability Projection
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - data/correctability-projection.json
+      - scripts/check_correctability_projection.py
+      - .github/workflows/check-correctability-projection.yml
+      - PUBLISHER_MIRROR_HANDOFF.md
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Validate bounded correctability projection
+        run: python scripts/check_correctability_projection.py
