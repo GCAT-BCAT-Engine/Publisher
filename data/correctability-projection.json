@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "stegverse.correctability.publisher_projection",
+  "source_repository": "StegVerse-Labs/StegCore",
+  "source_goal": "CORRECTABILITY-LAYER-001",
+  "source_handoff": "docs/CORRECTABILITY_LAYER_MIRROR_HANDOFF.md",
+  "source_validation": {
+    "workflow_run_id": 30774680694,
+    "job_id": 91567818006,
+    "head_sha": "21cf5ddfe3f58da270718b4c627a2f56adb580eb",
+    "fixture_count": 10,
+    "passed_count": 10,
+    "artifact_id": 8841612361,
+    "artifact_digest": "sha256:030f22b998a6f9c382db5463a4cc55f6d70132d5dd20d880778b5efda9844536"
+  },
+  "semantics": {
+    "timely_correction_requires_valid_authority": true,
+    "timely_correction_requires_reachable_pathway": true,
+    "timely_correction_requires_enforceable_intervention": true,
+    "late_request_is_not_timely_correction": true,
+    "post_irreversibility_compensation_is_distinct_from_prevention": true,
+    "allowed_interventions": [
+      "pause",
+      "deny",
+      "revoke",
+      "quarantine",
+      "rollback",
+      "redirect",
+      "supersede",
+      "compensate",
+      "escalate"
+    ]
+  },
+  "publisher_effect": {
+    "state": "VERIFIED_SOURCE_SEMANTICS_PROJECTED",
+    "publication_authorized": false,
+    "release_authorized": false,
+    "custody_recorded": false,
+    "execution_authorized": false,
+    "guardian_authority": false,
+    "admissibility_authority": false
+  },
+  "manual_user_action_required": false
+}
