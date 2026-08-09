@@ -93,6 +93,38 @@ The previous references to `StegVerse-Labs/stegguardian-wiki` and `StegVerse-Lab
 
 The earlier SPE v0.5.0 status remains recorded and is not superseded by this activation consumer. Its downstream wiki boundaries remain valid independently.
 
+## Correctability projection — COMPLETE AND HOSTED-VALIDATED
+
+Canonical source: `StegVerse-Labs/StegCore`, goal `CORRECTABILITY-LAYER-001`.
+
+Installed target-native surfaces:
+
+```text
+data/correctability-projection.json
+scripts/check_correctability_projection.py
+.github/workflows/check-correctability-projection.yml
+```
+
+The projection preserves the validated source semantics that timely correction requires valid authority, reachability and enforceability; a request after the irreversible boundary is not timely correction; and post-irreversibility compensation is distinct from prevention. The target projection also preserves the bounded intervention vocabulary and keeps publication, release, custody, execution, Guardian and admissibility authority false.
+
+Hosted target validation:
+
+```text
+workflow: Check Correctability Projection
+run_id: 31290000111
+job_id: 93185432929
+head_sha: 0c6f5d3958151306c1bdf84d081fa5f2a252b8dd
+status: completed
+conclusion: success
+validation_step: Validate bounded correctability projection
+validation_step_result: success
+source_workflow_run: 30774680694
+source_artifact: 8841612361
+source_artifact_digest: sha256:030f22b998a6f9c382db5463a4cc55f6d70132d5dd20d880778b5efda9844536
+```
+
+Correctability propagation state for Publisher is therefore `COMPLETE_VALIDATED`. This does not imply publication authority or Site activation and does not alter the separate Ecosystem Chat activation dependency chain.
+
 ## Autonomous adjacent-construction ownership
 
 Publisher now owns the no-manual-action bootstrap for the StegPay/StegOps two-generation construction goal.
@@ -162,4 +194,4 @@ No release tag is authorized by this handoff.
 
 ## Archive readiness
 
-This handoff, the Site handoffs, Publisher importer, autonomous adjacent-construction bootstrap, downstream consumer handoffs, workflows, projection records, issues, and repository history preserve all continuation state. Earlier conversation context is not required and no manual user task remains. The active two-generation goal remains open until both target-owned receipts validate.
+This handoff, the Site handoffs, Publisher importer, validated correctability projection, autonomous adjacent-construction bootstrap, downstream consumer handoffs, workflows, projection records, issues, and repository history preserve all continuation state. Earlier conversation context is not required and no manual user task remains. The active two-generation goal remains open until both target-owned receipts validate.
