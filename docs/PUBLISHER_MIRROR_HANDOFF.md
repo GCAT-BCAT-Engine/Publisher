@@ -163,6 +163,21 @@ goal_activation: 78%
 
 The denominator covers the sandbox profile, runner, report validator, bounded activation validator, adoption validator, Site acquisition, Site validator, workflow integration, PR validation, artifact inspection, merge receipt, main-branch validation, and final Site-ready consumption.
 
+## Session-specific publication artifacts
+
+The AI-authorship / human-machine provenance subject now includes the short story `The Seam` as a durable publication artifact:
+
+```text
+artifact: papers/the-seam.md
+subject: AI authorship, provenance, attribution, stylistic inference, and human-machine identity
+source: user-provided story preserved without substantive editing
+state: INSTALLED_ON_MAIN
+creation_commit: 9a6274c621c41b1ab4bd8b48392c4fa3b7858160
+validation: fetched successfully from main after creation
+```
+
+This supporting publication artifact does not alter the active ST-017 activation denominator or grant publication, execution, custody, or admissibility authority.
+
 ## Archive conditions
 
 Do not archive while any of the following remains:
