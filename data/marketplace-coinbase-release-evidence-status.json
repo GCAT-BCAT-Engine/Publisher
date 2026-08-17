@@ -12,7 +12,7 @@
   },
   "execution_authorized": false,
   "failures": [],
-  "generated_at": "2026-08-17T09:55:47.826588Z",
+  "generated_at": "2026-08-17T10:47:19.908349Z",
   "live_authority_granted": false,
   "manual_user_action_required": false,
   "paper_release_verified": true,
@@ -42,5 +42,5 @@
     }
   },
   "status": "VERIFIED",
-  "status_digest": "sha256:6ae9ca6403f832e2a4fd347b0898e58867bcb66afc7fb28fb5dba898b60125cf"
+  "status_digest": "sha256:a5e524fa70de5d2e817f4e0c6e7dca28d30882c674c839ad562a3bf2154fb02a"
 }
