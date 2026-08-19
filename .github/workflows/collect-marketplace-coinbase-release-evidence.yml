@@ -1,110 +1,24 @@
-name: Collect Marketplace Coinbase Release Evidence
+name: Collect Marketplace Coinbase Release Evidence [CONTAINED — TV/TVC SOURCE AUTHORITY REQUIRED]
 
 on:
-  schedule:
-    - cron: '17 * * * *'
-  workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'scripts/collect_marketplace_coinbase_release_evidence.py'
-      - 'scripts/verify_marketplace_coinbase_connected_relay.py'
-      - 'tests/test_marketplace_coinbase_release_evidence_collector.py'
-      - 'tests/test_marketplace_coinbase_connected_relay.py'
-      - 'data/marketplace-coinbase-connected-relay.json'
-      - 'data/marketplace-coinbase-publications/**'
-      - '.github/workflows/collect-marketplace-coinbase-release-evidence.yml'
+  workflow_dispatch: {}
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: marketplace-coinbase-release-evidence
-  cancel-in-progress: true
+  group: marketplace-release-evidence-contained
+  cancel-in-progress: false
 
 jobs:
-  collect:
+  contained:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Checkout Publisher
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: true
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install tests
-        run: pip install pytest
-
-      - name: Verify collector boundaries
+      - name: Block private evidence credential and status mutation path
+        shell: bash
         run: |
-          pytest -q \
-            tests/test_marketplace_coinbase_release_evidence_collector.py \
-            tests/test_marketplace_coinbase_connected_relay.py
-
-      - name: Verify connected GitHub relay
-        id: relay
-        run: |
-          set +e
-          python scripts/verify_marketplace_coinbase_connected_relay.py
-          code=$?
-          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
-          if [ "$code" -eq 0 ]; then
-            echo "verified=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "verified=false" >> "$GITHUB_OUTPUT"
-          fi
-          exit 0
-
-      - name: Collect and verify private-repository evidence
-        id: collect
-        if: steps.relay.outputs.exit_code == '3'
-        env:
-          MARKETPLACE_COINBASE_EVIDENCE_TOKEN: ${{ secrets.MARKETPLACE_COINBASE_EVIDENCE_TOKEN }}
-        run: |
-          set +e
-          python scripts/collect_marketplace_coinbase_release_evidence.py
-          code=$?
-          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
-          exit 0
-
-      - name: Remove private source artifacts from workspace
-        if: always()
-        run: rm -rf data/marketplace-coinbase-release-evidence/
-
-      - name: Commit changed evidence status only
-        if: github.event_name != 'workflow_dispatch'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/marketplace-coinbase-release-evidence-status.json
-          if git diff --cached --quiet; then
-            echo "No Marketplace Coinbase evidence-status change."
-            exit 0
-          fi
-          git commit -m "chore: update Marketplace Coinbase release evidence status [skip ci]"
-          git pull --rebase
-          git push
-
-      - name: Preserve manual dispatch as validation-only
-        if: github.event_name == 'workflow_dispatch'
-        run: echo "Manual dispatch validates and uploads only the bounded status record; it does not persist repository state."
-
-      - name: Upload bounded evidence status
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: marketplace-coinbase-release-evidence-status-${{ github.run_id }}-${{ github.run_attempt }}
-          path: data/marketplace-coinbase-release-evidence-status.json
-          if-no-files-found: error
-          retention-days: 30
-
-      - name: Fail after preserving rejected evidence
-        if: steps.relay.outputs.exit_code == '1' || steps.collect.outputs.exit_code == '1'
-        run: |
-          echo "Marketplace Coinbase evidence verification was rejected; bounded status was preserved."
+          set -euo pipefail
+          echo "::error::Marketplace release-evidence collection is contained because the prior workflow directly consumed a private evidence token and committed evidence-status state under GitHub Actions authority."
+          echo "Private evidence must be materialized through TV/TVC exact-source authority; Publisher may validate secret-free evidence, while durable status mutation requires separately admitted authority."
           exit 1
