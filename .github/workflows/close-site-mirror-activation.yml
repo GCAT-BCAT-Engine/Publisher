@@ -1,87 +1,24 @@
-name: Close Site Mirror Activation
+name: Close Site Mirror Activation [CONTAINED — TV/TVC MUTATION AUTHORITY REQUIRED]
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: "41 */6 * * *"
-  workflow_run:
-    workflows:
-      - "Dispatch Site Paper Mirror"
-    types:
-      - completed
-  push:
-    branches:
-      - main
-    paths:
-      - "docs/verification-tracker.md"
-      - "docs/activation-status.md"
-      - "docs/PUBLISHER_MIRROR_HANDOFF.md"
-      - "docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md"
-      - "docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md"
-      - "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md"
-      - "docs/PUBLISHER_SELF_MANAGED_COMPLETION.md"
-      - "tools/close_site_mirror_activation.py"
-      - "tools/check_publisher_mirror_handoff.py"
-      - "tools/check_mirror_ecosystem_management_handoff.py"
-      - "tools/check_publisher_closure_evidence_production.py"
-      - "tools/check_publisher_self_managed_completion.py"
-      - ".github/workflows/close-site-mirror-activation.yml"
-      - ".github/workflows/dispatch-site-mirror.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publisher-site-mirror-closure-contained
+  cancel-in-progress: false
 
 jobs:
-  close-activation:
-    name: Close activation from Publisher and Site evidence artifacts
+  contained:
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
-      actions: read
-
-    env:
-      GH_TOKEN: ${{ secrets.SITE_MIRROR_DISPATCH_TOKEN || github.token }}
-      CLOSURE_ATTEMPTS: "10"
-      CLOSURE_SLEEP_SECONDS: "45"
-      MAX_ARTIFACT_AGE_HOURS: "48"
-      ORDER_GRACE_MINUTES: "5"
-
+    timeout-minutes: 5
     steps:
-      - name: Checkout Publisher
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Check Publisher mirror handoff
-        run: python tools/check_publisher_mirror_handoff.py
-
-      - name: Check ecosystem management handoff
-        run: python tools/check_mirror_ecosystem_management_handoff.py
-
-      - name: Check Publisher closure evidence production
-        run: python tools/check_publisher_closure_evidence_production.py
-
-      - name: Check Publisher self-managed completion
-        run: python tools/check_publisher_self_managed_completion.py
-
-      - name: Run activation closure updater
-        run: python tools/close_site_mirror_activation.py
-
-      - name: Commit activation closure when changed
+      - name: Block GitHub-token activation mutation
+        shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          mkdir -p docs/mirror-activation-closures
-          git add docs/verification-tracker.md docs/activation-status.md docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md docs/PUBLISHER_CLOSURE_EVIDENCE_PRODUCTION.md docs/PUBLISHER_PENDING_CLOSURE_STATUS.md docs/PUBLISHER_SELF_MANAGED_COMPLETION.md tools/close_site_mirror_activation.py tools/check_publisher_mirror_handoff.py tools/check_mirror_ecosystem_management_handoff.py tools/check_publisher_closure_evidence_production.py tools/check_publisher_self_managed_completion.py .github/workflows/close-site-mirror-activation.yml
-          if ls docs/mirror-activation-closures/*.json >/dev/null 2>&1; then
-            git add docs/mirror-activation-closures/*.json
-          fi
-
-          if git diff --cached --quiet; then
-            echo "No activation closure changes to commit. Evidence may still be pending."
-          else
-            git commit -m "Close Publisher-to-Site mirror activation from evidence"
-            git push
-          fi
+          set -euo pipefail
+          echo "::error::Publisher-to-Site activation closure is contained because the prior workflow used a repository secret or github.token and directly committed activation/closure state."
+          echo "Fresh ordered evidence remains necessary but is not sufficient authority. Closure/activation mutation requires separately admitted TV/TVC authority and an attributable closure receipt."
+          exit 1
