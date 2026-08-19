@@ -1,34 +1,24 @@
-name: Publisher Sync — AaCT-E Integration
+name: Publisher Sync — AaCT-E Integration [CONTAINED — TV/TVC SOURCE AUTHORITY REQUIRED]
 
 on:
-  schedule:
-    - cron: "0 7 * * *"  # Daily at 07:00 UTC (1 hour after AaCT-E CI)
-  workflow_dispatch:
-    inputs:
-      aacte_run_id:
-        description: "Specific AaCT-E CI run ID to sync"
-        required: false
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publisher-sync-contained
+  cancel-in-progress: false
 
 jobs:
-  sync:
+  contained:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Checkout Publisher
-        uses: actions/checkout@v4
-
-      - name: Download latest AaCT-E status artifact
+      - name: Block legacy artifact credential path
+        shell: bash
         run: |
-          # Download from AaCT-E CI artifacts
-          # This requires GitHub API token with repo access
-          curl -L             -H "Authorization: token ${{ secrets.AACTE_ARTIFACT_TOKEN }}"             -o last_status.json             "https://api.github.com/repos/AaCT-E/demo/actions/artifacts/..."
-
-      - name: Ingest status to dashboard
-        run: python scripts/ingest_aacte_status.py --status-file last_status.json
-
-      - name: Evaluate milestones
-        run: python scripts/social_media_scheduler.py --status-file last_status.json --dry-run
-
-      - name: Archive traces (if tagged release)
-        if: github.ref_type == 'tag'
-        run: |
-          python scripts/archive_traces.py             --traces-dir downloaded_traces/             --tag ${{ github.ref_name }}             --paper-version ${{ vars.CURRENT_PAPER_VERSION }}
+          set -euo pipefail
+          echo "::error::Publisher sync is contained because the prior workflow directly consumed a non-TV/TVC artifact token to fetch cross-repository evidence."
+          echo "Exact private source/artifact materialization must occur through admitted TV/TVC authority and export only secret-free evidence to Publisher."
+          exit 1
