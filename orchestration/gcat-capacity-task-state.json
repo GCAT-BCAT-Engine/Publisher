@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "GCAT-CAP-008",
+  "originating_goal": "Install repository-native validation, receipt generation, collision prevention, and continuation for the GCAT capacity paper workstream.",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "branch": "agent/gcat-capacity-paper",
+  "pull_request": 5,
+  "issue": 6,
+  "handoff": "docs/GCAT_CAPACITY_MIRROR_HANDOFF.md",
+  "state": "MACHINE_OWNED",
+  "role": "repository-native validation and evidence generation",
+  "claimant": "GitHub Actions: Validate GCAT Capacity Paper",
+  "claim_created_at": "2026-08-02T09:53:00Z",
+  "claim_released_at": "2026-08-02T09:58:01Z",
+  "claim_expires_at": "2026-08-09T09:53:00Z",
+  "release_condition": "Session validation claim released after hosted run 30742794894 completed successfully, job logs were inspected, artifact 8831855719 was downloaded and inspected, and governance/receipts/gcat-capacity-hosted-validation-2026-08-02.json was committed.",
+  "collision_key": "GCAT-BCAT-Engine/Publisher:agent/gcat-capacity-paper:validation",
+  "collision_boundaries": [
+    "Do not rewrite simulation, sensitivity, figure, bibliography, or paper theory files except to repair validator-detected defects.",
+    "Do not alter Publisher activation, Site state, wiki propagation, release, deployment, or publication authority.",
+    "Do not duplicate PR #5 implementation ownership.",
+    "Do not mark publication-ready without mathematical, source, case, and publication-build evidence."
+  ],
+  "deterministic_inputs": [
+    "data/gcat_capacity_scenarios.json",
+    "data/gcat_capacity_sensitivity.json",
+    "models/gcat_capacity_model.json",
+    "papers/GCAT-BCAT/P14_GCAT_Capacity_Stability_v1.md",
+    "papers/GCAT-BCAT/references/gcat_capacity_primary_sources.bib",
+    "papers/GCAT-BCAT/sections/P14_related_work_v1.md",
+    "papers/GCAT-BCAT/sections/P14_case_study_v1.md",
+    "docs/gcat-capacity-case-evidence-note.md"
+  ],
+  "deterministic_outputs": [
+    "generated/gcat-capacity/manifest.json",
+    "generated/gcat-capacity-sensitivity/manifest.json",
+    "generated/gcat-capacity-timeseries/manifest.json",
+    "reports/gcat-capacity-runtime-receipt.json",
+    "gcat-capacity-validation workflow artifact"
+  ],
+  "required_states": ["COMPLETE", "BLOCKED", "RETRY", "REVIEW_REQUIRED", "FAILED", "CLAIMED", "SUPERSEDED", "MERGED"],
+  "current_result": "REVIEW_REQUIRED",
+  "validation": {
+    "static": "passed",
+    "unit": "passed",
+    "integration": "passed",
+    "hosted_workflow": "passed",
+    "artifact_inspection": "passed",
+    "publication_readiness": "blocked"
+  },
+  "evidence": {
+    "workflow_run_id": 30742794894,
+    "job_id": 91483095215,
+    "artifact_id": 8831855719,
+    "artifact_sha256": "1426cf1aaa0821a5ec1e3b7bef7cba35552f8fca976268100422edea8b25307c",
+    "receipt": "governance/receipts/gcat-capacity-hosted-validation-2026-08-02.json"
+  },
+  "blocked_conditions": [
+    {
+      "condition": "Independent mathematical review is absent.",
+      "owner": "Issue #6 mathematical-review lane",
+      "release_event": "A committed review receipt identifies scope, equations checked, findings, and disposition."
+    },
+    {
+      "condition": "Final source metadata verification is absent.",
+      "owner": "Issue #6 source-review lane",
+      "release_event": "A committed source-review receipt confirms publisher or DOI metadata."
+    },
+    {
+      "condition": "Reviewed LaTeX and PDF artifacts are absent.",
+      "owner": "Issue #6 publication-build lane",
+      "release_event": "Reviewed LaTeX source and generated PDF are committed with build and inspection receipts."
+    }
+  ],
+  "next_executable_task": "Issue #6 publication-build lane creates reviewed LaTeX only after mathematical and source review dispositions are recorded.",
+  "archive_condition": "Satisfied for this session: all session-specific requirements, evidence, ownership, blockers, and continuation instructions are durably recorded in the inventory, handoff, PR #5, Issue #6, workflow, and receipts."
+}

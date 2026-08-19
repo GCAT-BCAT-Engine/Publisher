@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "receipt_id": "gcat-capacity-hosted-validation-2026-08-02",
+  "task_id": "GCAT-CAP-008",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "branch": "agent/gcat-capacity-paper",
+  "pull_request": 5,
+  "validated_head_sha": "f28dc041eb2b95dcdb308a3a6526cca9590be168",
+  "pull_request_merge_sha": "0e036d9fffa3b5364f324cbcd5fe0cebc8d18623",
+  "workflow": {
+    "name": "Validate GCAT Capacity Paper",
+    "run_id": 30742794894,
+    "run_number": 4,
+    "status": "completed",
+    "conclusion": "success",
+    "job_id": 91483095215,
+    "job_name": "Generate and validate synthetic GCAT artifacts"
+  },
+  "validated_steps": [
+    {"name": "Validate task inventory and claim", "result": "PASS"},
+    {"name": "Generate scenario outputs", "result": "PASS"},
+    {"name": "Validate scenario outputs", "result": "PASS"},
+    {"name": "Generate sensitivity outputs and regime map", "result": "PASS"},
+    {"name": "Validate sensitivity outputs", "result": "PASS"},
+    {"name": "Generate time-series figures", "result": "PASS"},
+    {"name": "Validate time-series figures", "result": "PASS"},
+    {"name": "Validate bibliography and claim boundaries", "result": "PASS"},
+    {"name": "Write successful runtime receipt", "result": "PASS"},
+    {"name": "Upload validation evidence", "result": "PASS"}
+  ],
+  "artifact": {
+    "id": 8831855719,
+    "name": "gcat-capacity-validation",
+    "size_bytes": 337293,
+    "file_count": 23,
+    "zip_sha256": "1426cf1aaa0821a5ec1e3b7bef7cba35552f8fca976268100422edea8b25307c",
+    "expires_at": "2026-09-01T09:58:00Z",
+    "inspected": true
+  },
+  "generated_manifest_evidence": [
+    {
+      "path": "generated/gcat-capacity/manifest.json",
+      "sha256": "1dfde29327a2fe616ba0e5a18489406ddc70b002cea2a9deb8e5e972c542b2f8"
+    },
+    {
+      "path": "generated/gcat-capacity-sensitivity/manifest.json",
+      "sha256": "4d7be7ec6770c21c1ff92a0e928cd167150c4ea073cf0e9675fbc418fbb9443f"
+    },
+    {
+      "path": "generated/gcat-capacity-timeseries/manifest.json",
+      "sha256": "60ededa33dd92bf5f1fb43f491066f46e84e00c8d9248808f77547ca90ae1448"
+    }
+  ],
+  "scenario_evidence": {
+    "balanced_adaptation": {"maximum_omega": 0.829104, "first_overload_time": null},
+    "delayed_intervention": {"maximum_omega": 0.937190, "first_overload_time": null},
+    "constraint_heavy_fragility": {"maximum_omega": 7.750136, "first_overload_time": 4.9},
+    "bounded_recovery_failure": {"maximum_omega": 27.988966, "first_overload_time": 1.0}
+  },
+  "sensitivity_evidence": {
+    "regime_rows": 3074,
+    "governable_states": 822,
+    "overload_states": 2252,
+    "elasticity_rows": 45,
+    "production_function_comparison_rows": 25,
+    "minimum_omega": 0.128879,
+    "maximum_omega": 5.770800
+  },
+  "claim_boundary": [
+    "This receipt proves repository-local synthetic generation and validator success only.",
+    "It does not prove empirical calibration, independent mathematical review, publication readiness, release, deployment, or downstream activation.",
+    "Omega > 1 remains a modeled overload classification and is not automatic proof of drift."
+  ],
+  "result": "COMPLETE",
+  "next_state": "REVIEW_REQUIRED",
+  "remaining_owners": {
+    "mathematical_review": "Publisher Issue #6 mathematical-review lane",
+    "case_provenance": "docs/gcat-capacity-case-evidence-note.md and Publisher Issue #6 evidence-review lane",
+    "latex_pdf_build": "Publisher Issue #6 publication-build lane",
+    "bibliography_metadata": "Publisher Issue #6 source-review lane"
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "schema_version": "1.0.0",
+  "inventory_id": "gcat-capacity-session-goals-2026-08-02",
+  "originating_session_goal": "Develop and durably transfer a publication-grade GCAT capacity-based stability paper, reproducible simulations, figures, case study, validation, and continuation controls.",
+  "canonical_continuation": {
+    "repository": "GCAT-BCAT-Engine/Publisher",
+    "branch": "agent/gcat-capacity-paper",
+    "handoff": "docs/GCAT_CAPACITY_MIRROR_HANDOFF.md",
+    "pull_request": 5,
+    "issue": 6,
+    "workflow": ".github/workflows/validate-gcat-capacity-paper.yml"
+  },
+  "goals": [
+    {
+      "task_id": "GCAT-CAP-001",
+      "goal": "Formal capacity-based governance model and bounded claim language",
+      "destination": "papers/GCAT-BCAT/P14_GCAT_Capacity_Stability_v1.md",
+      "owner": "PR #5 implementation lane",
+      "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
+      "completion_state": "implemented",
+      "validation_state": "repository validators passed; independent mathematical review pending",
+      "integration_state": "draft PR #5",
+      "archival_dependency": false,
+      "evidence": ["models/gcat_capacity_model.json", "governance/receipts/gcat-capacity-hosted-validation-2026-08-02.json"],
+      "next_action": "Issue #6 mathematical-review lane commits a review disposition."
+    },
+    {
+      "task_id": "GCAT-CAP-002",
+      "goal": "Positivity-preserving simulations and declared scenarios",
+      "destination": "tools/gcat_capacity_simulation.py",
+      "owner": "Validate GCAT Capacity Paper workflow",
+      "claim_state": "MACHINE_OWNED",
+      "completion_state": "complete and hosted-validated",
+      "validation_state": "PASS in run 30742794894",
+      "integration_state": "draft PR #5",
+      "archival_dependency": false,
+      "evidence": ["tools/check_gcat_capacity_simulation.py", "artifact 8831855719"],
+      "next_action": "Workflow reruns automatically on relevant changes."
+    },
+    {
+      "task_id": "GCAT-CAP-003",
+      "goal": "Sensitivity analysis and alternative production functions",
+      "destination": "tools/gcat_capacity_sensitivity.py",
+      "owner": "Validate GCAT Capacity Paper workflow",
+      "claim_state": "MACHINE_OWNED",
+      "completion_state": "complete and hosted-validated",
+      "validation_state": "PASS in run 30742794894",
+      "integration_state": "draft PR #5",
+      "archival_dependency": false,
+      "evidence": ["tools/check_gcat_capacity_sensitivity.py", "artifact 8831855719"],
+      "next_action": "Workflow reruns automatically on relevant changes."
+    },
+    {
+      "task_id": "GCAT-CAP-004",
+      "goal": "Publication vector figures",
+      "destination": "tools/gcat_capacity_timeseries.py",
+      "owner": "Validate GCAT Capacity Paper workflow",
+      "claim_state": "MACHINE_OWNED",
+      "completion_state": "complete and hosted-validated",
+      "validation_state": "PASS; four scenario SVGs and regime map inspected",
+      "integration_state": "draft PR #5",
+      "archival_dependency": false,
+      "evidence": ["tools/check_gcat_capacity_timeseries.py", "artifact 8831855719"],
+      "next_action": "Final publication build consumes validated SVG artifacts."
+    },
+    {
+      "task_id": "GCAT-CAP-005",
+      "goal": "Primary-source related work and citation governance",
+      "destination": "papers/GCAT-BCAT/references/gcat_capacity_primary_sources.bib",
+      "owner": "Issue #6 source-review lane",
+      "claim_state": "CLAIMED_FOR_VALIDATION",
+      "completion_state": "implemented and structurally validated",
+      "validation_state": "bibliography validator PASS; publisher metadata verification pending",
+      "integration_state": "draft PR #5",
+      "archival_dependency": false,
+      "evidence": ["docs/gcat-capacity-source-review.md", "governance/receipts/gcat-capacity-hosted-validation-2026-08-02.json"],
+      "next_action": "Commit publisher or DOI metadata verification receipt."
+    },
+    {
+      "task_id": "GCAT-CAP-006",
+      "goal": "Qualified federal IT observational case study",
+      "destination": "papers/GCAT-BCAT/sections/P14_case_study_v1.md",
+      "owner": "Issue #6 evidence-review lane and hosted workflow",
+      "claim_state": "MACHINE_OWNED",
+      "completion_state": "qualified provenance section implemented",
+      "validation_state": "case provenance validator installed; latest workflow result pending on post-receipt head",
+      "integration_state": "draft PR #5",
+      "archival_dependency": false,
+      "evidence": ["docs/gcat-capacity-case-evidence-note.md", "tools/check_gcat_capacity_case_evidence.py"],
+      "next_action": "Hosted workflow validates case boundaries; final assembly uses the qualified section."
+    },
+    {
+      "task_id": "GCAT-CAP-007",
+      "goal": "Reviewed LaTeX and 10-12 page PDF publication artifact",
+      "destination": "papers/GCAT-BCAT/P14_GCAT_Capacity_Stability_v1.tex",
+      "owner": "Issue #6 publication-build lane",
+      "claim_state": "UNCLAIMED",
+      "completion_state": "missing",
+      "validation_state": "not started",
+      "integration_state": "not started",
+      "archival_dependency": false,
+      "evidence": ["Publisher Issue #6", "papers/GCAT-BCAT/README.md"],
+      "next_action": "Create reviewed LaTeX and PDF after math and source-review dispositions."
+    },
+    {
+      "task_id": "GCAT-CAP-008",
+      "goal": "Repository-native validation, receipts, collision prevention, and continuation",
+      "destination": ".github/workflows/validate-gcat-capacity-paper.yml",
+      "owner": "GitHub Actions and Issue #6",
+      "claim_state": "MACHINE_OWNED",
+      "completion_state": "complete",
+      "validation_state": "hosted run, logs, and artifact inspected",
+      "integration_state": "draft PR #5",
+      "archival_dependency": false,
+      "evidence": ["governance/receipts/gcat-capacity-hosted-validation-2026-08-02.json", "orchestration/gcat-capacity-task-state.json"],
+      "next_action": "Repository-native workflow reruns; Issue #6 owns review-required continuation."
+    }
+  ],
+  "adjacent_goals": [
+    {
+      "goal": "Venue positioning and submission claims",
+      "state": "SUPERSEDED",
+      "reason": "No venue submission or publication-readiness claim is authorized before validation, review, and exact artifact generation."
+    },
+    {
+      "goal": "Temporary sandbox PDF bundles V7/V8/final",
+      "state": "SUPERSEDED",
+      "reason": "Temporary chat artifacts were incomplete scaffolds and are superseded by repository-native P14 sources and Issue #6."
+    },
+    {
+      "goal": "Publisher activation and wiki propagation",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+      "canonical_location": "GCAT-BCAT-Engine/Publisher/PUBLISHER_MIRROR_HANDOFF.md",
+      "reason": "GCAT paper work is repository-local and does not own Site or wiki activation authority."
+    }
+  ],
+  "session_consolidation": {
+    "state": "COMPLETE",
+    "transferred_goals": 11,
+    "total_goals": 11,
+    "canonical_owner": "PR #5, Issue #6, docs/GCAT_CAPACITY_MIRROR_HANDOFF.md, and repository-native validation workflow",
+    "archive_ready": true
+  }
+}
