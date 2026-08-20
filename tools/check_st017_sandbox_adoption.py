@@ -46,8 +46,22 @@ def main() -> int:
         for marker in ["COMPLETE", "FAILED", "duplicate_execution_key", "next_executable_task"]:
             if marker not in validator_text:
                 errors.append(f"report_validator_missing:{marker}")
-    if HANDOFF.exists() and "ST-017 Sandbox-First Adoption" not in HANDOFF.read_text(encoding="utf-8"):
-        errors.append("handoff_missing_st017")
+    if HANDOFF.exists():
+        handoff_text = HANDOFF.read_text(encoding="utf-8")
+        # Validate durable semantics instead of coupling CI to a prose heading.
+        # The canonical handoff may be reorganized without invalidating adoption
+        # as long as the active ST-017 goal and installed validation surfaces remain.
+        for marker in [
+            "goal_id: PUBLISHER-ST017-SITE-PROPAGATION-001",
+            "tools/run_sandbox_validation.py",
+            "templates/sandbox-first/publisher.sandbox-profile.json",
+            "tools/check_st017_sandbox_report.py",
+            "tools/check_publisher_st017_activation.py",
+            "tools/check_st017_sandbox_adoption.py",
+            ".github/workflows/validate-governed-ecosystem-awareness.yml",
+        ]:
+            if marker not in handoff_text:
+                errors.append(f"handoff_missing:{marker}")
     if errors:
         print("PUBLISHER ST-017 ADOPTION: FAIL - " + ", ".join(errors))
         return 1
