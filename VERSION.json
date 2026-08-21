@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "component_id": "STEGVERSE-PUBLISHER",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "component_version": "2026.08.21-dev.1",
+  "version_stage": "DEVELOPMENT",
+  "release": {
+    "tag": null,
+    "commit": null,
+    "release_evidence": []
+  },
+  "validated_capabilities": [
+    {
+      "capability_id": "PUBLISHER-ST017-IMPLEMENTATION",
+      "state": "COMPLETE",
+      "merge_commit": "b036613ab7b78ddeead745a10cc87afd63febc74"
+    },
+    {
+      "capability_id": "PUBLISHER-ST017-VALIDATION",
+      "state": "COMPLETE",
+      "workflow_run": 30738849526,
+      "artifact_id": 8830569156,
+      "artifact_digest": "sha256:5cb502751522fd02b2635055c198714ef59387c76e86e8f2bff5b23e90459207"
+    }
+  ],
+  "runtime": {
+    "state": "PENDING",
+    "evidence": [
+      "docs/PUBLISHER_MIRROR_HANDOFF.md",
+      "data/publisher-orchestration-state.json"
+    ],
+    "next_required_state": "SITE_READY_FOR_DOWNSTREAM_INGESTION"
+  },
+  "activation": {
+    "state": "PENDING",
+    "evidence": [
+      "docs/PUBLISHER_PENDING_CLOSURE_STATUS.md"
+    ],
+    "current_projection": "PENDING_SITE_ACTIVATION_AND_FRESH_ORDERED_CLOSURE_EVIDENCE"
+  },
+  "source_of_truth": "docs/PUBLISHER_MIRROR_HANDOFF.md",
+  "version_contract": "StegVerse-Labs/Site:docs/ECOSYSTEM_COMPONENT_VERSION_CONTRACT.md",
+  "authority_effect": "NONE",
+  "publication_authority": false,
+  "release_authority": false,
+  "activation_authority": false
+}
