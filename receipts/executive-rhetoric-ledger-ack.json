@@ -1,22 +1,22 @@
 {
-  "acknowledgment_id": "ACK-PUBLISHER-BC915F288745CBB58287",
+  "acknowledgment_id": "ACK-PUBLISHER-76BBE9555AEC60AEB02C",
   "authority": {
     "owned_by_destination": true,
     "source_may_self_acknowledge": false
   },
-  "destination_commit": "ae44f2f36b85f0275386cda3f8c264145867c4bb",
+  "destination_commit": "05996db1524a62e898d49e156cc44fc42853542e",
   "destination_repository": "GCAT-BCAT-Engine/Publisher",
   "source_publication": {
     "path": "publication/compendium.json",
     "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
-    "sha256": "bc915f288745cbb582871384a5895fabdf26e311a725112d720d120afee58d09"
+    "sha256": "76bbe9555aec60aeb02c283efc146380ebd21f771c91cb731f3892412e4b9ed7"
   },
   "status": "acknowledged",
   "target_path": "publication_inputs/executive-rhetoric-ledger/compendium.json",
   "validation": {
     "content_hash_matches": true,
     "destination_checks_passed": true,
-    "validated_at": "2026-07-20T07:20:00Z",
-    "validator": "publisher-destination-owned-sync"
+    "validated_at": "2026-08-22T14:42:56Z",
+    "validator": "publisher-destination-workflow"
   }
 }
