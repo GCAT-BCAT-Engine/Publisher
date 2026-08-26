@@ -195,3 +195,35 @@ No release tag is authorized by this handoff.
 ## Archive readiness
 
 This handoff, the Site handoffs, Publisher importer, validated correctability projection, autonomous adjacent-construction bootstrap, downstream consumer handoffs, workflows, projection records, issues, and repository history preserve all continuation state. Earlier conversation context is not required and no manual user task remains. The active two-generation goal remains open until both target-owned receipts validate.
+
+
+## Governance Observatory Publication Awareness — issue #29
+
+```text
+task_id: PUBLISHER-GOVOBS-PUBLICATION-AWARENESS-029
+execution_class: PARALLEL_SAFE_NON_AUTHORIZING_AWARENESS
+source: StegVerse-Labs/governance-observatory
+source_publication_merge: 52d9a8f596ade145f5b08e44e98395d328476ecc
+source_publication_state: PUBLISHED
+state: IMPLEMENTED_VALIDATION_PENDING
+manual_user_action_required: false
+```
+
+Installed bounded target-native surfaces:
+
+```text
+data/governance-observatory-publication-awareness.json
+scripts/check_governance_observatory_publication_awareness.py
+.github/workflows/check-governance-observatory-publication-awareness.yml
+```
+
+The projection records only verified publication awareness. It does not alter the machine-owned Site/HIL activation observer and does not create Publisher publication, release, custody, execution, Guardian, or admissibility authority.
+
+```text
+source publication != Publisher publication authority
+projection != custody
+observation != admissibility
+AEGISAI source capture != runtime validation
+```
+
+Completion requires the dedicated target workflow to PASS, merge to main, main-branch PASS, release of this claim, and evidence return to StegVerse-Labs/governance-observatory issue #5.

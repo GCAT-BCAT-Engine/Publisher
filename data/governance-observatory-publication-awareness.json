@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "stegverse.governance_observatory.publisher_publication_awareness",
+  "source_repository": "StegVerse-Labs/governance-observatory",
+  "source_handoff": "docs/GOVERNANCE_OBSERVATORY_MIRROR_HANDOFF.md",
+  "source_publication_receipt": "publication/PUBLICATION_CONFIRMATION_RECEIPT_2026-08-26.md",
+  "source_publication": {
+    "state": "PUBLISHED",
+    "merge_commit": "52d9a8f596ade145f5b08e44e98395d328476ecc",
+    "publication_gate_run": 33023728490,
+    "self_management_readiness_run": 33023728443,
+    "validate_governance_observatory_run": 33023728456,
+    "val_gov_obs_run": 33023728441,
+    "post_merge_verify_run": 33023728465
+  },
+  "target_reconciliation": {
+    "site": "CONFIRMED_EXISTING_TARGET_NATIVE_INTEGRATION",
+    "admissibility_wiki": "CONFIRMED_EXISTING_TARGET_NATIVE_INTEGRATION",
+    "standing_proof_engine": "CONFIRMED_MERGED_TARGET_INTAKE"
+  },
+  "publisher_effect": {
+    "state": "VERIFIED_PUBLICATION_AWARENESS_PROJECTED",
+    "publication_authorized": false,
+    "release_authorized": false,
+    "custody_recorded": false,
+    "execution_authorized": false,
+    "guardian_authority": false,
+    "admissibility_authority": false
+  },
+  "aegisai_boundary": {
+    "source_only": true,
+    "runtime_validated": false,
+    "framework_promoted": false
+  },
+  "manual_user_action_required": false
+}

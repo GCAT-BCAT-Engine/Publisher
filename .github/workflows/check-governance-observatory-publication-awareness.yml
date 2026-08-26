@@ -1,0 +1,33 @@
+name: Check Governance Observatory Publication Awareness
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - data/governance-observatory-publication-awareness.json
+      - scripts/check_governance_observatory_publication_awareness.py
+      - .github/workflows/check-governance-observatory-publication-awareness.yml
+      - PUBLISHER_MIRROR_HANDOFF.md
+      - data/publisher-orchestration-state.json
+  pull_request:
+    paths:
+      - data/governance-observatory-publication-awareness.json
+      - scripts/check_governance_observatory_publication_awareness.py
+      - .github/workflows/check-governance-observatory-publication-awareness.yml
+      - PUBLISHER_MIRROR_HANDOFF.md
+      - data/publisher-orchestration-state.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Validate Governance Observatory publication awareness
+        run: python scripts/check_governance_observatory_publication_awareness.py
