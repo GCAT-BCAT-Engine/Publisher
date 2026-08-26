@@ -1,6 +1,6 @@
 # Heartbeat Protocol Anchor Awareness Mirror Handoff
 
-Updated: 2026-08-26T14:53:00-05:00
+Updated: 2026-08-26T15:50:00-05:00
 
 ## Authority and scope
 
@@ -9,74 +9,68 @@ goal_id: PUBLISHER-HEARTBEAT-PROTOCOL-ANCHOR-AWARENESS-001
 repository: GCAT-BCAT-Engine/Publisher
 parent_handoff: docs/PUBLISHER_MIRROR_HANDOFF.md
 upstream_semantics_authority: StegVerse-Labs/.github/docs/HEARTBEAT_CARRIER_SIGNAL_MIRROR_HANDOFF.md
-upstream_live_proof: StegVerse-Labs/.github/handoffs/HEARTBEAT-INDEPENDENT-OSCILLATOR-LIVE-009.json
+upstream_identifier_encoding: StegVerse-Labs/.github/docs/HEARTBEAT_IDENTIFIER_ENCODING_MIRROR_HANDOFF.md
 credential_authority: TV/TVC
 publication_authority: false
 execution_authority: false
 heartbeat_timing_authority: false
-state: SOURCE_COMPLETE_VALIDATION_PENDING
+state: COMPLETE_VALIDATED
 ```
 
-## Canonical heartbeat semantics consumed
+## Consumed heartbeat contract
 
 ```text
-anchor epoch: HB32
-anchor time: 2026-08-23T19:00:00.000Z
-period: 10 ms
-rate: 100 Hz
+anchor_epoch: 32
+anchor_heartbeat_id: HB-0000000W
+identifier_format: HB-XXXXXXXX
+identifier_encoding: FIXED_WIDTH_BASE36
+identifier_width: 8
+integer_epoch_remains_canonical: true
+period_ms: 10
+rate_hz: 100
 progression_dependency: OSCILLATOR_ONLY
 continuous_reference_stream: true
 new_reference_every_10ms: true
 continuous_process_required: false
 resident_sampler_required_for_progression: false
 observation_is_causal: false
-authority_effect: NONE
 LIVE-009: COMPLETED / INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED
+authority_effect: NONE
 ```
 
-Publisher workflow cadence, Site propagation polling, ST-017 transitions, response-network lifecycle events, and resident sampler state do not cause protocol heartbeat progression.
+Publisher workflow cadence, Site polling, ST-017 transitions, response lifecycle events, and resident sampler state do not cause heartbeat progression. The compact identifier changes representation only.
 
 ## Installed integration
 
 ```text
-data/heartbeat-protocol-anchor-awareness.json
-  commit: e7d22434cc9f9760f6fa0640451a02b49c019da4
-  machine-readable exact HB32/10ms/100Hz awareness state
-
-tools/check_heartbeat_protocol_anchor_awareness.py
-  commit: 3c835e1f922857f098ea06ab77c689878462af4e
-  fail-closed validator for continuous 10 ms semantics and zero authority effect
+e7d22434cc9f9760f6fa0640451a02b49c019da4  initial machine HB32 awareness
+d5ed9c8345959e0771b260c272cec3bd68dc2c78  Base36 identifier contract consumed
+3c835e1f922857f098ea06ab77c689878462af4e  focused heartbeat awareness validator
 ```
 
-Code search for active Publisher heartbeat timing language found no competing active implementation surface outside this handoff before these files were installed.
+Machine state: `data/heartbeat-protocol-anchor-awareness.json`.
 
-## Publication boundary
+## Hosted evidence
+
+On exact commit `d5ed9c8345959e0771b260c272cec3bd68dc2c78`:
 
 ```text
-heartbeat reference = protocol-derived synchronization reference only
-Publisher workflow = observer/validator only
-Site propagation packet = governed awareness candidate only
-ST-017 transition = Publisher task state only
-heartbeat reference != publication authority
-heartbeat reference != execution authority
+Architecture Guard run 33011818515: SUCCESS
+Publisher Readiness run 33011818545: SUCCESS
 ```
 
-## Current state
+These runs validate repository/source posture only and create no heartbeat, publication, execution, custody, release, or admissibility authority.
+
+## Separate gates
+
+Publisher ST-017 Site activation readiness remains a separate project and is not satisfied by heartbeat or identifier validation.
+
+## Completion
 
 ```text
-upstream protocol heartbeat: VERIFIED ACTIVE BY DERIVATION
-upstream LIVE-009: COMPLETED
-Publisher machine awareness state: IMPLEMENTED / MERGED ON MAIN
-Publisher focused validator: IMPLEMENTED / MERGED ON MAIN
-focused validator execution: NOT YET OBSERVED IN HOSTED CI BY THIS HANDOFF
-public/status projection audit: NO ADDITIONAL STALE ACTIVE SURFACE FOUND BY CODE SEARCH
-ST-017 Site activation dependency: UNCHANGED / SEPARATE
+HB32 awareness: COMPLETE
+Base36 identifier awareness: COMPLETE
+hosted repository validation: PASS
+integer/compact compatibility: PRESERVED
+authority_effect: NONE
 ```
-
-## Next executable boundary
-
-Execute/observe `python tools/check_heartbeat_protocol_anchor_awareness.py` in the strongest available validation lane and bind it into canonical validation if not already covered by repository-wide discovery. Validation success is evidence only and creates no publication/runtime authority.
-
-## Completion predicate
-
-Source integration is complete. Goal becomes terminal after focused validation is observed PASS and any canonical Publisher validation integration required by repository policy is confirmed. Existing ST-017 activation and Site readiness remain separate gates.
