@@ -1,6 +1,6 @@
 # Heartbeat Protocol Anchor Awareness Mirror Handoff
 
-Updated: 2026-08-23T17:02:00-05:00
+Updated: 2026-08-26T14:53:00-05:00
 
 ## Authority and scope
 
@@ -10,14 +10,12 @@ repository: GCAT-BCAT-Engine/Publisher
 parent_handoff: docs/PUBLISHER_MIRROR_HANDOFF.md
 upstream_semantics_authority: StegVerse-Labs/.github/docs/HEARTBEAT_CARRIER_SIGNAL_MIRROR_HANDOFF.md
 upstream_live_proof: StegVerse-Labs/.github/handoffs/HEARTBEAT-INDEPENDENT-OSCILLATOR-LIVE-009.json
-site_propagation_owner: StegVerse-Labs/Site/docs/HEARTBEAT_PROTOCOL_ANCHOR_PROPAGATION_MIRROR_HANDOFF.md
 credential_authority: TV/TVC
 publication_authority: false
 execution_authority: false
 heartbeat_timing_authority: false
+state: SOURCE_COMPLETE_VALIDATION_PENDING
 ```
-
-This is a publication-awareness propagation record only. It does not alter Publisher ST-017 activation authority or Site readiness predicates.
 
 ## Canonical heartbeat semantics consumed
 
@@ -27,6 +25,8 @@ anchor time: 2026-08-23T19:00:00.000Z
 period: 10 ms
 rate: 100 Hz
 progression_dependency: OSCILLATOR_ONLY
+continuous_reference_stream: true
+new_reference_every_10ms: true
 continuous_process_required: false
 resident_sampler_required_for_progression: false
 observation_is_causal: false
@@ -34,19 +34,31 @@ authority_effect: NONE
 LIVE-009: COMPLETED / INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED
 ```
 
-Publisher must not represent GitHub workflow cadence, Site propagation polling, ST-017 state transitions, response-network lifecycle transitions, or a resident sampler as the cause of protocol heartbeat progression.
+Publisher workflow cadence, Site propagation polling, ST-017 transitions, response-network lifecycle events, and resident sampler state do not cause protocol heartbeat progression.
+
+## Installed integration
+
+```text
+data/heartbeat-protocol-anchor-awareness.json
+  commit: e7d22434cc9f9760f6fa0640451a02b49c019da4
+  machine-readable exact HB32/10ms/100Hz awareness state
+
+tools/check_heartbeat_protocol_anchor_awareness.py
+  commit: 3c835e1f922857f098ea06ab77c689878462af4e
+  fail-closed validator for continuous 10 ms semantics and zero authority effect
+```
+
+Code search for active Publisher heartbeat timing language found no competing active implementation surface outside this handoff before these files were installed.
 
 ## Publication boundary
-
-Publisher may publish awareness of the verified heartbeat contract only as evidence-backed state. It may not convert heartbeat references into publication, release, admissibility, custody, or execution authority.
-
-Required interpretation:
 
 ```text
 heartbeat reference = protocol-derived synchronization reference only
 Publisher workflow = observer/validator only
 Site propagation packet = governed awareness candidate only
 ST-017 transition = Publisher task state only
+heartbeat reference != publication authority
+heartbeat reference != execution authority
 ```
 
 ## Current state
@@ -54,30 +66,17 @@ ST-017 transition = Publisher task state only
 ```text
 upstream protocol heartbeat: VERIFIED ACTIVE BY DERIVATION
 upstream LIVE-009: COMPLETED
-Site propagation handoff: INSTALLED
-Publisher awareness handoff: INSTALLED
-public/status projection: PENDING CONSUMER AUDIT
+Publisher machine awareness state: IMPLEMENTED / MERGED ON MAIN
+Publisher focused validator: IMPLEMENTED / MERGED ON MAIN
+focused validator execution: NOT YET OBSERVED IN HOSTED CI BY THIS HANDOFF
+public/status projection audit: NO ADDITIONAL STALE ACTIVE SURFACE FOUND BY CODE SEARCH
 ST-017 Site activation dependency: UNCHANGED / SEPARATE
 ```
 
-## Next executable work
+## Next executable boundary
 
-Audit Publisher documentation, status JSON, validators, and publication projections for any active statement that:
-
-- treats a resident heartbeat process as required for protocol progression;
-- equates workflow/schedule cadence with heartbeat cadence;
-- treats Site or Publisher transition-driven states as heartbeat epochs;
-- grants authority from heartbeat observation.
-
-Correct active current-state surfaces only. Preserve historical receipts and existing ST-017 evidence.
+Execute/observe `python tools/check_heartbeat_protocol_anchor_awareness.py` in the strongest available validation lane and bind it into canonical validation if not already covered by repository-wide discovery. Validation success is evidence only and creates no publication/runtime authority.
 
 ## Completion predicate
 
-```text
-Publisher current-state surfaces recognize HB32 anchor semantics
-LIVE-009 completion is reflected where heartbeat status is projected
-no Publisher predicate gates heartbeat progression on resident process or workflow execution
-no transition-driven Publisher state is represented as protocol heartbeat timing
-publication/execution/admissibility/custody authority remains false
-TV/TVC remains sole credential authority
-```
+Source integration is complete. Goal becomes terminal after focused validation is observed PASS and any canonical Publisher validation integration required by repository policy is confirmed. Existing ST-017 activation and Site readiness remain separate gates.
