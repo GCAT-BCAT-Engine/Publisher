@@ -1,0 +1,23 @@
+{
+  "schema":"stegverse.publisher-heartbeat-protocol-awareness/v1",
+  "state":"COMPLETE_SOURCE_AUDIT",
+  "anchor_epoch":32,
+  "anchor_time_utc":"2026-08-23T19:00:00.000Z",
+  "period_ms":10,
+  "reference_rate_hz":100,
+  "progression_dependency":"OSCILLATOR_ONLY",
+  "continuous_reference_stream":true,
+  "new_reference_every_10ms":true,
+  "continuous_process_required":false,
+  "resident_sampler_required_for_progression":false,
+  "observation_is_causal":false,
+  "live_009_state":"COMPLETED",
+  "live_009_transition":"INDEPENDENT_HEARTBEAT_LIVE_PROOF_VERIFIED",
+  "publisher_transition_is_protocol_epoch":false,
+  "workflow_cadence_is_heartbeat_cadence":false,
+  "heartbeat_grants_publication_authority":false,
+  "heartbeat_grants_execution_authority":false,
+  "heartbeat_timing_authority":false,
+  "authority_effect":"NONE",
+  "credential_authority":"TV/TVC"
+}
