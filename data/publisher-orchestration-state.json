@@ -68,25 +68,6 @@
       "owner": "pull/5",
       "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
       "state": "DRAFT_ACTIVE"
-    },
-    {
-      "task_id": "PUBLISHER-GOVOBS-PUBLICATION-AWARENESS-029",
-      "workload": "Project confirmed Governance Observatory publication state as bounded non-authorizing Publisher awareness",
-      "execution_class": "PARALLEL_SAFE_NON_AUTHORIZING_AWARENESS",
-      "owner": "issue #29 / integration/governance-observatory-publication-awareness-29",
-      "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
-      "state": "IMPLEMENTATION_VALIDATION_IN_PROGRESS",
-      "collision_boundary": [
-        "data/governance-observatory-publication-awareness.json",
-        "scripts/check_governance_observatory_publication_awareness.py",
-        ".github/workflows/check-governance-observatory-publication-awareness.yml",
-        "PUBLISHER_MIRROR_HANDOFF.md",
-        "data/publisher-orchestration-state.json"
-      ],
-      "non_collision": [
-        "PUBLISHER-SITE-PROPAGATION-OBSERVER",
-        "PUBLISHER-0001-HIL-PROPAGATION"
-      ]
     }
   ],
   "completed_tasks": [
@@ -104,6 +85,12 @@
       "task_id": "PUBLISHER-ST017-HANDOFF-TRANSFER",
       "state": "COMPLETE",
       "evidence": "0a72ca1249e3e4367306234eedbe05443ac06821"
+    },
+    {
+      "task_id": "PUBLISHER-GOVOBS-PUBLICATION-AWARENESS-029",
+      "state": "COMPLETE_VALIDATED_MERGED",
+      "evidence": "PR #30; merge 674aff42b32aee30818314e9b6bd92e8869ad914; dedicated run 33024103131 SUCCESS",
+      "authority_effect": false
     }
   ],
   "blocked_tasks": [
@@ -167,7 +154,7 @@
   },
   "idle_terminal_statement": "end of current work task sequence 0001, no unique session-owned tasks running",
   "last_transition": {
-    "event_type": "GOVERNANCE_OBSERVATORY_PUBLICATION_AWARENESS_IMPLEMENTATION_STARTED",
+    "event_type": "GOVERNANCE_OBSERVATORY_PUBLICATION_AWARENESS_COMPLETE_VALIDATED_MERGED",
     "progress_effect": true,
     "authority_effect": false
   },
