@@ -248,3 +248,28 @@ authority_effect: false
 The unrelated `RTG-001 Artifact Watch` and `stegdb-sync` failures observed on the same merge head are not owned by this bounded awareness lane and are not converted to success by this completion. The dedicated awareness validator and relevant Publisher readiness/architecture checks passed.
 
 No release tag is authorized by this awareness completion.
+
+
+## Governance Observatory v0.1.0 release awareness — issue #31
+
+```text
+task_id: PUBLISHER-GOVOBS-V0.1.0-RELEASE-AWARENESS-031
+execution_class: PARALLEL_SAFE_NON_AUTHORIZING_RELEASE_AWARENESS
+source_release: v0.1.0
+source_release_id: 377486341
+source_release_state_head: 31afc11745507e4764c2c9f44be1e5143e920ef1
+state: IMPLEMENTED_VALIDATION_PENDING
+manual_user_action_required: false
+```
+
+The existing Governance Observatory awareness projection now records the actual versioned release in addition to publication state.
+
+```text
+release awareness != Publisher release authority
+tag != execution authority
+projection != custody
+release != admissibility
+AEGISAI remains source-only
+```
+
+This task does not alter the machine-owned Site/HIL observer or the GCAT capacity workstream.
