@@ -300,3 +300,25 @@ The bounded generated StegPay ingestion lane now targets Site's current validate
 This is test-only evidence ingestion. Publisher publication, release, payment, deployment, custody, execution, Guardian, and admissibility authority remain false. The completed Site historical task remains closed.
 
 Detailed source of truth: `docs/GENERATED_STEGPAY_SITE_INGESTION_MIRROR_HANDOFF.md`.
+
+
+## Generated StegPay downstream propagation closure — 2026-08-27
+
+The current Site receipt ingestion and both bounded wiki projections are complete for the `2026-08-27T11:58:18Z` generation.
+
+```text
+Publisher merge: cf224d1ee78e16c259db3c6349c02c2444469509
+Publisher canonical JSON SHA-256: bbae4456bb09de7eaa3b9782c000fdef106ad035c1f2dee64f62e4102df302a1
+Site receipt canonical JSON SHA-256: 687d06eb93693d0bd78f00cdefd465d23d92b54c0bbfa7bc0a04b1364f9a452f
+StegOps propagation SHA-256: e59e71bf31879f0bf29a8356f8027304a94a4dee59d3c0be35c3ecc505e7cec9
+consumer receipt SHA-256: b8084ecc9821eb7738e4dccffd239185a072e0bc630e71c72906098a830cf515
+
+Admissibility merge: 1cf24e3faddbe62bfea3db700145b39c3756d459
+Admissibility main run: 33094673503 SUCCESS
+StegGuardian merge: d7a4bdd0e92a4c2fa13ddf81ecf9af68974081cb
+StegGuardian main Pages run: 33094989577 SUCCESS
+```
+
+The old August 2 generated-Ste gPay hashes are no longer current active projection state; where retained, they are historical provenance only. No duplicate downstream task or workflow was created.
+
+Authority remains false for production payment, publication, release, deployment, custody, execution, admissibility determination, and Guardian enforcement. Wiki Pages/public-route success is observation/transport evidence only. No production tag or release is authorized by this test-only propagation closure.
