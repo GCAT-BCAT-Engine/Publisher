@@ -19,7 +19,7 @@
     "standing_proof_engine": "CONFIRMED_MERGED_TARGET_INTAKE"
   },
   "publisher_effect": {
-    "state": "VERIFIED_PUBLICATION_AWARENESS_PROJECTED",
+    "state": "VERIFIED_RELEASE_AWARENESS_PROJECTED",
     "publication_authorized": false,
     "release_authorized": false,
     "custody_recorded": false,
@@ -32,5 +32,14 @@
     "runtime_validated": false,
     "framework_promoted": false
   },
-  "manual_user_action_required": false
+  "manual_user_action_required": false,
+  "source_release": {
+    "state": "RELEASED",
+    "version": "0.1.0",
+    "tag_name": "v0.1.0",
+    "release_id": 377486341,
+    "release_url": "https://github.com/StegVerse-Labs/governance-observatory/releases/tag/v0.1.0",
+    "release_state_head": "31afc11745507e4764c2c9f44be1e5143e920ef1",
+    "release_workflow_run": 33025454602
+  }
 }
