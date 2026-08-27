@@ -273,3 +273,21 @@ AEGISAI remains source-only
 ```
 
 This task does not alter the machine-owned Site/HIL observer or the GCAT capacity workstream.
+
+
+### Governance Observatory v0.1.0 release awareness completion
+
+```text
+task_id: PUBLISHER-GOVOBS-V0.1.0-RELEASE-AWARENESS-031
+target_pr: 32
+merge_commit: 1d586db7b6b9b4ad5153fae70713d8d42e6311b2
+dedicated_post_merge_run: 33025742073 SUCCESS
+publisher_readiness_run: 33025741977 SUCCESS
+publisher_check_run: 33025742031 SUCCESS
+architecture_guard_run: 33025742037 SUCCESS
+claim_state: RELEASED_COMPLETE
+state: COMPLETE_VALIDATED_MERGED
+authority_effect: false
+```
+
+Unrelated repository failures, including stegdb-sync and any RTG-001 watcher failures, remain separate and are not converted to success by this bounded release-awareness completion.
