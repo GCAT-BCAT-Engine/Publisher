@@ -93,3 +93,28 @@ The historical Site task is not reopened. Publisher independently validates the 
 Next bounded destinations after Publisher exact-head validation and merge remain:
 - `StegVerse-Labs/admissibility-wiki`
 - `StegVerse-002/stegguardian-wiki`
+
+
+## Downstream wiki closure — 2026-08-27
+
+This section supersedes the earlier pending successor-destination statements for the current `2026-08-27T11:58:18Z` evidence generation.
+
+```text
+Publisher PR: #33
+Publisher merge: cf224d1ee78e16c259db3c6349c02c2444469509
+Publisher canonical JSON SHA-256: bbae4456bb09de7eaa3b9782c000fdef106ad035c1f2dee64f62e4102df302a1
+
+Admissibility PR: #107
+Admissibility merge: 1cf24e3faddbe62bfea3db700145b39c3756d459
+Admissibility main run: 33094673503 SUCCESS
+bounded PA-INT-011 reconciliation: COMPLETE
+
+StegGuardian PR: #19
+StegGuardian merge: d7a4bdd0e92a4c2fa13ddf81ecf9af68974081cb
+StegGuardian main Pages run: 33094989577 SUCCESS
+required generated marker/local-state/deploy/live-record observation: PASS
+```
+
+The current Publisher ingestion is therefore IMPLEMENTED, VALIDATED, MERGED, and durably consumed by both bounded wiki destinations. This does not grant Publisher publication authority, production payment authority, release authority, deployment authority, custody, admissibility authority, Guardian enforcement, or execution authority.
+
+No additional current-generation generated-Ste gPay destination task remains. A newer upstream generation may create a new reconciliation requirement, but must reuse the existing semantic lanes rather than duplicate them. No production tag or release is warranted by this test-only evidence.
