@@ -71,3 +71,25 @@ No tag or release is authorized by this test-only ingestion. Production payment,
 ## Archive readiness
 
 This handoff, the Publisher ingestion receipt, validator, workflow, Site source artifacts, and repository history preserve all continuation state. No earlier conversation context is required.
+
+
+## Current Site receipt reconciliation — 2026-08-27
+
+Publisher now binds its generated StegPay ingestion projection to Site's current validated import receipt rather than the older autonomy-status snapshot.
+
+```text
+source_repository: StegVerse-Labs/Site
+source_receipt_path: data/generated-stegpay-propagations/latest/import_receipt.json
+source_receipt_sha256: 687d06eb93693d0bd78f00cdefd465d23d92b54c0bbfa7bc0a04b1364f9a452f
+source_generated_utc: 2026-08-27T11:58:18Z
+source_propagation_sha256: e59e71bf31879f0bf29a8356f8027304a94a4dee59d3c0be35c3ecc505e7cec9
+source_consumer_receipt_sha256: b8084ecc9821eb7738e4dccffd239185a072e0bc630e71c72906098a830cf515
+historical_site_task: SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT
+historical_site_task_state: COMPLETE
+```
+
+The historical Site task is not reopened. Publisher independently validates the exact receipt binding and preserves test-only status and all payment, deployment, publication, release, and admissibility authority flags as false.
+
+Next bounded destinations after Publisher exact-head validation and merge remain:
+- `StegVerse-Labs/admissibility-wiki`
+- `StegVerse-002/stegguardian-wiki`

@@ -291,3 +291,12 @@ authority_effect: false
 ```
 
 Unrelated repository failures, including stegdb-sync and any RTG-001 watcher failures, remain separate and are not converted to success by this bounded release-awareness completion.
+
+
+## Generated StegPay current Site receipt ingestion — 2026-08-27
+
+The bounded generated StegPay ingestion lane now targets Site's current validated import receipt at `data/generated-stegpay-propagations/latest/import_receipt.json`, canonical JSON SHA-256 `687d06eb93693d0bd78f00cdefd465d23d92b54c0bbfa7bc0a04b1364f9a452f`. That receipt binds StegOps propagation SHA-256 `e59e71bf31879f0bf29a8356f8027304a94a4dee59d3c0be35c3ecc505e7cec9` and consumer-receipt SHA-256 `b8084ecc9821eb7738e4dccffd239185a072e0bc630e71c72906098a830cf515`.
+
+This is test-only evidence ingestion. Publisher publication, release, payment, deployment, custody, execution, Guardian, and admissibility authority remain false. The completed Site historical task remains closed.
+
+Detailed source of truth: `docs/GENERATED_STEGPAY_SITE_INGESTION_MIRROR_HANDOFF.md`.

@@ -1,24 +1,22 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "artifact_type": "publisher_generated_stegpay_site_ingestion",
   "state": "INGESTED_TEST_EVIDENCE",
   "source_repository": "StegVerse-Labs/Site",
-  "source_status_path": "data/autonomy/generated-stegpay-integration-status.json",
-  "source_validation_path": "data/autonomy/generated-stegpay-integration-validation.json",
-  "source_canonical_sha256": "3b932c2f456d4dc7a8e5d98a7cd0199b5346649586de6da532b20aa042a79994",
+  "source_receipt_path": "data/generated-stegpay-propagations/latest/import_receipt.json",
+  "source_receipt_sha256": "687d06eb93693d0bd78f00cdefd465d23d92b54c0bbfa7bc0a04b1364f9a452f",
+  "source_generated_utc": "2026-08-27T11:58:18Z",
+  "source_propagation_sha256": "e59e71bf31879f0bf29a8356f8027304a94a4dee59d3c0be35c3ecc505e7cec9",
+  "source_consumer_receipt_sha256": "b8084ecc9821eb7738e4dccffd239185a072e0bc630e71c72906098a830cf515",
   "event": {
     "event_id": "09373107-5e4b-483e-85de-9e26c126fc0c",
     "provider_id": "pi_test_123",
-    "consumer_state": "deliverables_ready",
-    "producer_consumer_agreement": true,
-    "matching_ledger_entries": 1,
-    "test_only": true,
-    "transport_is_authority": false
+    "test_only": true
   },
   "source_validation": {
-    "state": "VALID",
-    "downstream_ingestion_ready": true,
-    "failures": []
+    "state": "VALIDATED",
+    "historical_task": "SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT",
+    "historical_task_state": "COMPLETE"
   },
   "publisher_interpretation": {
     "evidence_ingested": true,
