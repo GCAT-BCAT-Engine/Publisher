@@ -68,6 +68,21 @@
       "owner": "pull/5",
       "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
       "state": "DRAFT_ACTIVE"
+    },
+    {
+      "task_id": "PUBLISHER-GOVOBS-V0.1.0-RELEASE-AWARENESS-031",
+      "workload": "Project Governance Observatory v0.1.0 release as bounded non-authorizing Publisher awareness",
+      "execution_class": "PARALLEL_SAFE_NON_AUTHORIZING_RELEASE_AWARENESS",
+      "owner": "issue #31 / integration/governance-observatory-v0.1.0-release-awareness-31",
+      "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "IMPLEMENTATION_VALIDATION_IN_PROGRESS",
+      "collision_boundary": [
+        "data/governance-observatory-publication-awareness.json",
+        "scripts/check_governance_observatory_publication_awareness.py",
+        "PUBLISHER_MIRROR_HANDOFF.md",
+        "data/publisher-orchestration-state.json"
+      ],
+      "authority_effect": false
     }
   ],
   "completed_tasks": [
@@ -154,7 +169,7 @@
   },
   "idle_terminal_statement": "end of current work task sequence 0001, no unique session-owned tasks running",
   "last_transition": {
-    "event_type": "GOVERNANCE_OBSERVATORY_PUBLICATION_AWARENESS_COMPLETE_VALIDATED_MERGED",
+    "event_type": "GOVERNANCE_OBSERVATORY_V0_1_0_RELEASE_AWARENESS_STARTED",
     "progress_effect": true,
     "authority_effect": false
   },
