@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "model_id": "gcat-capacity-stability-v1",
+  "status": "research-draft",
+  "variables": {
+    "g": "governance decision and recovery capacity",
+    "c": "effective constraint enforceability",
+    "t": "trusted-state continuity and reconstructability",
+    "a": "artifact or execution pressure"
+  },
+  "parameters": {
+    "K": {"constraint": "> 0", "status": "uncalibrated"},
+    "alpha": {"constraint": "> 0", "status": "uncalibrated"},
+    "beta": {"constraint": "> 0", "status": "uncalibrated"},
+    "gamma": {"constraint": "> 0", "status": "uncalibrated"}
+  },
+  "equations": {
+    "effective_governance_capacity": "K * g^alpha * c^beta * t^gamma",
+    "governance_load_ratio": "a / effective_governance_capacity",
+    "admissibility_margin": "ln(K) + alpha*ln(g) + beta*ln(c) + gamma*ln(t) - ln(a)",
+    "load_growth_rate": "a_dot/a - alpha*g_dot/g - beta*c_dot/c - gamma*t_dot/t"
+  },
+  "candidate_regions": {
+    "governable": "Omega <= 1",
+    "boundary": "Omega = 1",
+    "overload": "Omega > 1"
+  },
+  "claim_boundaries": [
+    "Omega > 1 is an overload classification, not sufficient proof of drift.",
+    "Forward invariance requires an admissible policy satisfying the barrier derivative condition.",
+    "The production function and elasticities require empirical validation.",
+    "The federal IT case is qualitative and uncalibrated.",
+    "Synthetic simulations must be labeled synthetic."
+  ],
+  "required_validation": [
+    "mathematical review",
+    "positivity-preserving dynamics",
+    "reproducible simulation code",
+    "parameter sensitivity analysis",
+    "primary-source bibliography",
+    "case-study evidence qualification",
+    "generated-data provenance"
+  ],
+  "authority": {
+    "repository_local_only": true,
+    "may_modify_site_activation": false,
+    "may_modify_wiki_propagation": false,
+    "may_claim_release": false,
+    "may_claim_empirical_calibration": false
+  }
+}

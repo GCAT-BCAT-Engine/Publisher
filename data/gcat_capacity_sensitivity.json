@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "synthetic-gcat-capacity-sensitivity-specification",
+  "synthetic": true,
+  "calibrated": false,
+  "claim_boundary": "Sensitivity outputs compare modeling assumptions and do not establish empirical validity.",
+  "baseline": {
+    "K": 1.0,
+    "alpha": 0.4,
+    "beta": 0.3,
+    "gamma": 0.3,
+    "g": 1.0,
+    "c": 1.0,
+    "t": 1.0
+  },
+  "sweeps": {
+    "governance_values": {"start": 0.4, "stop": 3.0, "count": 53},
+    "pressure_values": {"start": 0.2, "stop": 4.0, "count": 58},
+    "elasticity_values": {"start": 0.1, "stop": 0.8, "count": 15}
+  },
+  "alternative_functions": {
+    "cobb_douglas": {
+      "description": "Multiplicative baseline used by the paper."
+    },
+    "weighted_geometric": {
+      "description": "Normalized weighted geometric mean with the same elasticity proportions."
+    },
+    "weighted_additive": {
+      "description": "Additive comparator that permits substitution among institutional inputs."
+    },
+    "bottleneck_minimum": {
+      "description": "Leontief-style comparator governed by the weakest normalized input."
+    },
+    "ces": {
+      "description": "Constant-elasticity-of-substitution comparator.",
+      "rho": -0.5
+    }
+  },
+  "figure": {
+    "width": 960,
+    "height": 640,
+    "title": "Synthetic GCAT Governance Load Regime Map",
+    "subtitle": "Baseline Cobb-Douglas capacity; Omega > 1 denotes modeled overload, not proven drift"
+  }
+}
