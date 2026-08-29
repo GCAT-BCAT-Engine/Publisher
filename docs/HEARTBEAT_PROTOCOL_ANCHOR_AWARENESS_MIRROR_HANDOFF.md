@@ -74,3 +74,54 @@ hosted repository validation: PASS
 integer/compact compatibility: PRESERVED
 authority_effect: NONE
 ```
+
+## Execution ownership and collision partition
+
+Standard: `StegVerse-Labs/Continuity/docs/REPOSITORY_HANDOFF_STANDARD.md` / `stegverse.handoff-execution-ownership/v1`.
+
+### MANUAL / SESSION-STARTABLE
+
+```yaml
+- task_id: PUBLISHER-HEARTBEAT-HANDOFF-ADOPTION-037
+  execution_owner: repo-standards #37 integration lane + Publisher repository owner
+  claim_state: CLAIMED_FOR_INTEGRATION
+  worker_registry_ref: StegVerse-Labs/repo-standards#37 + GCAT-BCAT-Engine/Publisher#37
+  manual_execution_allowed: true
+  manual_allowed_role: integration
+  collision_scope: ownership metadata/textual migration in this completed awareness handoff only; excludes heartbeat semantics/timing, Site activation, Publisher scheduled execution, credentials, claims/fences/leases, and runtime authority
+  release_condition: this migration is merged and Publisher issue #37 is reconciled
+  next_executable_action: merge metadata only; do not change oscillator-only heartbeat semantics or infer progression from Publisher workflows
+```
+
+### WORKER-OWNED / DO NOT COMPETE
+
+```yaml
+- task_id: PUBLISHER-HEARTBEAT-AND-SITE-ACTIVATION-AGGREGATE
+  execution_owner: canonical heartbeat semantics owner plus current Publisher/Site machine-owned activation lanes
+  claim_state: MACHINE_OWNED
+  worker_registry_ref: upstream heartbeat handoffs + PUBLISHER_MIRROR_HANDOFF.md + current Site activation handoffs/receipts
+  manual_execution_allowed: false
+  manual_allowed_role: observation
+  collision_scope: heartbeat progression/timing semantics, Publisher schedule behavior, Site activation, provider/custody evidence, and runtime execution
+  release_condition: each canonical owner independently reaches or releases its task-specific machine-observable condition
+  next_executable_action: preserve semantic separation and observe machine evidence without competing
+```
+
+### ESCALATED / AUTHORITY-OWNED
+
+```yaml
+- task_id: PUBLISHER-HEARTBEAT-AUTHORITY-BOUNDARY
+  execution_owner: heartbeat semantics authority / Publisher authority / ecosystem governance
+  claim_state: ESCALATED
+  worker_registry_ref: upstream heartbeat handoff + this handoff + PUBLISHER_MIRROR_HANDOFF.md
+  manual_execution_allowed: false
+  manual_allowed_role: reconciliation
+  collision_scope: heartbeat timing authority, publication, execution, custody, release, admissibility, credential, deployment, payment, or entitlement authority
+  release_condition: explicit canonical authority grant for the exact bounded scope
+  next_executable_action: fail closed; heartbeat awareness and workflow observation are noncausal and non-authorizing
+```
+
+### COMPLETED / SUPERSEDED
+
+- HB32 and Base36 identifier awareness are complete and hosted-validated for the bounded Publisher awareness scope.
+- Any inference that Publisher workflow cadence or observation causes heartbeat progression is superseded/prohibited.
