@@ -322,3 +322,57 @@ StegGuardian main Pages run: 33094989577 SUCCESS
 The old August 2 generated-Ste gPay hashes are no longer current active projection state; where retained, they are historical provenance only. No duplicate downstream task or workflow was created.
 
 Authority remains false for production payment, publication, release, deployment, custody, execution, admissibility determination, and Guardian enforcement. Wiki Pages/public-route success is observation/transport evidence only. No production tag or release is authorized by this test-only propagation closure.
+
+## Execution ownership and collision partition
+
+Standard: `StegVerse-Labs/Continuity/docs/REPOSITORY_HANDOFF_STANDARD.md` / `stegverse.handoff-execution-ownership/v1`.
+
+### MANUAL / SESSION-STARTABLE
+
+```yaml
+- task_id: PUBLISHER-HANDOFF-OWNERSHIP-ADOPTION-035
+  execution_owner: repo-standards #37 integration lane + Publisher repository owner
+  claim_state: CLAIMED_FOR_INTEGRATION
+  worker_registry_ref: StegVerse-Labs/repo-standards#37 + GCAT-BCAT-Engine/Publisher#35
+  manual_execution_allowed: true
+  manual_allowed_role: integration
+  collision_scope: ownership metadata/textual migration in PUBLISHER_MIRROR_HANDOFF.md only; excludes importers, scheduled workflows, Site activation, adjacent construction execution, publication/release/custody/deployment/payment/entitlement/execution authority, credentials, claims/fences/leases, and downstream wiki product logic
+  release_condition: this textual migration is merged and issue #35 is closed or superseded
+  next_executable_action: merge only the handoff ownership metadata after repository validation; do not enter machine-owned product/runtime scopes
+```
+
+### WORKER-OWNED / DO NOT COMPETE
+
+```yaml
+- task_id: PUBLISHER-ACTIVE-MACHINE-WORK-AGGREGATE
+  execution_owner: existing Publisher scheduled/importer/bootstrap lanes plus their canonical upstream/downstream repository owners
+  claim_state: MACHINE_OWNED
+  worker_registry_ref: this handoff + docs/GENERATED_STEGPAY_SITE_INGESTION_MIRROR_HANDOFF.md + current task-specific issues/claims/receipts/workflows
+  manual_execution_allowed: false
+  manual_allowed_role: observation
+  collision_scope: Ecosystem Chat Site activation ingestion, autonomous adjacent construction, generated StegPay ingestion/propagation, downstream wiki consumers, and all current repository-native scheduled execution paths
+  release_condition: each canonical machine owner independently reaches its own machine-observable terminal condition or explicitly releases/supersedes the relevant collision scope
+  next_executable_action: allow existing repository-native automation to continue and observe durable evidence without manually substituting completion
+```
+
+### ESCALATED / AUTHORITY-OWNED
+
+```yaml
+- task_id: PUBLISHER-AUTHORITY-BOUNDARY
+  execution_owner: applicable Publisher/component authority -> ecosystem governance -> human authority when explicitly required
+  claim_state: ESCALATED
+  worker_registry_ref: this handoff + task-specific current authority records + StegVerse-Labs/Continuity/docs/REPOSITORY_HANDOFF_STANDARD.md
+  manual_execution_allowed: false
+  manual_allowed_role: reconciliation
+  collision_scope: publication, release, custody, deployment, production payment, entitlement, execution, Guardian enforcement, admissibility determination, credential authority, or promotion of transport/projection/receipt evidence into authority
+  release_condition: the applicable canonical authority explicitly grants or reassigns the exact bounded authority scope
+  next_executable_action: fail closed and escalate rather than inferring authority from Site state, propagation packets, Publisher projection, receipts, workflow success, or wiki publication
+```
+
+### COMPLETED / SUPERSEDED
+
+- Correctability projection is `COMPLETE_VALIDATED` as recorded above.
+- Governance Observatory publication-awareness and v0.1.0 release-awareness lanes are complete, validated, merged, and non-authorizing.
+- The 2026-08-27 generated StegPay Publisher-to-wiki bounded projection chain is complete; older August 2 hashes are historical only.
+- Stale `StegVerse-Labs/stegguardian-wiki` and nonexistent `StegVerse-Labs/Sit` destinations are superseded by `StegVerse-002/stegguardian-wiki` and `StegVerse-Labs/Site`.
+- Any inference that projection, transport, workflow success, publication awareness, or test evidence grants Publisher publication/release/custody/deployment/payment/entitlement/execution authority is superseded/prohibited.
