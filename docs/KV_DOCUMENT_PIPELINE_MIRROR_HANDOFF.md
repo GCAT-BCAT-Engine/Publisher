@@ -1,9 +1,9 @@
 # Publisher KnowledgeVault Document Pipeline Mirror Handoff
 
-Status: IMPLEMENTED_LOCAL_VALIDATED
+Status: SOURCE_MERGED_VALIDATED / PRIVATE_KV_EXECUTION_PENDING
 Repository: GCAT-BCAT-Engine/Publisher
 Source: StegVerse-Labs/continuity-vault-kit
-Updated: 2026-08-29
+Updated: 2026-08-30
 
 ## Goal
 
@@ -52,9 +52,9 @@ Current state:
 
 ```text
 PLANNED: complete
-IMPLEMENTED: source complete on feature branch
-VALIDATED: dependency-light unit, CLI, compile, and deterministic replay checks pass
-MERGED: no
+IMPLEMENTED: source complete
+VALIDATED: local validation and all six exact-head pull-request workflows pass
+MERGED: PR #39 at be3f27cec7782507fb77e8cadafcc8c10f9e1835
 DEPLOYED: no
 ACTIVATED: no private-KV request or artifact readback
 OBSERVED: no public publication
@@ -65,13 +65,25 @@ COMPLETE: no
 
 ## Remaining gates
 
-1. Pass hosted validation on the exact branch head.
-2. Merge only the validated head.
-3. Consume one owner-authorized private-KV bundle through admitted InTr.
-4. Return manifest and rendering receipt to `_System/Exports/Receipts/`.
-5. Read back and verify artifacts in `_System/Exports/Artifacts/`.
-6. Reconstruct identical artifacts from the retained private bundle.
-7. Grant publication authority only through a separate explicit transition.
+1. Consume one owner-authorized private-KV bundle through admitted InTr.
+2. Return manifest and rendering receipt to `_System/Exports/Receipts/`.
+3. Read back and verify artifacts in `_System/Exports/Artifacts/`.
+4. Reconstruct identical artifacts from the retained private bundle.
+5. Grant publication authority only through a separate explicit transition.
+
+## Merge evidence
+
+```text
+pull_request: #39
+validated_head: ab3d365803565fca5d8e7214ab1e415ee4cdc61c
+merge_commit: be3f27cec7782507fb77e8cadafcc8c10f9e1835
+Validate KV document pipeline: 33290393574 SUCCESS
+Continuity Recall Admission Validation: 33290393575 SUCCESS
+Publisher Check: 33290393545 SUCCESS
+Publisher Readiness: 33290393542 SUCCESS
+Architecture Guard: 33290393540 SUCCESS
+Governance Observatory Publication Awareness: 33290393539 SUCCESS
+```
 
 ## Local validation
 
