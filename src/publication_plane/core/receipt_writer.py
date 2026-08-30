@@ -56,8 +56,11 @@ class PublicationReceiptWriter:
             "seed": self.seed,
         }
 
-        # Deterministic ID via injected provider
-        receipt_id = self.receipt_provider.derive(payload, self.seed)
+        # Wall-clock observation is retained in the receipt but excluded from
+        # identity. Repeating the same publication transition with the same
+        # seed therefore yields the same receipt ID, while verification still
+        # detects changes to every semantic field.
+        receipt_id = self.receipt_provider.derive(self._identity_payload(payload), self.seed)
         payload["receipt_id"] = receipt_id
 
         # Write
@@ -72,8 +75,14 @@ class PublicationReceiptWriter:
         """
         data = json.loads(receipt_path.read_text(encoding="utf-8"))
         stored_id = data.pop("receipt_id", None)
-        derived_id = self.receipt_provider.derive(data, data.get("seed", self.seed))
+        derived_id = self.receipt_provider.derive(
+            self._identity_payload(data), data.get("seed", self.seed)
+        )
         return stored_id == derived_id
+
+    @staticmethod
+    def _identity_payload(data: Dict[str, Any]) -> Dict[str, Any]:
+        return {key: value for key, value in data.items() if key != "timestamp"}
 
 
 def main():

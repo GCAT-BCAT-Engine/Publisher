@@ -3,10 +3,11 @@
 **Repository:** `GCAT-BCAT-Engine/Publisher`  
 **Source:** `StegVerse-Labs/continuity-vault-kit`  
 **Source release:** `v0.1.8`  
-**Status:** Active executable integration validation  
-**Pull request:** `#10 Govern Continuity Vault recall exports into Publisher`  
-**Branch:** `agent/continuity-recall-integration-v0-1`  
-**Last updated:** 2026-07-17
+**Status:** MERGED_VALIDATED; document-rendering successor locally validated
+**Pull request:** `#10 Govern Continuity Vault recall exports into Publisher` (merged)
+**Merge commit:** `d7183ebf89373b7602af7f1e68386423bab57040`
+**Successor branch:** `feature/kv-document-pipeline`
+**Last updated:** 2026-08-29
 
 ## Purpose
 
@@ -49,18 +50,26 @@ Publisher may admit only explicitly authorized, opt-in continuity exports. It mu
 9. Admission does not create licensing, publishing, revenue-sharing, or payout authority.
 10. No live recurring ingestion is claimed by this bounded implementation.
 
-## Remaining work
+## Completed admission boundary
 
-1. Observe `Continuity Recall Admission Validation` on the exact current PR head.
-2. Correct any validator, fixture, test, or workflow mismatch.
-3. Update PR #10 from draft only after the exact head is green and mergeable.
-4. Merge only the validated head.
-5. Record durable integration or release evidence after merge.
-6. Review the next adjacent Publisher goal without converting unimplemented commercial behavior into a production claim.
+PR #10 merged on 2026-07-17 at
+`d7183ebf89373b7602af7f1e68386423bab57040`. The admission contract, validator,
+fixtures, tests, and validation workflow are therefore repository source rather
+than pending-PR scaffolding.
+
+## Successor work
+
+The locally validated `feature/kv-document-pipeline` branch composes an admitted,
+hash-bound KV bundle into Markdown, HTML, PDF, DOCX, and JSON artifacts. Its
+continuation source of truth is `docs/KV_DOCUMENT_PIPELINE_MIRROR_HANDOFF.md`.
+It remains unmerged and does not claim private-KV ingestion, publication,
+deployment, release, or activation.
 
 ## Acceptance condition
 
-The Publisher integration is complete only when the contract and executable admission boundary are green on the exact head, merged, and reflected in durable integration evidence. Live ingestion, licensing, scoring, or payout remains a separate future capability unless independently implemented and proven.
+The bounded recall-admission integration is merged and validated. Live ingestion,
+document publication, licensing, scoring, or payout remains separate unless
+independently implemented and proven.
 
 ## Archive rule
 

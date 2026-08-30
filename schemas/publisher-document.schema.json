@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/publisher-document.schema.json",
+  "title": "Publisher Canonical Document",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "renderer_version", "document", "evidence", "source_binding", "lifecycle"],
+  "properties": {
+    "schema_version": {"const": "stegverse.publisher.document/v1"},
+    "renderer_version": {"type": "string", "minLength": 1},
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["document_id", "document_type", "title", "authors", "template_profile", "sections"],
+      "properties": {
+        "document_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{2,127}$"},
+        "document_type": {"enum": ["REPORT", "LETTER", "BRIEF", "PAPER", "TIMELINE", "EVIDENCE_PACKET", "LEGACY_EXPORT"]},
+        "title": {"type": "string", "minLength": 1, "maxLength": 300},
+        "subtitle": {"type": ["string", "null"], "maxLength": 500},
+        "authors": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name"],
+            "properties": {
+              "name": {"type": "string", "minLength": 1},
+              "affiliation": {"type": ["string", "null"]}
+            }
+          }
+        },
+        "template_profile": {"type": "string", "minLength": 1},
+        "sections": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["section_id", "heading", "body", "content_class", "fidelity", "source_subject_ids"],
+            "properties": {
+              "section_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
+              "heading": {"type": "string", "minLength": 1},
+              "body": {"type": "string", "minLength": 1},
+              "content_class": {"enum": ["RAW_SOURCE_EXCERPT", "OWNER_AUTHORED", "AI_DERIVED"]},
+              "fidelity": {"enum": ["exact", "semantic_reconstruction", "inference"]},
+              "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+              "source_subject_ids": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {"type": "string", "minLength": 1}
+              }
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "subject_id", "path", "retention_class", "fidelity", "superseded",
+          "payload_available", "content_hash", "artifact_refs", "derived_index",
+          "restricted", "contains_credentials"
+        ],
+        "properties": {
+          "subject_id": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1},
+          "retention_class": {"enum": ["integrity_only", "reconstructable", "full_fidelity"]},
+          "fidelity": {"enum": ["exact", "semantic_reconstruction", "inference", "integrity_only", "unavailable"]},
+          "superseded": {"const": false},
+          "payload_available": {"type": "boolean"},
+          "content_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+          "artifact_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "derived_index": {"const": false},
+          "restricted": {"const": false},
+          "contains_credentials": {"const": false}
+        }
+      }
+    },
+    "source_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "export_id", "export_sha256", "source_repository", "source_release",
+        "vault_class", "verification_root", "event_ids", "authority_ref", "redaction_profile"
+      ],
+      "properties": {
+        "export_id": {"type": "string", "minLength": 1},
+        "export_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "source_repository": {"type": "string", "minLength": 1},
+        "source_release": {"type": "string", "minLength": 1},
+        "vault_class": {"enum": ["PERSONAL_KV", "ORGANIZATIONAL_KV", "STEGVERSE_KV", "MACHINE_KV"]},
+        "verification_root": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "event_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "authority_ref": {"type": "string", "minLength": 1},
+        "redaction_profile": {"type": "string", "minLength": 1}
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "publication_authorized", "release_authorized", "execution_authorized", "authority_effect"],
+      "properties": {
+        "state": {"const": "ADMITTED_FOR_RENDERING"},
+        "publication_authorized": {"const": false},
+        "release_authorized": {"const": false},
+        "execution_authorized": {"const": false},
+        "authority_effect": {"const": "NONE"}
+      }
+    }
+  }
+}
