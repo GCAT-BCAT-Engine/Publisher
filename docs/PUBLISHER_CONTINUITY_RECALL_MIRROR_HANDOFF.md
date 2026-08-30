@@ -3,10 +3,10 @@
 **Repository:** `GCAT-BCAT-Engine/Publisher`  
 **Source:** `StegVerse-Labs/continuity-vault-kit`  
 **Source release:** `v0.1.8`  
-**Status:** MERGED_VALIDATED; document-rendering successor locally validated
+**Status:** MERGED_VALIDATED; document-rendering successor merged and validated
 **Pull request:** `#10 Govern Continuity Vault recall exports into Publisher` (merged)
 **Merge commit:** `d7183ebf89373b7602af7f1e68386423bab57040`
-**Successor branch:** `feature/kv-document-pipeline`
+**Successor PR:** `#39` merged at `be3f27cec7782507fb77e8cadafcc8c10f9e1835`
 **Last updated:** 2026-08-29
 
 ## Purpose
@@ -59,10 +59,10 @@ than pending-PR scaffolding.
 
 ## Successor work
 
-The locally validated `feature/kv-document-pipeline` branch composes an admitted,
+Merged PR #39 composes an admitted,
 hash-bound KV bundle into Markdown, HTML, PDF, DOCX, and JSON artifacts. Its
 continuation source of truth is `docs/KV_DOCUMENT_PIPELINE_MIRROR_HANDOFF.md`.
-It remains unmerged and does not claim private-KV ingestion, publication,
+It does not claim private-KV ingestion, publication,
 deployment, release, or activation.
 
 ## Acceptance condition

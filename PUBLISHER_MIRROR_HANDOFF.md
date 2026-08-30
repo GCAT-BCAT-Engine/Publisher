@@ -379,7 +379,7 @@ Standard: `StegVerse-Labs/Continuity/docs/REPOSITORY_HANDOFF_STANDARD.md` / `ste
 
 ## Governed KnowledgeVault document pipeline — 2026-08-29
 
-The feature branch `feature/kv-document-pipeline` adds a general,
+Merged PR #39 adds a general,
 renderer-neutral composition path over the merged continuity-recall admission
 boundary.
 
@@ -391,7 +391,8 @@ artifact state: GENERATED_VALIDATED_NOT_PUBLISHED
 local unit validation: 16/16 PASS
 synthetic deterministic replay: byte-identical PASS
 authority_effect: NONE
-state: IMPLEMENTED_LOCAL_VALIDATED
+state: SOURCE_MERGED_VALIDATED
+merge_commit: be3f27cec7782507fb77e8cadafcc8c10f9e1835
 ```
 
 Developed source includes the pipeline, two schemas, CLI, admitted fixture,

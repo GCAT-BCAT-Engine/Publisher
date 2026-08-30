@@ -3,7 +3,7 @@
 ## Status
 
 This document defines a bounded integration contract. The recall-admission gate
-is merged, and a multi-format document-rendering successor is locally validated.
+is merged, and the multi-format document-rendering successor is merged and validated.
 It does **not** claim that a live vault endpoint, weekly ingestion workflow,
 publication transition, licensing market, contribution scoring system, or payout
 system is currently implemented.
@@ -133,8 +133,8 @@ The following remain excluded unless a later, separately governed contract and i
 
 The continuity admission validator, fixtures, tests, workflow, and deterministic
 admission receipts are merged. The general document model and five-format
-renderer are locally validated on `feature/kv-document-pipeline`, with scoped
-state in `KV_DOCUMENT_PIPELINE_MIRROR_HANDOFF.md`.
+renderer are merged through PR #39, with scoped state in
+`KV_DOCUMENT_PIPELINE_MIRROR_HANDOFF.md`.
 
 `IMPLEMENTED` and local `VALIDATED` do not mean `MERGED`, `DEPLOYED`,
 `ACTIVATED`, `PUBLISHED`, or `RELEASED`. Those states still require exact branch
