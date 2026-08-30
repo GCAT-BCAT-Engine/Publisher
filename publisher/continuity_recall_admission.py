@@ -40,7 +40,8 @@ def validate_export(bundle: dict[str, Any]) -> dict[str, Any]:
     if not str(source.get("release", "")).startswith("v"):
         reasons.append("source_release_invalid")
     root = source.get("verification_root")
-    if not isinstance(root, str) or len(root) != 64 or any(c not in "0123456789abcdef" for c in root):
+    normalized_root = root[7:] if isinstance(root, str) and root.startswith("sha256:") else root
+    if not isinstance(normalized_root, str) or len(normalized_root) != 64 or any(c not in "0123456789abcdef" for c in normalized_root):
         reasons.append("verification_root_invalid")
     if not source.get("event_ids"):
         reasons.append("event_ids_missing")

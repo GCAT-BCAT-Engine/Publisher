@@ -23,6 +23,25 @@ publisher/
 3. **Create** the individual paper HTML page in `papers/`
 4. **Deploy** — everything is static
 
+## Governed KnowledgeVault document rendering
+
+Publisher also includes a bounded, dependency-light document pipeline for an
+owner-authorized KnowledgeVault export. It verifies the exact export hash and
+existing continuity-admission rules, builds one renderer-neutral document, and
+generates Markdown, HTML, PDF, DOCX, and JSON plus a hash-bound artifact manifest
+and receipt:
+
+```bash
+python tools/render_kv_document_export.py \
+  tests/fixtures/document-export/admitted.json \
+  --output-dir /tmp/publisher-document
+```
+
+Generated artifacts are `GENERATED_VALIDATED_NOT_PUBLISHED`. Rendering does not
+grant publication, release, deployment, execution, licensing, or custody
+authority. The contract and current lifecycle gates are recorded in
+`docs/KV_DOCUMENT_PIPELINE_MIRROR_HANDOFF.md`.
+
 ## papers_manifest.yml Format
 
 ```yaml

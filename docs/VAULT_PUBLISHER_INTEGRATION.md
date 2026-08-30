@@ -2,7 +2,11 @@
 
 ## Status
 
-This document defines a bounded integration contract. It does **not** claim that a live vault endpoint, weekly ingestion workflow, licensing market, contribution scoring system, or payout system is currently implemented.
+This document defines a bounded integration contract. The recall-admission gate
+is merged, and a multi-format document-rendering successor is locally validated.
+It does **not** claim that a live vault endpoint, weekly ingestion workflow,
+publication transition, licensing market, contribution scoring system, or payout
+system is currently implemented.
 
 Source capability reviewed: `StegVerse-Labs/continuity-vault-kit` `v0.1.8`.
 
@@ -31,7 +35,15 @@ Publisher admission boundary
     ├── rejects prohibited or unverifiable content
     └── records an admission receipt
 
-          ↓ only after separate authority
+          ↓ renderer-neutral PublisherDocument
+
+Bounded document renderer
+    ├── preserves content class, fidelity, confidence, and source bindings
+    ├── renders Markdown, HTML, PDF, DOCX, and JSON
+    ├── validates and hashes every artifact
+    └── emits GENERATED_VALIDATED_NOT_PUBLISHED receipt
+
+          ↓ only after separate publication authority
 
 Optional dataset construction or licensing workflow
 ```
@@ -119,4 +131,12 @@ The following remain excluded unless a later, separately governed contract and i
 
 ## Implementation state
 
-This repository currently contains the integration specification and mirror handoff. A production claim requires a validator or ingestion implementation, fixtures, tests, CI, admission receipts, and release evidence.
+The continuity admission validator, fixtures, tests, workflow, and deterministic
+admission receipts are merged. The general document model and five-format
+renderer are locally validated on `feature/kv-document-pipeline`, with scoped
+state in `KV_DOCUMENT_PIPELINE_MIRROR_HANDOFF.md`.
+
+`IMPLEMENTED` and local `VALIDATED` do not mean `MERGED`, `DEPLOYED`,
+`ACTIVATED`, `PUBLISHED`, or `RELEASED`. Those states still require exact branch
+validation, merge evidence, a real owner-authorized private-KV bundle, receipt
+readback, and a separate publication decision.

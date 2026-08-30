@@ -1,0 +1,58 @@
+name: Validate KV document pipeline
+
+on:
+  pull_request:
+    paths:
+      - "publisher/document_pipeline.py"
+      - "publisher/continuity_recall_admission.py"
+      - "schemas/publisher-document*.schema.json"
+      - "tools/render_kv_document_export.py"
+      - "tests/test_document_pipeline.py"
+      - "tests/fixtures/document-export/**"
+      - "docs/KV_DOCUMENT_PIPELINE_MIRROR_HANDOFF.md"
+      - ".github/workflows/validate-kv-document-pipeline.yml"
+  push:
+    branches: [main]
+    paths:
+      - "publisher/document_pipeline.py"
+      - "publisher/continuity_recall_admission.py"
+      - "schemas/publisher-document*.schema.json"
+      - "tools/render_kv_document_export.py"
+      - "tests/test_document_pipeline.py"
+      - "tests/fixtures/document-export/**"
+      - "docs/KV_DOCUMENT_PIPELINE_MIRROR_HANDOFF.md"
+      - ".github/workflows/validate-kv-document-pipeline.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile document pipeline
+        run: python -m py_compile publisher/document_pipeline.py publisher/continuity_recall_admission.py tools/render_kv_document_export.py tests/test_document_pipeline.py
+      - name: Run document pipeline and continuity admission tests
+        run: python -m unittest tests.test_document_pipeline tests.test_continuity_recall_admission -v
+      - name: Validate document schemas
+        run: |
+          python -m json.tool schemas/publisher-document.schema.json >/dev/null
+          python -m json.tool schemas/publisher-document-artifact-manifest.schema.json >/dev/null
+      - name: Demonstrate all-format rendering
+        run: |
+          python tools/render_kv_document_export.py \
+            tests/fixtures/document-export/admitted.json \
+            --output-dir /tmp/publisher-document
+          test -s /tmp/publisher-document/project-brief-demo-001.md
+          test -s /tmp/publisher-document/project-brief-demo-001.html
+          test -s /tmp/publisher-document/project-brief-demo-001.pdf
+          test -s /tmp/publisher-document/project-brief-demo-001.docx
+          test -s /tmp/publisher-document/project-brief-demo-001.json
+          test -s /tmp/publisher-document/artifact-manifest.json
+          test -s /tmp/publisher-document/rendering-receipt.json

@@ -54,9 +54,7 @@ def main():
 
     print(f"Headline: {result['headline']}")
     print(f"Receipt: {result['receipt_id']}")
-    print(f"
-Twitter preview:
-{result['platforms']['twitter'][:150]}...")
+    print(f"\nTwitter preview:\n{result['platforms']['twitter'][:150]}...")
 
 
 if __name__ == "__main__":

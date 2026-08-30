@@ -376,3 +376,31 @@ Standard: `StegVerse-Labs/Continuity/docs/REPOSITORY_HANDOFF_STANDARD.md` / `ste
 - The 2026-08-27 generated StegPay Publisher-to-wiki bounded projection chain is complete; older August 2 hashes are historical only.
 - Stale `StegVerse-Labs/stegguardian-wiki` and nonexistent `StegVerse-Labs/Sit` destinations are superseded by `StegVerse-002/stegguardian-wiki` and `StegVerse-Labs/Site`.
 - Any inference that projection, transport, workflow success, publication awareness, or test evidence grants Publisher publication/release/custody/deployment/payment/entitlement/execution authority is superseded/prohibited.
+
+## Governed KnowledgeVault document pipeline — 2026-08-29
+
+The feature branch `feature/kv-document-pipeline` adds a general,
+renderer-neutral composition path over the merged continuity-recall admission
+boundary.
+
+```text
+input: stegverse.kv.publisher-document-export/v1
+document model: stegverse.publisher.document/v1
+formats: Markdown, HTML, PDF, DOCX, JSON
+artifact state: GENERATED_VALIDATED_NOT_PUBLISHED
+local unit validation: 16/16 PASS
+synthetic deterministic replay: byte-identical PASS
+authority_effect: NONE
+state: IMPLEMENTED_LOCAL_VALIDATED
+```
+
+Developed source includes the pipeline, two schemas, CLI, admitted fixture,
+tests, validation workflow, and scoped handoff. These are functional components,
+not placeholder scaffolding. Supporting repairs make continuity hashes accept
+explicit `sha256:` roots, make receipt identity actually timestamp-independent,
+and restore `press_summary.py` compilation.
+
+No private-KV request, InTr delivery, returned receipt, public artifact,
+publication decision, deployment, release, or runtime activation is claimed.
+The scoped continuation source of truth is
+`docs/KV_DOCUMENT_PIPELINE_MIRROR_HANDOFF.md`.
