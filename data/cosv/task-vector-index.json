@@ -1,0 +1,33 @@
+{
+  "schema": "stegverse.publisher.cosv-task-vector-index/v1",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "profile": "task.v1",
+  "notation": "L R U I V G O C M T B E A P",
+  "width": 14,
+  "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
+  "observed_at": "2026-08-31T07:19:00-05:00",
+  "authority_effect": "NONE",
+  "tasks": [
+    {
+      "task_id": "PUBLISHER-0001-HIL-PROPAGATION",
+      "state_ref": "data/publisher-orchestration-state.json#blocked_tasks",
+      "vector_ref": "data/cosv/task-vectors/PUBLISHER-0001-HIL-PROPAGATION.json",
+      "vector": "60000000104000",
+      "binding_mode": "EXTERNAL_PROJECTION_READ_ONLY"
+    },
+    {
+      "task_id": "PUBLISHER-0001-CLOSURE",
+      "state_ref": "data/publisher-orchestration-state.json#blocked_tasks",
+      "vector_ref": "data/cosv/task-vectors/PUBLISHER-0001-CLOSURE.json",
+      "vector": "60000000101000",
+      "binding_mode": "EXTERNAL_PROJECTION_READ_ONLY"
+    }
+  ],
+  "coverage": {
+    "active_machine_blocked_tasks_projected": 2,
+    "active_machine_blocked_tasks_gap": 0,
+    "unrelated_claimed_draft_tasks_projected": false,
+    "repository_active_task_surface_audit_complete": false,
+    "repository_vector_present_claimed": false
+  }
+}
