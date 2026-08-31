@@ -1,0 +1,46 @@
+{
+  "identity": "GCAT-BCAT-Engine/Publisher:task:PUBLISHER-0001-HIL-PROPAGATION",
+  "profile": "task.v1",
+  "level": "task",
+  "vector": "60000000104000",
+  "evidence_refs": [
+    "data/publisher-orchestration-state.json",
+    "docs/PUBLISHER_MIRROR_HANDOFF.md"
+  ],
+  "observed_at": "2026-08-31T07:18:00-05:00",
+  "exact_metrics": {
+    "symbol_order": "LRUIVGOCMTBEAP",
+    "lifecycle": "BLOCKED",
+    "archive_ready": false,
+    "unassigned_work": 0,
+    "chat_owned_implementation": 0,
+    "chat_owned_validation": 0,
+    "chat_owned_integration": 0,
+    "chat_owned_observation": 0,
+    "chat_owned_credentials": 0,
+    "canonical_owner_installed": true,
+    "thread_required": false,
+    "blocker_count": 4,
+    "evidence_complete": false,
+    "activated": false,
+    "propagated": false
+  },
+  "metric_evidence": {
+    "lifecycle": "publisher orchestration state lists this task as dependency-blocked",
+    "archive_ready": "task release condition not observed",
+    "unassigned_work": "repository-native owner is installed",
+    "chat_owned_counts": "no chat-owned execution or credential authority",
+    "canonical_owner_installed": "Publisher workflow/handoff owns the task",
+    "thread_required": "repository-native state is sufficient for continuation",
+    "blocker_count": [
+      "StegVerse-org/LLM-adapter issue #18",
+      "master-records/orchestration issue #2",
+      "StegVerse-Labs/Site READY_FOR_DOWNSTREAM_INGESTION",
+      "Site must declare GCAT-BCAT-Engine/Publisher as a destination"
+    ],
+    "evidence_complete": "terminal evidence not present",
+    "activated": "projection is non-authorizing",
+    "propagated": "downstream propagation not yet verified"
+  },
+  "authority_effect": "NONE"
+}
