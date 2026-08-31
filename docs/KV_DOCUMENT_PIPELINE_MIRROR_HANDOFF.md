@@ -136,3 +136,44 @@ This is **not** runtime activation evidence because no authentic verified DEVICE
 envelope/receipt was observed. The run therefore establishes private-KV request/render/
 readback/reconstruction behavior while leaving `ACTIVATED=false` and preserving the
 transport gate.
+
+
+## Universal InTr artifact-transfer source integration — issue #42
+
+The canonical StegOS profile `publisher-artifact-transfer` defines:
+
+```text
+KV / KnowledgeVault:DocumentExport
+  -- TRANSFER -->
+STEGOS_ECOSYSTEM / Publisher:Ingress
+
+Publisher:Export
+  -- canonical response -->
+KV / KnowledgeVault:DocumentImport
+
+custody_mode=EXACT_BYTES
+always_on_receiver_required=false
+second_user_device_required=false
+transport_grants_execution_authority=false
+```
+
+Publisher now owns the destination application semantics in
+`publisher/intr_artifact_transfer.py`. It accepts only canonical exact
+`stegverse.publisher.artifact-transfer/v1` bytes, binds the transfer to the
+existing owner-authorized KV export, reuses `document_pipeline.py`, verifies
+the artifact manifest, and emits one canonical
+`stegverse.publisher.artifact-return/v1` packet containing the exact rendered
+artifact bytes as base64 plus their hashes/manifest/receipt.
+
+This source does not itself create Universal InTr hop receipts, materialize a
+receiver, publish a document, or mark activation. The sovereign transport
+consumer must independently validate the queued exact payload hash and use the
+canonical StegOS connector to create the forward and response receipt chains.
+
+```text
+source implementation != transported transfer
+transported transfer != Publisher admission/render observation
+render observation != response returned to KV
+response returned to KV != publication
+publication != release
+```
