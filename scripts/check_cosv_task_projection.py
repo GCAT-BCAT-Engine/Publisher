@@ -16,7 +16,8 @@ for row in idx["tasks"]:
     assert m["canonical_owner_installed"] is True
     assert m["evidence_complete"] is False
     assert m["activated"] is False and m["propagated"] is False
-    assert m["blocker_count"]==len(src["blocked_by"]) if "blocked_by" in src else 1
+    expected_blockers=len(src["blocked_by"]) if "blocked_by" in src else 1
+    assert m["blocker_count"]==expected_blockers
     assert rec["authority_effect"]=="NONE"
 assert idx["coverage"]["active_machine_blocked_tasks_projected"]==2
 assert idx["coverage"]["active_machine_blocked_tasks_gap"]==0
