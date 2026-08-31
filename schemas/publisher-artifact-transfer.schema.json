@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/publisher-artifact-transfer.schema.json",
+  "title": "Publisher Artifact Transfer",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema","transfer_id","operation","export_bundle","export_sha256","requested_formats","authorization_ref","publication_authorized","release_authorized","execution_authorized","authority_effect"],
+  "properties": {
+    "schema": {"const": "stegverse.publisher.artifact-transfer/v1"},
+    "transfer_id": {"type":"string","minLength":1},
+    "operation": {"const":"TRANSFER"},
+    "export_bundle": {"type":"object"},
+    "export_sha256": {"type":"string","pattern":"^sha256:[a-f0-9]{64}$"},
+    "requested_formats": {"type":"array","minItems":1,"uniqueItems":true,"items":{"enum":["markdown","html","pdf","docx","json"]}},
+    "authorization_ref": {"type":"string","minLength":1},
+    "publication_authorized": {"const":false},
+    "release_authorized": {"const":false},
+    "execution_authorized": {"const":false},
+    "authority_effect": {"const":"NONE"}
+  }
+}
