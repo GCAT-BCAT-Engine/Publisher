@@ -447,3 +447,11 @@ The projection is derived from `StegVerse-002/.github` release-manifest reconcil
 All ten recorded tag refs resolve to their pinned commits and all ten releases exist. The declared experiment snapshot class remains `EXPERIMENT_SNAPSHOT_PRERELEASE`, while GitHub currently reports `prerelease=false` for all ten releases. The projection therefore records `RELEASES_PRESENT_METADATA_MISMATCH` rather than claiming prerelease metadata conformance.
 
 This projection is awareness/evidence identity only. It does not claim principal execution, SYSTEM_AI_ACTIVE, custody, reconstruction PASS, runtime activation, deployment, product release, admissibility, Guardian enforcement, or destination publication/release authority.
+
+## SV002 T0 standard-release class reconciliation — 2026-09-02
+
+Canonical source decision: `StegVerse-002/.github@5ec896ecf754d85493c38b2d5cb9772a0575e8bf`.
+
+The experiment snapshot release class is now `EXPERIMENT_SNAPSHOT_RELEASE`. GitHub `prerelease=false` is conformant for this class, so the projection state is `RELEASES_PRESENT_METADATA_CONFORMANT`.
+
+This classification change does not promote the snapshot into a product release and does not alter the frozen v0.3 experiment condition, exact tags, pinned commits, principal/runtime state, custody, reconstruction, activation, deployment, admissibility, Guardian enforcement, or destination authority.
