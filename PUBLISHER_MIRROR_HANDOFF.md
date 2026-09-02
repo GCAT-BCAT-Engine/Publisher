@@ -413,7 +413,7 @@ The scoped continuation source of truth is
 source release: Data-Continuation/StegClaw v1.0.0
 release id: 381434394
 release target: 6b89a4bfb3d4c2fcc61e6cccaa4f292fb4d58cdb
-state: IMPLEMENTED_VALIDATION_PENDING
+state: COMPLETE_VALIDATED_MERGED
 execution class: PARALLEL_SAFE_NON_AUTHORIZING_RELEASE_AWARENESS
 handoff: docs/STEGCLAW_RELEASE_AWARENESS_MIRROR_HANDOFF.md
 data: data/stegclaw-release-awareness.json
@@ -422,3 +422,18 @@ authority effect: NONE
 ```
 
 This lane is independent of the Site HIL activation dependency and does not satisfy or alter that blocker.
+
+
+### StegClaw release-awareness completion evidence
+
+```text
+issue: #46 CLOSED_COMPLETED
+pull request: #48
+validated head: 21b7fbf81915d1aad761ffac79f3c72b9ce07acb
+dedicated validation: 33659262063 SUCCESS
+Publisher Check: 33659262016 SUCCESS
+Publisher Readiness: 33659261777 SUCCESS
+Architecture Guard: 33659261813 SUCCESS
+merge: bf7f77c445980292807364b8402c98afbd47689e
+authority effect: NONE
+```
