@@ -437,3 +437,13 @@ Architecture Guard: 33659261813 SUCCESS
 merge: bf7f77c445980292807364b8402c98afbd47689e
 authority effect: NONE
 ```
+
+## SV002 v0.3 T0 snapshot projection — 2026-09-02
+
+Canonical projection: `data/sv002-t0-snapshot-projection.json`.
+
+The projection is derived from `StegVerse-002/.github` release-manifest reconciliation merge `cf1b0d5ff44a26d42bf9953d8d2ba4b2bd1926ba`.
+
+All ten recorded tag refs resolve to their pinned commits and all ten releases exist. The declared experiment snapshot class remains `EXPERIMENT_SNAPSHOT_PRERELEASE`, while GitHub currently reports `prerelease=false` for all ten releases. The projection therefore records `RELEASES_PRESENT_METADATA_MISMATCH` rather than claiming prerelease metadata conformance.
+
+This projection is awareness/evidence identity only. It does not claim principal execution, SYSTEM_AI_ACTIVE, custody, reconstruction PASS, runtime activation, deployment, product release, admissibility, Guardian enforcement, or destination publication/release authority.
