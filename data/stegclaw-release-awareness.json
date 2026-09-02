@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "stegverse.stegclaw.publisher_release_awareness",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "source_repository": "Data-Continuation/StegClaw",
+  "source_release": {
+    "state": "RELEASED",
+    "version": "1.0.0",
+    "tag_name": "v1.0.0",
+    "release_id": 381434394,
+    "release_url": "https://github.com/Data-Continuation/StegClaw/releases/tag/v1.0.0",
+    "release_target": "6b89a4bfb3d4c2fcc61e6cccaa4f292fb4d58cdb",
+    "published_at": "2026-09-02T17:04:18Z",
+    "validation_run": 33650991623,
+    "validation_artifact_id": 9854745757,
+    "validation_artifact_digest": "sha256:90d18ccac5f28ca893c5347ebeaeb8828503b166b5ce6a45be794110ebd55fc5"
+  },
+  "upstream_state": {
+    "ecosystem_handoff": "STEGCLAW_ECOSYSTEM_HANDOFF_VERIFIED",
+    "release_gate": "ALLOW",
+    "cosv_repository_vector": "59990099900000"
+  },
+  "publisher_effect": {
+    "state": "VERIFIED_RELEASE_AWARENESS_PROJECTED",
+    "publication_authorized": false,
+    "release_authorized": false,
+    "custody_recorded": false,
+    "execution_authorized": false,
+    "runtime_activation_claimed": false,
+    "guardian_authority": false,
+    "admissibility_authority": false
+  },
+  "propagation": {
+    "source_task": "Data-Continuation/StegClaw:post-release-propagation",
+    "source_issue": 9,
+    "publisher_issue": 46,
+    "status": "RECEIVED_FOR_BOUNDED_AWARENESS"
+  },
+  "authority_effect": "NONE",
+  "manual_user_action_required": false
+}
