@@ -68,6 +68,16 @@
       "owner": "pull/5",
       "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
       "state": "DRAFT_ACTIVE"
+    },
+    {
+      "task_id": "PUBLISHER-STEGCLAW-V1.0.0-RELEASE-AWARENESS-046",
+      "workload": "Consume verified StegClaw v1.0.0 as bounded Publisher release awareness",
+      "execution_class": "PARALLEL_SAFE_NON_AUTHORIZING_RELEASE_AWARENESS",
+      "owner": "GCAT-BCAT-Engine/Publisher issue #46",
+      "claim_state": "CLAIMED_FOR_VALIDATION",
+      "state": "IMPLEMENTED_VALIDATION_PENDING",
+      "handoff": "docs/STEGCLAW_RELEASE_AWARENESS_MIRROR_HANDOFF.md",
+      "authority_effect": false
     }
   ],
   "completed_tasks": [
@@ -160,7 +170,7 @@
   },
   "idle_terminal_statement": "end of current work task sequence 0001, no unique session-owned tasks running",
   "last_transition": {
-    "event_type": "GOVERNANCE_OBSERVATORY_V0_1_0_RELEASE_AWARENESS_COMPLETE_VALIDATED_MERGED",
+    "event_type": "STEGCLAW_V1_0_0_RELEASE_AWARENESS_IMPLEMENTED_VALIDATION_PENDING",
     "progress_effect": true,
     "authority_effect": false
   },
