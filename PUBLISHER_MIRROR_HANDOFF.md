@@ -405,3 +405,20 @@ No private-KV request, InTr delivery, returned receipt, public artifact,
 publication decision, deployment, release, or runtime activation is claimed.
 The scoped continuation source of truth is
 `docs/KV_DOCUMENT_PIPELINE_MIRROR_HANDOFF.md`.
+
+
+## StegClaw v1.0.0 release awareness — issue #46
+
+```text
+source release: Data-Continuation/StegClaw v1.0.0
+release id: 381434394
+release target: 6b89a4bfb3d4c2fcc61e6cccaa4f292fb4d58cdb
+state: IMPLEMENTED_VALIDATION_PENDING
+execution class: PARALLEL_SAFE_NON_AUTHORIZING_RELEASE_AWARENESS
+handoff: docs/STEGCLAW_RELEASE_AWARENESS_MIRROR_HANDOFF.md
+data: data/stegclaw-release-awareness.json
+validator: scripts/check_stegclaw_release_awareness.py
+authority effect: NONE
+```
+
+This lane is independent of the Site HIL activation dependency and does not satisfy or alter that blocker.
