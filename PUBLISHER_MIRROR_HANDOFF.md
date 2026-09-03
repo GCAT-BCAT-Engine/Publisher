@@ -455,3 +455,15 @@ Canonical source decision: `StegVerse-002/.github@5ec896ecf754d85493c38b2d5cb977
 The experiment snapshot release class is now `EXPERIMENT_SNAPSHOT_RELEASE`. GitHub `prerelease=false` is conformant for this class, so the projection state is `RELEASES_PRESENT_METADATA_CONFORMANT`.
 
 This classification change does not promote the snapshot into a product release and does not alter the frozen v0.3 experiment condition, exact tags, pinned commits, principal/runtime state, custody, reconstruction, activation, deployment, admissibility, Guardian enforcement, or destination authority.
+
+
+## Ecosystem purpose contribution — 2026-09-02
+
+Canonical organization invariant: `StegVerse-Labs/.github/docs/ECOSYSTEM_PURPOSE_INVARIANT.md`.
+Machine declaration: `.stegverse/ecosystem-purpose-contribution.json`.
+
+This repository contributes to the StegVerse ecosystem sum through: **evidence, interoperability, observability**.
+
+This binding grants no new authority, does not change repository-local execution/credential/admission/routing/custody/publication/consequence boundaries, and does not establish a new runtime or maturity state. Existing handoff evidence remains authoritative for what this repository has actually implemented, validated, released, deployed, activated, observed, or reconstructed.
+
+The repository should continue advancing the shared objective: preserve agency and explicit authority while making consequential transitions bounded and reconstructable, without requiring a specific intelligence provider or collapsing governance into a universal correctness authority.
