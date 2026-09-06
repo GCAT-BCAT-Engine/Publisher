@@ -1,0 +1,115 @@
+name: Validate GCAT Capacity Paper
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/validate-gcat-capacity-paper.yml'
+      - 'data/gcat_capacity_*.json'
+      - 'models/gcat_capacity_model.json'
+      - 'orchestration/gcat-capacity-*.json'
+      - 'docs/gcat-capacity-case-evidence-note.md'
+      - 'papers/GCAT-BCAT/P14_GCAT_Capacity_Stability_v1.md'
+      - 'papers/GCAT-BCAT/references/gcat_capacity_primary_sources.bib'
+      - 'papers/GCAT-BCAT/sections/P14_related_work_v1.md'
+      - 'papers/GCAT-BCAT/sections/P14_case_study_v1.md'
+      - 'tools/gcat_capacity_*.py'
+      - 'tools/check_gcat_capacity_*.py'
+      - 'tools/write_gcat_capacity_runtime_receipt.py'
+  push:
+    branches:
+      - agent/gcat-capacity-paper
+    paths:
+      - '.github/workflows/validate-gcat-capacity-paper.yml'
+      - 'data/gcat_capacity_*.json'
+      - 'models/gcat_capacity_model.json'
+      - 'orchestration/gcat-capacity-*.json'
+      - 'docs/gcat-capacity-case-evidence-note.md'
+      - 'papers/GCAT-BCAT/**'
+      - 'tools/gcat_capacity_*.py'
+      - 'tools/check_gcat_capacity_*.py'
+      - 'tools/write_gcat_capacity_runtime_receipt.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gcat-capacity-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Generate and validate synthetic GCAT artifacts
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out exact commit
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate task inventory and claim
+        run: python tools/check_gcat_capacity_task_state.py
+
+      - name: Generate scenario outputs
+        run: python tools/gcat_capacity_simulation.py
+
+      - name: Validate scenario outputs
+        run: python tools/check_gcat_capacity_simulation.py
+
+      - name: Generate sensitivity outputs and regime map
+        run: python tools/gcat_capacity_sensitivity.py
+
+      - name: Validate sensitivity outputs
+        run: python tools/check_gcat_capacity_sensitivity.py
+
+      - name: Generate time-series figures
+        run: python tools/gcat_capacity_timeseries.py
+
+      - name: Validate time-series figures
+        run: python tools/check_gcat_capacity_timeseries.py
+
+      - name: Validate bibliography and claim boundaries
+        run: python tools/check_gcat_capacity_bibliography.py
+
+      - name: Validate case-study provenance and claim boundaries
+        run: python tools/check_gcat_capacity_case_evidence.py
+
+      - name: Write successful runtime receipt
+        if: success()
+        run: >-
+          python tools/write_gcat_capacity_runtime_receipt.py
+          --result COMPLETE
+          --validator "python tools/check_gcat_capacity_task_state.py"
+          --validator "python tools/check_gcat_capacity_simulation.py"
+          --validator "python tools/check_gcat_capacity_sensitivity.py"
+          --validator "python tools/check_gcat_capacity_timeseries.py"
+          --validator "python tools/check_gcat_capacity_bibliography.py"
+          --validator "python tools/check_gcat_capacity_case_evidence.py"
+
+      - name: Write failed runtime receipt
+        if: failure()
+        run: >-
+          python tools/write_gcat_capacity_runtime_receipt.py
+          --result FAILED
+          --failure "One or more generation or validation steps failed. Inspect this job log for the first failing step."
+
+      - name: Upload validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gcat-capacity-validation
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            generated/gcat-capacity/**
+            generated/gcat-capacity-sensitivity/**
+            generated/gcat-capacity-timeseries/**
+            reports/gcat-capacity-runtime-receipt.json
+            orchestration/gcat-capacity-session-goal-inventory.json
+            orchestration/gcat-capacity-task-state.json
+            docs/gcat-capacity-case-evidence-note.md
+            papers/GCAT-BCAT/sections/P14_case_study_v1.md

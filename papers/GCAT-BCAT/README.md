@@ -16,5 +16,10 @@ Files:
 - P11_DistributedCoherence_v1.tex
 - P12_DataContinuity_v1.tex
 - P13_AdmissibleExistence_v1.tex
+- P14_GCAT_Capacity_Stability_v1.md — research draft; synthetic simulations and publication validation remain bounded by `docs/GCAT_CAPACITY_MIRROR_HANDOFF.md`
 
-Core notation is aligned and self-contained in each file.
+P14 supporting sources:
+- `sections/P14_related_work_v1.md`
+- `references/gcat_capacity_primary_sources.bib`
+
+Core notation is aligned and self-contained in each file. P14 is not release- or publication-ready until its declared runtime, bibliographic, case-study, and mathematical-review gates complete.

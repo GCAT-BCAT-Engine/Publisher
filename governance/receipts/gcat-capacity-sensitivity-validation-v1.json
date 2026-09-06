@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "receipt_id": "gcat-capacity-sensitivity-validation-v1",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "branch": "agent/gcat-capacity-paper",
+  "status": "implementation-complete-runtime-validation-pending",
+  "artifacts": [
+    "data/gcat_capacity_sensitivity.json",
+    "tools/gcat_capacity_sensitivity.py",
+    "tools/check_gcat_capacity_sensitivity.py",
+    "docs/gcat-capacity-reproducibility.md"
+  ],
+  "implemented_studies": [
+    "governance-pressure regime grid",
+    "alpha elasticity sweep across three limiting-state configurations",
+    "Cobb-Douglas baseline",
+    "normalized weighted geometric comparator",
+    "weighted additive comparator",
+    "bottleneck minimum comparator",
+    "CES comparator with declared rho",
+    "publication SVG regime map with Omega equals one frontier"
+  ],
+  "implemented_checks": [
+    "declared grid dimensions",
+    "finite positive capacities and loads",
+    "margin identity h = -ln(Omega)",
+    "governable and overload classification parity",
+    "presence of both modeled regimes",
+    "alternative production-function coverage",
+    "bottleneck comparator behavior on limiting states",
+    "synthetic and calibration markers",
+    "SVG boundary and provenance labels",
+    "generated file set",
+    "manifest paths and SHA-256 digest shape"
+  ],
+  "runtime_validation": {
+    "command": "python tools/check_gcat_capacity_sensitivity.py",
+    "executed_against_committed_checkout": false,
+    "result": "pending",
+    "reason": "The connector session can commit and inspect repository content but does not provide an executable repository checkout."
+  },
+  "expected_generated_outputs": [
+    "generated/gcat-capacity-sensitivity/regime_grid.csv",
+    "generated/gcat-capacity-sensitivity/elasticity_sweep.csv",
+    "generated/gcat-capacity-sensitivity/production_function_comparison.csv",
+    "generated/gcat-capacity-sensitivity/gcat_regime_map.svg",
+    "generated/gcat-capacity-sensitivity/sensitivity_summary.json",
+    "generated/gcat-capacity-sensitivity/manifest.json"
+  ],
+  "claim_boundary": [
+    "This receipt does not claim repository runtime or CI success.",
+    "Alternative production functions are sensitivity comparators, not validated institutional laws.",
+    "The SVG is a synthetic publication artifact and not empirical evidence.",
+    "Omega > 1 denotes modeled overload, not automatic proof of drift.",
+    "No Publisher activation, Site state, wiki propagation, release, or deployment authority is changed."
+  ],
+  "next_required_event": "Execute the sensitivity validator in an authorized repository runtime and preserve commit SHA, environment, command, exit code, stdout, stderr, and generated manifest digest."
+}

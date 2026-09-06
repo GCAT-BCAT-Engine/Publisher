@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "receipt_id": "gcat-capacity-timeseries-validation-v1",
+  "repository": "GCAT-BCAT-Engine/Publisher",
+  "branch": "agent/gcat-capacity-paper",
+  "status": "implementation-complete-runtime-validation-pending",
+  "artifacts": [
+    "tools/gcat_capacity_timeseries.py",
+    "tools/check_gcat_capacity_timeseries.py",
+    "data/gcat_capacity_scenarios.json",
+    "docs/gcat-capacity-reproducibility.md"
+  ],
+  "implemented_outputs": [
+    "one two-panel SVG per declared scenario",
+    "effective governance capacity and execution pressure time series",
+    "governance load ratio time series",
+    "Omega = 1 frontier",
+    "visible synthetic and uncalibrated warning",
+    "visible overload-not-drift claim boundary",
+    "peak Omega and first-overload footer",
+    "SHA-256 bound figure manifest"
+  ],
+  "implemented_checks": [
+    "four-scenario figure coverage",
+    "manifest storage parity",
+    "SVG structure",
+    "synthetic provenance warning",
+    "claim-boundary warning",
+    "frontier and legend labels",
+    "figure digest parity",
+    "selected scenario boundary behavior"
+  ],
+  "runtime_validation": {
+    "command": "python tools/check_gcat_capacity_timeseries.py",
+    "executed_against_committed_checkout": false,
+    "result": "pending",
+    "reason": "The current connector session can mutate and inspect repository files but does not provide an executable checkout."
+  },
+  "claim_boundary": [
+    "This receipt does not claim that the generated SVG files have been produced in repository CI.",
+    "All figure data are synthetic and uncalibrated.",
+    "Omega > 1 denotes modeled overload, not automatic proof of drift.",
+    "No empirical or deployment claim is authorized."
+  ],
+  "next_required_event": "Run the committed time-series validator in an authorized checkout and preserve exact command, exit code, stdout, stderr, environment, commit SHA, and manifest digest."
+}
