@@ -1,6 +1,6 @@
 # TGA Publisher Projection Mirror Handoff
 
-Status: COMPLETE_VALIDATED_MERGED
+Status: COMPLETE_VALIDATED_MERGED_README_RECONCILIATION_IN_PROGRESS
 Updated: 2026-09-05
 Repository: GCAT-BCAT-Engine/Publisher
 Goal ID: TGA-PUBLISHER-054
@@ -40,14 +40,29 @@ The Publisher projection preserves exact upstream repository/paths/merge evidenc
 
 This lane remains parallel-safe and separate from the existing ST-017/HIL propagation observer; it does not mutate or satisfy that goal's Site activation predicate.
 
+## README completeness preflight
+
+The merged Publisher TGA projection materially added a repository capability surface and dedicated validator/workflow, while `README.md` did not identify the TGA projection or its authority/custody boundaries. README impact is therefore **required**, not waived.
+
+Collision preflight observed active Publisher PRs #5 and #22 and found neither owns repository `README.md` nor TGA projection files. The bounded repair changes documentation only and grants no new runtime, publication, release, custody, legal, enforcement, or adjudicative authority.
+
+Required README markers:
+- bounded TGA Publisher awareness/projection;
+- exact TGA files and validator;
+- canonical representation != canonical reality;
+- media reference != media custody;
+- counterfactual projection != historical applicability;
+- authority effect `NONE_AWARENESS_PROJECTION_ONLY`.
+
 ## Downstream
 
 - `tga_publisher_projection_available` is eligible for StegIndex reconciliation.
-- admissibility-wiki successor: `StegVerse-Labs/admissibility-wiki#128`.
-- StegGuardian successor: `StegVerse-002/stegguardian-wiki#37`.
+- admissibility-wiki successor `StegVerse-Labs/admissibility-wiki#128` is now implemented/merged by its owner and is being terminalized in its canonical task registry.
+- StegGuardian successor `StegVerse-002/stegguardian-wiki#37` is complete/validated/merged.
 
 ```yaml
 source_state: COMPLETE_VALIDATED_MERGED
+readme_impact: REQUIRED_RECONCILIATION_IN_PROGRESS
 authority_effect: NONE_AWARENESS_PROJECTION_ONLY
 publication_authority: false
 user_action_required: false

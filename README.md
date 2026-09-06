@@ -42,6 +42,31 @@ grant publication, release, deployment, execution, licensing, or custody
 authority. The contract and current lifecycle gates are recorded in
 `docs/KV_DOCUMENT_PIPELINE_MIRROR_HANDOFF.md`.
 
+## Temporal Governed Analysis projection
+
+Publisher contains a bounded awareness/projection of the validated Temporal Governed Analysis (TGA) Site evidence. It preserves source/time/rule-context/provenance/variance semantics without becoming a second truth source or a publication/adjudication authority.
+
+```text
+data/tga-publisher-projection.json
+docs/TGA_TEMPORAL_GOVERNED_ANALYSIS.md
+docs/TGA_PUBLISHER_PROJECTION_MIRROR_HANDOFF.md
+tools/check_tga_publisher_projection.py
+.github/workflows/validate-tga-publisher-projection.yml
+```
+
+TGA Publisher boundary:
+
+```text
+canonical_representation != canonical_reality
+encoding_precision != correctness
+media_reference != media_custody
+counterfactual_projection != historical_applicability
+unresolved_evidence = unresolved
+Publisher_TGA_authority_effect = NONE_AWARENESS_PROJECTION_ONLY
+```
+
+The TGA projection does not create publication, release, execution, custody, legal, enforcement, or adjudicative authority. Workflow or validation success is evidence of the bounded projection only.
+
 ## papers_manifest.yml Format
 
 ```yaml
