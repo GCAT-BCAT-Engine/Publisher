@@ -1,7 +1,7 @@
 {
   "artifact_type": "publisher.tga_projection_awareness",
   "schema_version": "1.0.0",
-  "state": "VALIDATED_UPSTREAM_SITE_PROJECTION_AWARENESS",
+  "state": "COMPLETE_VALIDATED_MERGED",
   "capability_id": "stegverse:capability:temporal-governed-analysis:v1",
   "upstream": {
     "repository": "StegVerse-Labs/Site",
@@ -12,6 +12,14 @@
     "task": "data/tasks/SITE-1028-TGA-PROJECTION.json",
     "projection_surface": "tga-reexamine.html",
     "completion_marker": "TGA_SITE_PROJECTION=PASS"
+  },
+  "completion_evidence": {
+    "pull_request": 55,
+    "merge_commit": "e4c820149605d317a9bfa0a80645556d6db753a3",
+    "tga_validation_run": 34001270210,
+    "architecture_guard_run": 34001270191,
+    "publisher_check_run": 34001270164,
+    "publisher_readiness_run": 34001270159
   },
   "preserved_semantics": {
     "canonical_representation_is_canonical_reality": false,
