@@ -1,0 +1,32 @@
+name: Validate TGA Publisher Projection
+
+on:
+  pull_request:
+    paths:
+      - 'data/tga-publisher-projection.json'
+      - 'docs/TGA_TEMPORAL_GOVERNED_ANALYSIS.md'
+      - 'docs/TGA_PUBLISHER_PROJECTION_MIRROR_HANDOFF.md'
+      - 'tools/check_tga_publisher_projection.py'
+      - '.github/workflows/validate-tga-publisher-projection.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/tga-publisher-projection.json'
+      - 'docs/TGA_TEMPORAL_GOVERNED_ANALYSIS.md'
+      - 'docs/TGA_PUBLISHER_PROJECTION_MIRROR_HANDOFF.md'
+      - 'tools/check_tga_publisher_projection.py'
+      - '.github/workflows/validate-tga-publisher-projection.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python tools/check_tga_publisher_projection.py
