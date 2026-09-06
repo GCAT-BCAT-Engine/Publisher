@@ -1,0 +1,40 @@
+{
+  "artifact_type": "publisher.tga_projection_awareness",
+  "schema_version": "1.0.0",
+  "state": "VALIDATED_UPSTREAM_SITE_PROJECTION_AWARENESS",
+  "capability_id": "stegverse:capability:temporal-governed-analysis:v1",
+  "upstream": {
+    "repository": "StegVerse-Labs/Site",
+    "issue": 1028,
+    "implementation_pr": 1032,
+    "merge_commit": "75a02d24cd9a413bdd268f0d831a87eb651dde6f",
+    "handoff": "docs/TGA_SITE_PROJECTION_MIRROR_HANDOFF.md",
+    "task": "data/tasks/SITE-1028-TGA-PROJECTION.json",
+    "projection_surface": "tga-reexamine.html",
+    "completion_marker": "TGA_SITE_PROJECTION=PASS"
+  },
+  "preserved_semantics": {
+    "canonical_representation_is_canonical_reality": false,
+    "encoding_precision_implies_correctness": false,
+    "media_custody_inferred": false,
+    "counterfactual_rewrites_historical_applicability": false,
+    "unresolved_states_preserved": true,
+    "provenance_preserved": true,
+    "exact_temporal_window_preserved": true,
+    "rule_context_version_preserved": true
+  },
+  "authority": {
+    "publication": false,
+    "release": false,
+    "execution": false,
+    "custody": false,
+    "adjudicative": false,
+    "legal": false,
+    "enforcement": false
+  },
+  "downstream_candidates": [
+    "StegVerse-Labs/admissibility-wiki#128",
+    "StegVerse-002/stegguardian-wiki#37"
+  ],
+  "user_action_required": false
+}
