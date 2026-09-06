@@ -1,10 +1,10 @@
 # TGA Publisher Projection Mirror Handoff
 
-Status: ACTIVE_SOURCE_BUILD
+Status: COMPLETE_VALIDATED_MERGED
 Updated: 2026-09-05
 Repository: GCAT-BCAT-Engine/Publisher
 Goal ID: TGA-PUBLISHER-054
-Issue: #54
+Issue: #54 CLOSED_COMPLETED
 Parent: StegVerse-Labs/Site#1028 COMPLETE
 
 ## Mission
@@ -19,31 +19,35 @@ Create a bounded Publisher awareness/projection of validated Temporal Governed A
 - Site repository-native task `SITE-1028-TGA-PROJECTION`: COMPLETE.
 - Site completion marker: `TGA_SITE_PROJECTION=PASS`.
 
-## Required Publisher projection
+## Publisher completion evidence
 
-The Publisher record must preserve:
-- exact upstream repository/paths/merge evidence;
-- source/time/rule-context/provenance/variance semantics;
-- `canonical representation != canonical reality`;
-- counterfactual labeling;
-- unresolved/contradictory states;
-- media custody separation;
-- authority effect NONE.
+- implementation PR: `#55`
+- merge commit: `e4c820149605d317a9bfa0a80645556d6db753a3`
+- Validate TGA Publisher Projection run: `34001270210` SUCCESS
+- Architecture Guard run: `34001270191` SUCCESS
+- Publisher Check run: `34001270164` SUCCESS
+- Publisher Readiness run: `34001270159` SUCCESS
+- issue `#54`: CLOSED_COMPLETED
 
-This lane is parallel-safe with the existing ST-017/HIL propagation observer because it does not mutate or satisfy that goal's Site activation predicate.
-
-## Planned files
+## Installed projection
 
 - `data/tga-publisher-projection.json`
 - `docs/TGA_TEMPORAL_GOVERNED_ANALYSIS.md`
 - `tools/check_tga_publisher_projection.py`
 - `.github/workflows/validate-tga-publisher-projection.yml`
 
-## Completion
+The Publisher projection preserves exact upstream repository/paths/merge evidence, source/time/rule-context/provenance/variance semantics, counterfactual labeling, unresolved/contradictory states, media-custody separation, and authority effect NONE.
 
-Source goal completes only after the dedicated validator passes and the implementation PR merges. StegIndex may then reconcile `tga_publisher_projection_available`. Wiki predicates remain unresolved until their own repository evidence exists.
+This lane remains parallel-safe and separate from the existing ST-017/HIL propagation observer; it does not mutate or satisfy that goal's Site activation predicate.
+
+## Downstream
+
+- `tga_publisher_projection_available` is eligible for StegIndex reconciliation.
+- admissibility-wiki successor: `StegVerse-Labs/admissibility-wiki#128`.
+- StegGuardian successor: `StegVerse-002/stegguardian-wiki#37`.
 
 ```yaml
+source_state: COMPLETE_VALIDATED_MERGED
 authority_effect: NONE_AWARENESS_PROJECTION_ONLY
 publication_authority: false
 user_action_required: false
