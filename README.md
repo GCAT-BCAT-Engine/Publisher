@@ -268,3 +268,9 @@ governance/cases/<CASE-ID>.case.json
 governance/cases/<CASE-ID>.sources.json
 governance/receipts/<CASE-ID>.receipt.json
 ```
+
+## ERL KV provider-proof projection
+
+Publisher's governed KV document pipeline now references the completed native ERL writer, authenticated provider write, manifest-last ordering, exact provider-byte readback, retained provider-operation receipt `bb74904fcd8169829c78bdc1c0d64905b33243c2c22852565c13e614abcd1fa8`, and Master Records reconstruction under `SS-ERL-KV-PROPAGATION-VERIFICATION-001`.
+
+The bounded projection is validated by `tools/check_erl_kv_provider_proof_projection.py` and documented in `docs/ERL_KV_PROVIDER_PROOF_PUBLISHER_PROJECTION_MIRROR_HANDOFF.md`. It does not authorize an export, publish a paper, activate Publisher, or prove Site propagation.
