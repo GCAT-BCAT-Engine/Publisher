@@ -26,6 +26,11 @@ Bind Publisher's governed KnowledgeVault document-rendering pipeline to the comp
 
 Upstream storage and custody proof does not publish a paper, authorize an export, activate Publisher, or prove Site propagation. The existing renderer must still receive an owner-authorized, hash-bound KV export.
 
+## Merge evidence
+
+- Publisher PR #60 merged at `93a4743ceb5974689c1872c0e88dbb86de980f7e`.
+- All four hosted workflows passed: focused ERL KV projection validation, Publisher Check, Publisher Readiness, and Architecture Guard.
+
 ## Current state
 
-UPDATE_REQUIRED_IMPLEMENTED / VALIDATION_PENDING / MERGE_PENDING
+UPDATE_REQUIRED_IMPLEMENTED / VALIDATED / MERGED
