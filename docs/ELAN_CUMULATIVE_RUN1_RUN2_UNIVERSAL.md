@@ -207,3 +207,36 @@ Potential next steps include:
 Current state: `GENERATED_SOURCE_NOT_YET_PUBLISHED`.
 
 This source may be validated and rendered by Publisher, but a rendering receipt is not a release receipt. Public publication and downstream propagation require their own applicable transition/evidence.
+
+---
+
+## Appendix A — Original Run 1 Results Documentation (preserved verbatim)
+
+The following section is inserted from the original Run 1 package file `10-results-documentation.md`. It is preserved verbatim as historical evidence and is not normalized into a Run 2 result.
+
+# ELAN-shaped Local SDK -> Governance Boundary Test
+
+Outcome: `LOCAL_SDK_GOVERNANCE_BOUNDARY_PROVEN`
+
+This is a local SDK boundary test. No third-party evaluator executes anything and no public package publication/acquisition is part of the test predicate.
+
+## State transitions
+- 0: `SOURCE_NATIVE_CAPTURED` -> `00-source-native-input.json`
+- 1: `LOCAL_GOVERNANCE_REQUEST_DECLARED` -> `01-governance-request.json`
+- 2: `POSTURE_REQUEST_DECLARED_NON_AUTHORIZING` -> `02-security-posture-request.json`
+- 3: `MANIFEST_BUILT_VALIDATED` -> `04-manifest.json`
+- 4: `GOVERNANCE_TRANSITION_REQUEST_MATERIALIZED` -> `05-transition-request.json`
+- 5: `LOCAL_INTR_POSTURE_BINDING_VERIFIED` -> `06-intr-posture-binding.json`
+- 6: `SDK_TO_GOVERNANCE_BOUNDARY_READY` -> `07-sdk-governance-boundary-handoff.json`
+- 7: `GOVERNANCE_CONSUMPTION_NOT_EXECUTED_IN_THIS_BOUNDARY_TEST` -> `07-sdk-governance-boundary-handoff.json`
+
+## Proven
+- Source-native Events 1 and 2 remain the payload; Event 3 is not synthesized.
+- The local SDK builds and validates the manifest.
+- The exact governance transition request is materialized.
+- The local injected InTr resolver verifies exact task/payload/transition bindings.
+- The SDK emits an explicit `READY_FOR_GOVERNANCE_CONSUMPTION` boundary handoff.
+- No governance result is fabricated.
+
+## Next boundary
+The next separate test must make the governance side consume this exact handoff artifact. That is the SDK/governance integration step; it must not be conflated with third-party evaluator execution or public distribution testing.
