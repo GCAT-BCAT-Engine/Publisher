@@ -42,6 +42,30 @@ grant publication, release, deployment, execution, licensing, or custody
 authority. The contract and current lifecycle gates are recorded in
 `docs/KV_DOCUMENT_PIPELINE_MIRROR_HANDOFF.md`.
 
+## ELAN cumulative Run 1 + Run 2 evidence source
+
+Publisher carries the evidence-backed cumulative ELAN source for canonical task
+`ELAN-CUMULATIVE-PUBLICATION-001`:
+
+```text
+docs/ELAN_CUMULATIVE_RUN1_RUN2_UNIVERSAL.md
+data/elan-cumulative-publication-001.evidence.json
+docs/ELAN_CUMULATIVE_RUN2_PUBLICATION_MIRROR_HANDOFF.md
+```
+
+The source preserves the original Run 1 local SDK/governance-boundary result and
+binds the authentic Run 2 observed-silence Actions evidence from
+`StegVerse-org/StegVerse-SDK`. Run 1 is not rewritten to claim governance
+consumption. Run 2 preserves Event 3 intent as `UNDETERMINED` and semantic
+interpretation as `UNRESOLVED` while recording the retained governed result,
+custody, replay, and reconstruction evidence.
+
+The universal source is evidence/presentation input only. Until a separate
+publication or release transition is admitted, its lifecycle remains
+`GENERATED_SOURCE_NOT_YET_PUBLISHED`; rendering or validation creates no
+publication, execution, governance, credential, custody, deployment, or
+live-runtime authority.
+
 ## Temporal Governed Analysis projection
 
 Publisher contains a bounded awareness/projection of the validated Temporal Governed Analysis (TGA) Site evidence. It preserves source/time/rule-context/provenance/variance semantics without becoming a second truth source or a publication/adjudication authority.
@@ -190,7 +214,7 @@ docs/PUBLISHER_VALIDATION_REMAINDER.md
 Issue #1: Track final Publisher closure checker alignment
 ```
 
-The pending closure status is not activation evidence. It records that Publisher receipt, Site evidence, and closure have not been recorded in that status surface. The validation remainder and Issue #1 are also not activation evidence.
+The pending closure status is not activation evidence. It records that Publisher receipt, Site evidence, and closure have not been recorded in that status surface. The validation remainder and Issue #1 are also not activation receipts.
 
 Dry run remains available with:
 
