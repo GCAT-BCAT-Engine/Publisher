@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/publisher-evidence-report-package.schema.json",
+  "title": "Publisher Evidence Report Package",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "report_id",
+    "title",
+    "subject",
+    "status",
+    "abstract",
+    "objective_scope",
+    "frozen_parameters",
+    "primary_execution",
+    "replay",
+    "reconstruction",
+    "screenshots",
+    "conclusion",
+    "evidence_ledger",
+    "usage_guide",
+    "roadmap",
+    "requested_formats",
+    "publication_authorized",
+    "release_authorized",
+    "execution_authorized",
+    "authority_effect"
+  ],
+  "properties": {
+    "schema": {"const": "stegverse.publisher.evidence-report-package/v1"},
+    "report_id": {"type": "string", "minLength": 3, "maxLength": 128, "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]+$"},
+    "title": {"type": "string", "minLength": 1},
+    "subtitle": {"type": "string"},
+    "authors": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "class"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "class": {"type": "string", "minLength": 1},
+        "version": {"type": "string"},
+        "source_repo": {"type": "string"}
+      }
+    },
+    "status": {"enum": ["DRAFT", "IN_PROGRESS", "COMPLETE"]},
+    "abstract": {"type": "string", "minLength": 1},
+    "objective_scope": {"type": "string", "minLength": 1},
+    "frozen_parameters": {"type": "object"},
+    "primary_execution": {"$ref": "#/$defs/stage"},
+    "replay": {"$ref": "#/$defs/stage"},
+    "reconstruction": {"$ref": "#/$defs/stage"},
+    "screenshots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["step_id", "title", "purpose", "artifact_ref", "sha256", "capture_class"],
+        "properties": {
+          "step_id": {"type": "string", "minLength": 1},
+          "title": {"type": "string", "minLength": 1},
+          "purpose": {"type": "string", "minLength": 1},
+          "artifact_ref": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "capture_class": {"enum": ["PRE_RUN_FROZEN_EVIDENCE", "RUNTIME_EVIDENCE", "PRESENTATION_CAPTURE"]},
+          "related_ref": {"type": "string"}
+        }
+      }
+    },
+    "conclusion": {"type": "string", "minLength": 1},
+    "evidence_ledger": {"type": "object"},
+    "usage_guide": {
+      "type": "object",
+      "required": ["overview", "instructions"],
+      "properties": {
+        "overview": {"type": "string", "minLength": 1},
+        "instructions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "worked_example": {"type": "string"}
+      }
+    },
+    "roadmap": {
+      "type": "object",
+      "required": ["implemented", "planned"],
+      "properties": {
+        "implemented": {"type": "array", "items": {"type": "string"}},
+        "planned": {"type": "array", "items": {"type": "string"}},
+        "browser_parity_target": {"type": "string"}
+      }
+    },
+    "requested_formats": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"enum": ["markdown", "html", "pdf", "docx", "json"]}
+    },
+    "publication_authorized": {"const": false},
+    "release_authorized": {"const": false},
+    "execution_authorized": {"const": false},
+    "authority_effect": {"const": "NONE"}
+  },
+  "$defs": {
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "summary", "result", "evidence_refs"],
+      "properties": {
+        "state": {"enum": ["NOT_RUN", "UNAVAILABLE", "EXECUTED"]},
+        "summary": {"type": "string"},
+        "result": {"type": "string"},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}
