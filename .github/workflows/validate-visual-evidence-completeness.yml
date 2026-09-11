@@ -1,0 +1,24 @@
+name: Validate Visual Evidence Completeness
+
+on:
+  pull_request:
+    paths:
+      - 'data/publisher-visual-evidence-contract.json'
+      - 'data/elan-cumulative-publication-visual-revision.json'
+      - 'docs/PUBLISHER_VISUAL_EVIDENCE_COMPLETENESS_MIRROR_HANDOFF.md'
+      - 'tools/check_visual_evidence_completeness.py'
+      - '.github/workflows/validate-visual-evidence-completeness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python tools/check_visual_evidence_completeness.py
