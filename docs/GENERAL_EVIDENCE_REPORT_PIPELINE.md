@@ -2,6 +2,18 @@
 
 Status: IMPLEMENTATION CANDIDATE
 
+## Contents
+
+- [Purpose](#purpose)
+- [Separation of responsibilities](#separation-of-responsibilities)
+- [General report structure](#general-report-structure)
+- [Completion semantics](#completion-semantics)
+- [Screenshot classes](#screenshot-classes)
+- [Browser roadmap](#browser-roadmap)
+- [First consumers](#first-consumers)
+
+The table of contents is the preferred entry point for this document. Supporting documentation should link directly to the relevant section above when referring to a specific capability rather than sending the reader to the document root.
+
 ## Purpose
 
 Publisher provides one reusable, non-authorizing function for turning a structured evidence package into evaluator-facing artifacts. The function is intentionally domain-neutral: MIR, ELAN, SDK evaluations, formalism tests, product demonstrations, and future evidence-backed programs provide data packages; Publisher provides validation and rendering.
