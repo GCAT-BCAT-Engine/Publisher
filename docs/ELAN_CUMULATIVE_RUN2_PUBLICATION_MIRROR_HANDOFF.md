@@ -3,7 +3,7 @@
 Updated: 2026-09-11
 Goal Task ID: `ELAN-CUMULATIVE-PUBLICATION-001`
 COSV ID: `50000000100000`
-Status: `ACTIVE / UNIVERSAL SOURCE + EVIDENCE LEDGER INSTALLED / VALIDATION PENDING`
+Status: `ACTIVE / UNIVERSAL SOURCE + EVIDENCE LEDGER + README INSTALLED / EXACT-HEAD REVALIDATION IN PROGRESS`
 
 ## Purpose
 
@@ -13,6 +13,9 @@ Own the Publisher-side cumulative ELAN evidence presentation. Preserve Run 1 as 
 
 - `docs/ELAN_CUMULATIVE_RUN1_RUN2_UNIVERSAL.md`
 - `data/elan-cumulative-publication-001.evidence.json`
+- `README.md` ELAN cumulative evidence section
+
+Publisher PR: `#63`
 
 ## Run 1 binding
 
@@ -46,6 +49,16 @@ Current source state is `GENERATED_SOURCE_NOT_YET_PUBLISHED`.
 
 Publisher rendering or validation grants no publication, release, execution, governance, credential, custody, deployment, or live-runtime authority. The pre-existing SDK task's live StegOS/InTr runtime proof predicate remains separate and unresolved unless authentic evidence independently satisfies it.
 
+## Validation evidence
+
+Previous exact source head `9a64335a0848ab5f0727566d1dc14bef98092270` passed:
+
+- Publisher Check run `34653051933` — `success`;
+- Publisher Readiness run `34653051916` — `success`;
+- Architecture Guard run `34653051985` — `success`.
+
+README maintenance introduced successor branch head commits and therefore requires fresh exact-head validation before merge. The prior green runs remain provenance only and are not reused as exact-head merge evidence for the successor head.
+
 ## Validation target
 
 The bounded Publisher change is valid when:
@@ -56,8 +69,14 @@ The bounded Publisher change is valid when:
 4. Run 1 is never described as having governance consumption;
 5. Run 2 intent and semantic interpretation remain unresolved;
 6. the universal source records replay/reconstruction accurately;
-7. the document remains explicitly not-yet-published.
+7. the document remains explicitly not-yet-published;
+8. README and this handoff remain current;
+9. fresh validation passes on the exact final PR head.
 
 ## Next transition
 
-Open and validate the Publisher PR. Merge only from exact-head evidence. Actual multi-format rendering/public release is a successor phase after the universal evidence source is validated; downstream propagation must be separately verified if release occurs.
+1. Wait only for the repository-hosted validators to finish on the exact final PR head; no manual prerequisite exists.
+2. Merge PR #63 only if all required exact-head checks pass.
+3. After merge, render the universal source through Publisher to the supported output formats while retaining `GENERATED_VALIDATED_NOT_PUBLISHED` unless a separate publication transition is admitted.
+4. Update the canonical coordination handoff with the Publisher merge and rendering evidence.
+5. Create a separate propagation-verification task only if the document is actually released/published to downstream public surfaces.
