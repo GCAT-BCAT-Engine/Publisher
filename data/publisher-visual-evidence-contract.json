@@ -1,0 +1,25 @@
+{
+  "schema": "stegverse.publisher-visual-evidence-contract/v1",
+  "task_id": "PUBLISHER-VISUAL-EVIDENCE-COMPLETENESS-001",
+  "cosv": "50000000100010",
+  "rule": {
+    "experimental_or_evaluator_publication_requires_explicit_visual_evidence_disposition": true,
+    "when_pertinent": {
+      "visual_evidence_required": true,
+      "ordered_stage_coverage_required": true,
+      "captions_required": true,
+      "provenance_classification_required": true
+    },
+    "when_not_pertinent": {
+      "visual_evidence_required": false,
+      "explicit_reason_required": true
+    }
+  },
+  "provenance_classes": {
+    "CONTEMPORANEOUS_HISTORICAL_SCREENSHOT": "Captured during the historical execution.",
+    "PRESERVED_ORIGINAL_VISUAL_EVIDENCE": "Preserved from an original evidence package.",
+    "POST_RUN_RECONSTRUCTED_EVIDENCE_VIEW": "Generated after execution from exact retained artifacts; must never be described as a contemporaneous historical screenshot."
+  },
+  "publication_invariant": "A publication must not silently omit pertinent screenshots.",
+  "authority_effect": "NONE"
+}

@@ -1,0 +1,55 @@
+{
+  "schema": "stegverse.publisher-visual-revision-evidence/v1",
+  "task_id": "PUBLISHER-VISUAL-EVIDENCE-COMPLETENESS-001",
+  "cosv": "50000000100010",
+  "predecessor_task_id": "ELAN-CUMULATIVE-PUBLICATION-001",
+  "predecessor_cosv": "71000000100100",
+  "lifecycle": "GENERATED_VALIDATED_NOT_PUBLISHED",
+  "run2_source": {
+    "repository": "StegVerse-org/StegVerse-SDK",
+    "workflow_run": 34565152578,
+    "artifact_name": "elan-local-sdk-governance-observed-silence",
+    "artifact_sha256": "2187e46441f3fc2018daf6b624ea81eb18f27353359fa99655e3a3a1febde91f"
+  },
+  "visual_evidence": {
+    "run1_count": 6,
+    "run1_classification": "PRESERVED_ORIGINAL_VISUAL_EVIDENCE",
+    "run2_count": 14,
+    "run2_classification": "POST_RUN_RECONSTRUCTED_EVIDENCE_VIEW",
+    "run2_provenance_note": "Derived from exact retained Run 2 artifacts after execution; not contemporaneous historical screenshots.",
+    "run2_ordered_files": [
+      "01_run2_source_input.png",
+      "02_run2_evaluation_declaration.png",
+      "03_run2_governance_request.png",
+      "04_run2_manifest_completed.png",
+      "05_run2_transition_request.png",
+      "06_run2_intr_posture_binding.png",
+      "07_run2_governance_handoff.png",
+      "08_run2_governance_decision.png",
+      "09_run2_route_receipts.png",
+      "10_run2_exact_run_custody.png",
+      "11_run2_replay.png",
+      "12_run2_reconstruction.png",
+      "13_run2_returned_result.png",
+      "14_run2_controlled_comparison.png"
+    ]
+  },
+  "artifacts": {
+    "markdown_sha256": "7351296b5ae489ca1c1f050cf428b28b7c17f8e4d1678a34f9bd8721e88e8a82",
+    "html_sha256": "4ad0ce103bafb9b1ee5abfdd58b8201213b8810ca2da01327ac2935477a0e4b6",
+    "json_sha256": "b2da38dc56845bad11a78166ac725d27150fe0f6bf041d0427b4811b092076ef",
+    "docx_sha256": "57931e6ca17414237502d173de9e927640f5652802cfd8f9a5e0537550076bce",
+    "pdf_sha256": "77fd79b1c985265fe7b9c722e1758e2f6120db4c0609f569a4199c3e76686343",
+    "artifact_manifest_sha256": "326d0004fba8482868f0cf3c03df8bc3c2ba5ef4bd64ee43c41118e6ec250ac1",
+    "package_zip_sha256": "c807f2f4ab2479c5edb0a820d877ff53018bad690e5a249c8e9eec8e8ff2ecf2"
+  },
+  "qa": {
+    "docx_page_count": 21,
+    "pdf_page_count": 21,
+    "docx_visual_review": "PASS",
+    "pdf_visual_review": "PASS",
+    "observed_blank_pages": 0,
+    "observed_clipping_or_overlap": false
+  },
+  "authority_effect": "NONE"
+}
