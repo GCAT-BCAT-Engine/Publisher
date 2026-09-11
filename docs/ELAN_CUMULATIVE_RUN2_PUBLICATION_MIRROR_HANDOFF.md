@@ -3,19 +3,25 @@
 Updated: 2026-09-11
 Goal Task ID: `ELAN-CUMULATIVE-PUBLICATION-001`
 COSV ID: `50000000100000`
-Status: `ACTIVE / UNIVERSAL SOURCE + EVIDENCE LEDGER + README INSTALLED / EXACT-HEAD REVALIDATION IN PROGRESS`
+Status: `ACTIVE / SOURCE MERGED / UNIVERSAL RENDER PACKAGE VALIDATED / NOT PUBLISHED`
 
 ## Purpose
 
-Own the Publisher-side cumulative ELAN evidence presentation. Preserve Run 1 as historical boundary evidence, adopt the already-authentic Run 2 Actions evidence, and expose one universal evidence source without turning rendering into publication or execution authority.
+Own the Publisher-side cumulative ELAN evidence presentation. Preserve Run 1 as historical boundary evidence, adopt the authentic Run 2 Actions evidence, and expose one universal evidence source and multi-format render package without turning rendering into publication or execution authority.
 
-## Canonical source
+## Canonical source and merge
+
+Publisher source PR `#63` merged at:
+
+`aabbf8dcfb8ac4e01b2f6a4b978ec24a00e4a3d6`
+
+Canonical source:
 
 - `docs/ELAN_CUMULATIVE_RUN1_RUN2_UNIVERSAL.md`
 - `data/elan-cumulative-publication-001.evidence.json`
 - `README.md` ELAN cumulative evidence section
 
-Publisher PR: `#63`
+The universal source embeds the original Run 1 `10-results-documentation.md` verbatim as Appendix A.
 
 ## Run 1 binding
 
@@ -23,8 +29,8 @@ Publisher PR: `#63`
 - visual package SHA-256: `81e50c33d3328256f7093d04040045c6b0d290bcec825afb747f0fb135d63f32`
 - preserved result: `LOCAL_SDK_GOVERNANCE_BOUNDARY_PROVEN`
 - preserved terminal boundary: `READY_FOR_GOVERNANCE_CONSUMPTION`
-
-Run 1 is not rewritten to claim governance consumption.
+- original Run 1 governance consumption is not claimed
+- all six original Run 1 visual evidence images are included in the rendered DOCX/PDF package
 
 ## Run 2 binding
 
@@ -38,45 +44,45 @@ Run 1 is not rewritten to claim governance consumption.
 - replay: deterministic match
 - reconstruction: chain verified
 - custody: `RECORDED`
+- intent: `UNDETERMINED`
+- semantic interpretation: `UNRESOLVED`
 
 ## Controlled comparison invariant
 
-Only the Event 3 representation is intentionally changed between the controlled baseline and observed-silence case. Run 2 represents Event 3 as an observable non-emission state after a bounded closed observation window. Intent remains `UNDETERMINED`; semantic interpretation remains `UNRESOLVED`; governance evaluator code is unchanged.
+Only the Event 3 representation is intentionally changed between the controlled baseline and observed-silence case. Run 2 represents Event 3 as an observable non-emission state after a bounded closed observation window. Governance evaluator code is unchanged.
+
+## Render receipt
+
+Canonical repository receipt:
+
+`evidence/elan/ELAN-CUMULATIVE-PUBLICATION-001.render-receipt.json`
+
+Lifecycle: `GENERATED_VALIDATED_NOT_PUBLISHED`
+
+Rendered artifacts:
+
+- Markdown SHA-256 `9eea2ec37c1a792ddd240aefcaa1538f78523f27c351a5e09e8655374ba66da3`
+- HTML SHA-256 `3b90aa905133e360f0cddb685e28d8e959d79b5d174a3910ab5398e979c225ba`
+- JSON SHA-256 `4c040129c671b42cf4b458fdd1837ce1b85b47b0bcd956ccd08878ac22559705`
+- DOCX SHA-256 `e5f9d1e31aebde4055105d3636b8908a01edd515005420226893306f6213c3a2`
+- PDF SHA-256 `e97023479946a2f2851de5c3600740df00fb3702d85eae9acb702727f0688c57`
+- artifact manifest SHA-256 `987c04984b1a770ba3bb00eb128e4372271357b507c41990b3e3045602f13fce`
+- package ZIP SHA-256 `38dcdb03c6e72692343215e02e1902135a6429fc341bdc34b2ac6ae33d0c0d44`
+
+Visual QA:
+
+- DOCX: 11 rendered pages
+- PDF: 11 rendered pages
+- blank pages: 0
+- clipping/overlap observed: false
+- QA: `PASS`
 
 ## Publication boundary
 
-Current source state is `GENERATED_SOURCE_NOT_YET_PUBLISHED`.
+Current lifecycle is `GENERATED_VALIDATED_NOT_PUBLISHED`.
 
-Publisher rendering or validation grants no publication, release, execution, governance, credential, custody, deployment, or live-runtime authority. The pre-existing SDK task's live StegOS/InTr runtime proof predicate remains separate and unresolved unless authentic evidence independently satisfies it.
+Rendering or validation grants no publication, release, execution, governance, credential, custody, deployment, or live-runtime authority. The pre-existing SDK task's live StegOS/InTr runtime proof predicate remains separate and unresolved unless authentic evidence independently satisfies it.
 
-## Validation evidence
+## Completion boundary
 
-Previous exact source head `9a64335a0848ab5f0727566d1dc14bef98092270` passed:
-
-- Publisher Check run `34653051933` — `success`;
-- Publisher Readiness run `34653051916` — `success`;
-- Architecture Guard run `34653051985` — `success`.
-
-README maintenance introduced successor branch head commits and therefore requires fresh exact-head validation before merge. The prior green runs remain provenance only and are not reused as exact-head merge evidence for the successor head.
-
-## Validation target
-
-The bounded Publisher change is valid when:
-
-1. both canonical source files parse/read successfully;
-2. Run 1 package hashes match the registered coordination handoff;
-3. Run 2 PR/head/run/artifact identifiers and digest match retained GitHub evidence;
-4. Run 1 is never described as having governance consumption;
-5. Run 2 intent and semantic interpretation remain unresolved;
-6. the universal source records replay/reconstruction accurately;
-7. the document remains explicitly not-yet-published;
-8. README and this handoff remain current;
-9. fresh validation passes on the exact final PR head.
-
-## Next transition
-
-1. Wait only for the repository-hosted validators to finish on the exact final PR head; no manual prerequisite exists.
-2. Merge PR #63 only if all required exact-head checks pass.
-3. After merge, render the universal source through Publisher to the supported output formats while retaining `GENERATED_VALIDATED_NOT_PUBLISHED` unless a separate publication transition is admitted.
-4. Update the canonical coordination handoff with the Publisher merge and rendering evidence.
-5. Create a separate propagation-verification task only if the document is actually released/published to downstream public surfaces.
+The bounded cumulative-document task is complete when this render receipt and handoff are merged and reconciled into the canonical Task Registry. Public publication/release is explicitly outside this bounded completion and, if later admitted, requires a separate propagation-verification task and evidence.
