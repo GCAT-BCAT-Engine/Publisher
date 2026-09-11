@@ -1,0 +1,42 @@
+{
+  "schema": "stegverse.publisher.rendered-evidence-receipt/v1",
+  "task_id": "ELAN-CUMULATIVE-PUBLICATION-001",
+  "cosv": "50000000100000",
+  "source_merge": "aabbf8dcfb8ac4e01b2f6a4b978ec24a00e4a3d6",
+  "source_document": "docs/ELAN_CUMULATIVE_RUN1_RUN2_UNIVERSAL.md",
+  "lifecycle_state": "GENERATED_VALIDATED_NOT_PUBLISHED",
+  "authority_effect": "NONE",
+  "publication_authorized": false,
+  "release_authorized": false,
+  "deployment_authorized": false,
+  "source_evidence": {
+    "run1_machine_package_sha256": "888917ebf4a639ecb16b83ac899e09ca8083d3ca23c17cf0fc27046dd803cdf1",
+    "run1_visual_package_sha256": "81e50c33d3328256f7093d04040045c6b0d290bcec825afb747f0fb135d63f32",
+    "run2_artifact_sha256": "2187e46441f3fc2018daf6b624ea81eb18f27353359fa99655e3a3a1febde91f",
+    "run2_actions_run": 34565152578
+  },
+  "rendered_artifacts": [
+    {"format":"markdown","filename":"ELAN_Cumulative_Run1_Run2_Universal.md","sha256":"9eea2ec37c1a792ddd240aefcaa1538f78523f27c351a5e09e8655374ba66da3"},
+    {"format":"html","filename":"ELAN_Cumulative_Run1_Run2_Universal.html","sha256":"3b90aa905133e360f0cddb685e28d8e959d79b5d174a3910ab5398e979c225ba"},
+    {"format":"json","filename":"ELAN_Cumulative_Run1_Run2_Universal.json","sha256":"4c040129c671b42cf4b458fdd1837ce1b85b47b0bcd956ccd08878ac22559705"},
+    {"format":"docx","filename":"ELAN_Cumulative_Run1_Run2_Universal.docx","sha256":"e5f9d1e31aebde4055105d3636b8908a01edd515005420226893306f6213c3a2"},
+    {"format":"pdf","filename":"ELAN_Cumulative_Run1_Run2_Universal.pdf","sha256":"e97023479946a2f2851de5c3600740df00fb3702d85eae9acb702727f0688c57"}
+  ],
+  "artifact_manifest_sha256": "987c04984b1a770ba3bb00eb128e4372271357b507c41990b3e3045602f13fce",
+  "package_zip_sha256": "38dcdb03c6e72692343215e02e1902135a6429fc341bdc34b2ac6ae33d0c0d44",
+  "visual_qa": {
+    "docx_pages": 11,
+    "pdf_pages": 11,
+    "blank_pages": 0,
+    "clipping_or_overlap_observed": false,
+    "status": "PASS"
+  },
+  "content_invariants": {
+    "run1_original_results_embedded_verbatim": true,
+    "run1_six_visuals_embedded": true,
+    "run1_governance_consumption_not_claimed": true,
+    "run2_intent": "UNDETERMINED",
+    "run2_semantic_interpretation": "UNRESOLVED"
+  },
+  "notes": "Rendered outputs are evidence presentation artifacts only. This receipt does not publish, release, deploy, authorize governance, or satisfy the separate live StegOS/InTr runtime predicate."
+}
