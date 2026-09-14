@@ -20,12 +20,11 @@ TRANSFER_FIELDS = {
     "release_authorized", "execution_authorized", "authority_effect",
 }
 OPTIONAL_TRANSFER_FIELDS = {"roundtrip_binding"}
-BOUNDARY_FALSE_FLAGS = (
-    "publication_authorized", "release_authorized", "execution_authorized",
-)
-DOWNSTREAM_FALSE_FLAGS = (
-    "publisher_transition_observed", "sdk_return_binding_observed",
-    "final_stegverse_side_egress_transition_observed", "interlock_intr_egress_observed",
+BOUNDARY_FALSE_FLAGS = ("publication_authorized", "release_authorized", "execution_authorized")
+POST_PUBLISHER_FALSE_FLAGS = (
+    "sdk_return_binding_observed",
+    "final_stegverse_side_egress_transition_observed",
+    "interlock_intr_egress_observed",
     "far_side_transition_observed",
     "authentic_external_mir_endpoint_substitution_observed",
     "communication_complete",
@@ -69,10 +68,6 @@ def _normalize_sha256(value: Any, label: str) -> str:
     return text
 
 
-def _sha256_uri(value: Any, label: str) -> str:
-    return "sha256:" + _normalize_sha256(value, label)
-
-
 def _validate_no_authority(value: Mapping[str, Any], label: str) -> None:
     if any(value.get(k) is not False for k in BOUNDARY_FALSE_FLAGS):
         raise PublisherArtifactTransferError(f"{label} attempts authority expansion")
@@ -89,9 +84,7 @@ def _validate_sdk_completion_capsule(capsule: Mapping[str, Any]) -> dict[str, An
     manifest_hash = _normalize_sha256(value.get("manifest_hash"), "SDK capsule manifest_hash")
     completion_hash = _normalize_sha256(value.get("completion_hash"), "SDK capsule completion_hash")
     response_to = _require_text(value.get("response_to"), "SDK capsule response_to")
-    retained_packet_sha256 = _normalize_sha256(
-        value.get("retained_packet_sha256"), "SDK capsule retained_packet_sha256"
-    )
+    retained_packet_sha256 = _normalize_sha256(value.get("retained_packet_sha256"), "SDK capsule retained_packet_sha256")
     completion = _require_mapping(value.get("completion"), "SDK capsule completion")
     if _normalize_sha256(sha256_value(completion), "computed completion_hash") != completion_hash:
         raise PublisherArtifactTransferError("SDK capsule completion hash mismatch")
@@ -114,7 +107,7 @@ def _validate_sdk_completion_capsule(capsule: Mapping[str, Any]) -> dict[str, An
     }
 
 
-def _validate_roundtrip_binding(binding: Mapping[str, Any]) -> dict[str, Any]:
+def _validate_roundtrip_binding(binding: Mapping[str, Any], *, publisher_observed: bool) -> dict[str, Any]:
     value = _require_mapping(binding, "roundtrip_binding")
     if value.get("profile") != MIR_ROUNDTRIP_BINDING_PROFILE:
         raise PublisherArtifactTransferError("MIR round-trip binding profile invalid")
@@ -124,20 +117,18 @@ def _validate_roundtrip_binding(binding: Mapping[str, Any]) -> dict[str, Any]:
         raise PublisherArtifactTransferError("MIR round-trip COSV binding invalid")
     if value.get("publisher_transition") != "PUBLISHER_ARTIFACT_RETURN_PRODUCED":
         raise PublisherArtifactTransferError("Publisher transition declaration invalid")
+    if value.get("publisher_transition_observed") is not publisher_observed:
+        raise PublisherArtifactTransferError("Publisher transition observed state invalid")
     if value.get("authority_effect") != "NONE":
         raise PublisherArtifactTransferError("MIR round-trip binding authority effect invalid")
-    for field in DOWNSTREAM_FALSE_FLAGS:
+    for field in POST_PUBLISHER_FALSE_FLAGS:
         if value.get(field) is not False:
             raise PublisherArtifactTransferError(f"{field} must remain false")
-    capsule = _validate_sdk_completion_capsule(
-        _require_mapping(value.get("downstream_completion_capsule"), "downstream_completion_capsule")
-    )
+    capsule = _validate_sdk_completion_capsule(_require_mapping(value.get("downstream_completion_capsule"), "downstream_completion_capsule"))
     manifest_hash = _normalize_sha256(value.get("manifest_hash"), "MIR binding manifest_hash")
     completion_hash = _normalize_sha256(value.get("completion_hash"), "MIR binding completion_hash")
     response_to = _require_text(value.get("response_to"), "MIR binding response_to")
-    retained_packet_sha256 = _normalize_sha256(
-        value.get("retained_packet_sha256"), "MIR binding retained_packet_sha256"
-    )
+    retained_packet_sha256 = _normalize_sha256(value.get("retained_packet_sha256"), "MIR binding retained_packet_sha256")
     if manifest_hash != capsule["manifest_hash"]:
         raise PublisherArtifactTransferError("MIR binding manifest hash mismatch")
     if completion_hash != capsule["completion_hash"]:
@@ -151,7 +142,7 @@ def _validate_roundtrip_binding(binding: Mapping[str, Any]) -> dict[str, Any]:
         raise PublisherArtifactTransferError("SDK processor state invalid")
     if sdk_state.get("processor_result_observed") is not True:
         raise PublisherArtifactTransferError("SDK processor result must be observed")
-    return {
+    result = {
         "profile": MIR_ROUNDTRIP_BINDING_PROFILE,
         "goal_task_id": "MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001",
         "cosv_id": "50000000100000",
@@ -162,7 +153,7 @@ def _validate_roundtrip_binding(binding: Mapping[str, Any]) -> dict[str, Any]:
         "retained_packet_sha256": retained_packet_sha256,
         "downstream_completion_capsule": capsule,
         "sdk_processor_state": sdk_state,
-        "publisher_transition_observed": False,
+        "publisher_transition_observed": publisher_observed,
         "sdk_return_binding_observed": False,
         "final_stegverse_side_egress_transition_observed": False,
         "interlock_intr_egress_observed": False,
@@ -171,14 +162,19 @@ def _validate_roundtrip_binding(binding: Mapping[str, Any]) -> dict[str, Any]:
         "communication_complete": False,
         "authority_effect": "NONE",
     }
+    for optional in (
+        "publisher_return_schema", "publisher_return_source_export_id", "publisher_return_source_export_sha256",
+        "publisher_return_generation_id", "publisher_artifact_manifest_sha256",
+    ):
+        if optional in value:
+            result[optional] = value[optional]
+    return result
 
 
 def _extract_roundtrip_binding(payload: Mapping[str, Any]) -> dict[str, Any] | None:
     if "roundtrip_binding" not in payload:
         return None
-    return _validate_roundtrip_binding(
-        _require_mapping(payload.get("roundtrip_binding"), "roundtrip_binding")
-    )
+    return _validate_roundtrip_binding(_require_mapping(payload.get("roundtrip_binding"), "roundtrip_binding"), publisher_observed=False)
 
 
 def validate_transfer_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
@@ -231,20 +227,15 @@ def process_artifact_transfer(payload_bytes: bytes, output_dir: Path) -> tuple[d
     manifest, receipt = render_document_bundle(bundle, out)
     if verify_artifact_manifest(out, manifest) is not True:
         raise PublisherArtifactTransferError("rendered artifact manifest failed verification")
-
     artifacts = []
     for item in manifest["artifacts"]:
         value = (out / item["path"]).read_bytes()
         if sha256_bytes(value) != item["sha256"] or len(value) != item["bytes"]:
             raise PublisherArtifactTransferError("artifact exact-byte verification failed")
         artifacts.append({
-            "format": item["format"],
-            "path": item["path"],
-            "sha256": item["sha256"],
-            "bytes": item["bytes"],
-            "content_base64": base64.b64encode(value).decode("ascii"),
+            "format": item["format"], "path": item["path"], "sha256": item["sha256"],
+            "bytes": item["bytes"], "content_base64": base64.b64encode(value).decode("ascii"),
         })
-
     result = {
         "schema": RETURN_SCHEMA,
         "transfer_id": payload["transfer_id"],
@@ -298,23 +289,17 @@ def verify_artifact_return(return_bytes: bytes) -> dict[str, Any]:
         if by_path.get(item.get("path"), {}).get("sha256") != item.get("sha256"):
             raise PublisherArtifactTransferError("artifact return manifest binding mismatch")
     if "roundtrip_binding" in value:
-        binding = _validate_roundtrip_binding(
-            _require_mapping(value.get("roundtrip_binding"), "return roundtrip_binding")
-        )
-        if value["roundtrip_binding"].get("publisher_transition_observed") is not True:
-            raise PublisherArtifactTransferError("Publisher transition must be observed in return binding")
-        if value["roundtrip_binding"].get("publisher_return_schema") != RETURN_SCHEMA:
+        binding = _validate_roundtrip_binding(_require_mapping(value.get("roundtrip_binding"), "return roundtrip_binding"), publisher_observed=True)
+        if binding.get("publisher_return_schema") != RETURN_SCHEMA:
             raise PublisherArtifactTransferError("Publisher return schema binding mismatch")
-        if value["roundtrip_binding"].get("publisher_return_source_export_id") != value.get("source_export_id"):
+        if binding.get("publisher_return_source_export_id") != value.get("source_export_id"):
             raise PublisherArtifactTransferError("Publisher source export id binding mismatch")
-        if value["roundtrip_binding"].get("publisher_return_source_export_sha256") != value.get("source_export_sha256"):
+        if binding.get("publisher_return_source_export_sha256") != value.get("source_export_sha256"):
             raise PublisherArtifactTransferError("Publisher source export hash binding mismatch")
-        if value["roundtrip_binding"].get("publisher_return_generation_id") != value.get("generation_id"):
+        if binding.get("publisher_return_generation_id") != value.get("generation_id"):
             raise PublisherArtifactTransferError("Publisher generation binding mismatch")
-        if value["roundtrip_binding"].get("publisher_artifact_manifest_sha256") != manifest.get("manifest_sha256"):
+        if binding.get("publisher_artifact_manifest_sha256") != manifest.get("manifest_sha256"):
             raise PublisherArtifactTransferError("Publisher artifact manifest binding mismatch")
-        if binding.get("authority_effect") != "NONE":
-            raise PublisherArtifactTransferError("return roundtrip binding authority invalid")
     if canonical_json(value).encode("utf-8") != return_bytes:
         raise PublisherArtifactTransferError("artifact return bytes are not canonical JSON")
     return value
