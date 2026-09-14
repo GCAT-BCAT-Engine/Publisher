@@ -42,6 +42,25 @@ grant publication, release, deployment, execution, licensing, or custody
 authority. The contract and current lifecycle gates are recorded in
 `docs/KV_DOCUMENT_PIPELINE_MIRROR_HANDOFF.md`.
 
+### MIR round-trip artifact-return binding
+
+For `MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001`, Publisher issue #70 uses the
+same exact-byte artifact-transfer/return path. An optional
+`stegverse.publisher.mir-roundtrip-binding/v1` block on a canonical
+`stegverse.publisher.artifact-transfer/v1` payload binds the SDK
+`stegverse.sdk.downstream-completion-capsule/v1` into the emitted
+`stegverse.publisher.artifact-return/v1` packet when the admitted manifest
+declares `completion.publisher.required = true`.
+
+The MIR binding preserves `manifest_hash`, `completion_hash`, `response_to`,
+`retained_packet_sha256`, SDK processor state, source export ID/hash,
+Publisher generation/artifact-manifest hashes, and no-authority flags. It only
+marks the Publisher artifact-return transition observed after exact artifact
+rendering succeeds; SDK return binding, final StegVerse-side egress,
+Interlock/InTr egress, far-side transition, authentic MIR substitution, and
+communication completion remain false. The substage handoff is
+`docs/MIR_ROUNDTRIP_PUBLISHER_ARTIFACT_RETURN_MIRROR_HANDOFF.md`.
+
 ## ELAN cumulative Run 1 + Run 2 evidence source
 
 Publisher carries the evidence-backed cumulative ELAN source for canonical task
