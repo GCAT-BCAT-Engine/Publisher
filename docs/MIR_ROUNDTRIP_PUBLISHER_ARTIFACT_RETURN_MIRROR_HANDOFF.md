@@ -8,8 +8,10 @@ SDK completion-capsule issue: `StegVerse-org/StegVerse-SDK#239`
 SDK completion-capsule PR: `StegVerse-org/StegVerse-SDK#240`
 SDK completion-capsule merge: `StegVerse-org/StegVerse-SDK@233632c35b0093166c16bdc660aa08e4ee1fe95a`
 Publisher issue: `GCAT-BCAT-Engine/Publisher#70`
-Publisher branch: `mir-roundtrip-artifact-return-binding`
-Status: `ACTIVE / PUBLISHER ARTIFACT-RETURN BINDING OPEN`
+Publisher PR: `GCAT-BCAT-Engine/Publisher#71`
+Publisher exact head validated: `598fc305103a710052d74c5389610ad1956cbd32`
+Publisher artifact-return binding merge: `GCAT-BCAT-Engine/Publisher@40018e94a04e794e35dd499b4adc4296edb4b34c`
+Status: `MERGED / PUBLISHER ARTIFACT-RETURN BINDING IMPLEMENTED VALIDATED MERGED / SDK RETURN AND EGRESS REMAIN`
 
 ## Purpose
 
@@ -17,11 +19,11 @@ Bind the SDK `stegverse.sdk.downstream-completion-capsule/v1` result into the ex
 
 The Publisher stage produces or verifies exact canonical `stegverse.publisher.artifact-return/v1` bytes. It does not create a MIR-specific transport, scheduler, credential path, SDK return assembler, final egress surface, Interlock/InTr egress, far-side final transition, publication authority, release authority, execution authority, or authentic external MIR endpoint substitution.
 
-## Implemented branch behavior
+## Implemented behavior
 
-`publisher/intr_artifact_transfer.py` still owns the canonical `stegverse.publisher.artifact-transfer/v1` to `stegverse.publisher.artifact-return/v1` path.
+`publisher/intr_artifact_transfer.py` owns the canonical `stegverse.publisher.artifact-transfer/v1` to `stegverse.publisher.artifact-return/v1` path.
 
-The branch adds optional `roundtrip_binding` metadata on the exact transfer input. When present, the binding must satisfy:
+PR `#71` adds optional `roundtrip_binding` metadata on the exact transfer input. When present, the binding must satisfy:
 
 - profile `stegverse.publisher.mir-roundtrip-binding/v1`;
 - Goal Task ID `MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001`;
@@ -42,7 +44,19 @@ After exact artifact rendering and artifact-manifest verification, the emitted r
 - generation ID;
 - artifact manifest SHA-256.
 
-## Validation scope
+## Validation evidence
+
+PR `#71` exact head `598fc305103a710052d74c5389610ad1956cbd32` was validated by:
+
+```text
+Architecture Guard #829: SUCCESS
+Publisher Check #304: SUCCESS
+Validate KV document pipeline #11: SUCCESS
+Publisher Readiness #301: SUCCESS
+Validate ERL KV Provider Proof Projection #7: SUCCESS
+```
+
+PR `#71` was squash-merged as `GCAT-BCAT-Engine/Publisher@40018e94a04e794e35dd499b4adc4296edb4b34c`.
 
 `tests/test_intr_artifact_transfer.py` covers:
 
@@ -59,8 +73,8 @@ After exact artifact rendering and artifact-manifest verification, the emitted r
 ```text
 SDK admitted manifest/completion carry-forward: implemented, validated, and merged in StegVerse-SDK
 Publisher exact artifact-transfer path: existing source path
-Publisher MIR round-trip binding: implemented on current branch, pending PR validation/merge
-Publisher artifact-return observed from this PR: not claimed until validation/merge/readback
+Publisher MIR round-trip binding: implemented, validated, and merged in Publisher
+Publisher artifact-return binding predicate: satisfied at source/build-test provenance by PR #71 merge
 SDK return binding: not claimed
 final StegVerse-side governed egress: not claimed
 Interlock/InTr egress: not claimed
@@ -69,6 +83,6 @@ authentic external MIR endpoint substitution: not claimed
 communication_complete: false
 ```
 
-## Next after merge
+## Next after this merge
 
-After validation and merge, reconcile Publisher issue `#70`, this handoff, the parent Site MIR handoff, and the GitHub task registry to mark only the Publisher artifact-return binding predicate as implemented/validated/merged. Then continue to SDK return binding from exact Publisher return bytes.
+Continue to SDK return binding from exact Publisher return bytes. The next stage must consume canonical `stegverse.publisher.artifact-return/v1` bytes and bind them back to the original manifest/completion capsule without reconstructing equivalent Publisher output.
