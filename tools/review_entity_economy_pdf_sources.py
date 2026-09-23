@@ -54,13 +54,13 @@ def check(label: str, payload: bytes, dest: pathlib.Path) -> dict:
         print(f"=== {label.upper()} PAGE {n}/{pages} ===", flush=True)
         print(page[:15000], flush=True)
     print(f"VERIFIED_SOURCE_PDF {label} pages={pages} sha256={actual['sha256']}", flush=True)
-    return {"label":label,"source_commit":SITE_COMMIT,**actual,"pages":pages,"extraction":"poppler-pdftotext-layout"}
+    return {"label":label,"source_commit":SITE_COMMIT,**actual,"pages":pages,"text_empty_pages":empty_pages,"extraction":"poppler-pdftotext-layout"}
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     first = read("stegverse-entity-economy/stegverse-entity-economy.pdf")
     meta = [check("volume_i", first, OUT)]
-    prefix = "".join(read(f"stegverse-entity-economy-volume-ii/artifact/volume-ii.part{i:02d}.b64").decode("ascii").split() for i in range(17))
+    prefix = "".join("".join(read(f"stegverse-entity-economy-volume-ii/artifact/volume-ii.part{i:02d}.b64").decode("ascii").split()) for i in range(17))
     prefix_bytes = base64.b64decode(prefix, validate=True)
     tail = zlib.decompress(read("stegverse-entity-economy-volume-ii/artifact/volume-ii.tail-after-part16.deflate"))
     meta.append(check("volume_ii", prefix_bytes + tail, OUT))
