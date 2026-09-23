@@ -41,7 +41,42 @@ Economic viability requires paid contribution margins to fund a useful Free tier
 
 Where settlement law requires identification, the financial service must retain only the records it legally needs within an appropriate custody boundary. Financial compliance is not a pretext for exposing a participant's MyKV contents to an AI employer or unrelated service.
 
-## 6. Evidence-gated releases
+## 6. The economics of independently verifiable AI execution
+
+Falling model inference prices can make more tasks commercially viable, but a low-cost answer is not the same product as an independently verifiable action. A model output may be useful without establishing which actor requested it, what permission existed at the time, what external services actually ran, whether the delivered result matches the authorized scope, or which evidence survives a disputed transaction. StegVerse's proposed economic unit is therefore a **governed, evidentially bounded outcome**, not merely an inference token or a self-attested completion message.
+
+### 6.1 Cost per accepted outcome, not cost per model call
+
+Compare candidate architectures on the same workload, quality threshold, authorization rules, retention window and consequence class. Measure:
+
+- **Inference:** input/output tokens, reasoning effort, provider fees, retries and model substitution.
+- **Execution and governance:** local/remote compute, WorkerCoordinator admission, contemporary Interlock/InTr decisions, credential operations when required, failure handling and human intervention when genuinely required.
+- **Evidence:** organization-level transition receipts, storage, batching, Master Records custody/reconstruction, independent verification, selective disclosure and dispute-time retrieval.
+- **Operating exposure:** erroneous or unauthorized outcomes, duplicate work, failed delivery, privacy leakage, remediation, refunds and legally required compliance.
+
+For an observed cohort, define **verified-outcome unit cost** as total attributable inference, execution, governance, evidence, verification and realized remediation cost divided by the count of outcomes satisfying their declared *end-to-end acceptance predicate*. Report inconclusive and rejected outcomes separately rather than silently excluding their costs. Also report latency, energy, storage growth, false acceptance/rejection, recovery time and the fraction of transitions whose immediate predecessor can actually be reconstructed. Do not collapse technical verification, real-world truth, contractual acceptance and legal compliance into one checkbox.
+
+The economic hypothesis is conditional: if the marginal cost of independent verification is smaller than the expected losses or review effort it avoids for a particular consequence class, a verified service can be economically preferable to an unverified answer. This is not a universal claim. For low-stakes reversible tasks, expensive full custody can cost more than it saves; consequential financial, identity, credential, enterprise or cross-organization actions warrant stronger evidence. Governance is a bounded, consequence-sensitive cost rather than an excuse to attach maximum overhead to every call.
+
+### 6.2 Proof-bearing handoffs and independent organizations
+
+A buyer, employer or delegated AI Entity should be able to verify the exact permitted action and delivered artifact without inheriting the provider's internal authority or receiving the individual's raw MyKV. The contemplated chain is scoped request/manifest -> applicable current governance decision -> execution and organization receipt -> durable Master Records custody and exact reconstruction -> independently checkable, minimally disclosed delivery evidence. Each boundary states what it proves and what remains unknown. A hash or timestamp attests to bytes or ordering under its stated trust assumptions; it does not by itself prove honest sensors, truthful source data, lawful authority or correct real-world outcomes.
+
+Organizations retain locally reconstructable receipt graphs for ordinary replay. Aggregate or batch receipt commitments to Master Records can amortize shared custody expense while preserving exact member identity, order, predecessor linkage and independently reproducible inclusion proofs. Benchmark batch size by receipt volume, verification latency, failure isolation, storage, retry and dispute costs. Batch anchoring or external witnessing is evidence-only; it cannot become a new execution, admission or credential authority. If an organization or submitter disappears, a declared test must establish exactly what a successor can reconstruct from retained independent material, including any unresolved gaps.
+
+### 6.3 A market in accountable work
+
+Lower inference cost permits smaller firms and human contributors to commission AI-assisted tasks that formerly required premium-model budgets. The distinct StegVerse proposition is the potential to trade *authorized and verifiable service delivery*: permissioned private-state queries, delegated purchases, credential attestations, licensed human contributions and governed machine-to-machine work. Buyers can price assurance levels, bounded retention and independent dispute evidence. Contributors can demonstrate delivery and licensed reuse without conveying unrestricted private data. This remains a commercial hypothesis until authentic transactions establish buyer willingness to pay, contributor compensation, dispute rates and positive contribution margin after verification.
+
+Separately measured settlement, custody and verification charges must not be mistaken for new economic value if they merely move costs among StegVerse organizations or users. The Free tier must retain the same integrity standard as paid tiers; it can use smaller resource allowances, appropriate batching and low-cost models without reducing the evidentiary acceptance criteria for the same consequence class.
+
+### 6.4 Falsifiable benchmark program
+
+Run matched tasks across (A) inference-only output, (B) provider or executor self-reported logs, and (C) an authorized, independently reconstructable receipt path. Disclose task mix and risk level, model/provider version, sample size, base rates, external auditor independence, retention horizon and exact cost allocation. Measure cost per accepted outcome, unauthorized-action detection, evidence completeness, predecessor reconstruction, resolution cost, time to verification and privacy exposure. Include adversarial trials involving altered timestamps, withheld submitters, contradictory claims, stale governance decisions, replay, missing receipt members and partial organizational failure. Publish negative and inconclusive results alongside successes.
+
+No current provider-price headline establishes a general hundredfold reduction in *verified-outcome* cost. Provider prices and benchmark results require dated, directly verified sources and workload-specific replication before insertion as numeric white-paper claims. An authentic benchmark check mark requires its own canonical task/COSV binding, current applicable Interlock/InTr evidence, exact Master Records RECORDED and reconstruction/evidence-validation PASS, plus independently observed delivery where the benchmark claims actual delivery. Source validation, a PR, synthetic receipts or a public page alone cannot satisfy those predicates.
+
+## 7. Evidence-gated releases
 
 - **Stage 1: MyKV WorkSpace and Ecosystem Chat.** Prove native device-resident KV, private AI Assistant, ChatGPT then Claude Code participation, meaningful free governed workflows and authentic resource accounting.
 - **Stage 2: Permissioned private-state value.** Prove user-authorized offers, bounded disclosure or private computation, independent result verification and consent continuity.
@@ -52,9 +87,9 @@ Where settlement law requires identification, the financial service must retain 
 
 Each stage is advanced only by exact authenticated evidence at its own consequence boundary. Source merges, public pages, synthetic samples or unverified receipts cannot establish operational release. The public roadmap must fail closed when evidence is absent or stale.
 
-## 7. Research program
+## 8. Research program
 
-The cost-analysis and StegFin research lanes should benchmark comparable networks, ordinary prepaid-payment economics, cooperative participation, contributor remuneration, international settlement and productive reserve-management models. Tests should include slow adoption, extreme free-tier usage, provider price shocks, coin oversupply, shallow liquidity, malicious reward farming, failed deliveries and privacy leaks. No experimental data should be presented as real marketplace liquidity or investor performance.
+The cost-analysis and StegFin research lanes should benchmark comparable networks, ordinary prepaid-payment economics, cooperative participation, contributor remuneration, international settlement and productive reserve-management models. Tests should also measure independently verified outcome unit economics, consequence-specific assurance levels, organization-receipt batching and submitter-removed reconstruction. Tests should include slow adoption, extreme free-tier usage, provider price shocks, coin oversupply, shallow liquidity, malicious reward farming, failed deliveries and privacy leaks. No experimental data should be presented as real marketplace liquidity or investor performance.
 
 ## Publication and authority boundary
 
