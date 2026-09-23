@@ -8,8 +8,8 @@
     "repository": "GCAT-BCAT-Engine/Publisher",
     "branch": "draft/stegverse-private-state-economy-white-paper",
     "path": "papers/StegVerse_Private_State_Economy_White_Paper_v0.1.md",
-    "sha256": "82925ac8ccec8d7ef83bb70dbfc4f2d56888e147018043a9b26a722dd3dbb701",
-    "source_ci_run": "https://github.com/GCAT-BCAT-Engine/Publisher/actions/runs/35818586804"
+    "sha256": "7bc6328ff2f19f63b22496926a92971a419e708218dc1ba268b4230c3a7a88f8",
+    "source_ci_run": null
   },
   "verified_historical_sources": [
     {
@@ -57,5 +57,6 @@
   "publication_mutation_authorized": false,
   "benchmark_checks_authorized": false,
   "runtime_execution_claimed": false,
-  "source_evidence_artifact": "https://github.com/GCAT-BCAT-Engine/Publisher/actions/runs/35817685688/artifacts/10732455385"
+  "source_evidence_artifact": null,
+  "source_revision_note": "Editorial wording revised to independent on-demand ephemeral StegBrowser OpenAI/Anthropic execution; the previously reviewed source hash is superseded, and independent economics/legal reviews remain pending. Exact new hash confirmed by failed source-guard output on PR branch; this correction does not confer review approval or publication."
 }
