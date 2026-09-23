@@ -6,7 +6,8 @@ wrong identities, and writes page-addressable extracted text and a source manife
 It cannot authorize publication, AI execution, settlement, or benchmark progression.
 """
 from __future__ import annotations
-import base64, hashlib, json, pathlib, shutil, subprocess, urllib.request, zlib
+import base64, hashlib, io, json, pathlib, urllib.request, zlib
+from pypdf import PdfReader
 
 SITE_COMMIT = "760cdd027e7507c027e0928fcd127b5a47e70a15"
 BASE = f"https://raw.githubusercontent.com/StegVerse-Labs/Site/{SITE_COMMIT}/papers/"
@@ -30,16 +31,13 @@ def check(label: str, payload: bytes, dest: pathlib.Path) -> dict:
     assert actual["size"] == expected["size"], f"{label}: source length mismatch {actual}"
     pdf = dest / f"{label}.pdf"
     pdf.write_bytes(payload)
-    if not shutil.which("pdfinfo") or not shutil.which("pdftotext"):
-        raise RuntimeError("poppler-utils (pdfinfo + pdftotext) required on validation runner")
-    meta = subprocess.check_output(["pdfinfo", str(pdf)], text=True)
-    pages = int(next(line.split(":",1)[1] for line in meta.splitlines() if line.startswith("Pages:")).strip())
+    reader = PdfReader(io.BytesIO(payload))
+    pages = len(reader.pages)
     assert pages == expected["pages"], f"{label}: expected {expected['pages']} pages; got {pages}"
+    page_text = [(page.extract_text(extraction_mode="layout") or "") for page in reader.pages]
+    assert all(p.strip() for p in page_text), f"{label}: one or more pages lack extractable text"
     text_path = dest / f"{label}.txt"
-    subprocess.run(["pdftotext", "-layout", str(pdf), str(text_path)], check=True)
-    page_text = text_path.read_text().split("\f")
-    page_text = [p for p in page_text if p.strip()]
-    assert len(page_text) == pages, f"{label}: extracted {len(page_text)} of {pages} pages"
+    text_path.write_text("\\f".join(page_text))
     for n, page in enumerate(page_text, 1):
         (dest / f"{label}_page_{n:02d}.txt").write_text(page)
         print(f"=== {label.upper()} PAGE {n}/{pages} ===", flush=True)
