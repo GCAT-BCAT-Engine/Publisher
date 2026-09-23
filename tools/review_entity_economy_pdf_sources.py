@@ -6,8 +6,7 @@ wrong identities, and writes page-addressable extracted text and a source manife
 It cannot authorize publication, AI execution, settlement, or benchmark progression.
 """
 from __future__ import annotations
-import base64, hashlib, io, json, pathlib, urllib.request, zlib
-from pypdf import PdfReader
+import base64, hashlib, json, pathlib, re, subprocess, urllib.request, zlib
 
 SITE_COMMIT = "760cdd027e7507c027e0928fcd127b5a47e70a15"
 BASE = f"https://raw.githubusercontent.com/StegVerse-Labs/Site/{SITE_COMMIT}/papers/"
@@ -31,13 +30,17 @@ def check(label: str, payload: bytes, dest: pathlib.Path) -> dict:
     assert actual["size"] == expected["size"], f"{label}: source length mismatch {actual}"
     pdf = dest / f"{label}.pdf"
     pdf.write_bytes(payload)
-    reader = PdfReader(io.BytesIO(payload))
-    pages = len(reader.pages)
+    info = subprocess.check_output(["pdfinfo", str(pdf)], text=True, stderr=subprocess.PIPE)
+    match = re.search(r"(?m)^Pages:\\s*(\\d+)", info)
+    assert match, f"{label}: PDF page count unavailable"
+    pages = int(match.group(1))
     assert pages == expected["pages"], f"{label}: expected {expected['pages']} pages; got {pages}"
-    page_text = [(page.extract_text(extraction_mode="layout") or "") for page in reader.pages]
-    assert all(p.strip() for p in page_text), f"{label}: one or more pages lack extractable text"
     text_path = dest / f"{label}.txt"
-    text_path.write_text("\\f".join(page_text))
+    result = subprocess.run(["pdftotext", "-layout", str(pdf), str(text_path)], text=True, capture_output=True)
+    if result.returncode:
+        raise RuntimeError(f"{label}: pdftotext failed ({result.returncode}): {result.stderr[-2000:]}")
+    page_text = [p for p in text_path.read_text().split("\\f") if p.strip()]
+    assert len(page_text) == pages, f"{label}: extracted {len(page_text)} of {pages} pages"
     for n, page in enumerate(page_text, 1):
         (dest / f"{label}_page_{n:02d}.txt").write_text(page)
         print(f"=== {label.upper()} PAGE {n}/{pages} ===", flush=True)
