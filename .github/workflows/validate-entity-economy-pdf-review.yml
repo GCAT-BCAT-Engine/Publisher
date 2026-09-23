@@ -1,0 +1,26 @@
+name: Editorial Entity Economy PDF Source Verification
+on:
+  pull_request:
+    paths:
+      - 'papers/StegVerse_Private_State_Economy_White_Paper_v0.1.md'
+      - 'tools/review_entity_economy_pdf_sources.py'
+      - '.github/workflows/validate-entity-economy-pdf-review.yml'
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  verify-original-source-pdfs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify public original PDFs and extract each page without authority
+        run: python tools/review_entity_economy_pdf_sources.py
+      - name: Retain verified source-text evidence for editorial review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: entity-economy-source-pdf-review
+          path: entity-economy-original-pdf-review/
+          if-no-files-found: warn
+          retention-days: 14
