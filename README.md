@@ -317,3 +317,8 @@ governance/receipts/<CASE-ID>.receipt.json
 Publisher's governed KV document pipeline now references the completed native ERL writer, authenticated provider write, manifest-last ordering, exact provider-byte readback, retained provider-operation receipt `bb74904fcd8169829c78bdc1c0d64905b33243c2c22852565c13e614abcd1fa8`, and Master Records reconstruction under `SS-ERL-KV-PROPAGATION-VERIFICATION-001`.
 
 The bounded projection is validated by `tools/check_erl_kv_provider_proof_projection.py` and documented in `docs/ERL_KV_PROVIDER_PROOF_PUBLISHER_PROJECTION_MIRROR_HANDOFF.md`. It does not authorize an export, publish a paper, activate Publisher, or prove Site propagation.
+
+
+## Private-State Economy white-paper economics extension (draft)
+
+The draft PR #72 white paper now proposes consequence-sensitive measurement of independently verifiable AI execution: total attributable inference, governance, evidence, verification and realized remediation costs per accepted end-to-end outcome. Its adversarial research design compares inference-only, self-reported and independently reconstructable results, with organizational receipt batching and exact predecessor proof. The Publisher-controlled draft remains unpublished; see `papers/StegVerse_Private_State_Economy_White_Paper_v0.1.md` and `docs/PRIVATE_STATE_ECONOMY_WHITE_PAPER_GOVERNED_MIRROR_HANDOFF.md` on its editorial branch. Site display and benchmark check-offs remain governed and unverified until authentic closure.
