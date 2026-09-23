@@ -1,8 +1,8 @@
 # Private-State Economy White Paper — Publisher governed editorial mirror handoff
 Date: 2026-09-22
 Canonical Goal Task: ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001
-Canonical Task Registry: StegVerse-Labs/.github/data/canonical-task-registry.json (registration proposed by .github PR #2580)
-Canonical COSV: PENDING EXACT REGISTRY EMISSION; none assigned by this editorial lane.
+Canonical Task Registry: StegVerse-Labs/.github/data/canonical-task-registry.json (registration merged via .github PR #2580)
+Canonical COSV: 10100000105000, observed source vector merged via .github PR #2584 / c8a4a93c3bee44be356b18696918589164560f23; non-authorizing task state only.
 Publication status: DRAFT CANDIDATE, NOT RELEASED
 
 ## Editorial candidate
@@ -21,7 +21,7 @@ Reconcile the two existing published StegVerse Entity Economy volumes and the Fi
 The Site's public machine-readable 16-benchmark proposal is all NOT_VERIFIED. Publisher may accept only an authenticated public-safe projection, derived from exact canonical benchmark IDs, canonical task/COSV owner, authentic runtime evidence and complete Master Records closure; separately obtain external InTr ALLOW for cross-org events. This editorial handoff grants no runtime, scheduling, financial settlement or token authority.
 
 ## Immediate continuation
-1. Reconcile .github PR #2580 canonical registration and Site PR #1458 pre-work claim; consume exact merged task/COSV identity once emitted.
+1. Consume merged canonical Task Registry identity and exact source COSV 10100000105000 from .github control/task-vectors/ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001.json. Site #1458 pre-work claim and source checks passed; its public release is still a draft.
 2. Complete editorial research and review; do not silently rewrite prior Entity Economy papers.
 3. Bind publication candidate to governed ingress and require external decision/custody proof before allowing a public Publisher mutation.
 4. Verify public Site propagation independently. Keep draft status until all actual gates pass.
