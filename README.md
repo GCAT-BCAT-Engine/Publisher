@@ -330,3 +330,7 @@ The white-paper draft now distinguishes Entity Economy contribution and contract
 
 ### Verified original Entity Economy PDF editorial transport
 PR #72 includes a read-only validation workflow for fixed-commit original Volume I and II PDF SHA-256 identities, page-addressed source extraction, and retained source evidence. Volume II has seven text-extractable pages; Volume I has eight and a ninth page with no extracted text plus older malformed PDF text syntax. Preserve the visual-review qualification in `docs/PRIVATE_STATE_ECONOMY_EDITORIAL_REVIEW_REPORT.md`. This mechanism grants no publication, runtime, credentials, or economic rights.
+
+
+### Original PDF visual examination completed
+Exact-original Volume I/II page images were examined after verified artifact acquisition. Volume I's ninth page is truly blank and several substantive pages visibly clip lines at the right margin; Volume II's seven pages retain readable layout. Preserve the original immutable artifact hashes and treat any corrected Volume I edition as a separate governed, versioned publication with explicit lineage. See `docs/PRIVATE_STATE_ECONOMY_EDITORIAL_REVIEW_REPORT.md` for detail; no historical source was silently overwritten.
