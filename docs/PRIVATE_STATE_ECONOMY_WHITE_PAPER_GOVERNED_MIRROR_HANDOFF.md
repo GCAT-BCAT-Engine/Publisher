@@ -25,3 +25,7 @@ The Site's public machine-readable 16-benchmark proposal is all NOT_VERIFIED. Pu
 2. Complete editorial research and review; do not silently rewrite prior Entity Economy papers.
 3. Bind publication candidate to governed ingress and require external decision/custody proof before allowing a public Publisher mutation.
 4. Verify public Site propagation independently. Keep draft status until all actual gates pass.
+
+## Economic verification editorial extension — 2026-09-22
+
+Publisher draft now contains Section 6, "The economics of independently verifiable AI execution," and renumbers the release and research sections to 7–8. Treat cost per independently accepted outcome (including inference, governance, custody, verification and realized remediation) as a falsifiable hypothesis, not a demonstrated performance or cost saving. Compare matched inference-only, self-logged and independently reconstructable workloads; preserve consequence-specific assurance, honest uncertainty and adversarial submitter-removal tests. No vendor price or error-rate headline was imported without original dated verification. Preserve the existing draft-only governance/release status; changes are editorial source, not an authorized publication or authentic execution proof.
