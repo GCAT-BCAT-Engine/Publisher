@@ -2,12 +2,12 @@
 
 **Goal Task:** ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001  
 **Publisher PR:** https://github.com/GCAT-BCAT-Engine/Publisher/pull/72  
-**Status:** DRAFT / ORIGINAL SOURCE BYTES VERIFIED / FINAL VISUAL AND REGULATORY REVIEW PENDING.  
+**Status:** DRAFT / EXACT ORIGINAL BYTES VERIFIED / ALL ORIGINAL PDF PAGE IMAGES INSPECTED / LEGACY VOLUME I PRESENTATION DEFECT IDENTIFIED / INDEPENDENT REGULATORY REVIEW PENDING.  
 **Authority:** NONE. This document creates no publication, runtime, token, credential, or benchmark authority.
 
 ## Original source artifacts (not a retelling of Site abstracts)
 
-A read-only Publisher workflow retrieved repository-resident original PDFs at fixed Site commit `760cdd027e7507c027e0928fcd127b5a47e70a15`. It verified Volume I as a 16,647-byte nine-page original with SHA-256 `a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95`. All nine pages were individually addressed, but page 9 yielded no extractable text and malformed original PDF text operands leave gaps in earlier pages. **Full visual/content review of Volume I remains open**; no missing original text was reconstructed by guesswork.
+A read-only Publisher workflow retrieved repository-resident original PDFs at fixed Site commit `760cdd027e7507c027e0928fcd127b5a47e70a15`. It verified Volume I as a 16,647-byte nine-page original with SHA-256 `a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95`. All nine pages were individually addressed, but page 9 yielded no extractable text and malformed original PDF text operands leave gaps in earlier pages. All nine original Volume I pages were subsequently rendered and examined page-by-page. The ninth page is visibly blank; the old PDF clips right margins on several substantive pages (especially pages 3–4 and 7–8), and page 2 has visibly missing text associated with malformed PDF content-stream operations. Full fidelity of the *historical published PDF* cannot be presumed: a distinct governed corrective-edition candidate is needed if its missing material is to be repaired, preserving the original hash and public artifact as historical evidence. No absent material was guessed.
 
 Volume II was reconstructed from 17 base64 prefix parts and one compressed tail and verified as the exact 132,330-byte seven-page original, SHA-256 `129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f`. Every page yielded extractable text and was examined.
 
@@ -29,4 +29,4 @@ External context verified against primary publishers on 22 September 2026: NIST 
 
 Reviewed draft source: `papers/StegVerse_Private_State_Economy_White_Paper_v0.1.md`; exact source content SHA-256 must be calculated and frozen after final editorial changes. Publisher owns editorial source and later publication. The existing SDK external manifest, Interlock/InTr decision, Master Records custody and Publisher publication chain must receive the exact reviewed candidate and target. Require true external ALLOW when applicable, same-transition RECORDED with reconstruction/evidence-validation PASS and exact receipt-sha match; no locally manufactured ALLOW. No Site mirror until that closure. Public roadmap's 16 checks remain NOT_VERIFIED until their own independently authenticated proof.
 
-Outstanding: Volume I page-image and malformed-text-source review; substantive independent economics and jurisdiction-specific legal review; exact latest Publisher branch-head CI; frozen content hash; canonical Task Registry successor COSV integration after .github PR #2589 is merged; governed SDK/InTr/Master Records publication closure and actual public deployed readback.
+Outstanding: separately scoped historical Volume I corrected-edition source recovery and publication without overwriting its original; substantive independent economics and jurisdiction-specific legal review; exact latest Publisher branch-head CI; frozen content hash; canonical Task Registry successor COSV integration after .github PR #2589 is merged; governed SDK/InTr/Master Records publication closure and actual public deployed readback.
