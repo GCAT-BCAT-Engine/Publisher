@@ -326,3 +326,7 @@ The draft PR #72 white paper now proposes consequence-sensitive measurement of i
 
 ### Editorial reconciliation and cost-accounting review
 The white-paper draft now distinguishes Entity Economy contribution and contracted-service revenues, FinCo's separate value and receipt classes, StegCoin utility versus StegToken standing, and possible AI economic participation versus legal personhood. Its independently verifiable outcome-cost equation counts all attempts, defines accepted-outcome denominators and failure cases, and explicitly avoids assigning unverifiable arms fictitious verified results. NIST AI RMF and dated 2026 SEC primary sources are cited as external context, not StegVerse validation or token authorization. See the draft paper and the scoped Publisher handoff; final PDF-page review, updated exact-head CI, professional regulatory review and governed publication remain open.
+
+
+### Verified original Entity Economy PDF editorial transport
+PR #72 includes a read-only validation workflow for fixed-commit original Volume I and II PDF SHA-256 identities, page-addressed source extraction, and retained source evidence. Volume II has seven text-extractable pages; Volume I has eight and a ninth page with no extracted text plus older malformed PDF text syntax. Preserve the visual-review qualification in `docs/PRIVATE_STATE_ECONOMY_EDITORIAL_REVIEW_REPORT.md`. This mechanism grants no publication, runtime, credentials, or economic rights.
