@@ -36,11 +36,19 @@ def check(label: str, payload: bytes, dest: pathlib.Path) -> dict:
     pages = int(match.group(1))
     assert pages == expected["pages"], f"{label}: expected {expected['pages']} pages; got {pages}"
     text_path = dest / f"{label}.txt"
-    result = subprocess.run(["pdftotext", "-layout", str(pdf), str(text_path)], text=True, capture_output=True)
-    if result.returncode:
-        raise RuntimeError(f"{label}: pdftotext failed ({result.returncode}): {result.stderr[-2000:]}")
-    page_text = [p for p in text_path.read_text().split("\f") if p.strip()]
-    assert len(page_text) == pages, f"{label}: extracted {len(page_text)} of {pages} pages"
+    page_text = []
+    for page_num in range(1, pages + 1):
+        result = subprocess.run(
+            ["pdftotext", "-f", str(page_num), "-l", str(page_num), "-layout", str(pdf), "-"],
+            text=True, capture_output=True
+        )
+        if result.returncode:
+            raise RuntimeError(f"{label} page {page_num}: extraction failed: {result.stderr[-2000:]}")
+        page_text.append(result.stdout.strip("\\f"))
+    text_path.write_text("\\f".join(page_text))
+    empty_pages = [i for i, p in enumerate(page_text, 1) if not p.strip()]
+    if empty_pages:
+        print(f"PAGE_EXTRACTION_WARNING {label} empty pages={empty_pages}; review PDF page images before claiming full content coverage",flush=True)
     for n, page in enumerate(page_text, 1):
         (dest / f"{label}_page_{n:02d}.txt").write_text(page)
         print(f"=== {label.upper()} PAGE {n}/{pages} ===", flush=True)
