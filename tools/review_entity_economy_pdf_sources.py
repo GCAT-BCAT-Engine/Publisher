@@ -31,7 +31,7 @@ def check(label: str, payload: bytes, dest: pathlib.Path) -> dict:
     pdf = dest / f"{label}.pdf"
     pdf.write_bytes(payload)
     info = subprocess.check_output(["pdfinfo", str(pdf)], text=True, stderr=subprocess.PIPE)
-    match = re.search(r"(?m)^Pages:\\s*(\\d+)", info)
+    match = re.search(r"(?m)^Pages:\s*(\d+)", info)
     assert match, f"{label}: PDF page count unavailable"
     pages = int(match.group(1))
     assert pages == expected["pages"], f"{label}: expected {expected['pages']} pages; got {pages}"
@@ -39,7 +39,7 @@ def check(label: str, payload: bytes, dest: pathlib.Path) -> dict:
     result = subprocess.run(["pdftotext", "-layout", str(pdf), str(text_path)], text=True, capture_output=True)
     if result.returncode:
         raise RuntimeError(f"{label}: pdftotext failed ({result.returncode}): {result.stderr[-2000:]}")
-    page_text = [p for p in text_path.read_text().split("\\f") if p.strip()]
+    page_text = [p for p in text_path.read_text().split("\f") if p.strip()]
     assert len(page_text) == pages, f"{label}: extracted {len(page_text)} of {pages} pages"
     for n, page in enumerate(page_text, 1):
         (dest / f"{label}_page_{n:02d}.txt").write_text(page)
