@@ -338,3 +338,7 @@ Exact-original Volume I/II page images were examined after verified artifact acq
 ### White-paper scope and independent research (draft PR #72)
 
 The StegVerse Private-State Economy paper centers StegVerse's own governance, private-state architecture and evidence-gated six-stage roadmap. Evidence Custody Seam findings may be cited as historical technical lineage, not as the platform's defining objective. Potential collaboration or interoperability with independent witness and behavioral-history frameworks is prospective, separately owned and not a product milestone or publication prerequisite. The branch's `docs/PRIVATE_STATE_ECONOMY_WHITE_PAPER_GOVERNED_MIRROR_HANDOFF.md` and editorial candidate bind the source-only clarification; no release or runtime proof is claimed.
+
+### Source-level economics and US/Texas regulatory review (2026-09-24)
+
+Publisher PR #72 records internal claim-by-claim economic and legal issue review in docs/PRIVATE_STATE_ECONOMY_EDITORIAL_REVIEW_REPORT.md. This does not constitute independently signed economist or counsel approval. The StegVerse-only white paper remains a draft with the existing paper-source hash; external collaboration remains optional separate research. See docs/PRIVATE_STATE_ECONOMY_WHITE_PAPER_GOVERNED_MIRROR_HANDOFF.md for exact unchanged release gates.
