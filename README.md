@@ -317,3 +317,28 @@ governance/receipts/<CASE-ID>.receipt.json
 Publisher's governed KV document pipeline now references the completed native ERL writer, authenticated provider write, manifest-last ordering, exact provider-byte readback, retained provider-operation receipt `bb74904fcd8169829c78bdc1c0d64905b33243c2c22852565c13e614abcd1fa8`, and Master Records reconstruction under `SS-ERL-KV-PROPAGATION-VERIFICATION-001`.
 
 The bounded projection is validated by `tools/check_erl_kv_provider_proof_projection.py` and documented in `docs/ERL_KV_PROVIDER_PROOF_PUBLISHER_PROJECTION_MIRROR_HANDOFF.md`. It does not authorize an export, publish a paper, activate Publisher, or prove Site propagation.
+
+
+## Private-State Economy white-paper economics extension (draft)
+
+The draft PR #72 white paper now proposes consequence-sensitive measurement of independently verifiable AI execution: total attributable inference, governance, evidence, verification and realized remediation costs per accepted end-to-end outcome. Its adversarial research design compares inference-only, self-reported and independently reconstructable results, with organizational receipt batching and exact predecessor proof. The Publisher-controlled draft remains unpublished; see `papers/StegVerse_Private_State_Economy_White_Paper_v0.1.md` and `docs/PRIVATE_STATE_ECONOMY_WHITE_PAPER_GOVERNED_MIRROR_HANDOFF.md` on its editorial branch. Site display and benchmark check-offs remain governed and unverified until authentic closure.
+
+
+### Editorial reconciliation and cost-accounting review
+The white-paper draft now distinguishes Entity Economy contribution and contracted-service revenues, FinCo's separate value and receipt classes, StegCoin utility versus StegToken standing, and possible AI economic participation versus legal personhood. Its independently verifiable outcome-cost equation counts all attempts, defines accepted-outcome denominators and failure cases, and explicitly avoids assigning unverifiable arms fictitious verified results. NIST AI RMF and dated 2026 SEC primary sources are cited as external context, not StegVerse validation or token authorization. See the draft paper and the scoped Publisher handoff; final PDF-page review, updated exact-head CI, professional regulatory review and governed publication remain open.
+
+
+### Verified original Entity Economy PDF editorial transport
+PR #72 includes a read-only validation workflow for fixed-commit original Volume I and II PDF SHA-256 identities, page-addressed source extraction, and retained source evidence. Volume II has seven text-extractable pages; Volume I has eight and a ninth page with no extracted text plus older malformed PDF text syntax. Preserve the visual-review qualification in `docs/PRIVATE_STATE_ECONOMY_EDITORIAL_REVIEW_REPORT.md`. This mechanism grants no publication, runtime, credentials, or economic rights.
+
+
+### Original PDF visual examination completed
+Exact-original Volume I/II page images were examined after verified artifact acquisition. Volume I's ninth page is truly blank and several substantive pages visibly clip lines at the right margin; Volume II's seven pages retain readable layout. Preserve the original immutable artifact hashes and treat any corrected Volume I edition as a separate governed, versioned publication with explicit lineage. See `docs/PRIVATE_STATE_ECONOMY_EDITORIAL_REVIEW_REPORT.md` for detail; no historical source was silently overwritten.
+
+### White-paper scope and independent research (draft PR #72)
+
+The StegVerse Private-State Economy paper centers StegVerse's own governance, private-state architecture and evidence-gated six-stage roadmap. Evidence Custody Seam findings may be cited as historical technical lineage, not as the platform's defining objective. Potential collaboration or interoperability with independent witness and behavioral-history frameworks is prospective, separately owned and not a product milestone or publication prerequisite. The branch's `docs/PRIVATE_STATE_ECONOMY_WHITE_PAPER_GOVERNED_MIRROR_HANDOFF.md` and editorial candidate bind the source-only clarification; no release or runtime proof is claimed.
+
+### Source-level economics and US/Texas regulatory review (2026-09-24)
+
+Publisher PR #72 records internal claim-by-claim economic and legal issue review in docs/PRIVATE_STATE_ECONOMY_EDITORIAL_REVIEW_REPORT.md. This does not constitute independently signed economist or counsel approval. The StegVerse-only white paper remains a draft with the existing paper-source hash; external collaboration remains optional separate research. See docs/PRIVATE_STATE_ECONOMY_WHITE_PAPER_GOVERNED_MIRROR_HANDOFF.md for exact unchanged release gates.

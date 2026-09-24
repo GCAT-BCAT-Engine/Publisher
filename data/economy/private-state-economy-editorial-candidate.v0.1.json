@@ -1,0 +1,62 @@
+{
+  "schema": "stegverse.publisher.editorial-source-candidate/v1",
+  "authority_effect": "NONE",
+  "goal_task_id": "ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001",
+  "publisher_pr": "https://github.com/GCAT-BCAT-Engine/Publisher/pull/72",
+  "status": "DRAFT_SOURCE_BOUND_INDEPENDENT_REVIEW_PENDING",
+  "source": {
+    "repository": "GCAT-BCAT-Engine/Publisher",
+    "branch": "draft/stegverse-private-state-economy-white-paper",
+    "path": "papers/StegVerse_Private_State_Economy_White_Paper_v0.1.md",
+    "sha256": "3329a0c47161eb4613c32bbc5e0a393116f395cb8fa78368ed21fed8775c3dca",
+    "source_ci_run": null
+  },
+  "verified_historical_sources": [
+    {
+      "name": "Entity Economy Volume I",
+      "repository": "StegVerse-Labs/Site",
+      "source_commit": "760cdd027e7507c027e0928fcd127b5a47e70a15",
+      "sha256": "a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95",
+      "pages": 9,
+      "source_defect": "VISUALLY_BLANK_PAGE_9_AND_RIGHT_MARGIN_CLIPPING_PRIOR_PAGES",
+      "corrected_historical_edition": "SEPARATE_GOVERNED_WORK_REQUIRED"
+    },
+    {
+      "name": "Entity Economy Volume II",
+      "repository": "StegVerse-Labs/Site",
+      "source_commit": "760cdd027e7507c027e0928fcd127b5a47e70a15",
+      "sha256": "129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f",
+      "pages": 7,
+      "source_defect": null
+    }
+  ],
+  "editorial_review": {
+    "original_pdf_bytes_verified": true,
+    "all_original_pdf_page_images_examined": true,
+    "legacy_volume_i_defects_documented": true,
+    "source_economic_doctrine_reconciled": true,
+    "narrative_falsifiability_reviewed": true,
+    "independent_economics_review_approved": false,
+    "jurisdiction_specific_legal_review_approved": false,
+    "external_review_receipts": []
+  },
+  "intended_governed_route": [
+    "existing_sdk_external_manifest_ingress",
+    "existing_interlock_intr_exact_request_decision",
+    "canonical_master_records_exact_publication_transition_closure",
+    "publisher_publication_mutation",
+    "existing_site_read_only_paper_mirror",
+    "deployed_public_http_readback"
+  ],
+  "missing_evidence": {
+    "authentic_external_intr_allow": null,
+    "master_records_receipt": null,
+    "publisher_publication_receipt": null,
+    "site_deployed_readback": null
+  },
+  "publication_mutation_authorized": false,
+  "benchmark_checks_authorized": false,
+  "runtime_execution_claimed": false,
+  "source_evidence_artifact": null,
+  "source_revision_note": "2026-09-24 scope clarification: StegVerse platform and fixed roadmap remain central; Evidence Custody Seam is historical research lineage, optional independently owned external framework collaboration is unproven and not a gate. Exact source hash updated; independent economics/legal review and authentic governed publication remain pending."
+}
