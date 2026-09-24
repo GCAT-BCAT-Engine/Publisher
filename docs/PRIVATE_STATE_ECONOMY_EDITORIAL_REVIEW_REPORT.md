@@ -34,3 +34,35 @@ Outstanding: separately scoped historical Volume I corrected-edition source reco
 ## Scope review — 2026-09-24
 
 The paper now identifies the Evidence Custody Seam as limited historical research lineage and distinguishes it from the StegVerse governance core, private-state economy and existing product roadmap. Prospective interoperability with independent witnessing and behavioral-history frameworks is neither operationally demonstrated nor a StegVerse dependency. The paper makes no representation on behalf of Justin, Richard or their projects, and any future joint characterization needs participant review. This section is an editorial clarification only; independent substantive economics, jurisdiction-specific legal review and authentic governed publication remain pending.
+
+## Substantive internal economic and regulatory issue review — 2026-09-24
+
+Classification: source-level internal editorial review completed; NOT independent economics peer review, professional legal advice, compliance clearance, external contributor endorsement or publication authority.
+
+### Economics
+
+- Private-state market: draft correctly describes a conditional hypothesis, not demonstrated income or buyer demand. Compare actual consenting-user net receipts after privacy, processing and administration costs, observing nonparticipants and counterfactual service choices.
+- Human/AI earnings: keep contributions, accepted customer-contracted delivery, licensing/royalties, refunds and funding separate. Attribution alone gives neither ownership nor entitlement. Owner-delegated AI expenditure does not establish separate AI legal capacity.
+- Verified-outcome cost: all attempted tasks are in the numerator; only independently accepted outcomes are in the denominator and zero accepted outcomes yields UNDEFINED. Preregister matched workload, consequence class, adjudicator independence, observation period, treatment of late remediation, provider tariffs and shared-cost allocation. Do not compare unlike assurance predicates.
+- Risks: distinguish retained-evidence reconstruction from real-world truth. Quantify false acceptance/rejection, withheld data, unresolved cases, privacy exposure, latency, energy, dispute cost and absent-submitter reconstruction; report negative and inconclusive outcomes.
+- Free tier and token economics: no sustainable margin, liquidity, reserves, royalty, appreciation or monetized user benefit has been demonstrated. Model provider-price shocks, abuse, paid-cohort contribution margins, reserve liabilities and actual buyer behavior before any affirmative claims.
+- Federation: cryptographically reconstructable interorganizational activity does not establish lawful cross-border payment, settlement or economic viability.
+
+Internal economics disposition: the current paper makes conditional claims with appropriate explicit limitations. No body edit is justified by the sources reviewed here. Independent economist approval remains unobserved; require an identifiable independent, dated review of the exact final candidate and its underlying assumptions before promoting that gate.
+
+### Primary-source US legal and Texas-scoped issue review
+
+- SEC interpretive release issued March 17 and effective March 23, 2026 addresses certain digital-asset transactions, not case-specific StegCoin/StegToken status: https://www.sec.gov/rules-regulations/2026/03/s7-2026-09 . Separate securities-law evaluation must use actual instrument and offering rights.
+- SEC Regulation Crypto Assets issued August 18, 2026 is PROPOSED, with comments listed due October 20, 2026, not a current exemption or StegVerse authorization: https://www.sec.gov/rules-regulations/2026/08/s7-2026-27 .
+- FinCEN distinguishes virtual-currency users from administrators/exchangers who transmit or exchange convertible virtual currency, subject to the actual facts, limitations and exemptions. A utility label or retained ledger does not resolve classification: https://www.fincen.gov/resources/statutes-regulations/guidance/application-fincens-regulations-persons-administering .
+- Texas Department of Banking regulates fiat-backed stablecoin issuers as money transmitters under Texas Finance Code Chapter 152 and publishes virtual-currency guidance. Neither StegCoin classification nor Texas money-transmission permission has been established: https://www2.dob.texas.gov/money-services-business/genius-act-non-depository and https://dob.texas.gov/consumer-information/virtual-currency-guidance .
+- IRS treats qualifying digital assets as property and requires applicable income/disposition reporting; broker reporting depends on actual role and transactions. Examine contributor compensation, reward issuance, resale, settlement and intermediaries: https://www.irs.gov/filing/digital-assets and https://www.irs.gov/instructions/i1099da .
+- NIST AI RMF 1.0 is voluntary guidance, not certification, validation or endorsement: https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10 .
+
+Internal legal disposition: existing paper preserves proposed/non-offering posture. No jurisdiction-specific professional opinion, financial launch clearance, tax conclusion or actual token/security classification is established. Require scoped external securities/payments counsel and accounting/tax review of the eventual real-world business model, legal entities, affected jurisdictions and actual instrument terms before issuance or payment operations.
+
+### Contributor independence and publication custody
+
+StegVerse is the sole subject and authorial voice of this draft. Evidence Custody Seam belongs to limited historical technical lineage. Optional interoperability with Justin's and Richard's independently developed frameworks is unproven separate research; no partnership, implementation or endorsement is inferred. Any later publication characterizing their work should be reviewed by them before release, without making their consent a dependency of this StegVerse-only paper.
+
+Exact existing paper SHA-256 remains 3329a0c47161eb4613c32bbc5e0a393116f395cb8fa78368ed21fed8775c3dca; no paper-body edit in this pass. Independent external economics/legal review receipts: NONE OBSERVED. Authentic same-transition Interlock/InTr ALLOW, Master Records RECORDED and exact reconstruction and evidence PASS, Publisher mutation, Site HTTP readback: NONE OBSERVED. All 16 benchmark statuses remain NOT_VERIFIED.
