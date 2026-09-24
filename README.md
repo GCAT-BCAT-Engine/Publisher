@@ -334,3 +334,7 @@ PR #72 includes a read-only validation workflow for fixed-commit original Volume
 
 ### Original PDF visual examination completed
 Exact-original Volume I/II page images were examined after verified artifact acquisition. Volume I's ninth page is truly blank and several substantive pages visibly clip lines at the right margin; Volume II's seven pages retain readable layout. Preserve the original immutable artifact hashes and treat any corrected Volume I edition as a separate governed, versioned publication with explicit lineage. See `docs/PRIVATE_STATE_ECONOMY_EDITORIAL_REVIEW_REPORT.md` for detail; no historical source was silently overwritten.
+
+### White-paper scope and independent research (draft PR #72)
+
+The StegVerse Private-State Economy paper centers StegVerse's own governance, private-state architecture and evidence-gated six-stage roadmap. Evidence Custody Seam findings may be cited as historical technical lineage, not as the platform's defining objective. Potential collaboration or interoperability with independent witness and behavioral-history frameworks is prospective, separately owned and not a product milestone or publication prerequisite. The branch's `docs/PRIVATE_STATE_ECONOMY_WHITE_PAPER_GOVERNED_MIRROR_HANDOFF.md` and editorial candidate bind the source-only clarification; no release or runtime proof is claimed.
