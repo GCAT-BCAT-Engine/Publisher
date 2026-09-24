@@ -8,7 +8,7 @@
     "repository": "GCAT-BCAT-Engine/Publisher",
     "branch": "draft/stegverse-private-state-economy-white-paper",
     "path": "papers/StegVerse_Private_State_Economy_White_Paper_v0.1.md",
-    "sha256": "7bc6328ff2f19f63b22496926a92971a419e708218dc1ba268b4230c3a7a88f8",
+    "sha256": "3329a0c47161eb4613c32bbc5e0a393116f395cb8fa78368ed21fed8775c3dca",
     "source_ci_run": null
   },
   "verified_historical_sources": [
@@ -58,5 +58,5 @@
   "benchmark_checks_authorized": false,
   "runtime_execution_claimed": false,
   "source_evidence_artifact": null,
-  "source_revision_note": "Editorial wording revised to independent on-demand ephemeral StegBrowser OpenAI/Anthropic execution; the previously reviewed source hash is superseded, and independent economics/legal reviews remain pending. Exact new hash confirmed by failed source-guard output on PR branch; this correction does not confer review approval or publication."
+  "source_revision_note": "2026-09-24 scope clarification: StegVerse platform and fixed roadmap remain central; Evidence Custody Seam is historical research lineage, optional independently owned external framework collaboration is unproven and not a gate. Exact source hash updated; independent economics/legal review and authentic governed publication remain pending."
 }
