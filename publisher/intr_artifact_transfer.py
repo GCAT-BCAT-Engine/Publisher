@@ -262,6 +262,8 @@ def process_artifact_transfer(payload_bytes: bytes, output_dir: Path) -> tuple[d
         "execution_authorized": False,
         "authority_effect": "NONE",
     }
+    if bundle["schema_version"] == "stegverse.publisher.evidence-report-package/v1":
+        result["source_export_schema"] = bundle["schema_version"]
     if roundtrip_binding is not None:
         result["roundtrip_binding"] = {
             **roundtrip_binding,
