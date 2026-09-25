@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - publisher/evaluator_asset_attachment.py
+      - publisher/evaluator_report_admission.py
+      - publisher/document_pipeline.py
       - publisher/intr_artifact_transfer.py
       - tests/test_evaluator_asset_attachment.py
       - .github/workflows/verify-evaluator-originals.yml
