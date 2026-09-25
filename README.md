@@ -317,3 +317,7 @@ governance/receipts/<CASE-ID>.receipt.json
 Publisher's governed KV document pipeline now references the completed native ERL writer, authenticated provider write, manifest-last ordering, exact provider-byte readback, retained provider-operation receipt `bb74904fcd8169829c78bdc1c0d64905b33243c2c22852565c13e614abcd1fa8`, and Master Records reconstruction under `SS-ERL-KV-PROPAGATION-VERIFICATION-001`.
 
 The bounded projection is validated by `tools/check_erl_kv_provider_proof_projection.py` and documented in `docs/ERL_KV_PROVIDER_PROOF_PUBLISHER_PROJECTION_MIRROR_HANDOFF.md`. It does not authorize an export, publish a paper, activate Publisher, or prove Site propagation.
+
+## Generic SDK reviewer packages and original evidence
+
+SDK manifests requesting external review default to a declared Publisher stage; non-review manifests may omit it. The existing Publisher transfer/return now also supports `stegverse.publisher.evidence-report-package/v1` source exports and exact original evaluator `evaluator_assets` (e.g. original screenshots and PDFs). The same hash-bound artifact manifest and source-only rendering receipt cover output documents and every retained original. No generic review report impersonates KV origin or grants publication/physical execution/custody authority. The historical MIR round-trip owner-specific capsule remains unchanged. Canonical implementation and authority ceiling: `docs/SDK_REVIEW_PUBLISHER_EVIDENCE_MIRROR_HANDOFF.md`.
