@@ -1,0 +1,23 @@
+name: Verify exact evaluator originals through Publisher transfer
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - publisher/evaluator_asset_attachment.py
+      - publisher/evaluator_report_admission.py
+      - publisher/document_pipeline.py
+      - publisher/intr_artifact_transfer.py
+      - tests/test_evaluator_asset_attachment.py
+      - .github/workflows/verify-evaluator-originals.yml
+  workflow_dispatch:
+permissions: {}
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest tests.test_intr_artifact_transfer tests.test_evaluator_asset_attachment -v
+      - run: python -m compileall -q publisher tests/test_evaluator_asset_attachment.py

@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from publisher.continuity_recall_admission import validate_export
+from publisher.evaluator_report_admission import REPORT_SCHEMA, validate_evaluator_report
 
 
 BUNDLE_SCHEMA = "stegverse.kv.publisher-document-export/v1"
@@ -75,10 +76,11 @@ def _legacy_admission_projection(bundle: dict[str, Any]) -> dict[str, Any]:
 
 
 def validate_document_bundle(bundle: dict[str, Any], *, now: datetime | None = None) -> dict[str, Any]:
-    if not isinstance(bundle, dict) or bundle.get("schema_version") != BUNDLE_SCHEMA:
+    if not isinstance(bundle, dict) or bundle.get("schema_version") not in {BUNDLE_SCHEMA, REPORT_SCHEMA}:
         raise DocumentPipelineError("document bundle schema mismatch")
     _verify_bundle_hash(bundle)
-    admission = validate_export(_legacy_admission_projection(bundle))
+    admission = (validate_evaluator_report(bundle) if bundle["schema_version"] == REPORT_SCHEMA
+                 else validate_export(_legacy_admission_projection(bundle)))
     if admission.get("result") != "ADMITTED":
         raise DocumentPipelineError("continuity export rejected: " + ",".join(admission.get("reasons", [])))
     if any(bundle.get(flag) is not False for flag in ("publication_authorized", "release_authorized", "execution_authorized")):
