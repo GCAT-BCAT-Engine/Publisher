@@ -126,3 +126,26 @@ def attach_originals(
     if not verify_artifact_manifest(out, manifest):
         raise EvaluatorAssetError("augmented artifact manifest verification failed")
     return returned, manifest, receipt
+
+def verify_source_evidence_coverage(bundle: Mapping[str, Any], assets: Any) -> None:
+    """Require every exact evaluator-original in the claimed report to be supplied."""
+    expected = {}
+    for row in bundle.get("evidence", []):
+        path = row.get("path")
+        if not isinstance(path, str) or not path.startswith("evidence/"):
+            continue
+        if (row.get("fidelity") != "exact" or row.get("payload_available") is not True
+            or row.get("restricted") is not False):
+            raise EvaluatorAssetError("original source evidence inventory must be exact and available")
+        if path in expected:
+            raise EvaluatorAssetError("duplicate original evidence inventory path")
+        expected[path] = row
+    actual = {meta["path"]: meta for meta, _ in parse_assets(assets)} if assets is not None else {}
+    if set(expected) != set(actual):
+        raise EvaluatorAssetError("original evaluator evidence coverage mismatch")
+    for path, item in expected.items():
+        asset = actual[path]
+        if (item["content_hash"] != asset["sha256"]
+            or item.get("bytes") != asset["bytes"]
+            or item.get("media_type") != asset["media_type"]):
+            raise EvaluatorAssetError("evaluator evidence inventory does not match original bytes")
