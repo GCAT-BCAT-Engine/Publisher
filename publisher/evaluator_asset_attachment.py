@@ -56,7 +56,7 @@ def parse_assets(items: Any) -> list[tuple[dict[str, Any], bytes]]:
             media == "image/jpeg" and ext not in {"jpg", "jpeg"}
         ) or (media == "application/pdf" and ext != "pdf"):
             raise EvaluatorAssetError("asset media type/path mismatch")
-        if item["source_class"] not in {"USER_SUPPLIED_ORIGINAL", "AUTHENTIC_RETAINED_EVIDENCE", "COUNTERPART_SUPPLIED_ORIGINAL"}:
+        if item["source_class"] not in {"USER_SUPPLIED_ORIGINAL", "AUTHENTIC_RETAINED_EVIDENCE", "COUNTERPART_SUPPLIED_ORIGINAL", "SDK_SOURCE_VALIDATED_ARTIFACT"}:
             raise EvaluatorAssetError("unknown source class")
         try:
             raw = base64.b64decode(item["content_base64"], validate=True)

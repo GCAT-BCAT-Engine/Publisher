@@ -86,6 +86,11 @@ class EvaluatorAssetsTests(unittest.TestCase):
                 with self.assertRaisesRegex(PublisherArtifactTransferError, "digest mismatch"):
                     verify_artifact_return(canonical_json(broken).encode())
 
+    def test_sdk_source_artifact_never_upgraded_to_authentic_runtime(self):
+        assets = originals()
+        assets[0]["source_class"] = "SDK_SOURCE_VALIDATED_ARTIFACT"
+        self.assertEqual(parse_assets(assets)[0][0]["source_class"], "SDK_SOURCE_VALIDATED_ARTIFACT")
+
     def test_optional_when_not_declared(self):
         raw = canonical_json(transfer()).encode()
         with tempfile.TemporaryDirectory() as td:
