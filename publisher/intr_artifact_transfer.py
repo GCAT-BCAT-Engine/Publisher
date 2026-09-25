@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from publisher.document_pipeline import render_document_bundle, verify_artifact_manifest
+from publisher.evaluator_asset_attachment import parse_assets, attach_originals, digest as asset_manifest_digest
 
 TRANSFER_SCHEMA = "stegverse.publisher.artifact-transfer/v1"
 RETURN_SCHEMA = "stegverse.publisher.artifact-return/v1"
@@ -19,7 +20,7 @@ TRANSFER_FIELDS = {
     "requested_formats", "authorization_ref", "publication_authorized",
     "release_authorized", "execution_authorized", "authority_effect",
 }
-OPTIONAL_TRANSFER_FIELDS = {"roundtrip_binding"}
+OPTIONAL_TRANSFER_FIELDS = {"roundtrip_binding", "evaluator_assets"}
 BOUNDARY_FALSE_FLAGS = ("publication_authorized", "release_authorized", "execution_authorized")
 POST_PUBLISHER_FALSE_FLAGS = (
     "sdk_return_binding_observed",
@@ -181,7 +182,7 @@ def validate_transfer_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
     if not isinstance(payload, Mapping):
         raise PublisherArtifactTransferError("artifact transfer field set invalid")
     keys = set(payload)
-    if not (keys == TRANSFER_FIELDS or keys == TRANSFER_FIELDS | OPTIONAL_TRANSFER_FIELDS):
+    if not (TRANSFER_FIELDS.issubset(keys) and keys.issubset(TRANSFER_FIELDS | OPTIONAL_TRANSFER_FIELDS)):
         raise PublisherArtifactTransferError("artifact transfer field set invalid")
     if payload.get("schema") != TRANSFER_SCHEMA or payload.get("operation") != "TRANSFER":
         raise PublisherArtifactTransferError("artifact transfer schema/operation invalid")
@@ -200,9 +201,13 @@ def validate_transfer_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
     if not isinstance(auth, dict) or payload.get("authorization_ref") != auth.get("authority_ref"):
         raise PublisherArtifactTransferError("authorization binding mismatch")
     binding = _extract_roundtrip_binding(payload)
+    if "evaluator_assets" in payload:
+        parse_assets(payload["evaluator_assets"])
     result = copy.deepcopy(bundle)
     if binding is not None:
         result["roundtrip_binding"] = binding
+    if "evaluator_assets" in payload:
+        result["evaluator_assets"] = copy.deepcopy(payload["evaluator_assets"])
     return result
 
 
@@ -223,8 +228,11 @@ def process_artifact_transfer(payload_bytes: bytes, output_dir: Path) -> tuple[d
     payload = parse_transfer_bytes(payload_bytes)
     bundle = validate_transfer_payload(payload)
     roundtrip_binding = bundle.pop("roundtrip_binding", None)
+    evaluator_assets = bundle.pop("evaluator_assets", None)
     out = Path(output_dir)
     manifest, receipt = render_document_bundle(bundle, out)
+    if evaluator_assets is not None:
+        attach_originals(supplied_assets=evaluator_assets, output_dir=out, manifest=manifest, receipt=receipt)
     if verify_artifact_manifest(out, manifest) is not True:
         raise PublisherArtifactTransferError("rendered artifact manifest failed verification")
     artifacts = []
@@ -235,6 +243,8 @@ def process_artifact_transfer(payload_bytes: bytes, output_dir: Path) -> tuple[d
         artifacts.append({
             "format": item["format"], "path": item["path"], "sha256": item["sha256"],
             "bytes": item["bytes"], "content_base64": base64.b64encode(value).decode("ascii"),
+            **({"media_type": item["media_type"], "source_class": item["source_class"]}
+                if item["format"] == "source-original" else {}),
         })
     result = {
         "schema": RETURN_SCHEMA,
@@ -281,13 +291,39 @@ def verify_artifact_return(return_bytes: bytes) -> dict[str, Any]:
     manifest = value.get("manifest")
     if not isinstance(manifest, dict):
         raise PublisherArtifactTransferError("artifact return manifest missing")
-    by_path = {item.get("path"): item for item in manifest.get("artifacts", [])}
-    for item in value.get("artifacts", []):
+    if manifest.get("manifest_sha256") != asset_manifest_digest(
+        {k: v for k, v in manifest.items() if k != "manifest_sha256"}
+    ):
+        raise PublisherArtifactTransferError("Publisher artifact manifest digest mismatch")
+    receipt = value.get("rendering_receipt")
+    if not isinstance(receipt, dict) or receipt.get("manifest_sha256") != manifest["manifest_sha256"]:
+        raise PublisherArtifactTransferError("Publisher rendering receipt manifest mismatch")
+    if receipt.get("receipt_sha256") != asset_manifest_digest(
+        {k: v for k, v in receipt.items() if k != "receipt_sha256"}
+    ):
+        raise PublisherArtifactTransferError("Publisher rendering receipt digest mismatch")
+    rows = manifest.get("artifacts", [])
+    returned = value.get("artifacts", [])
+    if not isinstance(rows, list) or not isinstance(returned, list):
+        raise PublisherArtifactTransferError("Publisher artifact list invalid")
+    names = [row.get("path") for row in rows if isinstance(row, dict)]
+    returned_names = [row.get("path") for row in returned if isinstance(row, dict)]
+    if len(names) != len(set(names)) or len(returned_names) != len(set(returned_names)) or set(names) != set(returned_names):
+        raise PublisherArtifactTransferError("Publisher exact source artifact coverage mismatch")
+    by_path = {item.get("path"): item for item in rows}
+    for item in returned:
         raw = base64.b64decode(item["content_base64"], validate=True)
         if sha256_bytes(raw) != item.get("sha256") or len(raw) != item.get("bytes"):
             raise PublisherArtifactTransferError("artifact return bytes mismatch")
-        if by_path.get(item.get("path"), {}).get("sha256") != item.get("sha256"):
+        matching = by_path.get(item.get("path"), {})
+        if (matching.get("sha256") != item.get("sha256")
+            or matching.get("bytes") != item.get("bytes")
+            or matching.get("format") != item.get("format")):
             raise PublisherArtifactTransferError("artifact return manifest binding mismatch")
+        if matching.get("format") == "source-original":
+            if (item.get("media_type") != matching.get("media_type")
+                or item.get("source_class") != matching.get("source_class")):
+                raise PublisherArtifactTransferError("exact original media/provenance mismatch")
     if "roundtrip_binding" in value:
         binding = _validate_roundtrip_binding(_require_mapping(value.get("roundtrip_binding"), "return roundtrip_binding"), publisher_observed=True)
         if binding.get("publisher_return_schema") != RETURN_SCHEMA:
