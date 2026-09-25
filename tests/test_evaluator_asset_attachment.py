@@ -146,6 +146,7 @@ class GenericReviewTransferTests(unittest.TestCase):
             self.assertEqual(len([x for x in verified["artifacts"] if x["format"] == "source-original"]), 2)
             self.assertEqual(verified["rendering_receipt"]["result"], "GENERATED_VALIDATED_NOT_PUBLISHED")
             self.assertNotIn("roundtrip_binding", verified)
+            self.assertEqual(verified["source_export_schema"], "stegverse.publisher.evidence-report-package/v1")
             self.assertFalse(verified["publication_authorized"])
 
     def test_generic_evaluator_bundle_cannot_omit_original(self):
