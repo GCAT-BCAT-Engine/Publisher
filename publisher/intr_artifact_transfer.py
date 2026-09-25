@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from publisher.document_pipeline import render_document_bundle, verify_artifact_manifest
-from publisher.evaluator_asset_attachment import parse_assets, attach_originals, digest as asset_manifest_digest
+from publisher.evaluator_asset_attachment import parse_assets, attach_originals, verify_source_evidence_coverage, digest as asset_manifest_digest
 
 TRANSFER_SCHEMA = "stegverse.publisher.artifact-transfer/v1"
 RETURN_SCHEMA = "stegverse.publisher.artifact-return/v1"
@@ -203,6 +203,8 @@ def validate_transfer_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
     binding = _extract_roundtrip_binding(payload)
     if "evaluator_assets" in payload:
         parse_assets(payload["evaluator_assets"])
+    if bundle.get("schema_version") == "stegverse.publisher.evidence-report-package/v1":
+        verify_source_evidence_coverage(bundle, payload.get("evaluator_assets"))
     result = copy.deepcopy(bundle)
     if binding is not None:
         result["roundtrip_binding"] = binding
