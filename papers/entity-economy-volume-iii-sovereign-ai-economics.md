@@ -1,7 +1,7 @@
 # The StegVerse Entity Economy — Volume III
 ## Sovereign AI Economics: The Cost of Intelligence, Individual Data Value, and Equitable Economic Participation
 
-**Status:** Editorial research draft v0.1; not peer reviewed, published, economically validated, or a statement of operational capability.  
+**Status:** Editorial research draft v0.2 — economics/legal issue-spotting incorporated; external review not obtained; not peer reviewed, published, economically validated, or a statement of operational capability.  
 **Series:** Volume I — Governed Economic Model; Volume II — Identity, Agency, Labor, Autonomy, and Legal Standing; Volume III — economic incidence and individual outcomes.  
 **Owner:** Publisher editorial custody; candidate under canonical economic program `ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001` and Publisher issue #76.  
 **Date:** 2026-09-27.
@@ -28,7 +28,7 @@ An **authorized outcome** is one whose request, purpose, scope, spending limits 
 
 Candidate mechanisms include pre-execution budget authorization, capped retries, bounded inference, workload selection, portable provider choice, retained evidence reuse, independent reconstruction and detection of duplicate execution. Their costs include admission checks, consensus where selected, provenance capture, storage, verification, privacy-preserving disclosure, dispute handling and settlement. Evidence reuse is eligible only when scope, freshness, source authority, data rights and admissibility permit; cached evidence is not a blanket substitute for a new transition.
 
-Measure per **completed, equivalent, admissible outcome**, not per token or nominal model invocation. Record rejected and failed attempts as costs, not successful outcomes.
+Measure per **completed, equivalent, admissible outcome**, not per token or nominal model invocation. Pre-register equivalent quality, latency, reliability, safety and verification burden, and report attempted as well as completed outcomes so that a high rejection rate cannot artificially lower the reported cost per success. Record rejected and failed attempts as costs, not successful outcomes. Separate model/provider charges from user prices and attribute all subsidies and infrastructure expenses to their actual bearers.
 
 ## 4. Individual data sovereignty and economic value
 
@@ -36,7 +36,7 @@ Personal data can create research or commercial value without granting the data 
 
 Original use evidence should bind the relevant authority and usage event without publishing sensitive source data. Compensation accounting must distinguish *potential valuation*, *contractually owed*, *accrued*, *disputed*, *paid* and *irrevocably settled*. Payment receipts alone do not prove that data use was authorized; consent receipts alone do not prove payment or prevent downstream misuse. A user's decision not to license data must remain meaningful. Do not promise passive income or imply that every data contribution has a buyer.
 
-Existing StegDB ownership/compensation doctrine and FinCo settlement/legal review remain source owners. This paper creates no new custody interface, financial instrument, token issuance, payment processor or independent enforcement authority.
+For every proposed licensing arrangement, independent counsel must assess the governing jurisdiction and applicable controller/processor obligations, lawful basis and consent withdrawal, onward transfers, sensitive and minor data, retained copies, derivative products and trained-model irreversibility. Contract review must distinguish formation, consideration, audit and attribution rights, fee/tax treatment, disputed payments and enforceable remedies. A cryptographically authentic usage receipt is technical evidence, not itself proof of lawful use or an enforceable payment obligation. Assess competition and financial-product implications before making public claims. Existing StegDB ownership/compensation doctrine and FinCo settlement/legal review remain source owners. This paper creates no new custody interface, financial instrument, token issuance, payment processor or independent enforcement authority.
 
 ## 5. Net user economic benefit: definitions
 
@@ -44,10 +44,10 @@ For a declared observation window and comparable population:
 
 - `C_baseline`: observed user-borne cost of equivalent authorized and verifiable outcomes under the counterfactual, including devices, amortization, energy, subscriptions, network, direct fees and verification.
 - `C_governed`: observed user-borne cost of the governed alternative, including all of those categories plus governance, evidence custody, dispute and settlement overhead.
-- `R_settled`: actually received, attributable and non-duplicated net compensation from purpose-authorized data use, after fees and taxes where the reported measure requires them.
+- `R_settled`: actually received, attributable and non-duplicated net compensation from purpose-authorized data use, after fees and taxes where the reported measure requires them; disclose whether comparable baseline data income already existed.
 - `NUEB = C_baseline - C_governed + R_settled`.
 
-Report gross savings, net savings and data income separately before presenting their sum. If a baseline would not have used the data, attribute data compensation separately rather than disguising it as avoided inference cost. Show confidence intervals or ranges for unobserved depreciation, subsidies and allocated fixed costs. Count data privacy risks and foregone alternative licensing as separately disclosed externalities or sensitivity variables rather than pretending all welfare effects can be priced precisely.
+For matched baseline and governed cohorts, hold outcome quality, latency, failure rate and verification requirements constant or disclose measured differences; report denominators, sample size, confidence intervals and exclusions. Attribute fixed infrastructure cost and device depreciation consistently across the observation period, identify payer and any subsidies, and avoid counting transfers as aggregate resource savings. Where the baseline already generated data income, subtract its comparable settled amount from the incremental compensation term rather than counting the full governed payment as new value. Report gross savings, net savings and data income separately before presenting their sum. If a baseline would not have used the data, attribute data compensation separately rather than disguising it as avoided inference cost. Show confidence intervals or ranges for unobserved depreciation, subsidies and allocated fixed costs. Count data privacy risks and foregone alternative licensing as separately disclosed externalities or sensitivity variables rather than pretending all welfare effects can be priced precisely.
 
 Illustration only: baseline $100; governed total $85 including $8 governance overhead; $5 genuinely settled data compensation; calculated net benefit $20. These numbers are hypothetical, not a StegVerse measurement. A counterexample with governed total $115 and no settled compensation yields a $15 loss.
 
@@ -75,4 +75,4 @@ Negative controls: unauthorized data-use event; expired permission; duplicate or
 - Canonical economic roadmap: `StegVerse-Labs/.github/docs/ECOSYSTEM_ECONOMIC_WHITEPAPER_GATED_ROADMAP_MIRROR_HANDOFF.md`.
 - Publisher issue #76. Closed, unmerged Publisher PR #72 is historical draft evidence only, not active publication authority.
 
-**Before release:** independent economic-methodology review, jurisdiction-specific legal review of data rights/licensing/settlement, exact-head source validation, Publisher-controlled versioning, applicable governed publication closure and independent Site readback. No benchmark is promoted by this manuscript.
+**Editorial review disposition (2026-09-27):** Internal AI-assisted economics and legal issue-spotting was incorporated into this v0.2 draft. No independent external economist, licensed jurisdiction-specific counsel, signed review report or independent approval is evidenced by this source change. The source's merge or passing CI does not satisfy review or publication closure.\n\n**Before release:** independent economic-methodology review, jurisdiction-specific legal review of data rights/licensing/settlement, exact-head source validation, Publisher-controlled versioning, applicable governed publication closure and independent Site readback. No benchmark is promoted by this manuscript.

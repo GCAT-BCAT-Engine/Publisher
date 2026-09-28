@@ -1,7 +1,7 @@
 # Entity Economy Volume III — Publisher editorial mirror handoff
 
 **Date:** 2026-09-27  
-**Status:** SOURCE_MERGED_EDITORIAL_DRAFT / NOT_PUBLISHED  
+**Status:** OWNER_APPROVED_EDITORIAL_RECONCILIATION / SOURCE_DRAFT_NOT_PUBLISHED  
 **Publisher issue:** #76 (CLOSED after source merge)  
 **Existing canonical Goal Task ID:** `ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001`  
 **Registry record:** `StegVerse-Labs/.github/data/canonical-task-records/ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001.json`  
@@ -17,7 +17,7 @@ Publisher issue #76 requested a third editorial volume and is now CLOSED after m
 
 - `papers/entity-economy-volume-iii-sovereign-ai-economics.md` — original draft manuscript; economic incidence, governance overhead, data value, net user benefit and reproducible falsification.
 - `docs/ENTITY_ECONOMY_VOLUME_III_VERSIONED_CROSS_REFERENCES.md` — proposed future versioned inserts for I/II; original PDFs untouched.
-- `README.md` — bounded discovery entry for this draft.
+- `README.md` — bounded discovery entry for this draft.\n- `docs/ENTITY_ECONOMY_VOLUME_III_INDEPENDENT_REVIEW_PACKET.md` — source-bound external review evidence packet, not itself an external review.
 - This handoff — provenance, scope and evidence gates.
 
 ## Independent review and publication sequence
@@ -34,7 +34,7 @@ Publisher issue #76 requested a third editorial volume and is now CLOSED after m
 - Source reconciliation: canonical record and observational COSV fetched; native handoffs inspected.
 - Draft source: Volume III PR #77 merged as source at `e64f5fb9dac84ecca3b7e944761125859f700321` (not a published release).
 - Original I/II PDF edits: NONE.
-- Independent review: NOT_OBSERVED.
+- Owner attests external economics and legal reviews match internal findings and approves editorial reconciliation. Original source-bound external reports/reviewer credentials were not independently authenticated in this session; do not invent or equate owner attestation with a signed external report.
 - Exact-head hosted CI: historical merge does not substitute for validation of any future publication-request candidate; check its actual exact-head runs separately.
 - Runtime governed publication: UNKNOWN_NOT_AUTHENTICALLY_OBSERVED.
 - Site deployment/readback: NOT_OBSERVED.
@@ -49,3 +49,7 @@ Volume III `papers/entity-economy-volume-iii-sovereign-ai-economics.md` is separ
 Canonical Task Registry generation 263 recorded the earlier three-blocker source projection; this subsequent owner-approved editorial reconciliation proposes generation 267 **without changing three unresolved blockers or vector `10100000103000`**. The old `10100000104000` reference above is historical and not current. Existing task remains PROPOSED, no WorkerCoordinator claim/fence or publishing authority. Outstanding editorial evidence comprises actual attributable economic and jurisdiction-specific legal reviewer findings where needed, **not** owner permission for another white-paper manuscript. An unsigned/blank reviewer checklist is not an external review receipt; independent reviewers' use of ChatGPT does not independently attest their professional conclusions. Distinguish substantive review from permission to issue financial instruments, which requires specific later legal assessment.
 
 Source validation, original InTr decision, original Master Records receipt, Publisher release and Site deployment/readback have different authorities and evidence. Publication uses the actual admitted manifest route where applicable and remains unobserved here. No source merge or manuscript approval promotes the sixteen Site roadmap benchmarks.
+
+## Editorial reconciliation on latest main
+
+The owner approved the v0.2 economics and legal reconciliation and attested that external reviews match the internal findings. The revision preserves the distinct approved PR #72 original documentation and does not reopen issue #76. Prior editorial PR #79 was found dirty against later main handoff corrections; this clean-base editorial branch carries only the v0.2 manuscript, review packet and this additive handoff correction. No reviewer identities or signed reports have been fabricated. Source merge does not grant Publisher release, Master Records closure, deployed readback or benchmark promotion.
