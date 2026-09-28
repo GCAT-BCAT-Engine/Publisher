@@ -22,12 +22,13 @@ jobs:
         run: pip install -e "." || true
       - name: Export to StegDB
         run: |
-          python -c "
-from publisher.submission_tracker import SubmissionTracker
-tracker = SubmissionTracker()
-tracker.export_for_stegdb('stegdb_publisher_export.json')
-print('Exported publisher data for StegDB ingestion')
-"
+          python - <<'PY'
+          from publisher.submission_tracker import SubmissionTracker
+
+          tracker = SubmissionTracker()
+          tracker.export_for_stegdb("stegdb_publisher_export.json")
+          print("Exported publisher data for StegDB ingestion")
+          PY
       - name: Commit export
         run: |
           git add stegdb_publisher_export.json || true
