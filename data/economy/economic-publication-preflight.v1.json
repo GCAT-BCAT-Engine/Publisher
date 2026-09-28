@@ -1,0 +1,94 @@
+{
+  "schema": "stegverse.publisher.economic-publication-preflight/v1",
+  "goal_task_id": "ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001",
+  "current_observational_cosv": "10100000103000",
+  "authority_effect": "NONE",
+  "evidence_class": "SOURCE_ONLY_PRE_ADMISSION_DIAGNOSTIC",
+  "status": "SOURCE_PREFLIGHT_FAIL_CLOSED",
+  "runtime_manifest_invoked": false,
+  "runtime_disposition": null,
+  "owner_document_approval": {
+    "recorded": true,
+    "source": "Owner explicitly approved existing PR #72 documentation; PR closed unmerged",
+    "manuscript_replacement_required": false
+  },
+  "candidates": [
+    {
+      "kind": "APPROVED_ORIGINAL_PRIVATE_STATE_ECONOMY",
+      "repository": "GCAT-BCAT-Engine/Publisher",
+      "source_commit": "f9a140d02e162c8284db7fe22b9093e70c25207a",
+      "source_path": "papers/StegVerse_Private_State_Economy_White_Paper_v0.1.md",
+      "sha256": "3329a0c47161eb4613c32bbc5e0a393116f395cb8fa78368ed21fed8775c3dca",
+      "git_blob_sha": "5c03d8ef1d79c65bb2338268c156d00295caa48a",
+      "owner_approved": true,
+      "source_on_publisher_main": false,
+      "governed_published": false
+    },
+    {
+      "kind": "ENTITY_ECONOMY_VOLUME_III_SEPARATE_RESEARCH",
+      "repository": "GCAT-BCAT-Engine/Publisher",
+      "source_commit": "e64f5fb9dac84ecca3b7e944761125859f700321",
+      "source_path": "papers/entity-economy-volume-iii-sovereign-ai-economics.md",
+      "sha256": "1deb984fa8a97b0b75665502c488318a445c2425c6b218cd42f287b6f9cf65a3",
+      "git_blob_sha": "f60a1e470ae8ec60f8cc1e56caa07d0e2e6921c6",
+      "owner_approved": false,
+      "source_on_publisher_main": true,
+      "governed_published": false
+    }
+  ],
+  "reviewer_evidence": {
+    "owner_reported_external_convergence": "Owner previously reported external reviews agree with internal findings; full exact-source reports were not retrieved",
+    "checklist_state": "BLANK_FINDINGS_AND_UNSIGNED",
+    "economics_review_receipt": null,
+    "legal_review_receipt": null,
+    "verified_review_decisions": false,
+    "required_scope": "Research-publication methods and accurate legal issue framing per canonical Publisher review gate; financial-service operations require separate activity/jurisdiction-specific compliance analysis"
+  },
+  "preflight_predicates": [
+    {
+      "predicate": "REVIEW_EVIDENCE_RECONCILED_TO_APPROVED_EXACT_SOURCE",
+      "status": "FAIL_CLOSED",
+      "evidence_refs": [
+        "Publisher PR #72 source SHA-256 3329a0c47161eb4613c32bbc5e0a393116f395cb8fa78368ed21fed8775c3dca",
+        "Library reviewer checklists have blank findings/signature fields; PR #72/#77 have zero GitHub review submissions"
+      ],
+      "correction": "Use genuine banker and lawyer findings with attributable reviewer conclusion and the exact candidate scope; do not invent a signed receipt or treat owner approval as review evidence."
+    },
+    {
+      "predicate": "PUBLISHER_PAPERS_TARGET_MANIFEST_PROFILE",
+      "status": "FAIL_CLOSED",
+      "evidence_refs": [
+        "StegVerse-org/StegVerse-SDK/stegverse/wiki_publication_transition.py ACTIVE_TARGET_PROFILES supports only admissibility:docs/external-frameworks/",
+        "GOVERNED-WIKI-PUBLICATION-TRANSITION-001 applies external framework wiki submissions, not a Publisher papers release"
+      ],
+      "correction": "Use an existing authorized generic SDK manifest + Publisher-native paper-release binding, or obtain exact exemption/implementation under the existing owner; never relabel admissibility wiki ALLOW as Publisher papers ALLOW."
+    },
+    {
+      "predicate": "ORIGINAL_AUTHENTIC_RUNTIME_INTR_AND_MASTER_RECORDS_CLOSURE",
+      "status": "NOT_ATTEMPTED",
+      "evidence_refs": [
+        "No admitted Publisher paper-target execution interface exposed in this session; no same-transition Interlock/InTr or Master Records receipt supplied"
+      ],
+      "correction": "Once the correct admitted Publisher papers manifest is available, invoke the original authorized ingress; retain original ALLOW, DENY or FAIL_CLOSED with predicate-specific evidence, require exact Master Records RECORDED/reconstruction PASS/evidence PASS/digest match before publication."
+    }
+  ],
+  "requested_target": {
+    "repository": "GCAT-BCAT-Engine/Publisher",
+    "path_prefix": "papers/",
+    "publication_execution_requested": false
+  },
+  "authorization": {
+    "manifest_prepared": false,
+    "external_intr_allow": null,
+    "master_records_receipt": null,
+    "publisher_release_receipt": null,
+    "site_deployed_readback": null,
+    "mutation_authorized": false
+  },
+  "site_benchmarks": {
+    "count": 16,
+    "all_status": "NOT_VERIFIED",
+    "no_promotion_authorized": true
+  },
+  "next_action": "Reconcile exact reviewer findings, resolve Publisher paper-target manifest binding under existing owner, then submit actual admitted manifest and evaluate original transition-specific disposition; no fabricated downstream failure."
+}
