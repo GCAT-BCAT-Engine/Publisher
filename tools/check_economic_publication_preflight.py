@@ -15,7 +15,7 @@ def check(value: dict) -> None:
     assert value["current_observational_cosv"] == "10100000103000"
     assert value["authority_effect"] == "NONE"
     assert value["evidence_class"] == "SOURCE_ONLY_PRE_ADMISSION_DIAGNOSTIC"
-    assert value["status"] == "SOURCE_PREFLIGHT_FAIL_CLOSED"
+    assert value["status"] == "SOURCE_PREFLIGHT_RUNTIME_PENDING"
     assert value["runtime_manifest_invoked"] is False
     assert value["runtime_disposition"] is None
     assert value["owner_document_approval"]["recorded"] is True
@@ -31,7 +31,7 @@ def check(value: dict) -> None:
     assert third["sha256"] == hashlib.sha256(VOL3.read_bytes()).hexdigest()
     reviews = value["reviewer_evidence"]
     assert reviews["verified_review_decisions"] is False
-    assert reviews["economics_review_receipt"] is None and reviews["legal_review_receipt"] is None
+    assert reviews["economics_review_receipt"] is None and reviews["legal_review_receipt"] is None\n    assert reviews["publication_policy_disposition"] == "RESEARCH_PUBLICATION_WITH_DISCLOSED_UNVERIFIED_EXTERNAL_REVIEW"\n    assert reviews["signed_external_reports_required_for_research_publication"] is False
     assert [p["predicate"] for p in value["preflight_predicates"]] == [
         "REVIEW_EVIDENCE_RECONCILED_TO_APPROVED_EXACT_SOURCE",
         "PUBLISHER_PAPERS_NATIVE_RUNTIME_CONSUMER",
