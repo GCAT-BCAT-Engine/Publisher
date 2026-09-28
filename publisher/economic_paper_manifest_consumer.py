@@ -16,7 +16,8 @@ TARGET_REPOSITORY = "GCAT-BCAT-Engine/Publisher"
 CANDIDATE_SCHEMA = "stegverse.publisher.paper-publication-candidate/v1"
 INTAKE_SCHEMA = "stegverse.publisher.paper-manifest-intake/v1"
 MANIFEST_PROFILE = "stegverse.ingress-manifest.v1"
-PUBLISHER_PACKAGE_PROFILE = "stegverse.publisher.evidence-report-package/v1"\nRESEARCH_REVIEW_POLICY_MODE = "RESEARCH_PUBLICATION_WITH_DISCLOSED_UNVERIFIED_EXTERNAL_REVIEW"
+PUBLISHER_PACKAGE_PROFILE = "stegverse.publisher.evidence-report-package/v1"
+RESEARCH_REVIEW_POLICY_MODE = "RESEARCH_PUBLICATION_WITH_DISCLOSED_UNVERIFIED_EXTERNAL_REVIEW"
 _DIGEST = re.compile(r"^[0-9a-f]{64}$")
 _COMMIT = re.compile(r"^[0-9a-f]{40}$")
 
