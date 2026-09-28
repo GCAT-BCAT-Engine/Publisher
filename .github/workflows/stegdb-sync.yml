@@ -19,8 +19,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install deps
-        run: pip install -e "." || true
       - name: Export to StegDB
         run: |
           python - <<'PY'
@@ -30,8 +28,10 @@ jobs:
           tracker.export_for_stegdb("stegdb_publisher_export.json")
           print("Exported publisher data for StegDB ingestion")
           PY
-      - name: Commit export
-        run: |
-          git add stegdb_publisher_export.json || true
-          git commit -m "chore: export publisher data to StegDB [skip ci]" || true
-          git push || true
+      - name: Upload bounded StegDB export
+        uses: actions/upload-artifact@v4
+        with:
+          name: stegdb-publisher-export
+          path: stegdb_publisher_export.json
+          if-no-files-found: error
+          retention-days: 30
