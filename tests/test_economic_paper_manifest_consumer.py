@@ -25,7 +25,7 @@ def manifest():
       "target":TARGET_REPOSITORY+":"+c["target_path"],"scope":"publisher_paper_publication",
       "parameters":{"goal_task_id":TASK_ID,"source_commit_sha":c["source_commit_sha"],"source_sha256":c["source_sha256"],
        "source_git_blob_sha":c["source_git_blob_sha"],"target_repository":TARGET_REPOSITORY,"target_path":c["target_path"],
-       "review_report_sha256":dict(c["review_report_sha256"]),"publication_executed":False,"external_side_effect_requested":True}}
+       "review_evidence":{"mode":c["review_policy"]["mode"],**dict(c["review_policy"])},"publication_executed":False,"external_side_effect_requested":True}}
     payload={"candidate":c,"source_text_utf8":SOURCE}
     return {"manifest_profile":"stegverse.ingress-manifest.v1","manifest_profile_version":"1",
       "source_framework":"publisher_approved_paper_source","source_output_id":"fixture","created_at":"2026-09-28T00:00:00Z",
