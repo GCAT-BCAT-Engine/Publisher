@@ -31,7 +31,7 @@
       "source_path": "papers/entity-economy-volume-iii-sovereign-ai-economics.md",
       "sha256": "32abef31da44de5391fb6945b55ff1673aed7390e411b1802c02d40482fc249f",
       "git_blob_sha": "1ad8a57a6ab1940e4cd6d663ded1a55969b89379",
-      "owner_approved": false,
+      "owner_approved": true,
       "source_on_publisher_main": true,
       "governed_published": false
     }
@@ -56,13 +56,14 @@
       "correction": "Use genuine banker and lawyer findings with attributable reviewer conclusion and the exact candidate scope; do not invent a signed receipt or treat owner approval as review evidence."
     },
     {
-      "predicate": "PUBLISHER_PAPERS_TARGET_MANIFEST_PROFILE",
+      "predicate": "PUBLISHER_PAPERS_NATIVE_RUNTIME_CONSUMER",
       "status": "FAIL_CLOSED",
       "evidence_refs": [
-        "StegVerse-org/StegVerse-SDK/stegverse/wiki_publication_transition.py ACTIVE_TARGET_PROFILES supports only admissibility:docs/external-frameworks/",
-        "GOVERNED-WIKI-PUBLICATION-TRANSITION-001 applies external framework wiki submissions, not a Publisher papers release"
+        "SDK PR #378 merged 250fd2c9f1dc833e5c1eb2abc5bad7ed4f536941: exact economic paper manifest converter source installed",
+        "SDK PR #379 merged f1c8ca3ae8d75b6391ec8ca589010d7721d4c538: targeted checks passed, run 36366420354",
+        "No retained authentic Publisher paper manifest runtime decision was observed"
       ],
-      "correction": "Use an existing authorized generic SDK manifest + Publisher-native paper-release binding, or obtain exact exemption/implementation under the existing owner; never relabel admissibility wiki ALLOW as Publisher papers ALLOW."
+      "correction": "Bind the existing native Publisher papers receiver and authenticated caller to the new SDK converter; retain original disposition for each attempted transition."
     },
     {
       "predicate": "ORIGINAL_AUTHENTIC_RUNTIME_INTR_AND_MASTER_RECORDS_CLOSURE",
@@ -91,5 +92,5 @@
     "all_status": "NOT_VERIFIED",
     "no_promotion_authorized": true
   },
-  "next_action": "Reconcile exact reviewer findings, resolve Publisher paper-target manifest binding under existing owner, then submit actual admitted manifest and evaluate original transition-specific disposition; no fabricated downstream failure."
+  "next_action": "Source converter installed; reconcile exact attributable review originals and existing Publisher runtime consumer, invoke the admitted manifest, then independently reconstruct original organization and Master Records evidence."
 }
