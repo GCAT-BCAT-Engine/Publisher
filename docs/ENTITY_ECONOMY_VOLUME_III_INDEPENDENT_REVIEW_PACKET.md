@@ -1,9 +1,9 @@
 # Volume III — independent economics and legal review evidence packet
 
-**Status:** REVIEW_REQUEST_PREPARED / EXTERNAL_EVIDENCE_NOT_OBSERVED  
+**Status:** OPTIONAL_EXTERNAL_REVIEW_PACKET / OWNER_POLICY_RESOLVED_FOR_RESEARCH_PUBLICATION  
 **Issue:** Publisher #76. **Original source PR:** #77 merged as research only. **Current manuscript:** `papers/entity-economy-volume-iii-sovereign-ai-economics.md` v0.2.  
 **Canonical program:** `ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001`; observed successor COSV `10100000103000` at Registry generation 263, non-authorizing.  
-**Purpose:** Allow actual independent reviewers to return signed, source-bound reports. Internal AI-assisted analyses and this packet do not constitute external review.
+**Purpose:** Provide an optional evidence format when independent reviewers return attributable source-bound reports. Internal AI-assisted analyses, owner attestation and this packet do not constitute signed external review.
 
 ## Economist / independent methodology reviewer brief
 
@@ -41,3 +41,12 @@ Publisher #76 comments contain internal AI-assisted economic/legal issue-spottin
 ## Publication gate
 
 Original Volume I/II PDFs are unchanged. Manuscript v0.2 is source only. Exact-head checks validate source, not reviewer independence. Publisher -> Site publication, original applicable InTr/Master Records closure, public-safe benchmark export and deployed readback are independent transitions; all 16 roadmap benchmarks remain NOT_VERIFIED absent their own authentic evidence.
+
+
+## 2026-09-28 owner policy disposition
+
+For this bounded theoretical research publication, **signed independent economics and legal reports are not a publication prerequisite**. The owner approved the manuscript and reports that separate banker/lawyer reviews converged with the internal findings. Because original signed reports were not preserved in the inspected Publisher evidence, the publication must continue to state that no independently authenticated signed review is evidenced and may not represent the owner attestation as professional approval.
+
+This disposition is limited to publishing the research paper as research. It does **not** authorize any token issuance, payment service, data-licensing transaction, investment solicitation, regulated financial activity, jurisdiction-specific compliance claim, or assertion that measured economic performance has been demonstrated. Those activities and claims retain their own applicable legal, economic, regulatory and evidence requirements.
+
+Accordingly, this packet remains available for optional later provenance. Missing signed reports do not FAIL_CLOSED the research-paper publication path. Exact source identity, governed publication authority, transition-specific Interlock/InTr disposition, Master Records reconstruction, Publisher release and Site readback remain separate mandatory evidence.
