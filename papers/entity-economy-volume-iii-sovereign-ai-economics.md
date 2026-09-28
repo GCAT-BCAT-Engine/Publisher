@@ -1,10 +1,10 @@
 # The StegVerse Entity Economy — Volume III
 ## Sovereign AI Economics: The Cost of Intelligence, Individual Data Value, and Equitable Economic Participation
 
-**Status:** Editorial research draft v0.2 — economics/legal issue-spotting incorporated; external review not obtained; not peer reviewed, published, economically validated, or a statement of operational capability.  
+**Status:** Editorial research draft v0.3 — owner-approved research-release review policy reconciled; external signed review not evidenced; not peer reviewed, published, economically validated, or a statement of operational capability.  
 **Series:** Volume I — Governed Economic Model; Volume II — Identity, Agency, Labor, Autonomy, and Legal Standing; Volume III — economic incidence and individual outcomes.  
 **Owner:** Publisher editorial custody; candidate under canonical economic program `ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001` and Publisher issue #76.  
-**Date:** 2026-09-27.
+**Date:** 2026-09-28.
 
 ## Abstract
 
@@ -75,4 +75,4 @@ Negative controls: unauthorized data-use event; expired permission; duplicate or
 - Canonical economic roadmap: `StegVerse-Labs/.github/docs/ECOSYSTEM_ECONOMIC_WHITEPAPER_GATED_ROADMAP_MIRROR_HANDOFF.md`.
 - Publisher issue #76. Closed, unmerged Publisher PR #72 is historical draft evidence only, not active publication authority.
 
-**Editorial review disposition (2026-09-27):** Internal AI-assisted economics and legal issue-spotting was incorporated into this v0.2 draft. No independent external economist, licensed jurisdiction-specific counsel, signed review report or independent approval is evidenced by this source change. The source's merge or passing CI does not satisfy review or publication closure.\n\n**Before release:** independent economic-methodology review, jurisdiction-specific legal review of data rights/licensing/settlement, exact-head source validation, Publisher-controlled versioning, applicable governed publication closure and independent Site readback. No benchmark is promoted by this manuscript.
+**Editorial review disposition (2026-09-28):** Internal AI-assisted economics and legal issue-spotting is incorporated, and the owner reports that separate banker/lawyer reviews converged with the internal findings. No signed external report or independent professional approval is claimed by this source. For publication as a theoretical research paper, a signed independent economics or legal report is **not a release prerequisite** so long as the paper preserves this review-status disclosure and does not claim operational legal compliance, authorization to issue financial instruments, payment-service authority, or measured economic performance. Transaction-specific licensing, settlement, token/payment operations, and jurisdiction-specific compliance claims remain subject to their own applicable professional/legal review before those activities or claims occur.\n\n**Before release:** exact-head source validation, Publisher-controlled versioning, applicable governed publication closure and independent Site readback. Independent external review may be attached as provenance when available but is not required to publish this bounded research draft. No benchmark is promoted by this manuscript.
