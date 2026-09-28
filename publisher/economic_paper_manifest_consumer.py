@@ -17,6 +17,7 @@ CANDIDATE_SCHEMA = "stegverse.publisher.paper-publication-candidate/v1"
 INTAKE_SCHEMA = "stegverse.publisher.paper-manifest-intake/v1"
 MANIFEST_PROFILE = "stegverse.ingress-manifest.v1"
 PUBLISHER_PACKAGE_PROFILE = "stegverse.publisher.evidence-report-package/v1"
+RESEARCH_REVIEW_POLICY_MODE = "RESEARCH_PUBLICATION_WITH_DISCLOSED_UNVERIFIED_EXTERNAL_REVIEW"
 _DIGEST = re.compile(r"^[0-9a-f]{64}$")
 _COMMIT = re.compile(r"^[0-9a-f]{40}$")
 
@@ -51,9 +52,10 @@ def _validate_paper_candidate(value: Mapping[str, Any], source_text: str) -> dic
     required = {
         "schema","goal_task_id","target_repository","target_path","source_commit_sha",
         "source_sha256","source_git_blob_sha","editorial_owner_approved",
-        "review_report_sha256","publication_executed","authority_effect",
+        "publication_executed","authority_effect",
     }
-    if set(c) != required:
+    review_fields = set(c) - required
+    if not required.issubset(c) or review_fields not in ({"review_report_sha256"}, {"review_policy"}):
         raise EconomicPaperManifestError("paper_candidate_fields_mismatch")
     if c["schema"] != CANDIDATE_SCHEMA or c["goal_task_id"] != TASK_ID:
         raise EconomicPaperManifestError("paper_candidate_identity_mismatch")
@@ -80,12 +82,34 @@ def _validate_paper_candidate(value: Mapping[str, Any], source_text: str) -> dic
         raise EconomicPaperManifestError("exact_source_sha256_mismatch")
     if _source_git_blob_sha(raw) != blob:
         raise EconomicPaperManifestError("exact_source_git_blob_mismatch")
-    reviews = c["review_report_sha256"]
-    if not isinstance(reviews, Mapping) or set(reviews) != {"economics","legal"}:
-        raise EconomicPaperManifestError("review_digest_set_required")
-    if not all(isinstance(reviews[k],str) and _DIGEST.fullmatch(reviews[k]) for k in reviews):
-        raise EconomicPaperManifestError("review_digest_invalid")
+    if "review_report_sha256" in c:
+        reviews = c["review_report_sha256"]
+        if not isinstance(reviews, Mapping) or set(reviews) != {"economics","legal"}:
+            raise EconomicPaperManifestError("review_digest_set_required")
+        if not all(isinstance(reviews[k],str) and _DIGEST.fullmatch(reviews[k]) for k in reviews):
+            raise EconomicPaperManifestError("review_digest_invalid")
+    else:
+        policy = c["review_policy"]
+        required_policy = {
+            "mode","policy_ref","external_review_claimed","owner_attested_convergence",
+            "economics_report_sha256","legal_report_sha256",
+        }
+        if not isinstance(policy, Mapping) or set(policy) != required_policy:
+            raise EconomicPaperManifestError("review_policy_disposition_invalid")
+        if policy["mode"] != RESEARCH_REVIEW_POLICY_MODE:
+            raise EconomicPaperManifestError("review_policy_mode_invalid")
+        if policy["external_review_claimed"] is not False or policy["owner_attested_convergence"] is not True:
+            raise EconomicPaperManifestError("review_policy_claim_boundary_invalid")
+        _text(policy["policy_ref"], "review_policy_ref")
+        if policy["economics_report_sha256"] is not None or policy["legal_report_sha256"] is not None:
+            raise EconomicPaperManifestError("unverified_review_hashes_must_be_null")
     return c
+
+
+def _review_binding(c: Mapping[str, Any]) -> dict[str, Any]:
+    if "review_report_sha256" in c:
+        return {"mode":"EXTERNAL_REPORTS","report_sha256":dict(c["review_report_sha256"])}
+    return {"mode":c["review_policy"]["mode"], **dict(c["review_policy"])}
 
 
 def _expected_action(c: Mapping[str, Any]) -> dict[str, Any]:
@@ -101,7 +125,7 @@ def _expected_action(c: Mapping[str, Any]) -> dict[str, Any]:
             "source_git_blob_sha": c["source_git_blob_sha"],
             "target_repository": TARGET_REPOSITORY,
             "target_path": c["target_path"],
-            "review_report_sha256": dict(c["review_report_sha256"]),
+            "review_evidence": _review_binding(c),
             "publication_executed": False,
             "external_side_effect_requested": True,
         },
@@ -176,7 +200,7 @@ def consume_sdk_paper_manifest(manifest: Mapping[str, Any]) -> dict[str, Any]:
         "source_commit_sha": c["source_commit_sha"],
         "source_sha256": c["source_sha256"],
         "source_git_blob_sha": c["source_git_blob_sha"],
-        "review_report_sha256": dict(c["review_report_sha256"]),
+        "review_evidence": _review_binding(c),
         "manifest_sha256": _sha256(m),
         "next_runtime_binding": "stegverse.manifest_state_transition_runtime.execute_manifest",
         "transition_authority": "INTERLOCK_INTR",

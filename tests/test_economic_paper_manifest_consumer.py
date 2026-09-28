@@ -18,14 +18,14 @@ def candidate():
     return {"schema":CANDIDATE_SCHEMA,"goal_task_id":TASK_ID,"target_repository":TARGET_REPOSITORY,
       "target_path":"papers/economic.md","source_commit_sha":"1"*40,"source_sha256":hashlib.sha256(SOURCE.encode()).hexdigest(),
       "source_git_blob_sha":blob(SOURCE),"editorial_owner_approved":True,
-      "review_report_sha256":{"economics":"2"*64,"legal":"3"*64},"publication_executed":False,"authority_effect":"NONE"}
+      "review_policy":{"mode":"RESEARCH_PUBLICATION_WITH_DISCLOSED_UNVERIFIED_EXTERNAL_REVIEW","policy_ref":"GCAT-BCAT-Engine/Publisher:docs/ENTITY_ECONOMY_VOLUME_III_INDEPENDENT_REVIEW_PACKET.md#2026-09-28-owner-policy-disposition","external_review_claimed":False,"owner_attested_convergence":True,"economics_report_sha256":None,"legal_report_sha256":None},"publication_executed":False,"authority_effect":"NONE"}
 def manifest():
     c=candidate()
     action={"actor_class":"publisher_paper_publication_candidate","action":"request_governed_paper_publication",
       "target":TARGET_REPOSITORY+":"+c["target_path"],"scope":"publisher_paper_publication",
       "parameters":{"goal_task_id":TASK_ID,"source_commit_sha":c["source_commit_sha"],"source_sha256":c["source_sha256"],
        "source_git_blob_sha":c["source_git_blob_sha"],"target_repository":TARGET_REPOSITORY,"target_path":c["target_path"],
-       "review_report_sha256":dict(c["review_report_sha256"]),"publication_executed":False,"external_side_effect_requested":True}}
+       "review_evidence":{"mode":c["review_policy"]["mode"],**dict(c["review_policy"])},"publication_executed":False,"external_side_effect_requested":True}}
     payload={"candidate":c,"source_text_utf8":SOURCE}
     return {"manifest_profile":"stegverse.ingress-manifest.v1","manifest_profile_version":"1",
       "source_framework":"publisher_approved_paper_source","source_output_id":"fixture","created_at":"2026-09-28T00:00:00Z",
@@ -48,10 +48,16 @@ class Tests(unittest.TestCase):
     def test_tampered_source_fails(self):
         m=manifest();m["payload"]["source_text_utf8"]+="x";m["hashes"]["payload_sha256"]=sha(m["payload"])
         with self.assertRaisesRegex(EconomicPaperManifestError,"exact_source_sha256_mismatch"): consume_sdk_paper_manifest(m)
-    def test_missing_review_digest_fails(self):
-        m=manifest();m["payload"]["candidate"]["review_report_sha256"]["legal"]=None;m["candidate"]["parameters"]["review_report_sha256"]["legal"]=None
-        m["extensions"]["stegverse_governance_request"]["candidate"]=m["candidate"];m["hashes"]["payload_sha256"]=sha(m["payload"]);m["hashes"]["candidate_sha256"]=sha(m["candidate"])
-        with self.assertRaisesRegex(EconomicPaperManifestError,"review_digest_invalid"): consume_sdk_paper_manifest(m)
+    def test_owner_policy_accepts_no_fabricated_review_hashes(self):
+        r=consume_sdk_paper_manifest(manifest())
+        self.assertEqual(r["review_evidence"]["mode"],"RESEARCH_PUBLICATION_WITH_DISCLOSED_UNVERIFIED_EXTERNAL_REVIEW")
+        self.assertFalse(r["review_evidence"]["external_review_claimed"])
+    def test_policy_cannot_claim_external_review_without_reports(self):
+        m=manifest();m["payload"]["candidate"]["review_policy"]["external_review_claimed"]=True
+        m["candidate"]["parameters"]["review_evidence"]["external_review_claimed"]=True
+        m["extensions"]["stegverse_governance_request"]["candidate"]=m["candidate"]
+        m["hashes"]["payload_sha256"]=sha(m["payload"]);m["hashes"]["candidate_sha256"]=sha(m["candidate"])
+        with self.assertRaisesRegex(EconomicPaperManifestError,"claim_boundary_invalid"): consume_sdk_paper_manifest(m)
     def test_wrong_target_and_self_permission_fail(self):
         m=manifest();m["completion"]["egress"]["destination_profile"]="StegVerse-Labs/admissibility-wiki"
         with self.assertRaisesRegex(EconomicPaperManifestError,"publisher_destination_binding_mismatch"): consume_sdk_paper_manifest(m)
