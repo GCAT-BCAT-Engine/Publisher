@@ -118,3 +118,20 @@ Repository-wide release-gate inspection found no general Publisher rule requirin
 The owner separately attests that banker/lawyer review conclusions converged with the internal analysis. That attestation is preserved without claiming authenticated professional signoff. Operational licensing, settlement, token/payment execution, investment solicitation and jurisdiction-specific compliance representations remain independently reviewable activities.
 
 The machine preflight therefore changes `REVIEW_EVIDENCE_RECONCILED_TO_APPROVED_EXACT_SOURCE` from `FAIL_CLOSED` to `POLICY_RESOLVED`. No runtime authority changes. The actual governed publication transition remains unattempted until an exact manifest is built and submitted through authenticated TV/TVC + Universal InTr.
+
+
+## 2026-09-28 exact approved-source manifest prepared and independently inspected
+
+SDK PR #387 merged `a412cb40ccba25d5dca4ca63485e043a227ab46d`. Exact-head source workflow `36469359331` succeeded after fail-closed repair of its first false-green pipeline. The final retained artifact is `10990707853`, archive digest `sha256:73c1a081d7af9647fe33c7c755d43879a03e7d7ad6fcd5cb9b623e7cedea70ce`. The earlier artifact `10990018418` is invalid evidence: its workflow hid a Python import failure behind a pipeline/tee exit code and uploaded only an empty receipt; it is superseded and MUST NOT be cited as a prepared manifest.
+
+The corrected artifact was downloaded and independently inspected. It contains non-empty `manifest.json`, `execution-request.json`, and `source-build-receipt.json`. Exact identities:
+- approved paper SHA-256: `3329a0c47161eb4613c32bbc5e0a393116f395cb8fa78368ed21fed8775c3dca`;
+- manifest file SHA-256: `9d3166a23a0947c3d72c621944c7386766e5e0fbbf74dddd19667cb0688f94f6`;
+- execution-request file SHA-256: `2356c67396dfbf948c009cefebba38a8f1b2aa77cfd4efcb79d816469eebd0ee`;
+- source-build receipt SHA-256: `3e2904e0de0a6e6bd77896c2cd3d9ff8329f43c91947ed2e714e5f21e5ab2209`;
+- canonical manifest SHA-256: `ba615d6e487f11853173154317782fad1ed83dec32ab0c18650703e063fcc9e3`;
+- universal execution request SHA-256: `11db25adc816acb91d806bfbd6a0060859eba4d8898dbd488bf4526eb97f65be`.
+
+The request preserves `credential_authority=TV/TVC`, `transition_authority=INTERLOCK_INTR`, `custody_replay_reconstruction_authority=MASTER_RECORDS`, and `request_grants_authority=false`. The generic governance graph has `graph_id=RTC-GOVERNED-PROCESSING-002` and `canonical_task_id=null`; the economic Goal/COSV remain bound in the paper candidate, security posture request, declared context, and exact source/evidence references. Do not invent WorkerCoordinator ownership for this generic governance route.
+
+The build receipt explicitly records `runtime_invoked=false`. No authenticated TV/TVC relay authorization or Universal InTr ingress is exposed in this chat execution surface, so the actual manifest has **not** been submitted. The next state transition is the exact runtime attempt of canonical manifest `ba615d6e...`, not another source rebuild. Its first actual outcome must be preserved as ALLOW, DENY, or FAIL_CLOSED with original organization custody and independent Master Records reconstruction. Publisher mutation and Site propagation remain forbidden until applicable closure.

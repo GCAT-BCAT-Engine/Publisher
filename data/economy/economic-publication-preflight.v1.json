@@ -72,30 +72,47 @@
     },
     {
       "predicate": "ORIGINAL_AUTHENTIC_RUNTIME_INTR_AND_MASTER_RECORDS_CLOSURE",
-      "status": "NOT_ATTEMPTED",
+      "status": "MANIFEST_PREPARED_RUNTIME_NOT_ATTEMPTED",
       "evidence_refs": [
-        "No admitted Publisher paper-target execution interface exposed in this session; no same-transition Interlock/InTr or Master Records receipt supplied"
+        "No admitted Publisher paper-target execution interface exposed in this session; no same-transition Interlock/InTr or Master Records receipt supplied",
+        "SDK PR #387 merged a412cb40ccba25d5dca4ca63485e043a227ab46d; exact-head workflow 36469359331 SUCCESS; artifact 10990707853 digest sha256:73c1a081d7af9647fe33c7c755d43879a03e7d7ad6fcd5cb9b623e7cedea70ce.",
+        "Independent artifact inspection: canonical manifest ba615d6e487f11853173154317782fad1ed83dec32ab0c18650703e063fcc9e3; universal execution request 11db25adc816acb91d806bfbd6a0060859eba4d8898dbd488bf4526eb97f65be; runtime_invoked=false; authorities TV/TVC, INTERLOCK_INTR, MASTER_RECORDS."
       ],
-      "correction": "Once the correct admitted Publisher papers manifest is available, invoke the original authorized ingress; retain original ALLOW, DENY or FAIL_CLOSED with predicate-specific evidence, require exact Master Records RECORDED/reconstruction PASS/evidence PASS/digest match before publication."
+      "correction": "Submit canonical manifest ba615d6e... through the existing universal manifest runtime only when an authenticated TV/TVC relay authorization and Universal InTr ingress are exposed. Preserve the returned actual disposition and same-transition organization/Master Records closure. This source artifact must never be interpreted as runtime ALLOW."
     }
   ],
   "requested_target": {
     "repository": "GCAT-BCAT-Engine/Publisher",
     "path_prefix": "papers/",
-    "publication_execution_requested": false
+    "publication_execution_requested": true
   },
   "authorization": {
-    "manifest_prepared": false,
+    "manifest_prepared": true,
     "external_intr_allow": null,
     "master_records_receipt": null,
     "publisher_release_receipt": null,
     "site_deployed_readback": null,
-    "mutation_authorized": false
+    "mutation_authorized": false,
+    "manifest_source": {
+      "sdk_pr": 387,
+      "sdk_merge_commit": "a412cb40ccba25d5dca4ca63485e043a227ab46d",
+      "exact_head": "d0991c2a59b932cd7ffd549ada851b8a8f7229cb",
+      "workflow_run": 36469359331,
+      "artifact_id": 10990707853,
+      "artifact_digest_sha256": "73c1a081d7af9647fe33c7c755d43879a03e7d7ad6fcd5cb9b623e7cedea70ce",
+      "source_build_receipt_sha256": "3e2904e0de0a6e6bd77896c2cd3d9ff8329f43c91947ed2e714e5f21e5ab2209",
+      "manifest_file_sha256": "9d3166a23a0947c3d72c621944c7386766e5e0fbbf74dddd19667cb0688f94f6",
+      "execution_request_file_sha256": "2356c67396dfbf948c009cefebba38a8f1b2aa77cfd4efcb79d816469eebd0ee",
+      "canonical_manifest_sha256": "ba615d6e487f11853173154317782fad1ed83dec32ab0c18650703e063fcc9e3",
+      "request_sha256": "11db25adc816acb91d806bfbd6a0060859eba4d8898dbd488bf4526eb97f65be",
+      "runtime_invoked": false,
+      "source_only": true
+    }
   },
   "site_benchmarks": {
     "count": 16,
     "all_status": "NOT_VERIFIED",
     "no_promotion_authorized": true
   },
-  "next_action": "Build the exact approved-source manifest using the explicit research-review policy disposition, validate through SDK and Publisher source consumers, then invoke the existing universal runtime only through an authenticated TV/TVC + InTr execution interface. Preserve actual runtime disposition and same-transition custody."
+  "next_action": "Invoke the already-prepared exact manifest (canonical ba615d6e487f11853173154317782fad1ed83dec32ab0c18650703e063fcc9e3; request 11db25adc816acb91d806bfbd6a0060859eba4d8898dbd488bf4526eb97f65be) through the existing authenticated TV/TVC + Universal InTr interface when reachable. Preserve actual ALLOW/DENY/FAIL_CLOSED and same-transition custody; do not rebuild or substitute a local/runtime simulation."
 }
