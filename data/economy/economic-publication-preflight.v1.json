@@ -57,13 +57,15 @@
     },
     {
       "predicate": "PUBLISHER_PAPERS_NATIVE_RUNTIME_CONSUMER",
-      "status": "FAIL_CLOSED",
+      "status": "SOURCE_REPAIRED",
       "evidence_refs": [
         "SDK PR #378 merged 250fd2c9f1dc833e5c1eb2abc5bad7ed4f536941: exact economic paper manifest converter source installed",
         "SDK PR #379 merged f1c8ca3ae8d75b6391ec8ca589010d7721d4c538: targeted checks passed, run 36366420354",
-        "No retained authentic Publisher paper manifest runtime decision was observed"
+        "No retained authentic Publisher paper manifest runtime decision was observed",
+        "Publisher PR #86 merged df6825e8d0138768ce2356d1edc8acfbb82040dc: publisher/economic_paper_manifest_consumer.py installed with exact manifest/source/target/review-ref validation.",
+        "Publisher exact-head runs: Economic Paper SDK Manifest Consumer 36381775153 SUCCESS; Publisher Readiness 36381774995 SUCCESS; Publisher Check 36381774966 SUCCESS; Architecture Guard 36381775016 SUCCESS."
       ],
-      "correction": "Bind the existing native Publisher papers receiver and authenticated caller to the new SDK converter; retain original disposition for each attempted transition."
+      "correction": "Source consumer is installed. Next execution boundary is an exact real manifest whose applicable reviewer evidence refs are authentic, followed by the existing SDK universal manifest runtime. No authenticated economic organization-ledger or InTr interface is exposed in this session, so no runtime disposition is inferred."
     },
     {
       "predicate": "ORIGINAL_AUTHENTIC_RUNTIME_INTR_AND_MASTER_RECORDS_CLOSURE",
@@ -92,5 +94,5 @@
     "all_status": "NOT_VERIFIED",
     "no_promotion_authorized": true
   },
-  "next_action": "Source converter installed; reconcile exact attributable review originals and existing Publisher runtime consumer, invoke the admitted manifest, then independently reconstruct original organization and Master Records evidence."
+  "next_action": "Obtain or reconcile authentic applicable reviewer report originals if the Publisher release policy requires them; build the exact approved-source manifest through the merged SDK converter; submit it to the existing universal runtime when an authenticated InTr/TV-TVC execution interface is available; independently reconstruct organization and Master Records custody. Do not wait for or require a resident device."
 }
