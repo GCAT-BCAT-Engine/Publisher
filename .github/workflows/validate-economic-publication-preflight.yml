@@ -1,0 +1,18 @@
+name: Economic Publication Preflight (Source Only)
+on:
+  pull_request:
+    paths:
+      - data/economy/economic-publication-preflight.v1.json
+      - papers/entity-economy-volume-iii-sovereign-ai-economics.md
+      - tools/check_economic_publication_preflight.py
+      - .github/workflows/validate-economic-publication-preflight.yml
+  workflow_dispatch:
+jobs:
+  verify-source-only:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate exact research source and fail-closed preflight
+        run: python3 tools/check_economic_publication_preflight.py
