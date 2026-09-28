@@ -52,9 +52,10 @@ def _validate_paper_candidate(value: Mapping[str, Any], source_text: str) -> dic
     required = {
         "schema","goal_task_id","target_repository","target_path","source_commit_sha",
         "source_sha256","source_git_blob_sha","editorial_owner_approved",
-        "review_report_sha256","publication_executed","authority_effect",
+        "publication_executed","authority_effect",
     }
-    if set(c) != required:
+    review_fields = set(c) - required
+    if not required.issubset(c) or review_fields not in ({"review_report_sha256"}, {"review_policy"}):
         raise EconomicPaperManifestError("paper_candidate_fields_mismatch")
     if c["schema"] != CANDIDATE_SCHEMA or c["goal_task_id"] != TASK_ID:
         raise EconomicPaperManifestError("paper_candidate_identity_mismatch")
