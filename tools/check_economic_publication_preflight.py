@@ -40,7 +40,7 @@ def check(value: dict) -> None:
         "ORIGINAL_AUTHENTIC_RUNTIME_INTR_AND_MASTER_RECORDS_CLOSURE",
     ]
     assert [p["status"] for p in value["preflight_predicates"]] == [
-        "FAIL_CLOSED", "SOURCE_REPAIRED", "NOT_ATTEMPTED"
+        "POLICY_RESOLVED", "SOURCE_REPAIRED", "NOT_ATTEMPTED"
     ]
     assert all(p["evidence_refs"] and p["correction"] for p in value["preflight_predicates"])
     assert value["requested_target"]["repository"] == "GCAT-BCAT-Engine/Publisher"
