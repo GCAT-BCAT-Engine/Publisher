@@ -31,7 +31,9 @@ def check(value: dict) -> None:
     assert third["sha256"] == hashlib.sha256(VOL3.read_bytes()).hexdigest()
     reviews = value["reviewer_evidence"]
     assert reviews["verified_review_decisions"] is False
-    assert reviews["economics_review_receipt"] is None and reviews["legal_review_receipt"] is None\n    assert reviews["publication_policy_disposition"] == "RESEARCH_PUBLICATION_WITH_DISCLOSED_UNVERIFIED_EXTERNAL_REVIEW"\n    assert reviews["signed_external_reports_required_for_research_publication"] is False
+    assert reviews["economics_review_receipt"] is None and reviews["legal_review_receipt"] is None
+    assert reviews["publication_policy_disposition"] == "RESEARCH_PUBLICATION_WITH_DISCLOSED_UNVERIFIED_EXTERNAL_REVIEW"
+    assert reviews["signed_external_reports_required_for_research_publication"] is False
     assert [p["predicate"] for p in value["preflight_predicates"]] == [
         "REVIEW_EVIDENCE_RECONCILED_TO_APPROVED_EXACT_SOURCE",
         "PUBLISHER_PAPERS_NATIVE_RUNTIME_CONSUMER",
