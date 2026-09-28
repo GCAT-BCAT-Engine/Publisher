@@ -1,0 +1,9 @@
+name: Economic Paper SDK Manifest Consumer
+on:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m unittest discover -s tests -p test_economic_paper_manifest_consumer.py -v
