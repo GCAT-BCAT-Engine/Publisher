@@ -1,17 +1,17 @@
 # Entity Economy Volume III — Publisher editorial mirror handoff
 
 **Date:** 2026-09-27  
-**Status:** DRAFT_SOURCE_CANDIDATE / NOT_PUBLISHED  
-**Publisher issue:** #76  
+**Status:** SOURCE_MERGED_EDITORIAL_DRAFT / NOT_PUBLISHED  
+**Publisher issue:** #76 (CLOSED after source merge)  
 **Existing canonical Goal Task ID:** `ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001`  
 **Registry record:** `StegVerse-Labs/.github/data/canonical-task-records/ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001.json`  
-**Observed source COSV:** `10100000104000` (non-authorizing; observed 2026-09-23; verify any successor before transition).  
+**Current canonical source COSV:** `10100000103000` (non-authorizing; generation-267 source correction under Registry PR #2815, pending merge; main remains generation 266 / same vector until then).  
 **Canonical economic handoff:** `StegVerse-Labs/.github/docs/ECOSYSTEM_ECONOMIC_WHITEPAPER_GATED_ROADMAP_MIRROR_HANDOFF.md`.  
 **Native Publisher handoffs:** `docs/PUBLISHER_MIRROR_HANDOFF.md`, `PUBLISHER_MIRROR_HANDOFF.md`, `docs/MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md`; this scoped handoff supplements rather than replaces their other active work.
 
 ## Reconciliation and ownership
 
-Publisher issue #76 requests a third editorial volume, not a new runtime, Task Registry goal, authority plane or COSV. The current canonical record is PROPOSED and its COSV is observational; it does not grant a WorkerCoordinator claim/fence, original InTr disposition, Master Records closure or publication authority. Publisher issue #52 owns the original I/II lineage. Publisher PR #72 is closed and unmerged; do not reopen its old source candidate as if current. Site is a downstream governed display, not the manuscript authority.
+Publisher issue #76 requested a third editorial volume and is now CLOSED after merging Volume III source PR #77; this did not create a new runtime, Task Registry goal, authority plane or COSV. The current canonical record is PROPOSED and its COSV is observational; it does not grant a WorkerCoordinator claim/fence, original InTr disposition, Master Records closure or publication authority. Publisher issue #52 owns the original I/II lineage. Publisher PR #72 is closed and unmerged because the owner APPROVED the current documentation; preserve the exact pinned candidate as approved editorial source. Do not reopen or commission a successor manuscript. Site is a downstream governed display, not the manuscript authority.
 
 ## Scoped source deliverables
 
@@ -32,10 +32,10 @@ Publisher issue #76 requests a third editorial volume, not a new runtime, Task R
 ## Current evidence ledger
 
 - Source reconciliation: canonical record and observational COSV fetched; native handoffs inspected.
-- Draft source: proposed branch `draft/entity-economy-volume-iii-sovereign-ai-economics`.
+- Draft source: Volume III PR #77 merged as source at `e64f5fb9dac84ecca3b7e944761125859f700321` (not a published release).
 - Original I/II PDF edits: NONE.
 - Independent review: NOT_OBSERVED.
-- Exact-head hosted CI: PENDING until runs inspected.
+- Exact-head hosted CI: historical merge does not substitute for validation of any future publication-request candidate; check its actual exact-head runs separately.
 - Runtime governed publication: UNKNOWN_NOT_AUTHENTICALLY_OBSERVED.
 - Site deployment/readback: NOT_OBSERVED.
 - Manual user-operated device work: NONE.
