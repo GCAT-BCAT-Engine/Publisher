@@ -27,17 +27,17 @@
     {
       "kind": "ENTITY_ECONOMY_VOLUME_III_SEPARATE_RESEARCH",
       "repository": "GCAT-BCAT-Engine/Publisher",
-      "source_commit": "e64f5fb9dac84ecca3b7e944761125859f700321",
+      "source_commit": "a28b4745ccefca1a0d379e81703f5e690a5c4f10",
       "source_path": "papers/entity-economy-volume-iii-sovereign-ai-economics.md",
-      "sha256": "1deb984fa8a97b0b75665502c488318a445c2425c6b218cd42f287b6f9cf65a3",
-      "git_blob_sha": "f60a1e470ae8ec60f8cc1e56caa07d0e2e6921c6",
+      "sha256": "32abef31da44de5391fb6945b55ff1673aed7390e411b1802c02d40482fc249f",
+      "git_blob_sha": "1ad8a57a6ab1940e4cd6d663ded1a55969b89379",
       "owner_approved": false,
       "source_on_publisher_main": true,
       "governed_published": false
     }
   ],
   "reviewer_evidence": {
-    "owner_reported_external_convergence": "Owner previously reported external reviews agree with internal findings; full exact-source reports were not retrieved",
+    "owner_reported_external_convergence": "Owner attests that banker and lawyer reviews match internal findings; no original signed exact-source reports were available at last inspection; Publisher v0.2 independent reviewer packet contains reviewer requests, not signed opinions",
     "checklist_state": "BLANK_FINDINGS_AND_UNSIGNED",
     "economics_review_receipt": null,
     "legal_review_receipt": null,
@@ -50,7 +50,8 @@
       "status": "FAIL_CLOSED",
       "evidence_refs": [
         "Publisher PR #72 source SHA-256 3329a0c47161eb4613c32bbc5e0a393116f395cb8fa78368ed21fed8775c3dca",
-        "Library reviewer checklists have blank findings/signature fields; PR #72/#77 have zero GitHub review submissions"
+        "Library reviewer checklists have blank findings/signature fields; PR #72/#77 have zero GitHub review submissions",
+        "Publisher docs/ENTITY_ECONOMY_VOLUME_III_INDEPENDENT_REVIEW_PACKET.md v0.2 reviewer request packet is not returned reviewer evidence"
       ],
       "correction": "Use genuine banker and lawyer findings with attributable reviewer conclusion and the exact candidate scope; do not invent a signed receipt or treat owner approval as review evidence."
     },

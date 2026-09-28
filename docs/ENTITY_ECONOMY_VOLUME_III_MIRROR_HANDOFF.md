@@ -1,7 +1,7 @@
 # Entity Economy Volume III — Publisher editorial mirror handoff
 
 **Date:** 2026-09-27  
-**Status:** SOURCE_MERGED_EDITORIAL_DRAFT / NOT_PUBLISHED  
+**Status:** OWNER_APPROVED_EDITORIAL_RECONCILIATION / SOURCE_DRAFT_NOT_PUBLISHED  
 **Publisher issue:** #76 (CLOSED after source merge)  
 **Existing canonical Goal Task ID:** `ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001`  
 **Registry record:** `StegVerse-Labs/.github/data/canonical-task-records/ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001.json`  
@@ -17,7 +17,7 @@ Publisher issue #76 requested a third editorial volume and is now CLOSED after m
 
 - `papers/entity-economy-volume-iii-sovereign-ai-economics.md` — original draft manuscript; economic incidence, governance overhead, data value, net user benefit and reproducible falsification.
 - `docs/ENTITY_ECONOMY_VOLUME_III_VERSIONED_CROSS_REFERENCES.md` — proposed future versioned inserts for I/II; original PDFs untouched.
-- `README.md` — bounded discovery entry for this draft.
+- `README.md` — bounded discovery entry for this draft.\n- `docs/ENTITY_ECONOMY_VOLUME_III_INDEPENDENT_REVIEW_PACKET.md` — source-bound external review evidence packet, not itself an external review.
 - This handoff — provenance, scope and evidence gates.
 
 ## Independent review and publication sequence
@@ -34,7 +34,7 @@ Publisher issue #76 requested a third editorial volume and is now CLOSED after m
 - Source reconciliation: canonical record and observational COSV fetched; native handoffs inspected.
 - Draft source: Volume III PR #77 merged as source at `e64f5fb9dac84ecca3b7e944761125859f700321` (not a published release).
 - Original I/II PDF edits: NONE.
-- Independent review: NOT_OBSERVED.
+- Owner attests external economics and legal reviews match internal findings and approves editorial reconciliation. Original source-bound external reports/reviewer credentials were not independently authenticated in this session; do not invent or equate owner attestation with a signed external report.
 - Exact-head hosted CI: historical merge does not substitute for validation of any future publication-request candidate; check its actual exact-head runs separately.
 - Runtime governed publication: UNKNOWN_NOT_AUTHENTICALLY_OBSERVED.
 - Site deployment/readback: NOT_OBSERVED.
@@ -50,11 +50,15 @@ Canonical Task Registry generation 263 recorded the earlier three-blocker source
 
 Source validation, original InTr decision, original Master Records receipt, Publisher release and Site deployment/readback have different authorities and evidence. Publication uses the actual admitted manifest route where applicable and remains unobserved here. No source merge or manuscript approval promotes the sixteen Site roadmap benchmarks.
 
+## Editorial reconciliation on latest main
+
+The owner approved the v0.2 economics and legal reconciliation and attested that external reviews match the internal findings. The revision preserves the distinct approved PR #72 original documentation and does not reopen issue #76. Prior editorial PR #79 was found dirty against later main handoff corrections; this clean-base editorial branch carries only the v0.2 manuscript, review packet and this additive handoff correction. No reviewer identities or signed reports have been fabricated. Source merge does not grant Publisher release, Master Records closure, deployed readback or benchmark promotion.
+
 ## 2026-09-27 exact-source economic publication preflight (source diagnostic, no invocation)
 
 Existing canonical Goal `ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001`, observational COSV `10100000103000`, currently three unresolved canonical blockers. The owner has approved **the existing** Private-State Economy documentation. Freeze it at Publisher closed-unmerged PR #72 commit `f9a140d02e162c8284db7fe22b9093e70c25207a`, blob `5c03d8ef1d79c65bb2338268c156d00295caa48a`, SHA-256 `3329a0c47161eb4613c32bbc5e0a393116f395cb8fa78368ed21fed8775c3dca`. Do not rewrite or create a substitute. The approved bytes are retrievable from the original immutable commit but are not yet on Publisher `main`; do not use a GitHub direct source commit or Site mirror as a publication substitute.
 
-Volume III remains separate merged research: Publisher PR #77, path `papers/entity-economy-volume-iii-sovereign-ai-economics.md`, current verified SHA-256 `1deb984fa8a97b0b75665502c488318a445c2425c6b218cd42f287b6f9cf65a3`; its own editorial lifecycle remains research draft. All original I/II PDFs retain exact historical source hashes. Neither body was edited in this preflight.
+Volume III remains separate merged research: Publisher PR #77, path `papers/entity-economy-volume-iii-sovereign-ai-economics.md`, current verified SHA-256 `32abef31da44de5391fb6945b55ff1673aed7390e411b1802c02d40482fc249f`; its own editorial lifecycle remains research draft. All original I/II PDFs retain exact historical source hashes. Neither body was edited in this preflight.
 
 The reproducible pre-admission report is `data/economy/economic-publication-preflight.v1.json`, validator `tools/check_economic_publication_preflight.py`, targeted workflow `.github/workflows/validate-economic-publication-preflight.yml`. This is a **source-only FAIL_CLOSED preflight**, not an authenticated SDK/InTr invocation, not an original runtime DENY, and not a fabricated Master Records receipt.
 

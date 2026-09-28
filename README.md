@@ -331,7 +331,6 @@ Publisher issue [#76](https://github.com/GCAT-BCAT-Engine/Publisher/issues/76) i
 
 The owner confirmed the closed-unmerged [Private-State Economy PR #72](https://github.com/GCAT-BCAT-Engine/Publisher/pull/72) reflects **approval of its existing documentation**, not rejection or replacement. Its exact original source is pinned in `docs/ENTITY_ECONOMY_VOLUME_III_MIRROR_HANDOFF.md`; closure is not a governed publication or a merge into `main`. No successor manuscript is requested. [Volume III PR #77](https://github.com/GCAT-BCAT-Engine/Publisher/pull/77) merged *separate research source*; issue #76 is closed. External banker/lawyer findings, source checks, publication authority and live Site readback remain individually evidenced requirements, not implied by owner approval or the manuscript merge.
 
-
 ### Economic paper governed publication preflight
 
 The existing approved Private-State Economy PR #72 exact-source candidate and separate merged Volume III research are frozen in [the source-only preflight](data/economy/economic-publication-preflight.v1.json). [The publication handoff](docs/ENTITY_ECONOMY_VOLUME_III_MIRROR_HANDOFF.md) records exact source digests, attributable-review evidence gaps and the distinct Publisher paper-target manifest mismatch discovered during SDK route inspection. The [preflight validator](tools/check_economic_publication_preflight.py) and scoped CI validate these non-authorizing boundaries. No original InTr decision, Master Records closure, Publisher release, Site deployed readback or benchmark completion is implied.
