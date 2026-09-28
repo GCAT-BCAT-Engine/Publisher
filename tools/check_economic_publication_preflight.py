@@ -27,14 +27,14 @@ def check(value: dict) -> None:
     assert original["source_commit"] == "f9a140d02e162c8284db7fe22b9093e70c25207a"
     assert original["sha256"] == "3329a0c47161eb4613c32bbc5e0a393116f395cb8fa78368ed21fed8775c3dca"
     assert not APPROVED.exists(), "Original PR #72 paper unexpectedly present on main: update preflight after authenticated reconciliation"
-    assert third["owner_approved"] is False and third["governed_published"] is False
+    assert third["owner_approved"] is True and third["governed_published"] is False
     assert third["sha256"] == hashlib.sha256(VOL3.read_bytes()).hexdigest()
     reviews = value["reviewer_evidence"]
     assert reviews["verified_review_decisions"] is False
     assert reviews["economics_review_receipt"] is None and reviews["legal_review_receipt"] is None
     assert [p["predicate"] for p in value["preflight_predicates"]] == [
         "REVIEW_EVIDENCE_RECONCILED_TO_APPROVED_EXACT_SOURCE",
-        "PUBLISHER_PAPERS_TARGET_MANIFEST_PROFILE",
+        "PUBLISHER_PAPERS_NATIVE_RUNTIME_CONSUMER",
         "ORIGINAL_AUTHENTIC_RUNTIME_INTR_AND_MASTER_RECORDS_CLOSURE",
     ]
     assert [p["status"] for p in value["preflight_predicates"]] == [
