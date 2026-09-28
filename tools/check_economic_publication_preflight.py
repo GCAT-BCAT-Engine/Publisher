@@ -47,7 +47,12 @@ def check(value: dict) -> None:
     assert value["requested_target"]["path_prefix"] == "papers/"
     assert value["requested_target"]["publication_execution_requested"] is True
     a = value["authorization"]
-    assert a["manifest_prepared"] is True and a["mutation_authorized"] is False\n    m=a["manifest_source"]\n    assert m["canonical_manifest_sha256"] == "ba615d6e487f11853173154317782fad1ed83dec32ab0c18650703e063fcc9e3"\n    assert m["request_sha256"] == "11db25adc816acb91d806bfbd6a0060859eba4d8898dbd488bf4526eb97f65be"\n    assert m["workflow_run"] == 36469359331 and m["artifact_id"] == 10990707853\n    assert m["runtime_invoked"] is False and m["source_only"] is True
+    assert a["manifest_prepared"] is True and a["mutation_authorized"] is False
+    m=a["manifest_source"]
+    assert m["canonical_manifest_sha256"] == "ba615d6e487f11853173154317782fad1ed83dec32ab0c18650703e063fcc9e3"
+    assert m["request_sha256"] == "11db25adc816acb91d806bfbd6a0060859eba4d8898dbd488bf4526eb97f65be"
+    assert m["workflow_run"] == 36469359331 and m["artifact_id"] == 10990707853
+    assert m["runtime_invoked"] is False and m["source_only"] is True
     assert all(a[k] is None for k in (
         "external_intr_allow","master_records_receipt","publisher_release_receipt","site_deployed_readback"
     ))
