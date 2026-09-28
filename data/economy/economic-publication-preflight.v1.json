@@ -4,7 +4,7 @@
   "current_observational_cosv": "10100000103000",
   "authority_effect": "NONE",
   "evidence_class": "SOURCE_ONLY_PRE_ADMISSION_DIAGNOSTIC",
-  "status": "SOURCE_PREFLIGHT_FAIL_CLOSED",
+  "status": "SOURCE_PREFLIGHT_RUNTIME_PENDING",
   "runtime_manifest_invoked": false,
   "runtime_disposition": null,
   "owner_document_approval": {
@@ -27,10 +27,10 @@
     {
       "kind": "ENTITY_ECONOMY_VOLUME_III_SEPARATE_RESEARCH",
       "repository": "GCAT-BCAT-Engine/Publisher",
-      "source_commit": "a28b4745ccefca1a0d379e81703f5e690a5c4f10",
+      "source_commit": "a4dacdc40c0e9a65c60d21c0051aeeb6c9aef333",
       "source_path": "papers/entity-economy-volume-iii-sovereign-ai-economics.md",
-      "sha256": "32abef31da44de5391fb6945b55ff1673aed7390e411b1802c02d40482fc249f",
-      "git_blob_sha": "1ad8a57a6ab1940e4cd6d663ded1a55969b89379",
+      "sha256": "5df3b31d6132173868e3bb00b7cd36121dc0d5c17fc7443b0e136d64128fb136",
+      "git_blob_sha": "df3c63689b5e13bbaf20413562fa0de82fbb3729",
       "owner_approved": true,
       "source_on_publisher_main": true,
       "governed_published": false
@@ -42,18 +42,21 @@
     "economics_review_receipt": null,
     "legal_review_receipt": null,
     "verified_review_decisions": false,
-    "required_scope": "Research-publication methods and accurate legal issue framing per canonical Publisher review gate; financial-service operations require separate activity/jurisdiction-specific compliance analysis"
+    "required_scope": "External signed reviews are optional publication provenance for this bounded research paper. Operational licensing, settlement, token/payment activity and jurisdiction-specific compliance claims retain separate applicable professional review.",
+    "publication_policy_disposition": "RESEARCH_PUBLICATION_WITH_DISCLOSED_UNVERIFIED_EXTERNAL_REVIEW",
+    "signed_external_reports_required_for_research_publication": false
   },
   "preflight_predicates": [
     {
       "predicate": "REVIEW_EVIDENCE_RECONCILED_TO_APPROVED_EXACT_SOURCE",
-      "status": "FAIL_CLOSED",
+      "status": "POLICY_RESOLVED",
       "evidence_refs": [
         "Publisher PR #72 source SHA-256 3329a0c47161eb4613c32bbc5e0a393116f395cb8fa78368ed21fed8775c3dca",
         "Library reviewer checklists have blank findings/signature fields; PR #72/#77 have zero GitHub review submissions",
-        "Publisher docs/ENTITY_ECONOMY_VOLUME_III_INDEPENDENT_REVIEW_PACKET.md v0.2 reviewer request packet is not returned reviewer evidence"
+        "Publisher docs/ENTITY_ECONOMY_VOLUME_III_INDEPENDENT_REVIEW_PACKET.md v0.2 reviewer request packet is not returned reviewer evidence",
+        "Owner policy disposition 2026-09-28: signed economics/legal reports optional for bounded theoretical research publication; absence must remain disclosed and cannot be represented as professional approval."
       ],
-      "correction": "Use genuine banker and lawyer findings with attributable reviewer conclusion and the exact candidate scope; do not invent a signed receipt or treat owner approval as review evidence."
+      "correction": "No correction required for research publication. Preserve unverified-review disclosure. Apply separate professional/legal review before operational licensing, settlement, financial-product activity or jurisdiction-specific compliance claims."
     },
     {
       "predicate": "PUBLISHER_PAPERS_NATIVE_RUNTIME_CONSUMER",
@@ -94,5 +97,5 @@
     "all_status": "NOT_VERIFIED",
     "no_promotion_authorized": true
   },
-  "next_action": "Obtain or reconcile authentic applicable reviewer report originals if the Publisher release policy requires them; build the exact approved-source manifest through the merged SDK converter; submit it to the existing universal runtime when an authenticated InTr/TV-TVC execution interface is available; independently reconstruct organization and Master Records custody. Do not wait for or require a resident device."
+  "next_action": "Build the exact approved-source manifest using the explicit research-review policy disposition, validate through SDK and Publisher source consumers, then invoke the existing universal runtime only through an authenticated TV/TVC + InTr execution interface. Preserve actual runtime disposition and same-transition custody."
 }
