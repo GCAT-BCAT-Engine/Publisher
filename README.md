@@ -334,3 +334,8 @@ The owner confirmed the closed-unmerged [Private-State Economy PR #72](https://g
 ### Economic paper governed publication preflight
 
 The existing approved Private-State Economy PR #72 exact-source candidate and separate merged Volume III research are frozen in [the source-only preflight](data/economy/economic-publication-preflight.v1.json). [The publication handoff](docs/ENTITY_ECONOMY_VOLUME_III_MIRROR_HANDOFF.md) records exact source digests, attributable-review evidence gaps and the distinct Publisher paper-target manifest mismatch discovered during SDK route inspection. The [preflight validator](tools/check_economic_publication_preflight.py) and scoped CI validate these non-authorizing boundaries. No original InTr decision, Master Records closure, Publisher release, Site deployed readback or benchmark completion is implied.
+
+
+## Entity Economy — 2026 AI-memory convergence treatment
+
+The [dated convergence treatment](docs/ENTITY_ECONOMY_SECOND_BRAIN_CONVERGENCE_TREATMENT.md) compares 2026 persistent/portable AI-memory and “second brain” developments with previously documented Entity Economy and adjacent StegVerse architecture. It is an external convergence signal, not an origin claim or proof of implementation. The [versioned cross-reference proposal](docs/ENTITY_ECONOMY_VOLUME_III_VERSIONED_CROSS_REFERENCES.md) now defines how a future Volume I/II appendix may incorporate the comparison without rewriting or replacing the historical PDF identities. Publisher publication, Site propagation, runtime evidence and economic outcomes remain separately governed.
