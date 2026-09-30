@@ -339,3 +339,8 @@ The existing approved Private-State Economy PR #72 exact-source candidate and se
 ## Entity Economy — 2026 AI-memory convergence treatment
 
 The [dated convergence treatment](docs/ENTITY_ECONOMY_SECOND_BRAIN_CONVERGENCE_TREATMENT.md) compares 2026 persistent/portable AI-memory and “second brain” developments with previously documented Entity Economy and adjacent StegVerse architecture. It is an external convergence signal, not an origin claim or proof of implementation. The [versioned cross-reference proposal](docs/ENTITY_ECONOMY_VOLUME_III_VERSIONED_CROSS_REFERENCES.md) now defines how a future Volume I/II appendix may incorporate the comparison without rewriting or replacing the historical PDF identities. Publisher publication, Site propagation, runtime evidence and economic outcomes remain separately governed.
+
+
+### Entity Economy successor editions — convergence appendix
+
+Canonical child task `ENTITY-ECONOMY-SUCCESSOR-EDITIONS-001` now has Publisher source candidates for separately versioned Volume I and II editions. `data/economy/entity-economy-successor-editions.v1.json` binds the immutable historical PDF identities to the merged 2026-09-29 convergence treatment under distinct successor edition IDs; it does not overwrite or republish the historical artifacts. See `docs/ENTITY_ECONOMY_SUCCESSOR_EDITIONS_PUBLISHER_HANDOFF.md`. Governed publication and Site propagation remain unobserved.
