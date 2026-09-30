@@ -1,0 +1,51 @@
+{
+  "schema": "stegverse.publisher.entity-economy-successor-editions/v1",
+  "goal_task_id": "ENTITY-ECONOMY-SUCCESSOR-EDITIONS-001",
+  "parent_goal_task_id": "ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001",
+  "date": "2026-09-29",
+  "authority_effect": "NONE_SOURCE_CANDIDATE_ONLY",
+  "historical_artifacts_immutable": true,
+  "appendix": {
+    "path": "docs/ENTITY_ECONOMY_SECOND_BRAIN_CONVERGENCE_TREATMENT.md",
+    "git_blob_sha": "4d99b1607d983d0a20bf6b877084ae95941d4a6b",
+    "cross_reference_path": "docs/ENTITY_ECONOMY_VOLUME_III_VERSIONED_CROSS_REFERENCES.md",
+    "cross_reference_git_blob_sha": "e555a8fbeb9e4e2a881c7f17cc167950ee196d34"
+  },
+  "editions": [
+    {
+      "volume": "I",
+      "edition_id": "stegverse-entity-economy-volume-i-2026-09-29-convergence",
+      "edition_kind": "COMPOSITE_VERSIONED_SUCCESSOR",
+      "historical_base": {
+        "site_path": "papers/stegverse-entity-economy/stegverse-entity-economy.pdf",
+        "sha256": "a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95",
+        "pages": 9,
+        "mutation_permitted": false
+      },
+      "incorporation": "Attach the dated convergence treatment as a bounded successor-edition appendix/cross-reference; historical base bytes remain unchanged.",
+      "publication_state": "SOURCE_CANDIDATE_NOT_PUBLISHED"
+    },
+    {
+      "volume": "II",
+      "edition_id": "stegverse-entity-economy-volume-ii-2026-09-29-convergence",
+      "edition_kind": "COMPOSITE_VERSIONED_SUCCESSOR",
+      "historical_base": {
+        "site_path": "papers/stegverse-entity-economy-volume-ii/",
+        "sha256": "129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f",
+        "pages": 7,
+        "mutation_permitted": false
+      },
+      "incorporation": "Attach the dated convergence treatment as a bounded successor-edition appendix/cross-reference; historical base bytes remain unchanged.",
+      "publication_state": "SOURCE_CANDIDATE_NOT_PUBLISHED"
+    }
+  ],
+  "publication_requirements": [
+    "PUBLISHER_EXACT_HEAD_VALIDATION",
+    "HISTORICAL_ARTIFACT_IDENTITY_PRESERVED",
+    "SUCCESSOR_EDITION_IDENTITY_DISTINCT",
+    "EXISTING_GOVERNED_PUBLISHER_PUBLICATION_DISPOSITION",
+    "PUBLISHER_RELEASE_EVIDENCE",
+    "DOWNSTREAM_SITE_VERSIONED_ROUTE_WITH_HISTORICAL_ROUTES_PRESERVED",
+    "CREDENTIAL_FREE_DEPLOYED_READBACK"
+  ]
+}
