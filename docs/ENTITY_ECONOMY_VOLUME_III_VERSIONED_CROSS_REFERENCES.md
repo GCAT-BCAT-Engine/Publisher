@@ -17,3 +17,16 @@
 - Prepare separately identified, versioned successor editions under existing Publisher editorial ownership; update series landing page only after their applicable publication transition.
 - Ensure Publisher's review addresses economics and legal claims independently. Existing Site mirror is a downstream display surface, not the authority to rewrite papers.
 - The two inserts above are **editorial candidate text**, not changes already made to Volumes I or II.
+
+
+## Proposed Volume I/II convergence appendix cross-reference — 2026-09-29
+
+A dated comparative treatment is now staged at `docs/ENTITY_ECONOMY_SECOND_BRAIN_CONVERGENCE_TREATMENT.md`. It records 2026 persistent/portable AI-memory and “second brain” developments as an **external convergence signal** against previously documented Entity Economy and StegVerse architecture. It does not attribute the origin of MyKV/OrgKV, ephemeral/plural intelligence, entity-role economics, StegOS, or network-learning concepts to those external developments.
+
+For future versioned Volume I and II editions, incorporate the treatment as an appendix or bounded cross-reference rather than rewriting historical prose. Preserve three distinctions:
+
+1. **Chronology:** prior StegVerse propositions are evidenced only by repository material that predates the 2026-09-29 treatment; uncertain first-documentation dates remain explicitly unclaimed.
+2. **Convergence versus validation:** external work on persistent, portable and user-governed AI context is comparative evidence of independently emerging concerns, not proof of StegVerse implementation, novelty, adoption or economic outcomes.
+3. **Architectural extension:** the StegVerse research direction separates sovereign continuity from plural/ephemeral cognitive capacity and extends the comparison into entity-conditioned effective-network topology, precision audiences, multidimensional utility discovery and compositional relationships among users, organizations, AI entities and resources.
+
+Original Volume I/II PDFs and hashes remain unchanged. Any actual appendix incorporation requires separately versioned successor editions and the existing Publisher-controlled publication path.
