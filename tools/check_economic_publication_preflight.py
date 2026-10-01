@@ -28,7 +28,8 @@ def check(value: dict) -> None:
     assert original["sha256"] == "3329a0c47161eb4613c32bbc5e0a393116f395cb8fa78368ed21fed8775c3dca"
     assert not APPROVED.exists(), "Original PR #72 paper unexpectedly present on main: update preflight after authenticated reconciliation"
     assert third["owner_approved"] is True and third["governed_published"] is False
-    assert third["sha256"] == hashlib.sha256(VOL3.read_bytes()).hexdigest()
+    actual_vol3_sha256 = hashlib.sha256(VOL3.read_bytes()).hexdigest()
+    assert third["sha256"] == actual_vol3_sha256, f"Volume III SHA-256 mismatch: manifest={third['sha256']} actual={actual_vol3_sha256}"
     reviews = value["reviewer_evidence"]
     assert reviews["verified_review_decisions"] is False
     assert reviews["economics_review_receipt"] is None and reviews["legal_review_receipt"] is None

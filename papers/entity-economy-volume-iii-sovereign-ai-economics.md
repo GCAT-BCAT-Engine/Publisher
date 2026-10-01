@@ -1,7 +1,7 @@
 # The StegVerse Entity Economy — Volume III
 ## Sovereign AI Economics: The Cost of Intelligence, Individual Data Value, and Equitable Economic Participation
 
-**Status:** Editorial research draft v0.3 — owner-approved research-release review policy reconciled; external signed review not evidenced; not peer reviewed, published, economically validated, or a statement of operational capability.  
+**Status:** Entity Economy Volume III — theoretical and forward-looking economic analysis extending Volumes I and II; not peer reviewed, not an empirical validation of projected outcomes, and not a statement of operational capability.  
 **Series:** Volume I — Governed Economic Model; Volume II — Identity, Agency, Labor, Autonomy, and Legal Standing; Volume III — economic incidence and individual outcomes.  
 **Owner:** Publisher editorial custody; candidate under canonical economic program `ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001` and Publisher issue #76.  
 **Date:** 2026-09-28.
@@ -12,7 +12,7 @@ Artificial intelligence is increasingly financed through centralized compute, co
 
 ## 1. Research question and relation to Volumes I and II
 
-Volume I specifies the economic infrastructure for accountable human and AI contribution, services, procurement, provenance and governed settlement. Volume II examines persistent AI participation and questions of identity, labor, ownership, mobility and legal standing. Volume III asks **who ultimately bears the cost of AI and who receives value created through authorized data use**. Economic participation is not proven by nominal access to intelligence, and provider efficiency is not equivalent to individual welfare.
+Volume I specifies the economic infrastructure for accountable human and AI contribution, services, procurement, provenance and governed settlement. Volume II extends that model into persistent AI participation and questions of identity, labor, ownership, mobility and legal standing. Volume III continues the Entity Economy sequence by applying those foundations to the future economics of increasingly abundant intelligence: **who ultimately bears the cost of AI, how changing infrastructure can redistribute that cost, and who receives value created through authorized data use and attributable participation**. It is a theoretical and forward-looking economic analysis, not a separately originated experimental research lane. Economic participation is not proven by nominal access to intelligence, and provider efficiency is not equivalent to individual welfare.
 
 Hypotheses to test, not established results: (H1) for matched admissible workloads, bounded governed execution plus verifiable evidence reuse can lower total user cost after governance overhead; (H2) purpose-bound data licensing and independently reconciled settlement can create measurable user income without surrendering custody; (H3) either mechanism can fail where enforcement, transaction overhead, weak demand, market power or shifted hardware costs dominate.
 
@@ -57,7 +57,9 @@ Stratify by low/high usage, device age, electricity price, network access, disab
 
 Negative controls: unauthorized data-use event; expired permission; duplicate or forged usage receipt; disputed settlement; missing custody chain; stale or out-of-scope cached evidence; user device upgrade shifted into a nominally free service; model downgrade masquerading as cost reduction; provider subsidy omitted from price; execution rejection recorded as a completed outcome. Each must fail the relevant claim without inventing a runtime disposition.
 
-## 7. Measurement protocol and evidence ladder
+## 7. Future evaluation framework and evidence discipline
+
+The propositions in this volume are intended to remain falsifiable. The following framework describes how later empirical work could evaluate them; completing that work is not a prerequisite for publishing this theoretical volume.
 
 1. Pre-register matched workload, outcome-quality and admissibility criteria, observation period, user population, cost allocation and counterfactual.
 2. Capture provider charges, device depreciation, power, network, retry cost and governance overhead with timestamps and independent source references.
@@ -66,7 +68,7 @@ Negative controls: unauthorized data-use event; expired permission; duplicate or
 5. Publish reproducible aggregated measurements and uncertainty while preserving private user data and privileged receipts.
 6. Report failure modes and costs where governance provides no net savings; update claims only after independent methodology and applicable legal review.
 
-**Evidence posture:** This draft establishes definitions and falsifiable hypotheses. It does not demonstrate deployed StegVerse economic benefits, live licensing enforcement, authentic settlement, or governed publication. The existing Publisher -> Site path, original InTr/Master Records closure where applicable and deployed readback remain separate requirements.
+**Evidence posture:** This volume establishes definitions, forward-looking economic propositions and falsifiable hypotheses. Publication of the theoretical analysis does not establish deployed StegVerse economic benefits, live licensing enforcement, authentic settlement, or operational performance. Any later empirical or operational claim must carry its own applicable evidence, custody/reconstruction and validation.
 
 ## 8. Related source anchors and editorial requirements
 
@@ -75,4 +77,6 @@ Negative controls: unauthorized data-use event; expired permission; duplicate or
 - Canonical economic roadmap: `StegVerse-Labs/.github/docs/ECOSYSTEM_ECONOMIC_WHITEPAPER_GATED_ROADMAP_MIRROR_HANDOFF.md`.
 - Publisher issue #76. Closed, unmerged Publisher PR #72 is historical draft evidence only, not active publication authority.
 
-**Editorial review disposition (2026-09-28):** Internal AI-assisted economics and legal issue-spotting is incorporated, and the owner reports that separate banker/lawyer reviews converged with the internal findings. No signed external report or independent professional approval is claimed by this source. For publication as a theoretical research paper, a signed independent economics or legal report is **not a release prerequisite** so long as the paper preserves this review-status disclosure and does not claim operational legal compliance, authorization to issue financial instruments, payment-service authority, or measured economic performance. Transaction-specific licensing, settlement, token/payment operations, and jurisdiction-specific compliance claims remain subject to their own applicable professional/legal review before those activities or claims occur.\n\n**Before release:** exact-head source validation, Publisher-controlled versioning, applicable governed publication closure and independent Site readback. Independent external review may be attached as provenance when available but is not required to publish this bounded research draft. No benchmark is promoted by this manuscript.
+**Editorial and publication posture:** Volume III is the third paper in the Entity Economy sequence: a theoretical and forward-looking application of the economic architecture and entity implications developed in Volumes I and II. Its hypotheses and future-evaluation framework are included to make the argument testable, not to create a separate experimental research lane or to make empirical validation a prerequisite for publication. No banker, lawyer, external economics, or independent professional review is claimed for Volume III unless separately evidenced against this manuscript. Transaction-specific licensing, settlement, token/payment operations, and jurisdiction-specific compliance claims remain subject to their own applicable professional/legal review before those activities or claims occur.
+
+**Publication boundary:** Publisher controls the canonical manuscript and version identity; Site is the downstream public display. Publication does not convert the paper's forward-looking propositions into demonstrated StegVerse performance, legal compliance, financial-product authority, payment-service authority, or measured economic outcomes.
