@@ -25,12 +25,12 @@
       "governed_published": false
     },
     {
-      "kind": "ENTITY_ECONOMY_VOLUME_III_SEPARATE_RESEARCH",
+      "kind": "ENTITY_ECONOMY_VOLUME_III_SERIES_CONTINUATION",
       "repository": "GCAT-BCAT-Engine/Publisher",
-      "source_commit": "a4dacdc40c0e9a65c60d21c0051aeeb6c9aef333",
+      "source_commit": "e35658a884c3513c62dc9cfc01581289dcd6a1ce",
       "source_path": "papers/entity-economy-volume-iii-sovereign-ai-economics.md",
-      "sha256": "5df3b31d6132173868e3bb00b7cd36121dc0d5c17fc7443b0e136d64128fb136",
-      "git_blob_sha": "df3c63689b5e13bbaf20413562fa0de82fbb3729",
+      "sha256": "fb84269e41a5d4bed29d073d60d3eeb3d541970a8a802d0e0c79e6d686068e11",
+      "git_blob_sha": "051458958f00d7081d70d1d0da54d8282ae4615e",
       "owner_approved": true,
       "source_on_publisher_main": true,
       "governed_published": false
