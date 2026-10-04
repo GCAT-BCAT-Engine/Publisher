@@ -344,3 +344,8 @@ The [dated convergence treatment](docs/ENTITY_ECONOMY_SECOND_BRAIN_CONVERGENCE_T
 ### Entity Economy successor editions — convergence appendix
 
 Canonical child task `ENTITY-ECONOMY-SUCCESSOR-EDITIONS-001` now has Publisher source candidates for separately versioned Volume I and II editions. `data/economy/entity-economy-successor-editions.v1.json` binds the immutable historical PDF identities to the merged 2026-09-29 convergence treatment under distinct successor edition IDs; it does not overwrite or republish the historical artifacts. See `docs/ENTITY_ECONOMY_SUCCESSOR_EDITIONS_PUBLISHER_HANDOFF.md`. Governed publication and Site propagation remain unobserved.
+
+
+## Governed outbound communications
+
+Canonical successor Goal `PUBLISHER-GOVERNED-OUTBOUND-COMMUNICATIONS-001` defines the bounded extension of Publisher admission and receipt semantics to outbound media, beginning with email. It requires purpose-derived authoritative context resolution before composition, explicit non-ALLOW handling for insufficient evidence, outbound manifest admission, and separate send evidence while reusing existing storage, transport, credential and authority capabilities. See `docs/PUBLISHER_GOVERNED_OUTBOUND_COMMUNICATIONS_MIRROR_HANDOFF.md`.
