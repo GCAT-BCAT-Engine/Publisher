@@ -1,0 +1,39 @@
+{
+  "schema": "stegverse.publisher.entity-economy-successor-materialization/v1",
+  "goal_task_id": "ENTITY-ECONOMY-VOLUME-I-II-SUCCESSOR-PUBLICATION-001",
+  "authority_effect": "NONE_SOURCE_MATERIALIZATION_ONLY",
+  "publication_executed": false,
+  "site_propagation_executed": false,
+  "historical_artifacts_immutable": true,
+  "bound_sources": {
+    "candidate_record": "data/economy/entity-economy-successor-editions.v1.json",
+    "convergence_treatment": {
+      "path": "docs/ENTITY_ECONOMY_SECOND_BRAIN_CONVERGENCE_TREATMENT.md",
+      "git_blob_sha": "4d99b1607d983d0a20bf6b877084ae95941d4a6b"
+    },
+    "cross_reference": {
+      "path": "docs/ENTITY_ECONOMY_VOLUME_III_VERSIONED_CROSS_REFERENCES.md",
+      "git_blob_sha": "e555a8fbeb9e4e2a881c7f17cc167950ee196d34"
+    }
+  },
+  "artifacts": [
+    {
+      "volume": "I",
+      "edition_id": "stegverse-entity-economy-volume-i-2026-09-29-convergence",
+      "path": "papers/stegverse-entity-economy-volume-i-2026-09-29-convergence.md",
+      "sha256": "01cb40af02530e1bf5d1c99131703f484fbee02a52478665e4031fb4d924f7f2",
+      "historical_predecessor_sha256": "a831891cee4c4e7a920ed6d38090672e0722b434a5941632620c3e11d8e4da95",
+      "historical_predecessor_mutation_permitted": false,
+      "lifecycle": "MATERIALIZED_SOURCE_NOT_PUBLISHED"
+    },
+    {
+      "volume": "II",
+      "edition_id": "stegverse-entity-economy-volume-ii-2026-09-29-convergence",
+      "path": "papers/stegverse-entity-economy-volume-ii-2026-09-29-convergence.md",
+      "sha256": "e04fd1735309abe3009640d46d8d521fb868e9bb06776b15c9d0467647733e4e",
+      "historical_predecessor_sha256": "129accea04dcef0c5b063ae5799d9952e97462859fb36842c93a3ca7776fe95f",
+      "historical_predecessor_mutation_permitted": false,
+      "lifecycle": "MATERIALIZED_SOURCE_NOT_PUBLISHED"
+    }
+  ]
+}
