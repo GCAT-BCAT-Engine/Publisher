@@ -8,7 +8,7 @@ Updated: 2026-10-04
 - Derived from incident evidence: `ELAN-HOLD-INDEPENDENT-SEMANTIC-ANALYSIS-PACKET-001`
 - Canonical issue: `StegVerse-Labs/.github#2959`
 - Intended owner: `GCAT-BCAT-Engine/Publisher`
-- Status: `ACTIVE / REGISTRATION_IN_PROGRESS`
+- Status: `ACTIVE`
 
 ## Purpose
 
@@ -82,6 +82,10 @@ This Goal must not create:
 ## Incident relationship
 
 The ÉLAN incident demonstrates why context-blind composition is unsafe for an established collaboration. It is motivating evidence only. This Goal is ecosystem-wide and must remain reusable for unrelated outbound-media purposes.
+
+## Machine-readable contract
+
+The minimum v1 contract is `schemas/publisher-governed-outbound-communication.v1.schema.json`. It stores authoritative source locators and evidence references rather than source mailbox/history contents, requires explicit context dispositions, makes `INSUFFICIENT_EVIDENCE` incompatible with `ALLOW`, and keeps external send observation separate from composition admission.
 
 ## Completion predicates
 

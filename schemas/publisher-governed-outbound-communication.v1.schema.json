@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.dev/schemas/publisher-governed-outbound-communication.v1.schema.json",
+  "title": "Publisher Governed Outbound Communication Contract v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "communication_event", "context_resolution", "outbound_manifest"],
+  "properties": {
+    "schema": {"const": "stegverse.publisher.governed-outbound-communication/v1"},
+    "communication_event": {
+      "type": "object", "additionalProperties": false,
+      "required": ["event_id", "source_system", "source_locator", "observed_at", "content_sha256", "media_type", "predecessor_event_ids"],
+      "properties": {
+        "event_id": {"type": "string", "minLength": 1},
+        "source_system": {"type": "string", "minLength": 1},
+        "source_locator": {"type": "string", "minLength": 1},
+        "observed_at": {"type": "string", "format": "date-time"},
+        "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "media_type": {"type": "string", "minLength": 1},
+        "predecessor_event_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "relationship_ref": {"type": ["string", "null"]},
+        "workstream_ref": {"type": ["string", "null"]}
+      }
+    },
+    "context_resolution": {
+      "type": "object", "additionalProperties": false,
+      "required": ["purpose", "policy_id", "required_categories"],
+      "properties": {
+        "purpose": {"type": "string", "minLength": 1},
+        "policy_id": {"type": "string", "minLength": 1},
+        "required_categories": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["category", "disposition", "evidence_refs"],
+            "properties": {
+              "category": {"enum": ["RELATIONSHIP_HISTORY", "CORRESPONDENCE_HISTORY", "WORKSTREAM_STATE", "PRIOR_COMMITMENTS", "PURPOSE_REQUIRED_SOURCE_ARTIFACTS"]},
+              "disposition": {"enum": ["VERIFIED", "NOT_APPLICABLE", "NO_PRIOR_HISTORY", "INSUFFICIENT_EVIDENCE"]},
+              "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+              "reason": {"type": ["string", "null"]}
+            }
+          }
+        }
+      }
+    },
+    "outbound_manifest": {
+      "type": "object", "additionalProperties": false,
+      "required": ["manifest_id", "recipient", "channel", "body_sha256", "attachment_sha256", "requested_transport", "composition_disposition", "send_observation"],
+      "properties": {
+        "manifest_id": {"type": "string", "minLength": 1},
+        "recipient": {"type": "string", "minLength": 1},
+        "channel": {"type": "string", "minLength": 1},
+        "body_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "attachment_sha256": {"type": "array", "items": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+        "requested_transport": {"type": "string", "minLength": 1},
+        "authority_evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "composition_disposition": {"enum": ["ALLOW", "DENY", "FAIL_CLOSED"]},
+        "send_observation": {
+          "type": "object", "additionalProperties": false,
+          "required": ["observed", "receipt_refs"],
+          "properties": {
+            "observed": {"type": "boolean"},
+            "provider_event_id": {"type": ["string", "null"]},
+            "sent_at": {"type": ["string", "null"], "format": "date-time"},
+            "receipt_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"context_resolution": {"properties": {"required_categories": {"contains": {"properties": {"disposition": {"const": "INSUFFICIENT_EVIDENCE"}}, "required": ["disposition"]}}}}}},
+      "then": {"properties": {"outbound_manifest": {"properties": {"composition_disposition": {"enum": ["DENY", "FAIL_CLOSED"]}}}}}
+    },
+    {
+      "if": {"properties": {"outbound_manifest": {"properties": {"send_observation": {"properties": {"observed": {"const": false}}}}}}},
+      "then": {"properties": {"outbound_manifest": {"properties": {"send_observation": {"properties": {"provider_event_id": {"type": "null"}, "sent_at": {"type": "null"}}}}}}}
+    }
+  ]
+}
