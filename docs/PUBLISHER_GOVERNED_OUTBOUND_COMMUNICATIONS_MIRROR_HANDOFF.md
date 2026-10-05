@@ -104,3 +104,8 @@ This binding does not retrieve mailbox/history data, compose or send media, reso
 - retained receipts permit reconstruction of context -> composition -> admission -> send;
 - existing storage, transport, credentials and authority mechanisms are reused;
 - README and canonical Task Registry/handoff projections are current.
+
+
+## 2026-10-05 prompt-limit closeout
+
+The reusable contract/schema/purpose/context/composition-admission scope is complete through canonical Publisher merge `7caf5906dc417f318e0f5b0456e899e43d7a61b0`. This Goal is retired at 20/20 without claiming external send. The genuinely separable post-admission execution/evidence obligation continues under `PUBLISHER-GOVERNED-OUTBOUND-EXECUTION-EVIDENCE-001` / COSV `71000000100122`; see `docs/PUBLISHER_GOVERNED_OUTBOUND_EXECUTION_EVIDENCE_MIRROR_HANDOFF.md`.
