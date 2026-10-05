@@ -57,10 +57,16 @@ def read_receipt(result):
     return json.loads(Path(result["receipt_path"]).read_text(encoding="utf-8"))
 
 
+def assert_receipt_verifies(receipt_writer, result):
+    assert receipt_writer.verify(Path(result["receipt_path"])) is True
+
+
 def test_allow_produces_existing_publisher_receipt_with_bound_evidence(tmp_path):
     value = contract()
-    result = admit_outbound_communication(value, receipt_writer=writer(tmp_path))
+    receipt_writer = writer(tmp_path)
+    result = admit_outbound_communication(value, receipt_writer=receipt_writer)
     receipt = read_receipt(result)
+    assert_receipt_verifies(receipt_writer, result)
 
     assert result["disposition"] == "ALLOW"
     assert result["send_executed"] is False
