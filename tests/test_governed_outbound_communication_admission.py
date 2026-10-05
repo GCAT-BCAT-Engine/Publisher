@@ -84,8 +84,10 @@ def test_insufficient_evidence_fails_closed_and_produces_receipt(tmp_path):
     value["context_resolution"]["required_categories"][0]["disposition"] = "INSUFFICIENT_EVIDENCE"
     value["outbound_manifest"]["composition_disposition"] = "FAIL_CLOSED"
 
-    result = admit_outbound_communication(value, receipt_writer=writer(tmp_path))
+    receipt_writer = writer(tmp_path)
+    result = admit_outbound_communication(value, receipt_writer=receipt_writer)
     receipt = read_receipt(result)
+    assert_receipt_verifies(receipt_writer, result)
 
     assert result["disposition"] == "FAIL_CLOSED"
     assert "insufficient_evidence:CORRESPONDENCE_HISTORY" in result["reasons"]
@@ -110,8 +112,10 @@ def test_manifest_deny_is_preserved_as_non_allow_receipt(tmp_path):
     value = contract()
     value["outbound_manifest"]["composition_disposition"] = "DENY"
 
-    result = admit_outbound_communication(value, receipt_writer=writer(tmp_path))
+    receipt_writer = writer(tmp_path)
+    result = admit_outbound_communication(value, receipt_writer=receipt_writer)
     receipt = read_receipt(result)
+    assert_receipt_verifies(receipt_writer, result)
 
     assert result["disposition"] == "DENY"
     assert receipt["gate_result"] == "DENY"
