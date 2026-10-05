@@ -1,6 +1,6 @@
 # Publisher Governed Outbound Communications — Mirror Handoff
 
-Updated: 2026-10-04
+Updated: 2026-10-05
 
 ## Task pointer
 
@@ -86,6 +86,12 @@ The ÉLAN incident demonstrates why context-blind composition is unsafe for an e
 ## Machine-readable contract
 
 The minimum v1 contract is `schemas/publisher-governed-outbound-communication.v1.schema.json`. It stores authoritative source locators and evidence references rather than source mailbox/history contents, requires explicit context dispositions, makes `INSUFFICIENT_EVIDENCE` incompatible with `ALLOW`, and keeps external send observation separate from composition admission.
+
+## Implemented admission binding
+
+`publisher/governed_outbound_communication.py` consumes a supplied v1 contract after authoritative context has been resolved outside Publisher. It validates the existing schema, returns an explicit ALLOW, DENY or FAIL_CLOSED composition-admission disposition, and writes that transition through the existing `PublicationReceiptWriter`. The retained receipt binds source event/locator/digest, predecessor IDs, purpose/policy, category dispositions and evidence references, manifest/body/attachment digests, requested transport and authority-evidence references.
+
+This binding does not retrieve mailbox/history data, compose or send media, resolve credentials, or create authority. `send_executed` remains false; an authentic external send remains a separate required observation.
 
 ## Completion predicates
 
