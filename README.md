@@ -349,3 +349,8 @@ Canonical child task `ENTITY-ECONOMY-SUCCESSOR-EDITIONS-001` now has Publisher s
 ## Governed outbound communications
 
 `PUBLISHER-GOVERNED-OUTBOUND-COMMUNICATIONS-001` completed its contract/schema/context/admission scope through merge `7caf5906dc417f318e0f5b0456e899e43d7a61b0` and is retired at its 20/20 boundary without claiming send. Post-admission execution/evidence continues under `PUBLISHER-GOVERNED-OUTBOUND-EXECUTION-EVIDENCE-001` / COSV `71000000100122`. The successor reuses Comms-Gateway dispatch/delivery/lifecycle receipts and TV/TVC credential authority; its first attempted transition is FAIL_CLOSED because no current TV/TVC email provider send operation is admitted. See `docs/PUBLISHER_GOVERNED_OUTBOUND_EXECUTION_EVIDENCE_MIRROR_HANDOFF.md`.
+
+
+## Entity Economy — self-reconstructing canonical state reconciliation
+
+A separately identified 2026-10-07 research reconciliation is staged at `papers/entity-economy-self-reconstructing-canonical-state-2026-10-07.md`. It preserves all historical Private-State Economy and Entity Economy identities while adding the later `NO_RECEIPT_NO_CANONICAL_TRANSITION` and bounded full-history reconstruction thesis, destructive reconstruction benchmark, storage-economics measurement requirements, and current Organization/Master Records authority boundary. No storage reduction, publication, runtime success, or historical deletion is claimed by source materialization.
