@@ -2,7 +2,7 @@
 """Import verified Ecosystem Chat activation evidence from StegVerse-Labs/Site.
 
 Publisher accepts the projection only after Site activation, propagation, and the
-Master-Records custody projection for the Site orchestration terminal receipt are
+Master-Records organization-record projection for the Site orchestration terminal receipt are
 all hash-valid and mutually bound. This importer grants no publication, release,
 custody, execution, or activation authority.
 """

@@ -29,7 +29,7 @@
     "publisher_receipt_grants_execution_authority": false,
     "publisher_receipt_grants_publication_authority": false,
     "publisher_receipt_grants_admissibility": false,
-    "publisher_receipt_is_master_records_custody": false,
+    "publisher_receipt_is_master_records_organization_record": false,
     "activation_is_per_transition_authority": false
   },
   "next_action": "propagate evidence awareness to downstream wikis without asserting source authority"

@@ -38,7 +38,7 @@ def check(value: dict) -> None:
     assert [p["predicate"] for p in value["preflight_predicates"]] == [
         "REVIEW_EVIDENCE_RECONCILED_TO_APPROVED_EXACT_SOURCE",
         "PUBLISHER_PAPERS_NATIVE_RUNTIME_CONSUMER",
-        "ORIGINAL_AUTHENTIC_RUNTIME_INTR_AND_MASTER_RECORDS_CLOSURE",
+        "ORIGINAL_AUTHENTIC_RUNTIME_INTR_DISPOSITION_AND_MASTER_RECORDS_ORGANIZATION_RECORD",
     ]
     assert [p["status"] for p in value["preflight_predicates"]] == [
         "POLICY_RESOLVED", "SOURCE_REPAIRED", "MANIFEST_PREPARED_RUNTIME_NOT_ATTEMPTED"

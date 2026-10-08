@@ -208,7 +208,7 @@ def consume_sdk_paper_manifest(manifest: Mapping[str, Any]) -> dict[str, Any]:
         "custody_authority": "MASTER_RECORDS",
         "runtime_invoked": False,
         "authentic_intr_disposition_observed": False,
-        "master_records_closure_observed": False,
+        "master_records_organization_record_observed": False,
         "publication_authorized": False,
         "release_authorized": False,
         "mutation_authorized": False,

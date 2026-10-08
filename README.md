@@ -333,7 +333,7 @@ The owner confirmed the closed-unmerged [Private-State Economy PR #72](https://g
 
 ### Economic paper governed publication preflight
 
-The existing approved Private-State Economy PR #72 exact-source candidate and separate merged Volume III research are frozen in [the source-only preflight](data/economy/economic-publication-preflight.v1.json). [The publication handoff](docs/ENTITY_ECONOMY_VOLUME_III_MIRROR_HANDOFF.md) records exact source digests, attributable-review evidence gaps and the distinct Publisher paper-target manifest mismatch discovered during SDK route inspection. The [preflight validator](tools/check_economic_publication_preflight.py) and scoped CI validate these non-authorizing boundaries. No original InTr decision, Master Records closure, Publisher release, Site deployed readback or benchmark completion is implied.
+The existing approved Private-State Economy PR #72 exact-source candidate and separate merged Volume III research are frozen in [the source-only preflight](data/economy/economic-publication-preflight.v1.json). [The publication handoff](docs/ENTITY_ECONOMY_VOLUME_III_MIRROR_HANDOFF.md) records exact source digests, attributable-review evidence gaps and the distinct Publisher paper-target manifest mismatch discovered during SDK route inspection. The [preflight validator](tools/check_economic_publication_preflight.py) and scoped CI validate these non-authorizing boundaries. No original InTr decision, Master Records organization record, Publisher release, Site deployed readback or benchmark completion is implied.
 
 
 ## Entity Economy — 2026 AI-memory convergence treatment

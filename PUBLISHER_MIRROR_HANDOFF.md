@@ -16,7 +16,7 @@ Manual user action required: false
 
 ```text
 StegVerse-org/LLM-adapter retained activation state
--> master-records/orchestration retained custody state
+-> master-records/orchestration retained organization records
 -> StegVerse-Labs/Site authenticated imports and activation-state validation
 -> StegVerse-Labs/Site/data/ecosystem-chat-activation-state.json
 -> StegVerse-Labs/Site/data/ecosystem-chat-activation-propagation.json
@@ -163,7 +163,7 @@ transport_is_authority = false
 StegVerse-Labs/Site has not yet published ACTIVATION_COMPLETE with a hash-bound READY_FOR_DOWNSTREAM_INGESTION packet.
 ```
 
-The Site scheduled workflow owns that transition after the adapter, deployment platform, and Master-Records custody service publish the required machine evidence.
+The Site scheduled workflow owns that transition after the adapter, the deployment platform, and the Master-Records organization-records service publish the required machine evidence.
 
 For the separate two-generation construction goal, the next evidence is Publisher's target-owned adjacent-construction receipt followed by Site's independently persisted receipt.
 
