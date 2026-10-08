@@ -45,7 +45,7 @@ Existing evidence must not be deleted merely to stage this experiment. Test fixt
 
 ## Custody, witnesses and organizational sovereignty
 
-The Organization's canonical receipt ledger is the runtime-reality locus for that organization. Master Records is limited to organization records and reconstruction; it is not the universal runtime-reality authority or a permanent historical database whose continued availability makes an organization's prior transitions real.
+The Organization's canonical receipt ledger is the runtime-reality locus for that organization. Master Records is limited to organization records and reconstruction. An organization's prior transitions are real because the Organization recorded them in its own ledger, not because any copy of its organization records stays available.
 
 This architecture supplies a StegVerse response to custody and witness-availability questions surfaced in the Evidence Custody Seam work associated with Richard Whitney and witness-topology discussions associated with Justin Dobson. Their historical research artifacts and evidence classifications remain unchanged. The design proposition here is narrower: witnesses can establish or validate transitions at the applicable boundary without thereby becoming permanent custodians of all historical materializations. Canonical receipts preserve valid transition state, and reconstruction is intended to regenerate history.
 

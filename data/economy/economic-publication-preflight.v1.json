@@ -71,14 +71,14 @@
       "correction": "Source consumer is installed. Next execution boundary is an exact real manifest whose applicable reviewer evidence refs are authentic, followed by the existing SDK universal manifest runtime. No authenticated economic organization-ledger or InTr interface is exposed in this session, so no runtime disposition is inferred."
     },
     {
-      "predicate": "ORIGINAL_AUTHENTIC_RUNTIME_INTR_AND_MASTER_RECORDS_CLOSURE",
+      "predicate": "ORIGINAL_AUTHENTIC_RUNTIME_INTR_DISPOSITION_AND_MASTER_RECORDS_ORGANIZATION_RECORD",
       "status": "MANIFEST_PREPARED_RUNTIME_NOT_ATTEMPTED",
       "evidence_refs": [
         "No admitted Publisher paper-target execution interface exposed in this session; no same-transition Interlock/InTr or Master Records receipt supplied",
         "SDK PR #387 merged a412cb40ccba25d5dca4ca63485e043a227ab46d; exact-head workflow 36469359331 SUCCESS; artifact 10990707853 digest sha256:73c1a081d7af9647fe33c7c755d43879a03e7d7ad6fcd5cb9b623e7cedea70ce.",
         "Independent artifact inspection: canonical manifest ba615d6e487f11853173154317782fad1ed83dec32ab0c18650703e063fcc9e3; universal execution request 11db25adc816acb91d806bfbd6a0060859eba4d8898dbd488bf4526eb97f65be; runtime_invoked=false; authorities TV/TVC, INTERLOCK_INTR, MASTER_RECORDS."
       ],
-      "correction": "Submit canonical manifest ba615d6e... through the existing universal manifest runtime only when an authenticated TV/TVC relay authorization and Universal InTr ingress are exposed. Preserve the returned actual disposition and same-transition organization/Master Records closure. This source artifact must never be interpreted as runtime ALLOW."
+      "correction": "Submit canonical manifest ba615d6e... through the existing universal manifest runtime only when an authenticated TV/TVC relay authorization and Universal InTr ingress are exposed. Preserve the returned actual Interlock/InTr disposition and closure, and the same-transition Master Records organization record. This source artifact must never be interpreted as runtime ALLOW."
     }
   ],
   "requested_target": {

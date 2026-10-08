@@ -62,7 +62,7 @@ This handoff-only reconciliation changes no runtime behavior, interface, depende
 - StegIndex final TGA predicate closure: `StegVerse-Labs/StegIndex#34`, merge `f64bca6822ff432114a2c890407d5af10ae1f017`, validation run `34001839075` SUCCESS.
 - admissibility-wiki implementation: `StegVerse-Labs/admissibility-wiki#129`, merge `e7c5185273fe4aa22f4233e0532ad3264ad3f705`; task terminalization `#130`, merge `891a878c69f50e979994c50392901ff720f3d295`.
 - StegGuardian implementation: `StegVerse-002/stegguardian-wiki#38`, merge `82417880151f5801dc7bad01874c952aded7d68c`.
-- Master Records reconstruction ledger: `master-records/orchestration#76`, merge `4aa14c0ff4373eb4787080e58fb028b54cb9416a`.
+- Master Records reconstruction record: `master-records/orchestration#76`, merge `4aa14c0ff4373eb4787080e58fb028b54cb9416a`.
 
 ```yaml
 source_state: COMPLETE_VALIDATED_MERGED

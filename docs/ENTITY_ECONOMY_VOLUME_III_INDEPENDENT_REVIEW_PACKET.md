@@ -40,7 +40,7 @@ Publisher #76 comments contain internal AI-assisted economic/legal issue-spottin
 
 ## Publication gate
 
-Original Volume I/II PDFs are unchanged. Manuscript v0.2 is source only. Exact-head checks validate source, not reviewer independence. Publisher -> Site publication, original applicable InTr/Master Records closure, public-safe benchmark export and deployed readback are independent transitions; all 16 roadmap benchmarks remain NOT_VERIFIED absent their own authentic evidence.
+Original Volume I/II PDFs are unchanged. Manuscript v0.2 is source only. Exact-head checks validate source, not reviewer independence. Publisher -> Site publication, original applicable InTr disposition, the Master Records organization record, public-safe benchmark export and deployed readback are independent transitions; all 16 roadmap benchmarks remain NOT_VERIFIED absent their own authentic evidence.
 
 
 ## 2026-09-28 owner policy disposition
