@@ -5,7 +5,7 @@ Consumer: canonical `MIR-SV-CAPABILITY-BOUNDARY-EXPERIMENT-003`, StegVerse-Labs/
 
 ## Why
 
-For a review-facing SDK manifest, `completion.publisher.required` should default to true while non-review SDK runs remain allowed to omit Publisher. This existing Publisher adapter handles the document/report stage; it is *not* a new runtime, scheduling service, governance or Master Records custody plane.
+For a review-facing SDK manifest, `completion.publisher.required` should default to true while non-review SDK runs remain allowed to omit Publisher. This existing Publisher adapter handles the document/report stage; it is *not* a new runtime, scheduling service, governance or Master Records organization record plane.
 
 The historical MIR round-trip binding profile stays fixed to its existing MIR-CONNECTION-ROUNDTRIP-TECHNICAL-GUIDE-001 owner. A different experiment **must not reuse that owner ID** merely because its COSV happens to match. The generic `stegverse.publisher.artifact-transfer/v1` packet without that specific binding remains compatible with SDK's generic return assembler; it does not assert original SDK completion-capsule lineage without an authentic binding. Matching actual SDK manifests to returned packages requires the existing authenticated transport/custody readback. The generic return path cannot manufacture that runtime proof.
 
