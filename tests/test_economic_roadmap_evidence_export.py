@@ -12,19 +12,37 @@ COMMITTED = ROOT / "data/economy/economic-roadmap-evidence.v1.json"
 DIGEST = "c" * 64
 
 
-def readback(**overrides):
+CLOSURE_KEYS = {"state", "master_record_ref", "receipt_sha256", "reconstructed_receipt_sha256",
+                "reconstruction_status", "required_evidence_validation_status"}
+
+
+def closure(**overrides):
+    """Shape returned by LLM-adapter record_governed_publication_closure on success."""
+    value = {
+        "schema": "stegverse.governed-publication-master-records-closure/v1",
+        "state": "RECORDED",
+        "master_record_ref": "master-records://record/" + DIGEST,
+        "custody_receipt_id": "custody-1",
+        "receipt_sha256": DIGEST,
+        "reconstructed_receipt_sha256": DIGEST,
+        "reconstruction_status": "PASS",
+        "required_evidence_validation_status": "PASS",
+        "gates_publication": False,
+        "authority_effect": "NONE_DOWNSTREAM_RECORDING_ONLY",
+    }
+    value.update(overrides)
+    return value
+
+
+def readback(closure_overrides=None, **overrides):
     record = {
-        "schema": ex.READBACK_SCHEMA,
+        "schema": ex.INPUT_SCHEMA,
         "goal_task_id": ex.TASK_ID,
         "benchmark_id": "S1_CHATGPT",
         "predicate": "reconstruction_PASS",
         "disposition": "ALLOW",
         "synthetic": False,
-        "master_records_state": "RECORDED",
-        "reconstruction_status": "PASS",
-        "required_evidence_validation_status": "PASS",
-        "receipt_sha256": DIGEST,
-        "reconstructed_receipt_sha256": DIGEST,
+        "master_records_closure": closure(**(closure_overrides or {})),
         "evidence_ref": "master-records://organization/StegVerse-Labs/receipt/" + DIGEST,
         "organization_receipt_ref": "org-ledger://StegVerse-Labs/receipt/" + DIGEST,
         "private_note": "operator-only context",
@@ -57,17 +75,14 @@ class EconomicRoadmapEvidenceExportTests(unittest.TestCase):
 
     def test_each_closure_failure_refused_with_exact_predicate(self):
         cases = {
-            "readback_schema": {"schema": "other"},
+            "input_schema": {"schema": "stegverse.master-records.benchmark-reconstruction-readback/v1"},
             "goal_task_identity": {"goal_task_id": "OTHER-TASK"},
             "correct_benchmark_identity": {"benchmark_id": "S9_UNKNOWN"},
             "predicate_identity": {"predicate": "has space"},
             "public_safe_evidence_ref": {"evidence_ref": "mykv://device/private-state"},
             "governed_disposition_required": {"disposition": None},
             "evidence_not_declared_non_synthetic": {"synthetic": True},
-            "master_records_state_RECORDED": {"master_records_state": "PENDING"},
-            "reconstruction_PASS": {"reconstruction_status": "FAIL"},
-            "required_evidence_validation_PASS": {"required_evidence_validation_status": "UNKNOWN"},
-            "exact_receipt_digest_equality": {"reconstructed_receipt_sha256": "d" * 64},
+            "master_records_closure_required": {"master_records_closure": None},
             "organization_receipt_ref": {"organization_receipt_ref": None},
         }
         for expected, overrides in cases.items():
@@ -77,20 +92,49 @@ class EconomicRoadmapEvidenceExportTests(unittest.TestCase):
                 self.assertEqual(out["refused"][0]["failed_predicate"], expected)
                 self.assertEqual(out["refused"][0]["disposition"], "FAIL_CLOSED")
 
+    def test_each_master_records_closure_failure_refused_with_exact_predicate(self):
+        cases = {
+            "master_records_state_RECORDED": {"state": "NOT_RECORDED"},
+            "reconstruction_PASS": {"reconstruction_status": "FAIL"},
+            "required_evidence_validation_PASS": {"required_evidence_validation_status": "UNKNOWN"},
+            "exact_receipt_digest_equality": {"reconstructed_receipt_sha256": "d" * 64},
+            "master_record_ref": {"master_record_ref": ""},
+        }
+        for expected, overrides in cases.items():
+            with self.subTest(expected=expected):
+                out = ex.export([readback(overrides)])
+                self.assertEqual(out["benchmarks"], {})
+                self.assertEqual(out["refused"][0]["failed_predicate"], expected)
+
+    def test_not_recorded_closure_from_existing_path_is_refused(self):
+        not_recorded = {"schema": "stegverse.governed-publication-master-records-closure/v1",
+                        "state": "NOT_RECORDED", "disposition": "NOT_RECORDED",
+                        "failure_code": "master_records_recorder_not_configured", "receipt_sha256": DIGEST}
+        out = ex.export([readback(master_records_closure=not_recorded)])
+        self.assertEqual(out["benchmarks"], {})
+        self.assertEqual(out["refused"][0]["failed_predicate"], "master_records_state_RECORDED")
+
+    def test_flat_master_records_fields_without_closure_are_refused(self):
+        record = readback()
+        flat = record.pop("master_records_closure")
+        record.update({k: flat[k] for k in CLOSURE_KEYS})
+        out = ex.export([record])
+        self.assertEqual(out["refused"][0]["failed_predicate"], "master_records_closure_required")
+
     def test_missing_digests_are_not_equal(self):
-        out = ex.export([readback(receipt_sha256=None, reconstructed_receipt_sha256=None)])
+        out = ex.export([readback({"receipt_sha256": None, "reconstructed_receipt_sha256": None})])
         self.assertEqual(out["refused"][0]["failed_predicate"], "exact_receipt_digest_equality")
 
     def test_ci_merge_and_issue_signals_cannot_substitute(self):
-        record = readback(disposition="ALLOW", master_records_state=None)
+        record = readback({"state": None})
         record.update({"ci_checks": "SUCCESS", "pr_merged": True, "issue_closed": True})
         out = ex.export([record])
         self.assertEqual(out["benchmarks"], {})
         self.assertEqual(out["refused"][0]["failed_predicate"], "master_records_state_RECORDED")
 
     def test_non_allow_disposition_exported_as_failure(self):
-        out = ex.export([readback(disposition="DENY", failed_predicate="exact_external_intr_ingress_allow",
-                                  master_records_state=None)])
+        out = ex.export([readback({"state": None}, disposition="DENY",
+                                  failed_predicate="exact_external_intr_ingress_allow")])
         entry = out["benchmarks"]["S1_CHATGPT"]["reconstruction_PASS"]
         self.assertEqual(entry, {"disposition": "DENY", "failed_predicate": "exact_external_intr_ingress_allow",
                                  "evidence_ref": readback()["evidence_ref"]})
@@ -107,7 +151,7 @@ class EconomicRoadmapEvidenceExportTests(unittest.TestCase):
         with self.assertRaises(ex.EconomicRoadmapEvidenceError):
             ex.export({"records": []})
         out = ex.export(["not-a-record"])
-        self.assertEqual(out["refused"][0]["failed_predicate"], "malformed_readback_record")
+        self.assertEqual(out["refused"][0]["failed_predicate"], "malformed_closure_record")
 
     def test_input_not_mutated(self):
         record = readback()
