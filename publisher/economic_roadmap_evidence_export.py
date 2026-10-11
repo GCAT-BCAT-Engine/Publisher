@@ -1,13 +1,20 @@
 """Publisher-owned public-safe export of economic roadmap benchmark evidence.
 
-Converts Master Records reconstruction readback records into the
+Converts benchmark-bound governed closure records into the
 ``stegverse.economic-roadmap-evidence/v1`` projection that the Site read-only
 subgoal projector consumes (``StegVerse-Labs/Site:scripts/project_economic_roadmap_subgoals.py
 --evidence``).
 
+Each input record binds one benchmark predicate to the governed transition that
+proves it and carries, verbatim under ``master_records_closure``, the result of the
+existing closure path (``StegVerse-org/LLM-adapter:llm_adapter/wiki_publication_master_records.py``
+``record_governed_publication_closure``): ``state``, ``master_record_ref``, both receipt
+digests, ``reconstruction_status`` and ``required_evidence_validation_status``. The
+input schema is Publisher-owned; Master Records defines only the closure fields.
+
 This module does not query Master Records, execute Interlock/InTr, authenticate a
 receipt, publish, or promote any benchmark. It only validates caller-supplied
-readback records fail-closed and strips everything that is not public-safe. A record
+closure records fail-closed and strips everything that is not public-safe. A record
 that does not prove its own closure predicates is refused with an exact failed
 predicate instead of being exported. The Site can at most mark a fully evidenced
 benchmark ELIGIBLE_FOR_PUBLISHER_GOVERNED_REVIEW; completion stays governed.
@@ -20,7 +27,7 @@ from typing import Any, Iterable, Mapping
 
 TASK_ID = "ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001"
 EVIDENCE_SCHEMA = "stegverse.economic-roadmap-evidence/v1"
-READBACK_SCHEMA = "stegverse.master-records.benchmark-reconstruction-readback/v1"
+INPUT_SCHEMA = "stegverse.publisher.economic-benchmark-closure-input/v1"
 EVIDENCE_SOURCE = "PUBLISHER_GOVERNED_PROJECTION"
 # Benchmark identity pinned to StegVerse-Labs/Site:data/economy/public-release-benchmarks.v1.json.
 BENCHMARK_IDS = (
@@ -62,9 +69,9 @@ def _public_ref(value: Any) -> str | None:
 def _validate(record: Any) -> tuple[str, str, dict[str, Any]] | dict[str, Any]:
     """Return (benchmark_id, predicate, public_entry) or a refusal row."""
     if not isinstance(record, Mapping):
-        return _refusal(record, "malformed_readback_record")
-    if record.get("schema") != READBACK_SCHEMA:
-        return _refusal(record, "readback_schema")
+        return _refusal(record, "malformed_closure_record")
+    if record.get("schema") != INPUT_SCHEMA:
+        return _refusal(record, "input_schema")
     if record.get("goal_task_id") != TASK_ID:
         return _refusal(record, "goal_task_identity")
     benchmark_id = record.get("benchmark_id")
@@ -89,15 +96,20 @@ def _validate(record: Any) -> tuple[str, str, dict[str, Any]] | dict[str, Any]:
         return _refusal(record, "governed_disposition_required")
     if record.get("synthetic") is not False:
         return _refusal(record, "evidence_not_declared_non_synthetic")
-    if record.get("master_records_state") != "RECORDED":
+    closure = record.get("master_records_closure")
+    if not isinstance(closure, Mapping):
+        return _refusal(record, "master_records_closure_required")
+    if closure.get("state") != "RECORDED":
         return _refusal(record, "master_records_state_RECORDED")
-    if record.get("reconstruction_status") != "PASS":
+    if closure.get("reconstruction_status") != "PASS":
         return _refusal(record, "reconstruction_PASS")
-    if record.get("required_evidence_validation_status") != "PASS":
+    if closure.get("required_evidence_validation_status") != "PASS":
         return _refusal(record, "required_evidence_validation_PASS")
-    receipt = record.get("receipt_sha256")
-    if not isinstance(receipt, str) or not _DIGEST.match(receipt) or receipt != record.get("reconstructed_receipt_sha256"):
+    receipt = closure.get("receipt_sha256")
+    if not isinstance(receipt, str) or not _DIGEST.match(receipt) or receipt != closure.get("reconstructed_receipt_sha256"):
         return _refusal(record, "exact_receipt_digest_equality")
+    if not isinstance(closure.get("master_record_ref"), str) or not closure["master_record_ref"].strip():
+        return _refusal(record, "master_record_ref")
     if _public_ref(record.get("organization_receipt_ref")) is None:
         return _refusal(record, "organization_receipt_ref")
     return benchmark_id, predicate, {
@@ -117,7 +129,7 @@ def _validate(record: Any) -> tuple[str, str, dict[str, Any]] | dict[str, Any]:
 def export(records: Iterable[Any]) -> dict[str, Any]:
     """Build the public-safe evidence projection; never grants completion."""
     if isinstance(records, (str, bytes, Mapping)):
-        raise EconomicRoadmapEvidenceError("readback_records_must_be_a_list")
+        raise EconomicRoadmapEvidenceError("closure_records_must_be_a_list")
     accepted: dict[tuple[str, str], list[tuple[Any, dict[str, Any]]]] = {}
     refused: list[dict[str, Any]] = []
     for record in records:
@@ -152,9 +164,9 @@ def main(argv: list[str] | None = None) -> int:
     from pathlib import Path
 
     parser = argparse.ArgumentParser(description="Export public-safe economic roadmap evidence")
-    parser.add_argument("readback", nargs="?", type=Path, help="JSON list of Master Records readback records")
+    parser.add_argument("records", nargs="?", type=Path, help="JSON list of benchmark closure input records")
     args = parser.parse_args(argv)
-    records = json.loads(args.readback.read_text(encoding="utf-8")) if args.readback else []
+    records = json.loads(args.records.read_text(encoding="utf-8")) if args.records else []
     print(json.dumps(export(records), indent=2, sort_keys=True))
     return 0
 
