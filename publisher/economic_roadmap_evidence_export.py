@@ -36,6 +36,10 @@ BENCHMARK_IDS = (
     "S4_COST", "S4_SETTLEMENT", "S4_REWARDS", "S5_LEGAL", "S5_STRESS",
     "S6_FEDERATION", "S6_PURCHASING_POWER",
 )
+# Exact producer identity and boundary of StegVerse-org/LLM-adapter
+# record_governed_publication_closure on success (CLOSURE_SCHEMA there).
+CLOSURE_SCHEMA = "stegverse.external-framework-wiki-publication-governed-closure/v1"
+CLOSURE_AUTHORITY_EFFECT = "NONE_DOWNSTREAM_RECORDING_ONLY"
 NON_ALLOW = {"DENY", "FAIL_CLOSED"}
 _DIGEST = re.compile(r"^[0-9a-f]{64}$")
 _PREDICATE = re.compile(r"^[A-Za-z0-9_]{1,128}$")
@@ -99,8 +103,15 @@ def _validate(record: Any) -> tuple[str, str, dict[str, Any]] | dict[str, Any]:
     closure = record.get("master_records_closure")
     if not isinstance(closure, Mapping):
         return _refusal(record, "master_records_closure_required")
+    if closure.get("schema") != CLOSURE_SCHEMA:
+        return _refusal(record, "master_records_closure_schema")
     if closure.get("state") != "RECORDED":
         return _refusal(record, "master_records_state_RECORDED")
+    # Master Records records downstream; a closure claiming more than that is refused.
+    if (closure.get("authority_effect") != CLOSURE_AUTHORITY_EFFECT
+            or closure.get("gates_publication") is not False
+            or closure.get("master_records_grants_transition_authority") is not False):
+        return _refusal(record, "master_records_closure_authority_boundary")
     if closure.get("reconstruction_status") != "PASS":
         return _refusal(record, "reconstruction_PASS")
     if closure.get("required_evidence_validation_status") != "PASS":
