@@ -1,0 +1,22 @@
+name: Economic Roadmap Evidence Export
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - 'publisher/economic_roadmap_evidence_export.py'
+      - 'tests/test_economic_roadmap_evidence_export.py'
+      - 'data/economy/economic-roadmap-evidence.v1.json'
+      - '.github/workflows/validate-economic-roadmap-evidence-export.yml'
+permissions: {}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m unittest discover -s tests -p test_economic_roadmap_evidence_export.py -v
+      - name: Authority boundary
+        run: |
+          echo 'SOURCE_VALIDATION_ONLY=TRUE'
+          echo 'BENCHMARK_PROMOTION_AUTHORIZED=FALSE'
+          echo 'MASTER_RECORDS_QUERY=FALSE'
