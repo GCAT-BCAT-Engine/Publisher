@@ -19,7 +19,7 @@ CLOSURE_KEYS = {"state", "master_record_ref", "receipt_sha256", "reconstructed_r
 def closure(**overrides):
     """Shape returned by LLM-adapter record_governed_publication_closure on success."""
     value = {
-        "schema": "stegverse.governed-publication-master-records-closure/v1",
+        "schema": "stegverse.external-framework-wiki-publication-governed-closure/v1",
         "state": "RECORDED",
         "master_record_ref": "master-records://record/" + DIGEST,
         "custody_receipt_id": "custody-1",
@@ -28,6 +28,7 @@ def closure(**overrides):
         "reconstruction_status": "PASS",
         "required_evidence_validation_status": "PASS",
         "gates_publication": False,
+        "master_records_grants_transition_authority": False,
         "authority_effect": "NONE_DOWNSTREAM_RECORDING_ONLY",
     }
     value.update(overrides)
@@ -99,6 +100,8 @@ class EconomicRoadmapEvidenceExportTests(unittest.TestCase):
             "required_evidence_validation_PASS": {"required_evidence_validation_status": "UNKNOWN"},
             "exact_receipt_digest_equality": {"reconstructed_receipt_sha256": "d" * 64},
             "master_record_ref": {"master_record_ref": ""},
+            "master_records_closure_schema": {"schema": "stegverse.governed-publication-master-records-closure/v1"},
+            "master_records_closure_authority_boundary": {"master_records_grants_transition_authority": True},
         }
         for expected, overrides in cases.items():
             with self.subTest(expected=expected):
@@ -107,9 +110,11 @@ class EconomicRoadmapEvidenceExportTests(unittest.TestCase):
                 self.assertEqual(out["refused"][0]["failed_predicate"], expected)
 
     def test_not_recorded_closure_from_existing_path_is_refused(self):
-        not_recorded = {"schema": "stegverse.governed-publication-master-records-closure/v1",
+        not_recorded = {"schema": ex.CLOSURE_SCHEMA,
                         "state": "NOT_RECORDED", "disposition": "NOT_RECORDED",
-                        "failure_code": "master_records_recorder_not_configured", "receipt_sha256": DIGEST}
+                        "failure_code": "master_records_recorder_not_configured", "receipt_sha256": DIGEST,
+                        "gates_publication": False, "master_records_grants_transition_authority": False,
+                        "authority_effect": "NONE"}
         out = ex.export([readback(master_records_closure=not_recorded)])
         self.assertEqual(out["benchmarks"], {})
         self.assertEqual(out["refused"][0]["failed_predicate"], "master_records_state_RECORDED")
@@ -164,6 +169,14 @@ class EconomicRoadmapEvidenceExportTests(unittest.TestCase):
                                 cwd=ROOT, capture_output=True, text=True, check=True)
         self.assertEqual(json.loads(result.stdout), ex.export([]))
 
+
+    def test_closure_claiming_authority_beyond_recording_is_refused(self):
+        for overrides in ({"authority_effect": "ALLOW"}, {"gates_publication": True},
+                          {"master_records_grants_transition_authority": None}):
+            with self.subTest(overrides=overrides):
+                out = ex.export([readback(overrides)])
+                self.assertEqual(out["benchmarks"], {})
+                self.assertEqual(out["refused"][0]["failed_predicate"], "master_records_closure_authority_boundary")
 
 if __name__ == "__main__":
     unittest.main()
