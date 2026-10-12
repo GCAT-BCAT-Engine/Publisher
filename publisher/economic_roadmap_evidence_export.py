@@ -127,6 +127,8 @@ def _validate(record: Any) -> tuple[str, str, dict[str, Any]] | dict[str, Any]:
         return _refusal(record, "organization_receipt_ref")
     if record["organization_receipt_ref"] == evidence_ref:
         return _refusal(record, "independent_organization_receipt_ref")
+    if record["organization_receipt_ref"] == closure["master_record_ref"]:
+        return _refusal(record, "independent_organization_master_record_refs")
     return benchmark_id, predicate, {
         "evidence_class": "MASTER_RECORDS_VERIFIED",
         "evidence_ref": evidence_ref,
