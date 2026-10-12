@@ -119,7 +119,7 @@ def _validate(record: Any) -> tuple[str, str, dict[str, Any]] | dict[str, Any]:
     receipt = closure.get("receipt_sha256")
     if not isinstance(receipt, str) or not _DIGEST.match(receipt) or receipt != closure.get("reconstructed_receipt_sha256"):
         return _refusal(record, "exact_receipt_digest_equality")
-    if not isinstance(closure.get("master_record_ref"), str) or not closure["master_record_ref"].strip():
+    if _public_ref(closure.get("master_record_ref")) is None:
         return _refusal(record, "master_record_ref")
     if _public_ref(record.get("organization_receipt_ref")) is None:
         return _refusal(record, "organization_receipt_ref")
