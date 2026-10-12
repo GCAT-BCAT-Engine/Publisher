@@ -76,8 +76,8 @@ class EconomicRoadmapEvidenceExportTests(unittest.TestCase):
 
     def test_public_reference_never_exports_embedded_credentials_or_controls(self):
         for ref in ("https://user:password@example.org/receipt",
-                    "https://example.org/receipt\\x00private",
-                    "https://example.org/receipt\\x1fprivate"):
+                    "https://example.org/receipt" + chr(0) + "private",
+                    "https://example.org/receipt" + chr(31) + "private"):
             with self.subTest(ref=repr(ref)):
                 result = ex.export([readback(evidence_ref=ref)])
                 self.assertEqual(result["benchmarks"], {})
