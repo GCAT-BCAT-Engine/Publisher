@@ -74,6 +74,15 @@ class EconomicRoadmapEvidenceExportTests(unittest.TestCase):
         self.assertNotIn("private_note", entry)
         self.assertEqual(out["refused"], [])
 
+    def test_public_reference_never_exports_embedded_credentials_or_controls(self):
+        for ref in ("https://user:password@example.org/receipt",
+                    "https://example.org/receipt" + chr(0) + "private",
+                    "https://example.org/receipt" + chr(31) + "private"):
+            with self.subTest(ref=repr(ref)):
+                result = ex.export([readback(evidence_ref=ref)])
+                self.assertEqual(result["benchmarks"], {})
+                self.assertEqual(result["refused"][0]["failed_predicate"], "public_safe_evidence_ref")
+
     def test_each_closure_failure_refused_with_exact_predicate(self):
         cases = {
             "input_schema": {"schema": "stegverse.master-records.benchmark-reconstruction-readback/v1"},
