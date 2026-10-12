@@ -77,6 +77,11 @@ def _public_ref(value: Any) -> str | None:
         return None
     if parsed.username is not None or parsed.password is not None:
         return None
+    # Public references must not be executable URLs or malformed HTTP targets.
+    if parsed.scheme.lower() in {"javascript", "data", "file", "vbscript"}:
+        return None
+    if parsed.scheme.lower() in {"http", "https"} and not parsed.hostname:
+        return None
     return value
 
 
