@@ -143,6 +143,14 @@ class EconomicRoadmapEvidenceExportTests(unittest.TestCase):
         self.assertEqual(out["refused"][0]["failed_predicate"], "independent_organization_receipt_ref")
         self.assertEqual(ex.export([readback()])["refused"], [])
 
+    def test_master_record_ref_must_be_independent_of_benchmark_evidence(self):
+        row = readback()
+        row["master_records_closure"]["master_record_ref"] = row["evidence_ref"]
+        result = ex.export([row])
+        self.assertEqual(result["benchmarks"], {})
+        self.assertEqual(result["refused"][0]["failed_predicate"], "independent_master_record_ref")
+        self.assertEqual(ex.export([readback()])["refused"], [])
+
     def test_missing_digests_are_not_equal(self):
         out = ex.export([readback({"receipt_sha256": None, "reconstructed_receipt_sha256": None})])
         self.assertEqual(out["refused"][0]["failed_predicate"], "exact_receipt_digest_equality")
