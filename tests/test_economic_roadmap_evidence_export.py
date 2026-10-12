@@ -53,6 +53,15 @@ def readback(closure_overrides=None, **overrides):
 
 
 class EconomicRoadmapEvidenceExportTests(unittest.TestCase):
+    def test_executable_and_hostless_public_references_refused(self):
+        for ref in ("javascript://alert(1)", "data://text/plain,payload",
+                    "file:///etc/passwd", "vbscript://execute",
+                    "https:///missing-host", "http:///missing-host"):
+            with self.subTest(ref=ref):
+                out = ex.export([readback(evidence_ref=ref)])
+                self.assertEqual(out["benchmarks"], {})
+                self.assertEqual(out["refused"][0]["failed_predicate"], "public_safe_evidence_ref")
+
     def test_empty_export_grants_nothing(self):
         out = ex.export([])
         self.assertEqual(out["schema"], "stegverse.economic-roadmap-evidence/v1")
