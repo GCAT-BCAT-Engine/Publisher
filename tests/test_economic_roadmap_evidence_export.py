@@ -126,6 +126,15 @@ class EconomicRoadmapEvidenceExportTests(unittest.TestCase):
         out = ex.export([record])
         self.assertEqual(out["refused"][0]["failed_predicate"], "master_records_closure_required")
 
+    def test_master_record_reference_must_be_public_safe(self):
+        for ref in ("mykv://private/record", "skap://vault/receipt", "tvc://lease/secret",
+                    "secret://token", "wallet://key", "not-a-uri", "https://invalid ref", ""):
+            with self.subTest(ref=ref):
+                out = ex.export([readback({"master_record_ref": ref})])
+                self.assertEqual(out["benchmarks"], {})
+                self.assertEqual(out["refused"][0]["failed_predicate"], "master_record_ref")
+        self.assertEqual(ex.export([readback()])["refused"], [])
+
     def test_missing_digests_are_not_equal(self):
         out = ex.export([readback({"receipt_sha256": None, "reconstructed_receipt_sha256": None})])
         self.assertEqual(out["refused"][0]["failed_predicate"], "exact_receipt_digest_equality")
