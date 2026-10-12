@@ -67,6 +67,16 @@ def _public_ref(value: Any) -> str | None:
         return None
     if value.lower().startswith(_PRIVATE_REF_SCHEMES):
         return None
+    # A public reference must not carry embedded URL credentials or control bytes.
+    from urllib.parse import urlsplit
+    if any(ord(ch) < 32 or ord(ch) == 127 for ch in value):
+        return None
+    try:
+        parsed = urlsplit(value)
+    except ValueError:
+        return None
+    if parsed.username is not None or parsed.password is not None:
+        return None
     return value
 
 
