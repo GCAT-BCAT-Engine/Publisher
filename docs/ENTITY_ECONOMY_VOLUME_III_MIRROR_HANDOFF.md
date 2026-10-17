@@ -144,3 +144,14 @@ A dated comparative appendix is staged at `docs/ENTITY_ECONOMY_SECOND_BRAIN_CONV
 The treatment distinguishes external convergence on persistent context, portability, provenance, user control, selective sharing and cross-provider use from StegVerse extensions involving sovereign MyKV/OrgKV continuity, plural/ephemeral cognitive capacity, entity-conditioned effective-network topology, StegLearning precision audiences, multidimensional utility discovery and compositional user/org/AI/resource relationships. Where the repository search did not establish an exact prior first-documentation date for learning-graph language, the provenance matrix says so rather than backdating the claim.
 
 Original Volume I/II PDFs are untouched. This source candidate does not publish a new edition, alter the frozen approved Private-State Economy manifest, promote any economic benchmark, establish runtime execution, or prove economic/educational/health outcomes. Future incorporation requires a separately versioned edition under the existing Publisher-controlled publication path.
+
+## 2026-10-17 Submission is by manifest, not on interface availability
+
+This section supersedes the wording above that waits for an authenticated TV/TVC + Universal InTr ingress to be "available" or "reachable". Under the Task Registry canonical invariants (`StegVerse-Labs/.github:data/task-registry-global-invariants.json`, `semantics.actions_by_manifest`), destination liveness and receiver availability are prohibited transition predicates, and nothing waits on an exposed interface.
+
+The exact approved manifest `ba615d6e487f11853173154317782fad1ed83dec32ab0c18650703e063fcc9e3` is a governance manifest. It is submitted unchanged by committed request: StegVerse-org/.github `.stegverse/transition-requests/<id>.json` carrying the exact manifest with `expected_canonical_manifest_sha256` (StegVerse-org/.github#168).
+- The organization's InTr ingress receives it on the existing governance route and the deciding organization decides it.
+- The decision is read back from both organization ledgers (StegVerse-org/.github#158).
+- The publication receipt closes on that read-back decision (StegVerse-org/LLM-adapter#406).
+
+`data/economy/economic-publication-preflight.v1.json` `next_action` and the third predicate's `correction` now say this. The attempt itself awaits the owner's authorization on StegVerse-Labs/.github#3107 (review query Q1). It has not been made, so the runtime disposition stays unrecorded and all 16 roadmap benchmarks remain NOT_VERIFIED.

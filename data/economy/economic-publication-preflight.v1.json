@@ -76,9 +76,10 @@
       "evidence_refs": [
         "No admitted Publisher paper-target execution interface exposed in this session; no same-transition Interlock/InTr or Master Records receipt supplied",
         "SDK PR #387 merged a412cb40ccba25d5dca4ca63485e043a227ab46d; exact-head workflow 36469359331 SUCCESS; artifact 10990707853 digest sha256:73c1a081d7af9647fe33c7c755d43879a03e7d7ad6fcd5cb9b623e7cedea70ce.",
-        "Independent artifact inspection: canonical manifest ba615d6e487f11853173154317782fad1ed83dec32ab0c18650703e063fcc9e3; universal execution request 11db25adc816acb91d806bfbd6a0060859eba4d8898dbd488bf4526eb97f65be; runtime_invoked=false; authorities TV/TVC, INTERLOCK_INTR, MASTER_RECORDS."
+        "Independent artifact inspection: canonical manifest ba615d6e487f11853173154317782fad1ed83dec32ab0c18650703e063fcc9e3; universal execution request 11db25adc816acb91d806bfbd6a0060859eba4d8898dbd488bf4526eb97f65be; runtime_invoked=false; authorities TV/TVC, INTERLOCK_INTR, MASTER_RECORDS.",
+        "2026-10-14: manifest-directed submission path merged (StegVerse-org/.github#158 4fdb794a, #168 f8037997; StegVerse-org/LLM-adapter#406 e570092f; StegVerse-Labs/.github#3188 b4435d91)"
       ],
-      "correction": "Submit canonical manifest ba615d6e... through the existing universal manifest runtime only when an authenticated TV/TVC relay authorization and Universal InTr ingress are exposed. Preserve the returned actual Interlock/InTr disposition and closure, and the same-transition Master Records organization record. This source artifact must never be interpreted as runtime ALLOW."
+      "correction": "Submit canonical manifest ba615d6e... unchanged by committed request: StegVerse-org/.github .stegverse/transition-requests/<id>.json carrying the exact manifest with expected_canonical_manifest_sha256 (StegVerse-org/.github#168). The organization's InTr ingress receives it on the existing governance route, the deciding organization decides it, and the decision is read back from both organization ledgers (StegVerse-org/.github#158); the publication receipt closes on that read-back decision (StegVerse-org/LLM-adapter#406). Nothing waits on an exposed interface or receiver. Preserve the actual Interlock/InTr disposition and closure; Master Records records the released organization receipt downstream and is non-gating. This source artifact must never be interpreted as runtime ALLOW."
     }
   ],
   "requested_target": {
@@ -114,5 +115,5 @@
     "all_status": "NOT_VERIFIED",
     "no_promotion_authorized": true
   },
-  "next_action": "Invoke the already-prepared exact manifest (canonical ba615d6e487f11853173154317782fad1ed83dec32ab0c18650703e063fcc9e3; request 11db25adc816acb91d806bfbd6a0060859eba4d8898dbd488bf4526eb97f65be) through the existing authenticated TV/TVC + Universal InTr interface when reachable. Preserve actual ALLOW/DENY/FAIL_CLOSED and same-transition custody; do not rebuild or substitute a local/runtime simulation."
+  "next_action": "Commit the already-prepared exact manifest (canonical ba615d6e487f11853173154317782fad1ed83dec32ab0c18650703e063fcc9e3; request 11db25adc816acb91d806bfbd6a0060859eba4d8898dbd488bf4526eb97f65be) unchanged as a transition request in StegVerse-org/.github, with expected_canonical_manifest_sha256, once the owner authorizes the attempt (StegVerse-Labs/.github#3107 Q1). Preserve actual ALLOW/DENY/FAIL_CLOSED and the organization-ledger receipts; do not rebuild or substitute a local/runtime simulation."
 }
