@@ -28,6 +28,10 @@ from typing import Any, Iterable, Mapping
 TASK_ID = "ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001"
 EVIDENCE_SCHEMA = "stegverse.economic-roadmap-evidence/v1"
 INPUT_SCHEMA = "stegverse.publisher.economic-benchmark-closure-input/v1"
+# A committed request is the on-request entry point: the export runs because a request
+# file exists on main, never because a receiver or interface is reachable.
+REQUEST_SCHEMA = "stegverse.publisher.economic-evidence-export-request/v1"
+REQUEST_DIR = ".stegverse/economic-evidence-export-requests"
 EVIDENCE_SOURCE = "PUBLISHER_GOVERNED_PROJECTION"
 # Benchmark identity pinned to StegVerse-Labs/Site:data/economy/public-release-benchmarks.v1.json.
 BENCHMARK_IDS = (
@@ -191,15 +195,67 @@ def export(records: Iterable[Any]) -> dict[str, Any]:
     }
 
 
+def _request_refusal(name: str, failed_predicate: str) -> dict[str, Any]:
+    return {"benchmark_id": None, "predicate": None, "request": name,
+            "disposition": "FAIL_CLOSED", "failed_predicate": failed_predicate}
+
+
+def materialize(request_dir: Any) -> dict[str, Any]:
+    """Export the closure records named by every committed request in ``request_dir``.
+
+    A request file that is not a well-formed request for this goal is refused with an
+    exact failed predicate; it never blocks the other requests. No request yields the
+    empty projection.
+    """
+    from pathlib import Path
+
+    records: list[Any] = []
+    refused: list[dict[str, Any]] = []
+    directory = Path(request_dir)
+    for path in sorted(directory.glob("*.json")) if directory.is_dir() else []:
+        try:
+            request = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            refused.append(_request_refusal(path.name, "request_json"))
+            continue
+        if not isinstance(request, Mapping) or request.get("schema") != REQUEST_SCHEMA:
+            refused.append(_request_refusal(path.name, "request_schema"))
+            continue
+        if request.get("goal_task_id") != TASK_ID:
+            refused.append(_request_refusal(path.name, "request_goal_task_identity"))
+            continue
+        if not isinstance(request.get("records"), list):
+            refused.append(_request_refusal(path.name, "request_records_list"))
+            continue
+        records.extend(request["records"])
+    projection = export(records)
+    projection["refused"] = refused + projection["refused"]
+    return projection
+
+
+def render(projection: Mapping[str, Any]) -> str:
+    return json.dumps(projection, indent=2, sort_keys=True) + "\n"
+
+
 def main(argv: list[str] | None = None) -> int:
     import argparse
     from pathlib import Path
 
     parser = argparse.ArgumentParser(description="Export public-safe economic roadmap evidence")
     parser.add_argument("records", nargs="?", type=Path, help="JSON list of benchmark closure input records")
+    parser.add_argument("--requests", type=Path, help=f"directory of committed export requests (e.g. {REQUEST_DIR})")
+    parser.add_argument("--write", type=Path, help="write the projection to this path instead of stdout")
     args = parser.parse_args(argv)
-    records = json.loads(args.records.read_text(encoding="utf-8")) if args.records else []
-    print(json.dumps(export(records), indent=2, sort_keys=True))
+    if args.requests is not None and args.records is not None:
+        parser.error("pass either records or --requests, not both")
+    if args.requests is not None:
+        projection = materialize(args.requests)
+    else:
+        projection = export(json.loads(args.records.read_text(encoding="utf-8")) if args.records else [])
+    if args.write is not None:
+        args.write.write_text(render(projection), encoding="utf-8")
+    else:
+        print(json.dumps(projection, indent=2, sort_keys=True))
     return 0
 
 

@@ -8,6 +8,7 @@ on:
       - 'tests/test_economic_roadmap_evidence_export.py'
       - 'data/economy/economic-roadmap-evidence.v1.json'
       - '.github/workflows/validate-economic-roadmap-evidence-export.yml'
+      - '.github/workflows/economic-roadmap-evidence-export-request.yml'
 permissions: {}
 jobs:
   test:
