@@ -1,7 +1,9 @@
 import copy
 import json
+import shutil
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -72,8 +74,8 @@ class EconomicRoadmapEvidenceExportTests(unittest.TestCase):
         self.assertIs(out["benchmark_completion_granted"], False)
         self.assertIs(out["readback_authenticated_by_this_module"], False)
 
-    def test_committed_projection_matches_empty_export(self):
-        self.assertEqual(json.loads(COMMITTED.read_text(encoding="utf-8")), ex.export([]))
+    def test_committed_projection_matches_committed_requests(self):
+        self.assertEqual(COMMITTED.read_text(encoding="utf-8"), ex.render(ex.materialize(ROOT / ex.REQUEST_DIR)))
 
     def test_valid_readback_exported_public_safe(self):
         out = ex.export([readback()])
@@ -226,6 +228,61 @@ class EconomicRoadmapEvidenceExportTests(unittest.TestCase):
                 out = ex.export([readback(overrides)])
                 self.assertEqual(out["benchmarks"], {})
                 self.assertEqual(out["refused"][0]["failed_predicate"], "master_records_closure_authority_boundary")
+
+    def _requests(self, files):
+        directory = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, directory)
+        for name, content in files.items():
+            (directory / name).write_text(content if isinstance(content, str) else json.dumps(content), encoding="utf-8")
+        return directory
+
+    def request(self, records, **overrides):
+        value = {"schema": ex.REQUEST_SCHEMA, "goal_task_id": ex.TASK_ID, "records": records}
+        value.update(overrides)
+        return value
+
+    def test_no_request_directory_is_the_empty_projection(self):
+        self.assertEqual(ex.materialize(Path(tempfile.mkdtemp()) / "absent"), ex.export([]))
+
+    def test_request_records_are_exported_through_the_same_validation(self):
+        out = ex.materialize(self._requests({"a.json": self.request([readback()])}))
+        self.assertIn("reconstruction_PASS", out["benchmarks"]["S1_CHATGPT"])
+        self.assertNotIn("private_note", json.dumps(out))
+        self.assertIs(out["benchmark_completion_granted"], False)
+
+    def test_malformed_requests_are_refused_without_blocking_others(self):
+        out = ex.materialize(self._requests({
+            "1.json": "{not json",
+            "2.json": self.request([readback()], schema="other/v1"),
+            "3.json": self.request([readback()], goal_task_id="OTHER-001"),
+            "4.json": self.request({"not": "a list"}),
+            "5.json": [readback()],
+            "6.json": self.request([readback()]),
+        }))
+        self.assertEqual([(r["request"], r["failed_predicate"]) for r in out["refused"]], [
+            ("1.json", "request_json"), ("2.json", "request_schema"),
+            ("3.json", "request_goal_task_identity"), ("4.json", "request_records_list"),
+            ("5.json", "request_schema")])
+        self.assertIn("S1_CHATGPT", out["benchmarks"])
+
+    def test_requested_record_that_fails_closure_is_refused_not_exported(self):
+        out = ex.materialize(self._requests({"a.json": self.request([readback({"state": "PENDING"})])}))
+        self.assertEqual(out["benchmarks"], {})
+        self.assertEqual(out["refused"][0]["failed_predicate"], "master_records_state_RECORDED")
+
+    def test_duplicate_evidence_across_requests_is_refused(self):
+        out = ex.materialize(self._requests({"a.json": self.request([readback()]), "b.json": self.request([readback()])}))
+        self.assertEqual(out["benchmarks"], {})
+        self.assertEqual({r["failed_predicate"] for r in out["refused"]}, {"duplicate_predicate_evidence"})
+
+    def test_cli_writes_rendered_projection(self):
+        directory = self._requests({"a.json": self.request([readback()])})
+        target = Path(tempfile.mkdtemp()) / "out.json"
+        self.addCleanup(shutil.rmtree, target.parent)
+        subprocess.run([sys.executable, "-m", "publisher.economic_roadmap_evidence_export",
+                        "--requests", str(directory), "--write", str(target)], cwd=ROOT, check=True)
+        self.assertEqual(target.read_text(encoding="utf-8"), ex.render(ex.materialize(directory)))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,43 @@
+name: Economic Roadmap Evidence Export Request
+
+# On-request transition: a committed request under the request directory on main is the
+# manifest. The run validates every requested closure record fail-closed and commits the
+# public-safe projection; nothing waits on a receiver, interface or external machine.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.stegverse/economic-evidence-export-requests/**'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: economic-roadmap-evidence-export-request
+  cancel-in-progress: false
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate export source
+        run: python3 -m unittest discover -s tests -p test_economic_roadmap_evidence_export.py -v
+      - name: Materialize public-safe projection from committed requests
+        run: >-
+          python3 -m publisher.economic_roadmap_evidence_export
+          --requests .stegverse/economic-evidence-export-requests
+          --write data/economy/economic-roadmap-evidence.v1.json
+      - name: Commit changed projection
+        run: |
+          git config user.name "stegverse-publisher-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/economy/economic-roadmap-evidence.v1.json
+          git diff --cached --quiet && { echo 'PROJECTION_UNCHANGED'; exit 0; }
+          git commit -m "Record economic roadmap evidence projection from committed requests"
+          git push origin "HEAD:main"
+      - name: Authority boundary
+        run: |
+          echo 'BENCHMARK_PROMOTION_AUTHORIZED=FALSE'
+          echo 'MASTER_RECORDS_QUERY=FALSE'
+          echo 'PUBLICATION_EXECUTED=FALSE'
