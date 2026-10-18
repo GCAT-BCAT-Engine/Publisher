@@ -15,14 +15,17 @@ file (schema ``stegverse.publisher.treasury-stress-scenarios/v1``):
   revenue is received. Arithmetic is exact (``fractions.Fraction``); output is rendered
   deterministically.
 
-A scenario PASSes only when all three predicates hold in every period:
+A scenario is ALLOW only when all three predicates hold in every period:
 ``solvency`` (treasury never negative), ``coverage`` (treasury / outstanding redeemable
 claims never below the declared floor) and ``service_continuity`` (runway in periods of
 operating cost never below the declared floor). Each failure names its predicate and
-the first failing period.
+the first failing period. A run with any failing scenario is DENY and carries the six
+fields, naming the first failing predicate, its scenario and period; ALLOW carries none.
+Values are rendered exactly: a terminating decimal, otherwise numerator/denominator.
 
 The result is research evidence (``evidence_class: SOURCE_IMPLEMENTED`` here,
-``CI_VALIDATED`` once this module's workflow passes). It never marks S5_STRESS
+``CI_VALIDATED`` once this module's workflow passes; ``FIXTURE_NOT_EVIDENCE`` for a
+fixture file). It never marks S5_STRESS
 complete: realism requires owner-accepted input sources, and completion stays a
 Publisher-governed closure through Master Records. Inputs declared synthetic are refused
 unless the scenario file declares itself a fixture. Stdlib only; no network,
@@ -96,7 +99,20 @@ def _input(block: Any, name: str, where: str, allow_synthetic: bool) -> Fraction
 
 
 def _number(value: Fraction) -> str:
-    return format(float(value), ".6f") if value.denominator != 1 else str(value.numerator)
+    """Exact text: a terminating decimal when one exists, otherwise numerator/denominator."""
+    if value.denominator == 1:
+        return str(value.numerator)
+    rest = value.denominator
+    for prime in (2, 5):
+        while rest % prime == 0:
+            rest //= prime
+    if rest != 1:
+        return f"{value.numerator}/{value.denominator}"
+    places = 0
+    while (value * 10 ** places).denominator != 1:
+        places += 1
+    digits = str(abs(value.numerator) * 10 ** places // value.denominator).rjust(places + 1, "0")
+    return ("-" if value < 0 else "") + digits[:-places] + "." + digits[-places:]
 
 
 def run_scenario(treasury: dict[str, Fraction], scenario: dict[str, Any], periods: int,
@@ -131,7 +147,7 @@ def run_scenario(treasury: dict[str, Fraction], scenario: dict[str, Any], period
         for predicate, ok in checks:
             if not ok and predicate not in {f["failed_predicate"] for f in failures}:
                 failures.append({"failed_predicate": predicate, "first_failing_period": period})
-    return {"scenario": name, "disposition": "FAIL" if failures else "PASS", "failures": failures,
+    return {"scenario": name, "disposition": "DENY" if failures else "ALLOW", "failures": failures,
             "trajectory": trajectory}
 
 
@@ -153,13 +169,27 @@ def evaluate(document: Any) -> dict[str, Any]:
     ids = [r["scenario"] for r in results]
     if len(ids) != len(set(ids)):
         raise Refused("STRESS_SCENARIO_IDENTITY", "scenario ids are unique", "rename the duplicate scenario")
-    return {
-        "schema": RESULT_SCHEMA, "benchmark_id": BENCHMARK_ID, "goal_task_id": GOAL,
-        "disposition": "PASS" if all(r["disposition"] == "PASS" for r in results) else "FAIL",
+    result = {
+        "schema": RESULT_SCHEMA, "benchmark_id": BENCHMARK_ID, "goal_task_id": GOAL, "disposition": "ALLOW",
         "fixture": fixture, "periods": periods, "scenarios": results,
-        "evidence_class": "SOURCE_IMPLEMENTED", "benchmark_completion_granted": False,
+        "evidence_class": "FIXTURE_NOT_EVIDENCE" if fixture else "SOURCE_IMPLEMENTED", "benchmark_completion_granted": False,
         "realism_owner_accepted": False, "authority_effect": "NONE",
     }
+    failing = [(r["scenario"], f) for r in results for f in r["failures"]]
+    if failing:
+        scenario, first = failing[0]
+        result.update({
+            "disposition": "DENY", "failure_code": f"S5_STRESS_{first['failed_predicate'].upper()}_NOT_MET",
+            "failed_predicate": first["failed_predicate"],
+            "required_evidence_or_repair": (f"scenario {scenario} fails {first['failed_predicate']} from period "
+                                            f"{first['first_failing_period']}; supply treasury or scenario inputs under which "
+                                            "every predicate holds in every period (the test never relaxes a predicate)"),
+            "retry_entrypoint": RETRY, "owning_existing_goal": GOAL,
+            "next_attempt": "after the owner supplies accepted inputs under which every scenario holds",
+            "evidence": {"scenario": scenario, "first_failing_period": first["first_failing_period"],
+                         "failing": [{"scenario": s, **f} for s, f in failing]},
+        })
+    return result
 
 
 def render(result: dict[str, Any]) -> str:
@@ -176,7 +206,7 @@ def main(argv: list[str] | None = None) -> int:
     except Refused as refusal:
         print(json.dumps(refusal.result, indent=2, sort_keys=True))
         return 1
-    except (OSError, ValueError) as exc:
+    except (OSError, ValueError, TypeError) as exc:
         print(json.dumps(Refused("STRESS_SCHEMA_MISMATCH", "scenario file is readable JSON", "supply readable JSON",
                                  detail=f"{type(exc).__name__}: {exc}").result, indent=2, sort_keys=True))
         return 1
@@ -185,7 +215,7 @@ def main(argv: list[str] | None = None) -> int:
         args.output.write_text(text, encoding="utf-8")
     else:
         sys.stdout.write(text)
-    return 0 if result["disposition"] == "PASS" else 2
+    return 0 if result["disposition"] == "ALLOW" else 2
 
 
 if __name__ == "__main__":

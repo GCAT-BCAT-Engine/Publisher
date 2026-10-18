@@ -13,7 +13,9 @@ Four predicates are evaluated here, over three required inputs: ``disclosed_resu
 
 * ``RESULT_FIELDS_WITHIN_DECLARED_PURPOSE``: every disclosed field is allowed by the
   policy, and the result, policy and authorization name the same purpose;
-* ``NO_RAW_STATE_FIELDS``: no disclosed field is a declared raw-state field;
+* ``NO_RAW_STATE_FIELDS``: no disclosed field name is a declared raw-state field. The check
+  is by field name only: raw state nested inside a disclosed field's value is not inspected,
+  so the policy must not allow a field whose value can carry raw state;
 * ``AGGREGATION_THRESHOLD``: every aggregate cell covers at least
   ``min_subjects_per_cell`` subjects (exact integers);
 * ``RESULT_DIGEST_BOUND_TO_AUTHORIZATION``: the canonical digest of the disclosed result
@@ -61,9 +63,9 @@ OWNER_GATED = (
 )
 
 
-def _invalid(predicate: str, repair: str) -> ref.Refused:
+def _invalid(predicate: str, repair: str, **evidence: Any) -> ref.Refused:
     return ref.Refused(ref.six(BENCHMARK_ID, RESULT_SCHEMA, RETRY, "FAIL_CLOSED", "INPUT_VALUE_INVALID", predicate, repair,
-                               "after the named input is corrected"))
+                               "after the named input is corrected", **evidence))
 
 
 def check(result: Any, policy: Any, authorization: Any) -> dict[str, dict[str, Any]]:
@@ -75,8 +77,13 @@ def check(result: Any, policy: Any, authorization: Any) -> dict[str, dict[str, A
         raise _invalid(f"authorization_record schema == {AUTH_SCHEMA}", "supply the authorization record")
     allowed, raw = policy.get("allowed_fields"), policy.get("raw_state_fields")
     k = policy.get("min_subjects_per_cell")
-    if (not isinstance(allowed, list) or not isinstance(raw, list) or isinstance(k, bool) or not isinstance(k, int) or k < 1):
-        raise _invalid("allowed_fields and raw_state_fields are lists and min_subjects_per_cell >= 1", "fix the policy")
+    if (not isinstance(allowed, list) or not isinstance(raw, list) or isinstance(k, bool) or not isinstance(k, int) or k < 1
+            or not all(isinstance(x, str) for x in allowed + raw)):
+        raise _invalid("allowed_fields and raw_state_fields are lists of strings and min_subjects_per_cell >= 1",
+                       "fix the policy")
+    for name, doc in (("disclosed_result", result), ("disclosure_policy", policy), ("authorization_record", authorization)):
+        if not isinstance(doc.get("purpose"), str) or not doc["purpose"]:
+            raise _invalid(f"{name}.purpose is a non-empty string", f"declare {name}.purpose as a string", input=name)
     fields: set[str] = set()
     small: list[int] = []
     for index, cell in enumerate(result["cells"]):
@@ -87,12 +94,12 @@ def check(result: Any, policy: Any, authorization: Any) -> dict[str, dict[str, A
         fields.update(values)
         if count < k:
             small.append(index)
-    purposes = {result.get("purpose"), policy.get("purpose"), authorization.get("purpose")}
+    purposes = {result["purpose"], policy["purpose"], authorization["purpose"]}
     extra = sorted(fields - set(allowed))
     leaked = sorted(fields & set(raw))
     digest = ref.canonical_sha256(result)
     return {
-        "RESULT_FIELDS_WITHIN_DECLARED_PURPOSE": {"holds": not extra and len(purposes) == 1 and None not in purposes,
+        "RESULT_FIELDS_WITHIN_DECLARED_PURPOSE": {"holds": not extra and len(purposes) == 1,
                                                   "fields_outside_purpose": extra, "purpose_consistent": len(purposes) == 1},
         "NO_RAW_STATE_FIELDS": {"holds": not leaked, "raw_state_fields_disclosed": leaked},
         "AGGREGATION_THRESHOLD": {"holds": bool(result["cells"]) and not small, "min_subjects_per_cell": k,
@@ -140,7 +147,7 @@ def main(argv: list[str] | None = None) -> int:
         result = evaluate(json.loads(args.manifest.read_text(encoding="utf-8")), ref.read_cli_inputs(args.input))
     except ref.Refused as refusal:
         result = refusal.result
-    except (OSError, ValueError) as exc:
+    except (OSError, ValueError, TypeError) as exc:
         result = ref.six(BENCHMARK_ID, RESULT_SCHEMA, RETRY, "FAIL_CLOSED", "INPUT_MANIFEST_SCHEMA",
                          "manifest and inputs are readable", "supply readable files", "after the files are readable",
                          detail=f"{type(exc).__name__}: {exc}")

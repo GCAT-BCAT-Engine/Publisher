@@ -56,6 +56,22 @@ class S3ProvenValueTests(unittest.TestCase):
         self.assertEqual((out["disposition"], out["evidence_class"]), ("ALLOW", "FIXTURE_NOT_EVIDENCE"))
         self.assertIs(out["authority"]["benchmark_completion_granted"], False)
 
+    def test_non_string_identity_values_fail_closed_not_crash(self):
+        # Lane B review defect 1: a list or object as order_id/receipt raised TypeError (unhashable), no six fields.
+        for key in ("order_id", "receipt_ref", "receipt_sha256"):
+            for bad in (["x"], {"a": 1}, 7):
+                with self.subTest(key=key, value=bad):
+                    rows = outcomes()["orders"]
+                    rows[0] = order(1, "HUMAN_SERVICE", "12.00", **{key: bad})
+                    with self.assertRaises(ref.Refused) as raised:
+                        s3.evaluate(*bundle(outcomes(rows)))
+                    result = raised.exception.result
+                    self.assertEqual((result["disposition"], result["failure_code"]), ("FAIL_CLOSED", "INPUT_VALUE_INVALID"))
+        rows = outcomes()["orders"]
+        rows[0] = order(1, ["HUMAN_SERVICE"], "12.00")
+        with self.assertRaises(ref.Refused):
+            s3.evaluate(*bundle(outcomes(rows)))
+
     def test_each_predicate_denies_by_name(self):
         rows = outcomes()["orders"]
         cases = {

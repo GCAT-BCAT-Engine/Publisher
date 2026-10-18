@@ -57,6 +57,17 @@ class S2ConsentTests(unittest.TestCase):
         self.assertIs(out["authority"]["benchmark_completion_granted"], False)
         self.assertEqual(s2.evaluate(*bundle(fixture=False))["evidence_class"], "SOURCE_IMPLEMENTED")
 
+    def test_wrong_document_schema_fails_closed_not_deny(self):
+        # Lane B review nit 4: a wrong schema is a malformed input (FAIL_CLOSED), as in S3 and S2_PRIVACY.
+        for args, name in ((bundle(c=contract(schema="other")), "consent_contract"),
+                           (bundle(r=record(schema="other")), "consent_record")):
+            with self.subTest(input=name):
+                with self.assertRaises(ref.Refused) as raised:
+                    s2.evaluate(*args)
+                result = raised.exception.result
+                self.assertEqual((result["disposition"], result["failure_code"], result["evidence"]["input"]),
+                                 ("FAIL_CLOSED", "INPUT_VALUE_INVALID", name))
+
     def test_each_predicate_denies_by_name(self):
         c = contract()
         cases = {

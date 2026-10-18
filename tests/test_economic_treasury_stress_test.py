@@ -50,8 +50,9 @@ class TreasuryStressTests(unittest.TestCase):
         row = result["scenarios"][0]["trajectory"][0]
         # 1000 - 1000*0.5*0.1 = 950; redeem 10 of 100; 950 + 20 - 10 - 5 - 10 = 945
         self.assertEqual((row["treasury"], row["redeemable_claims"]), ("945", "90"))
-        self.assertEqual((row["coverage"], row["runway_periods"]), ("10.500000", "94.500000"))
-        self.assertEqual(result["disposition"], "PASS")
+        self.assertEqual((row["coverage"], row["runway_periods"]), ("10.5", "94.5"))
+        self.assertEqual(result["disposition"], "ALLOW")
+        self.assertNotIn("failure_code", result)
 
     def test_each_predicate_fails_with_first_failing_period(self):
         cases = {
@@ -66,15 +67,26 @@ class TreasuryStressTests(unittest.TestCase):
                 if predicate == "coverage":
                     doc["treasury"]["coverage_floor"] = i(20)
                 out = st.evaluate(doc)
-                self.assertEqual(out["disposition"], "FAIL")
+                self.assertEqual(out["disposition"], "DENY")
+                # WU-B review defect 2: a failing run is a standard non-ALLOW record with the six fields.
+                self.assertEqual((out["failed_predicate"], out["failure_code"], out["evidence"]["first_failing_period"]),
+                                 (predicate, f"S5_STRESS_{predicate.upper()}_NOT_MET", 1))
+                for field in ("required_evidence_or_repair", "retry_entrypoint", "owning_existing_goal", "next_attempt"):
+                    self.assertTrue(out[field], field)
                 failures = {f["failed_predicate"]: f["first_failing_period"] for f in out["scenarios"][0]["failures"]}
                 self.assertIn(predicate, failures)
                 self.assertEqual(failures[predicate], 1)
 
+    def test_values_render_exactly(self):
+        # Lane B review nit 5: no float rounding.
+        F = st.Fraction
+        self.assertEqual([st._number(F(1, 3)), st._number(F(21, 2)), st._number(F(-1, 8)), st._number(F(7))],
+                         ["1/3", "10.5", "-0.125", "7"])
+
     def test_result_never_grants_completion(self):
         out = st.evaluate(document())
         self.assertEqual((out["benchmark_completion_granted"], out["realism_owner_accepted"], out["authority_effect"],
-                          out["evidence_class"]), (False, False, "NONE", "SOURCE_IMPLEMENTED"))
+                          out["evidence_class"]), (False, False, "NONE", "FIXTURE_NOT_EVIDENCE"))  # the test file is a fixture
 
     def test_deterministic_rendering(self):
         self.assertEqual(st.render(st.evaluate(document(periods=12))), st.render(st.evaluate(document(periods=12))))

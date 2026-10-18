@@ -86,8 +86,12 @@ def check(outcomes: Any, policy: Any, fixture: bool) -> dict[str, dict[str, Any]
     values: dict[str, list[Fraction]] = {arm: [] for arm in ARMS}
     unattributed, ids, digests = 0, [], []
     for row in orders:
-        if not isinstance(row, Mapping) or row.get("arm") not in ARMS or _exact(row.get("value")) is None:
+        if not isinstance(row, Mapping) or not isinstance(row.get("arm"), str) or row["arm"] not in ARMS \
+                or _exact(row.get("value")) is None:
             raise _invalid("every order has an arm in HUMAN_SERVICE/BASELINE and an exact decimal value", "fix the order rows")
+        for key in ("order_id", "receipt_ref", "receipt_sha256"):
+            if row.get(key) is not None and not isinstance(row[key], str):
+                raise _invalid(f"every order's {key} is a string when present", f"write {key} as a string", field=key)
         values[row["arm"]].append(_exact(row["value"]))
         ids.append(row.get("order_id"))
         digests.append(row.get("receipt_sha256"))
@@ -97,6 +101,7 @@ def check(outcomes: Any, policy: Any, fixture: bool) -> dict[str, dict[str, Any]
             unattributed += 1
     out: dict[str, dict[str, Any]] = {}
     out["ORDERS_ATTRIBUTABLE"] = {"holds": bool(orders) and unattributed == 0, "unattributed_orders": unattributed}
+    ids, digests = [x for x in ids if x is not None], [x for x in digests if x is not None]
     duplicates = (len(ids) - len(set(ids))) + (len(digests) - len(set(digests)))
     declared_real = outcomes.get("synthetic") is False
     out["NO_FABRICATED_ORDERS"] = {"holds": (declared_real or fixture) and duplicates == 0,
@@ -142,7 +147,7 @@ def main(argv: list[str] | None = None) -> int:
         result = evaluate(json.loads(args.manifest.read_text(encoding="utf-8")), ref.read_cli_inputs(args.input))
     except ref.Refused as refusal:
         result = refusal.result
-    except (OSError, ValueError) as exc:
+    except (OSError, ValueError, TypeError) as exc:
         result = ref.six(BENCHMARK_ID, RESULT_SCHEMA, RETRY, "FAIL_CLOSED", "INPUT_MANIFEST_SCHEMA",
                          "manifest and inputs are readable", "supply readable files", "after the files are readable",
                          detail=f"{type(exc).__name__}: {exc}")

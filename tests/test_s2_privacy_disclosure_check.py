@@ -85,6 +85,18 @@ class S2PrivacyTests(unittest.TestCase):
         out = s2p.evaluate(*bundle(a=auth(purpose="something else")))
         self.assertIn("RESULT_FIELDS_WITHIN_DECLARED_PURPOSE", out["evidence"]["failed_predicates"])
 
+    def test_non_string_purpose_and_policy_fields_fail_closed_not_crash(self):
+        # Lane B review defect 1: an object as purpose or allowed_fields raised TypeError (unhashable), no six fields.
+        cases = (bundle(r=result(purpose={"a": 1})), bundle(p=policy(purpose=["p"])),
+                 bundle(a=auth(purpose=1)), bundle(p=policy(allowed_fields=[{"x": 1}])),
+                 bundle(p=policy(raw_state_fields=[["balance"]])))
+        for args in cases:
+            with self.subTest():
+                with self.assertRaises(ref.Refused) as raised:
+                    s2p.evaluate(*args)
+                self.assertEqual((raised.exception.result["disposition"], raised.exception.result["failure_code"]),
+                                 ("FAIL_CLOSED", "INPUT_VALUE_INVALID"))
+
     def test_missing_required_input_is_input_not_supplied_by_name(self):
         for name in s2p.REQUIRED_INPUTS:
             with self.subTest(name=name):

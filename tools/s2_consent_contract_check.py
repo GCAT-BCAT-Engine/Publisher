@@ -68,12 +68,21 @@ def _nonempty(value: Any) -> bool:
     return (isinstance(value, str) and bool(value.strip())) or (isinstance(value, (list, dict)) and bool(value))
 
 
+def _invalid(predicate: str, repair: str, **evidence: Any) -> ref.Refused:
+    return ref.Refused(ref.six(BENCHMARK_ID, RESULT_SCHEMA, RETRY, "FAIL_CLOSED", "INPUT_VALUE_INVALID", predicate, repair,
+                               "after the named input is corrected", **evidence))
+
+
 def check(contract: Any, record: Any) -> dict[str, dict[str, Any]]:
-    c = contract if isinstance(contract, Mapping) else {}
-    r = record if isinstance(record, Mapping) else {}
+    # A wrong document type is a malformed input, refused up front like S3 and S2_PRIVACY, not a DENY.
+    if not isinstance(contract, Mapping) or contract.get("schema") != CONTRACT_SCHEMA:
+        raise _invalid(f"consent_contract schema == {CONTRACT_SCHEMA}", "supply the consent contract", input="consent_contract")
+    if not isinstance(record, Mapping) or record.get("schema") != RECORD_SCHEMA:
+        raise _invalid(f"consent_record schema == {RECORD_SCHEMA}", "supply the consent record", input="consent_record")
+    c, r = contract, record
     out: dict[str, dict[str, Any]] = {}
     missing = [e for e in ELEMENTS if not _nonempty(c.get(e))]
-    out["TERMS_COMPLETE"] = {"holds": c.get("schema") == CONTRACT_SCHEMA and not missing, "missing": missing}
+    out["TERMS_COMPLETE"] = {"holds": not missing, "missing": missing}
 
     duration = c.get("duration") if isinstance(c.get("duration"), Mapping) else {}
     start, end = _date(duration.get("start")), _date(duration.get("end"))
@@ -101,7 +110,7 @@ def check(contract: Any, record: Any) -> dict[str, dict[str, Any]]:
     out["DERIVATIVE_RIGHTS_BOUNDED"] = {"holds": bool(rights) and not bad, "out_of_bounds": len(bad)}
 
     accepted = _date(r.get("accepted_at"))
-    digest_ok = r.get("schema") == RECORD_SCHEMA and r.get("contract_sha256") == ref.canonical_sha256(contract)
+    digest_ok = r.get("contract_sha256") == ref.canonical_sha256(contract)
     in_window = bool(accepted and start and end and start <= accepted <= end)
     out["INDEPENDENTLY_RECONSTRUCTABLE"] = {"holds": digest_ok and in_window and _nonempty(r.get("subject_ref")),
                                             "contract_sha256": ref.canonical_sha256(contract), "digest_matches": digest_ok,
@@ -137,7 +146,7 @@ def main(argv: list[str] | None = None) -> int:
         result = evaluate(json.loads(args.manifest.read_text(encoding="utf-8")), ref.read_cli_inputs(args.input))
     except ref.Refused as refusal:
         result = refusal.result
-    except (OSError, ValueError) as exc:
+    except (OSError, ValueError, TypeError) as exc:
         result = ref.six(BENCHMARK_ID, RESULT_SCHEMA, RETRY, "FAIL_CLOSED", "INPUT_MANIFEST_SCHEMA",
                          "manifest and inputs are readable", "supply readable files", "after the files are readable",
                          detail=f"{type(exc).__name__}: {exc}")
