@@ -1,0 +1,25 @@
+name: Economic Treasury Stress Test (S5_STRESS)
+on:
+  pull_request:
+    paths:
+      - 'tools/economic_treasury_stress_test.py'
+      - 'tests/test_economic_treasury_stress_test.py'
+      - '.github/workflows/validate-economic-treasury-stress-test.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/economic_treasury_stress_test.py'
+      - 'tests/test_economic_treasury_stress_test.py'
+      - '.github/workflows/validate-economic-treasury-stress-test.yml'
+permissions: {}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m unittest discover -s tests -p test_economic_treasury_stress_test.py -v
+      - name: Authority boundary
+        run: |
+          echo 'EVIDENCE_CLASS=CI_VALIDATED_SOURCE'
+          echo 'BENCHMARK_PROMOTION_AUTHORIZED=FALSE'
+          echo 'REALISM_OWNER_ACCEPTED=FALSE'

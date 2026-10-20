@@ -1,0 +1,35 @@
+name: Economic Benchmark Evaluators (S2_CONSENT, S2_PRIVACY, S3_PROVEN_VALUE)
+on:
+  pull_request:
+    paths:
+      - 'tools/benchmark_input_reference.py'
+      - 'tools/s2_consent_contract_check.py'
+      - 'tools/s3_proven_value_check.py'
+      - 'tools/s2_privacy_disclosure_check.py'
+      - 'tests/test_s2_consent_contract_check.py'
+      - 'tests/test_s3_proven_value_check.py'
+      - 'tests/test_s2_privacy_disclosure_check.py'
+      - '.github/workflows/validate-economic-benchmark-evaluators.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/benchmark_input_reference.py'
+      - 'tools/s2_consent_contract_check.py'
+      - 'tools/s3_proven_value_check.py'
+      - 'tools/s2_privacy_disclosure_check.py'
+      - 'tests/test_s2_consent_contract_check.py'
+      - 'tests/test_s3_proven_value_check.py'
+      - 'tests/test_s2_privacy_disclosure_check.py'
+      - '.github/workflows/validate-economic-benchmark-evaluators.yml'
+permissions: {}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m unittest -v tests.test_s2_consent_contract_check tests.test_s3_proven_value_check tests.test_s2_privacy_disclosure_check
+      - name: Authority boundary
+        run: |
+          echo 'EVIDENCE_CLASS=CI_VALIDATED_SOURCE'
+          echo 'BENCHMARK_COMPLETION_GRANTED=false'
+          echo 'REALISM_OWNER_ACCEPTED=false'
