@@ -1,11 +1,15 @@
 """Tests for publication receipt writer."""
 
-import pytest
+import sys
+import unittest
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from publication_plane.core.receipt_writer import PublicationReceiptWriter
-from stegverse_core_lite.receipt.id import DeterministicReceiptID
+from publication_plane.core.deterministic import DeterministicReceiptID
 
 
-class TestPublicationReceiptWriter:
+class TestPublicationReceiptWriter(unittest.TestCase):
     def test_write_and_verify(self):
         writer = PublicationReceiptWriter(seed="test-seed")
         path = writer.write(
@@ -30,3 +34,7 @@ class TestPublicationReceiptWriter:
         j1 = json.loads(data1)
         j2 = json.loads(data2)
         assert j1["receipt_id"] == j2["receipt_id"]
+
+
+if __name__ == "__main__":
+    unittest.main()

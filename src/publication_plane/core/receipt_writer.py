@@ -1,14 +1,14 @@
 """
 Deterministic publication receipt writer.
-Integrates with stegverse-core-lite for seeded, reproducible receipt IDs.
+Uses publication_plane.core.deterministic (carried in-repo from stegverse-core-lite) for seeded, reproducible receipt IDs.
 """
 
 from pathlib import Path
 import json
 from typing import Dict, Any, Optional
 
-from stegverse_core_lite.interfaces.protocols import ReceiptIDProvider
-from stegverse_core_lite.receipt.id import DeterministicReceiptID
+from publication_plane.core.deterministic import ReceiptIDProvider
+from publication_plane.core.deterministic import DeterministicReceiptID
 
 
 class PublicationReceiptWriter:

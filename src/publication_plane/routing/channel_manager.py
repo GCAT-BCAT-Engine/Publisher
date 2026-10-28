@@ -5,7 +5,7 @@ Coordinates publication across multiple GitHub organizations.
 
 from typing import Dict, Any, List
 
-from stegverse_core_addons.cross_org.sync import CrossOrgSync
+from publication_plane.carried.cross_org_sync import CrossOrgSync
 
 
 class ChannelManager:

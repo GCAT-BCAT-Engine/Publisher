@@ -6,7 +6,7 @@ Tracks the health of all publication_plane components.
 from typing import Dict, Any, List
 from datetime import datetime, timezone
 
-from stegverse_core_addons.analytics.telemetry import TelemetryCollector, HealthMetrics
+from publication_plane.carried.analytics_telemetry import TelemetryCollector, HealthMetrics
 
 
 class PublicationHealthMonitor:

@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Dict, Any, List
 
-from stegverse_core_lite.receipt.id import DeterministicReceiptID
+from publication_plane.core.deterministic import DeterministicReceiptID
 
 
 class ReviewPacketBuilder:

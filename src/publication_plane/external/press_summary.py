@@ -5,7 +5,7 @@ Wraps core-addons press module with Publisher configuration.
 
 from typing import Dict, Any, List
 
-from stegverse_core_addons.press.social import PressSummaryGenerator
+from publication_plane.carried.press_social import PressSummaryGenerator
 
 
 class PublisherPressSummary:
