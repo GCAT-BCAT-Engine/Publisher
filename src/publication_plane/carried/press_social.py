@@ -1,7 +1,7 @@
 # Carried in-repo, verbatim from GCAT-BCAT-Engine/core-addons@29a74ef:stegverse_core_addons/press/social.py (sha256 fa36cb4e71018e262a5e9d88c798954a6b8c6597ea7268b8b7862d865380e04e).
 # Edit: from stegverse_core_lite.receipt.id import DeterministicReceiptID -> from publication_plane.core.deterministic import DeterministicReceiptID
-# Edit: 25 upload-damaged string literal(s) repaired: a literal line break inside a string restored to the \n escape it
-#   replaced (the source file does not parse; GCAT-BCAT-Engine/core-addons 'Add files via upload'). No other change.
+# Edit: 25 upload-damaged line break(s) in 12 string literal(s) repaired: each literal line break restored to the \n
+#   escape it replaced (the source file does not parse; GCAT-BCAT-Engine/core-addons 'Add files via upload'). No other change.
 """
 Social media and press summary generation.
 Creates publication-ready summaries for StegVerse releases.

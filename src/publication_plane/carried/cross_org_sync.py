@@ -1,7 +1,6 @@
 # Carried in-repo, verbatim from GCAT-BCAT-Engine/core-addons@29a74ef:stegverse_core_addons/cross_org/sync.py (sha256 d03db4f3929e16d2b0cc2f058ddb05a00ab0f2e421fef92c43bc0973621f0fb9).
-# Edits: none.
-# Edit: 1 upload-damaged string literal(s) repaired: a literal line break inside a string restored to the \n escape it
-#   replaced (the source file does not parse; GCAT-BCAT-Engine/core-addons 'Add files via upload'). No other change.
+# Edit: 1 upload-damaged line break(s) in 1 string literal(s) repaired: each literal line break restored to the \n
+#   escape it replaced (the source file does not parse; GCAT-BCAT-Engine/core-addons 'Add files via upload'). No other change.
 """
 Cross-organization registry synchronization.
 Enables StegVerse components to publish across org boundaries.

@@ -1,6 +1,10 @@
+import sys
 import unittest
+from pathlib import Path
 
-from src.publication_plane.core.outbound_context_policy import (
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from publication_plane.core.outbound_context_policy import (
     POLICY_ID,
     required_categories,
     validate_context_resolution,
