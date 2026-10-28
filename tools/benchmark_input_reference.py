@@ -64,7 +64,8 @@ def verified_inputs(manifest: Any, supplied: Mapping[str, bytes], *, manifest_sc
                        input=name, actual_sha256=actual)
         try:
             parsed[name] = json.loads(supplied[name].decode("utf-8"))
-        except (UnicodeDecodeError, json.JSONDecodeError):
+        except (UnicodeDecodeError, json.JSONDecodeError, RecursionError):
+            # RecursionError: input nested past the parser's depth is refused, not a crash without six fields.
             raise fail("INPUT_NOT_JSON", f"{name} is UTF-8 JSON", f"supply {name} as JSON", input=name) from None
     return parsed
 
