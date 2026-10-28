@@ -15,8 +15,10 @@ Four predicates are evaluated here, over three required inputs: ``disclosed_resu
   policy, and the result, policy and authorization name the same purpose;
 * ``NO_RAW_STATE_FIELDS``: no declared raw-state field name appears anywhere in a disclosed
   cell: neither as a top-level field nor as a key nested at any depth inside a field's value
-  (objects and arrays are walked). Nesting depth and node count are bounded; a value past the
-  bound is refused FAIL_CLOSED rather than half-inspected;
+  (objects and arrays are walked). Matching is by exact key name, the same as the policy's declared
+  names; string values are not parsed as JSON, so the policy must not allow a field whose string value
+  can carry serialized raw state. Nesting depth and node count are bounded; a value past the bound is
+  refused FAIL_CLOSED rather than half-inspected;
 * ``AGGREGATION_THRESHOLD``: every aggregate cell covers at least
   ``min_subjects_per_cell`` subjects (exact integers);
 * ``RESULT_DIGEST_BOUND_TO_AUTHORIZATION``: the canonical digest of the disclosed result

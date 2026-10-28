@@ -110,6 +110,18 @@ class S2PrivacyTests(unittest.TestCase):
                     "owning_existing_goal", "next_attempt"):
             self.assertTrue(raised.exception.result[key], key)
 
+    def test_input_nested_past_the_json_parser_fails_closed_not_crash(self):
+        manifest, data = bundle()
+        deep = (b"[" * 200000) + (b"]" * 200000)
+        data["disclosed_result"] = deep
+        manifest["inputs"]["disclosed_result"]["sha256"] = hashlib.sha256(deep).hexdigest()
+        with self.assertRaises(ref.Refused) as raised:
+            s2p.evaluate(manifest, data)
+        result = raised.exception.result
+        self.assertEqual((result["disposition"], result["failure_code"]), ("FAIL_CLOSED", "INPUT_NOT_JSON"))
+        for key in ("failed_predicate", "required_evidence_or_repair", "retry_entrypoint", "owning_existing_goal", "next_attempt"):
+            self.assertTrue(result[key], key)
+
     def test_purpose_mismatch_is_outside_declared_purpose(self):
         out = s2p.evaluate(*bundle(a=auth(purpose="something else")))
         self.assertIn("RESULT_FIELDS_WITHIN_DECLARED_PURPOSE", out["evidence"]["failed_predicates"])
