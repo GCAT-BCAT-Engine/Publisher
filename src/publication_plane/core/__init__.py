@@ -1,6 +1,6 @@
 """Publication plane core. Names resolve on first access (PEP 562), so importing one submodule
 (for example receipt_writer, which is standard-library only) does not import publication_gate and
-its stegverse-core-full dependency."""
+the governance modules it uses."""
 from importlib import import_module
 
 _EXPORTS = {

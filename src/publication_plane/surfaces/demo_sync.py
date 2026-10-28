@@ -6,7 +6,7 @@ Publishes demo artifacts to live surfaces and keeps them current.
 from typing import Dict, Any, List
 from pathlib import Path
 
-from stegverse_core_addons.badge.replication import ReplicationBadgeGenerator
+from publication_plane.carried.badge_replication import ReplicationBadgeGenerator
 
 
 class DemoSurfaceSync:

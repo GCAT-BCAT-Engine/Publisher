@@ -62,17 +62,23 @@ class DeterministicCoreTests(unittest.TestCase):
             path.write_text(json.dumps(doc), encoding="utf-8")
             self.assertFalse(writer.verify(path))
 
-    def test_no_module_imports_stegverse_core_lite(self):
+    def test_no_module_imports_an_external_stegverse_core_package(self):
+        # Real import statements only (ast), so provenance comments naming the old imports do not count.
+        import ast
+        banned = ("stegverse_core_lite", "stegverse_core_full", "stegverse_core_addons")
         hits = []
         for base in ("src", "publisher", "tools", "tests"):
             for py in (ROOT / base).rglob("*.py"):
-                if py.resolve() == Path(__file__).resolve():
-                    continue
-                text = py.read_text(encoding="utf-8", errors="replace")
-                if "import stegverse_core_lite" in text or "from stegverse_core_lite" in text:
-                    hits.append(str(py.relative_to(ROOT)))
+                tree = ast.parse(py.read_text(encoding="utf-8", errors="replace"))
+                for node in ast.walk(tree):
+                    names = ([a.name for a in node.names] if isinstance(node, ast.Import)
+                             else [node.module or ""] if isinstance(node, ast.ImportFrom) else [])
+                    if any(n.split(".")[0] in banned for n in names):
+                        hits.append(f"{py.relative_to(ROOT)}:{node.lineno}")
         self.assertEqual(hits, [])
-        self.assertNotIn("stegverse-core-lite", (ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+        pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+        for package in ("stegverse-core-lite", "stegverse-core-full", "stegverse-core-addons"):
+            self.assertNotIn(package, pyproject)
 
 
 if __name__ == "__main__":

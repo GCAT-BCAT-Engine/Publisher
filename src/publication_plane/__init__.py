@@ -4,14 +4,14 @@ Publication Plane for StegVerse Publisher.
 
 Cross-org publication orchestration with:
 - Deterministic receipt generation (publication_plane.core.deterministic, in-repo)
-- Governed publication gating (via stegverse-core-full)
+- Governed publication gating (publication_plane.carried, in-repo)
 - StegDB pre-transition monitoring
 - Multi-channel release routing
 - Demo surface synchronization
 - Evidence and audit trail management
 
 Install: pip install stegverse-publisher
-Requires: stegverse-core-full
+Requires: no external package (standard library only)
 """
 
 __version__ = "1.0.0"

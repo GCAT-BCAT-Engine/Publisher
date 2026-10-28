@@ -1,11 +1,15 @@
 """Tests for surface modules."""
 
-import pytest
+import sys
+import unittest
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from publication_plane.surfaces.demo_sync import DemoSurfaceSync
 from publication_plane.surfaces.evidence_builder import EvidenceBuilder
 
 
-class TestDemoSurfaceSync:
+class TestDemoSurfaceSync(unittest.TestCase):
     def test_publish_demo(self):
         sync = DemoSurfaceSync()
         result = sync.publish_demo("rcp-1", "seed", {"passes": 3, "confidence": 0.95, "deterministic": True})
@@ -13,7 +17,7 @@ class TestDemoSurfaceSync:
         assert "badge_id" in result
 
 
-class TestEvidenceBuilder:
+class TestEvidenceBuilder(unittest.TestCase):
     def test_build_and_verify(self):
         builder = EvidenceBuilder()
         claims = [{"id": "c1", "text": "claim", "figure_refs": ["f1"], "confidence": 0.9}]
@@ -22,3 +26,7 @@ class TestEvidenceBuilder:
         path = builder.build_appendix(claims, figures, "rcp-1", "seed")
         assert path.exists()
         assert builder.verify_appendix(path) is True
+
+
+if __name__ == "__main__":
+    unittest.main()

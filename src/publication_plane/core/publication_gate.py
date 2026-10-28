@@ -1,14 +1,14 @@
 """
 Publication gating logic.
 Maps gate test results (ALLOW/DENY/FAIL_CLOSED) to publication actions.
-Integrates with stegverse-core-full governance.
+Uses the governance evaluator carried in-repo (publication_plane.carried.governance_action).
 """
 
 from enum import Enum
 from typing import Dict, Any, Optional
 
-from stegverse_core_full.governance.action import GovernedActionEvaluator, ActionContext, GovernedAction
-from stegverse_core_full.monitoring.stegdb import StegDBMonitor
+from publication_plane.carried.governance_action import GovernedActionEvaluator, ActionContext, GovernedAction
+from publication_plane.carried.monitoring_stegdb import StegDBMonitor
 
 
 class GateResult(Enum):
