@@ -13,9 +13,10 @@ Four predicates are evaluated here, over three required inputs: ``disclosed_resu
 
 * ``RESULT_FIELDS_WITHIN_DECLARED_PURPOSE``: every disclosed field is allowed by the
   policy, and the result, policy and authorization name the same purpose;
-* ``NO_RAW_STATE_FIELDS``: no disclosed field name is a declared raw-state field. The check
-  is by field name only: raw state nested inside a disclosed field's value is not inspected,
-  so the policy must not allow a field whose value can carry raw state;
+* ``NO_RAW_STATE_FIELDS``: no declared raw-state field name appears anywhere in a disclosed
+  cell: neither as a top-level field nor as a key nested at any depth inside a field's value
+  (objects and arrays are walked). Nesting depth and node count are bounded; a value past the
+  bound is refused FAIL_CLOSED rather than half-inspected;
 * ``AGGREGATION_THRESHOLD``: every aggregate cell covers at least
   ``min_subjects_per_cell`` subjects (exact integers);
 * ``RESULT_DIGEST_BOUND_TO_AUTHORIZATION``: the canonical digest of the disclosed result
@@ -68,6 +69,28 @@ def _invalid(predicate: str, repair: str, **evidence: Any) -> ref.Refused:
                                "after the named input is corrected", **evidence))
 
 
+MAX_DEPTH, MAX_NODES = 64, 100000
+
+
+def _raw_paths(value: Any, raw: set[str], path: str, budget: list[int], depth: int = 0) -> list[str]:
+    """Paths of every key in ``raw`` nested inside ``value`` (objects and arrays, bounded)."""
+    budget[0] -= 1
+    if depth > MAX_DEPTH or budget[0] < 0:
+        raise _invalid(f"disclosed values nest at most {MAX_DEPTH} levels and {MAX_NODES} nodes",
+                       "disclose a bounded result", path=path)
+    found: list[str] = []
+    if isinstance(value, Mapping):
+        for key, inner in value.items():
+            here = f"{path}.{key}"
+            if key in raw:
+                found.append(here)
+            found += _raw_paths(inner, raw, here, budget, depth + 1)
+    elif isinstance(value, list):
+        for i, inner in enumerate(value):
+            found += _raw_paths(inner, raw, f"{path}[{i}]", budget, depth + 1)
+    return found
+
+
 def check(result: Any, policy: Any, authorization: Any) -> dict[str, dict[str, Any]]:
     if not isinstance(result, Mapping) or result.get("schema") != RESULT_IN_SCHEMA or not isinstance(result.get("cells"), list):
         raise _invalid(f"disclosed_result schema == {RESULT_IN_SCHEMA} with a cells list", "supply the disclosed result")
@@ -86,12 +109,16 @@ def check(result: Any, policy: Any, authorization: Any) -> dict[str, dict[str, A
             raise _invalid(f"{name}.purpose is a non-empty string", f"declare {name}.purpose as a string", input=name)
     fields: set[str] = set()
     small: list[int] = []
+    nested: list[str] = []
+    budget = [MAX_NODES]
     for index, cell in enumerate(result["cells"]):
         values = cell.get("fields") if isinstance(cell, Mapping) else None
         count = cell.get("subject_count") if isinstance(cell, Mapping) else None
         if not isinstance(values, Mapping) or isinstance(count, bool) or not isinstance(count, int) or count < 0:
             raise _invalid("every cell has a fields object and an integer subject_count", "fix the result cells")
         fields.update(values)
+        for name, value in values.items():
+            nested += _raw_paths(value, set(raw), f"cells[{index}].fields.{name}", budget)
         if count < k:
             small.append(index)
     purposes = {result["purpose"], policy["purpose"], authorization["purpose"]}
@@ -101,7 +128,8 @@ def check(result: Any, policy: Any, authorization: Any) -> dict[str, dict[str, A
     return {
         "RESULT_FIELDS_WITHIN_DECLARED_PURPOSE": {"holds": not extra and len(purposes) == 1,
                                                   "fields_outside_purpose": extra, "purpose_consistent": len(purposes) == 1},
-        "NO_RAW_STATE_FIELDS": {"holds": not leaked, "raw_state_fields_disclosed": leaked},
+        "NO_RAW_STATE_FIELDS": {"holds": not leaked and not nested, "raw_state_fields_disclosed": leaked,
+                                "raw_state_keys_nested": nested},
         "AGGREGATION_THRESHOLD": {"holds": bool(result["cells"]) and not small, "min_subjects_per_cell": k,
                                   "cells_below_threshold": small},
         "RESULT_DIGEST_BOUND_TO_AUTHORIZATION": {"holds": authorization.get("result_sha256") == digest, "result_sha256": digest},
