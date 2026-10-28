@@ -1,6 +1,6 @@
 # Publisher Governed Outbound Execution Evidence — Mirror Handoff
 
-Updated: 2026-10-05
+Updated: 2026-10-28 (six-field record completed; disposition unchanged)
 
 ## Task pointer
 
@@ -28,7 +28,12 @@ Publisher merge `7caf5906dc417f318e0f5b0456e899e43d7a61b0` implements the reusab
 
 ```text
 GOVERNANCE_DISPOSITION::FAIL_CLOSED
-predicate = AUTHORIZED_EMAIL_PROVIDER_SEND_OPERATION_ADMITTED_THROUGH_EXISTING_TV_TVC_AND_COMMS_GATEWAY_PATH
+failure_code = EMAIL_PROVIDER_SEND_OPERATION_NOT_ADMITTED
+failed_predicate = AUTHORIZED_EMAIL_PROVIDER_SEND_OPERATION_ADMITTED_THROUGH_EXISTING_TV_TVC_AND_COMMS_GATEWAY_PATH
+required_evidence_or_repair = one bounded email-send operation admitted in the TV/TVC provider-operation authority and exposed through the existing Comms-Gateway adapter delivery contract (see Required remediation path); provider selection and admission are owner-held
+retry_entrypoint = the successor transition on StegVerse-Labs/.github#2969, re-evaluated against this handoff
+owning_existing_goal = PUBLISHER-GOVERNED-OUTBOUND-EXECUTION-EVIDENCE-001 (COSV 71000000100122)
+next_attempt = on the TV/TVC admission event for that bounded email-send operation
 ```
 
 Cause: the canonical transport, dispatch-authority and delivery/lifecycle evidence contracts already exist, and TV/TVC already owns provider credentials, but no current credential-bearing email provider operation is admitted for outbound send. Historical StegOps Gmail draft-send code is not current authority and must not be revived as a consumer-side credential path.
