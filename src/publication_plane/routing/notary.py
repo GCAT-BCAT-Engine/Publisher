@@ -6,7 +6,7 @@ Bridges core-full notary with publication workflows.
 from typing import Dict, Any
 
 from stegverse_core_full.notary.core import ResearchReleaseNotary
-from stegverse_core_lite.hash.deterministic import DeterministicHash
+from publication_plane.core.deterministic import DeterministicHash
 
 
 class PublicationNotary:
@@ -32,7 +32,7 @@ class PublicationNotary:
         evidence_hash = DeterministicHash.hash(canonical, "artifact")
 
         # Generate receipt ID for the artifact
-        from stegverse_core_lite.receipt.id import DeterministicReceiptID
+        from publication_plane.core.deterministic import DeterministicReceiptID
         receipt_id = DeterministicReceiptID().derive(artifact_data, "artifact-seed")
 
         # Notarize via core-full

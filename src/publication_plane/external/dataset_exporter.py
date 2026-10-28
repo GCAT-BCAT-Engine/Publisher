@@ -7,8 +7,8 @@ import json
 from pathlib import Path
 from typing import Dict, Any
 
-from stegverse_core_lite.receipt.id import DeterministicReceiptID
-from stegverse_core_lite.hash.deterministic import DeterministicHash
+from publication_plane.core.deterministic import DeterministicReceiptID
+from publication_plane.core.deterministic import DeterministicHash
 
 
 class DatasetExporter:

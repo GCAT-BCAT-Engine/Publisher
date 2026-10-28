@@ -2,7 +2,7 @@
 
 import pytest
 from publication_plane.core.receipt_writer import PublicationReceiptWriter
-from stegverse_core_lite.receipt.id import DeterministicReceiptID
+from publication_plane.core.deterministic import DeterministicReceiptID
 
 
 class TestPublicationReceiptWriter:
