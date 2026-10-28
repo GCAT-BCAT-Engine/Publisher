@@ -4,7 +4,7 @@ Publisher-specific badge generation wrapper.
 
 from typing import Dict, Any
 
-from stegverse_core_addons.badge.replication import ReplicationBadgeGenerator
+from publication_plane.carried.badge_replication import ReplicationBadgeGenerator
 
 
 class PublisherBadgeGenerator:

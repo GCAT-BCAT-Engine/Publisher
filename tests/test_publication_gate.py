@@ -1,10 +1,14 @@
 """Tests for publication gate."""
 
-import pytest
+import sys
+import unittest
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from publication_plane.core.publication_gate import PublicationGate, GateResult, PublicationAction
 
 
-class TestPublicationGate:
+class TestPublicationGate(unittest.TestCase):
     def test_allow_publishes(self):
         gate = PublicationGate()
         result = gate.evaluate("ALLOW", 0.95, {}, seed="test")
@@ -24,3 +28,7 @@ class TestPublicationGate:
         gate = PublicationGate(confidence_threshold=0.9)
         result = gate.evaluate("ALLOW", 0.85, {}, seed="test")
         assert result["action"] == "manual_review"
+
+
+if __name__ == "__main__":
+    unittest.main()

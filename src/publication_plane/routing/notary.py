@@ -5,7 +5,7 @@ Bridges core-full notary with publication workflows.
 
 from typing import Dict, Any
 
-from stegverse_core_full.notary.core import ResearchReleaseNotary
+from publication_plane.carried.notary_core import ResearchReleaseNotary
 from publication_plane.core.deterministic import DeterministicHash
 
 

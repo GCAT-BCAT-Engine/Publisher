@@ -1,10 +1,14 @@
 """Tests for result snapshot."""
 
-import pytest
+import sys
+import unittest
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from publication_plane.core.result_snapshot import ResultSnapshot
 
 
-class TestResultSnapshot:
+class TestResultSnapshot(unittest.TestCase):
     def test_capture_and_verify(self):
         snap = ResultSnapshot()
         path = snap.capture({"key": "val"}, "source", "seed")
@@ -22,3 +26,7 @@ class TestResultSnapshot:
         path.write_text(json.dumps(data))
 
         assert snap.verify(path) is False
+
+
+if __name__ == "__main__":
+    unittest.main()
