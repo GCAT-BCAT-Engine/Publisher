@@ -5,6 +5,7 @@
   "packet_hash_sha256": "1a9bec2eeb689e062a21457260fbb455ff8f1cfd16abf054ee59d6faa4504833",
   "plan_hash_sha256": "bde58a715d87a31844b3b4f7a2f16aba746dcfc24fd175ac007e6ca2400262ee",
   "result": "COMPLETE",
+  "site_transport_state": "REPOSITORY_OWNED_FOLLOW_ON",
   "target_repository": "GCAT-BCAT-Engine/Publisher",
   "transport_is_authority": false
 }
