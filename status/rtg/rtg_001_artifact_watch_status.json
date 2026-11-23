@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "case_id": "RTG-001",
   "watched_repo": "GCAT-BCAT-Engine/workflows",
-  "generated_unix": 1795457295.6920612,
+  "generated_unix": 1795458810.241763,
   "artifact_returned": false,
   "matched_run": null,
   "artifacts": [],
@@ -12,6 +12,5 @@
     "rtg_state_updated": false,
     "autonomous_theorem_proving_claimed": false,
     "final_correctness_claimed": false
-  },
-  "poll_error": "Remote end closed connection without response"
+  }
 }
